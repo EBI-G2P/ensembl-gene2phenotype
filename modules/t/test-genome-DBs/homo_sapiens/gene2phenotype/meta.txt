@@ -1,4 +1,5 @@
 3	\N	patch	patch_103_104_a.sql|schema version
 5	\N	patch	patch_104_105_a.sql|schema version
+6	\N	patch	patch_104_105_b.sql|add foreign key constraints
 1	\N	schema_type	gene2phenotype
 2	\N	schema_version	105
