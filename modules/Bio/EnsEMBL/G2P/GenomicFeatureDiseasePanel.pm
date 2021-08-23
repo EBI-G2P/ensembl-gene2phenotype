@@ -28,15 +28,41 @@ our @ISA = ('Bio::EnsEMBL::Storable');
 sub new {
   my $caller = shift;
   my $class = ref($caller) || $caller;
-  my ($genomic_feature_disease_panel_id, $genomic_feature_disease_id, $confidence_category, $confidence_category_attrib, $is_visible, $panel, $panel_attrib, $adaptor) =
-    rearrange(['genomic_feature_disease_panel_id', 'genomic_feature_disease_id', 'confidence_category', 'confidence_category_attrib', 'is_visible', 'panel', 'panel_attrib', 'adaptor'], @_);
+  my (
+    $genomic_feature_disease_panel_id,
+    $genomic_feature_disease_id,
+    $original_confidence_category,
+    $original_confidence_category_attrib,
+    $confidence_category,
+    $confidence_category_attrib,
+    $clinical_review,
+    $is_visible,
+    $panel,
+    $panel_attrib,
+    $adaptor
+  ) = rearrange([
+    'genomic_feature_disease_panel_id',
+    'genomic_feature_disease_id',
+    'original_confidence_category',
+    'original_confidence_category_attrib',
+    'confidence_category',
+    'confidence_category_attrib',
+    'clinical_review',
+    'is_visible',
+    'panel',
+    'panel_attrib',
+    'adaptor'
+  ], @_);
 
   my $self = bless {
     'genomic_feature_disease_panel_id' => $genomic_feature_disease_panel_id,
     'adaptor' => $adaptor,
     'genomic_feature_disease_id' => $genomic_feature_disease_id,
+    'original_confidence_category' => $original_confidence_category,
+    'original_confidence_category_attrib' => $original_confidence_category_attrib,
     'confidence_category' => $confidence_category,
     'confidence_category_attrib' => $confidence_category_attrib,
+    'clinical_review' => $clinical_review,
     'is_visible' => $is_visible,
     'panel' => $panel,
     'panel_attrib' => $panel_attrib,
@@ -60,6 +86,42 @@ sub genomic_feature_disease_id {
   my $self = shift;
   $self->{genomic_feature_disease_id} = shift if ( @_ );
   return $self->{genomic_feature_disease_id};
+}
+
+sub original_confidence_category {
+  my $self = shift;
+  my $original_confidence_category = shift;
+  if ($original_confidence_category) {
+    $self->{original_confidence_category} = $original_confidence_category;
+      my $attribute_adaptor = $self->{adaptor}->db->get_AttributeAdaptor;
+      $self->{original_confidence_category_attrib} = $attribute_adaptor->get_attrib('original_confidence_category', $self->{original_confidence_category});
+  } else {
+    if ($self->{original_confidence_category_attrib} && !$self->{original_confidence_category}) {
+      my $attribute_adaptor = $self->{adaptor}->db->get_AttributeAdaptor;
+      $self->{original_confidence_category} = $attribute_adaptor->get_value('original_confidence_category', $self->{original_confidence_category_attrib});
+    }   
+    die "No original_confidence_category" unless ($self->{original_confidence_category});
+  }
+  return $self->{original_confidence_category};
+}
+
+sub original_confidence_category_attrib {
+  my $self = shift;
+  my $original_confidence_category_attrib = shift;
+  if ($original_confidence_category_attrib) {
+    $self->{original_confidence_category_attrib} = $original_confidence_category_attrib;
+      my $attribute_adaptor = $self->{adaptor}->db->get_AttributeAdaptor;
+      $self->{original_confidence_category} = $attribute_adaptor->get_value('original_confidence_category', $self->{original_confidence_category_attrib});
+  } else {
+    if (!defined $self->{original_confidence_category_attrib} && defined $self->{original_confidence_category}) {
+      my $attribute_adaptor = $self->{adaptor}->db->get_AttributeAdaptor;
+      $self->{original_confidence_category_attrib} = $attribute_adaptor->get_attrib('original_confidence_category', $self->{original_confidence_category});
+    } 
+  }
+  if (!defined $self->{original_confidence_category_attrib}) {
+    die "Original confidence category attrib not set\n";
+  }
+  return $self->{original_confidence_category_attrib};
 }
 
 sub confidence_category {
@@ -96,6 +158,12 @@ sub confidence_category_attrib {
     die "Confidence category attrib not set\n";
   }
   return $self->{confidence_category_attrib};
+}
+
+sub clinical_review {
+  my $self = shift;
+  $self->{clinical_review} = shift if ( @_ );
+  return $self->{clinical_review};
 }
 
 sub is_visible {
