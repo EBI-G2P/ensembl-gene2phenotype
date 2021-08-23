@@ -28,8 +28,42 @@ our @ISA = ('Bio::EnsEMBL::Storable');
 sub new {
   my $caller = shift;
   my $class = ref($caller) || $caller;
-  my ($genomic_feature_disease_id, $genomic_feature_id, $disease_id, $allelic_requirement, $allelic_requirement_attrib, $mutation_consequence, $mutation_consequence_attrib, $restricted_mutation_set, $adaptor) =
-    rearrange(['genomic_feature_disease_id', 'genomic_feature_id', 'disease_id', 'allelic_requirement', 'allelic_requirement_attrib', 'mutation_consequence', 'mutation_consequence_attrib', 'restricted_mutation_set', 'adaptor'], @_);
+  my (
+    $genomic_feature_disease_id,
+    $genomic_feature_id,
+    $disease_id,
+    $original_allelic_requirement,
+    $original_allelic_requirement_attrib,
+    $allelic_requirement,
+    $allelic_requirement_attrib,
+    $cross_cutting_modifier,
+    $cross_cutting_modifier_attrib,
+    $original_mutation_consequence,
+    $original_mutation_consequence_attrib,
+    $mutation_consequence,
+    $mutation_consequence_attrib,
+    $mutation_consequence_flag,
+    $mutation_consequence_flag_attrib,
+    $restricted_mutation_set,
+    $adaptor) =
+  rearrange([
+    'genomic_feature_disease_id',
+    'genomic_feature_id',
+    'disease_id',
+    'original_allelic_requirement',
+    'original_allelic_requirement_attrib',
+    'allelic_requirement',
+    'allelic_requirement_attrib',
+    'cross_cutting_modifier',
+    'cross_cutting_modifier_attrib',
+    'original_mutation_consequence',
+    'original_mutation_consequence_attrib',
+    'mutation_consequence',
+    'mutation_consequence_attrib',
+    'mutation_consequence_flag',
+    'mutation_consequence_flag_attrib',
+    'restricted_mutation_set',
+    'adaptor'], @_);
 
   my $self = bless {
     'dbID' => $genomic_feature_disease_id,
@@ -37,10 +71,18 @@ sub new {
     'genomic_feature_disease_id' => $genomic_feature_disease_id,
     'genomic_feature_id' => $genomic_feature_id,
     'disease_id' => $disease_id,
+    'original_allelic_requirement' => $original_allelic_requirement,
+    'original_allelic_requirement_attrib' => $original_allelic_requirement_attrib,
     'allelic_requirement_attrib' => $allelic_requirement_attrib,
     'allelic_requirement' => $allelic_requirement,
+    'cross_cutting_modifier' => $cross_cutting_modifier,
+    'cross_cutting_modifier_attrib' => $cross_cutting_modifier_attrib,
+    'original_mutation_consequence' => $original_mutation_consequence,
+    'original_mutation_consequence_attrib' => $original_mutation_consequence_attrib,
     'mutation_consequence_attrib' => $mutation_consequence_attrib,
     'mutation_consequence' => $mutation_consequence,
+    'mutation_consequence_flag' => $mutation_consequence_flag,
+    'mutation_consequence_flag_attrib' => $mutation_consequence_flag_attrib,
     'restricted_mutation_set' => $restricted_mutation_set,
   }, $class;
   return $self;
@@ -70,27 +112,39 @@ sub disease_id {
   return $self->{disease_id};
 }
 
+sub original_allelic_requirement {
+  my $self = shift;
+  my $original_allelic_requirement = shift;
+  my $attribute_adaptor = $self->{adaptor}->db->get_AttributeAdaptor;
+
+  if ($original_allelic_requirement) {
+    $self->{original_allelic_requirement_attrib} = $attribute_adaptor->get_attrib('allelic_requirement', $original_allelic_requirement);
+    $self->{original_allelic_requirement} = $original_allelic_requirement;
+  } else {
+    if (!$self->{original_allelic_requirement} && $self->{original_allelic_requirement_attrib}) {
+      $self->{original_allelic_requirement} = $attribute_adaptor->get_value('original_allelic_requirement', $self->{original_allelic_requirement_attrib});
+    }
+  }
+  return $self->{original_allelic_requirement};
+}
+
+sub original_allelic_requirement_attrib {
+  my $self = shift;
+  $self->{original_allelic_requirement_attrib} = shift if @_;
+  return $self->{original_allelic_requirement_attrib};
+}
+
 sub allelic_requirement {
   my $self = shift;
   my $allelic_requirement = shift;
   my $attribute_adaptor = $self->{adaptor}->db->get_AttributeAdaptor;
 
   if ($allelic_requirement) {
-    my @values = split(',', $allelic_requirement); 
-    my @ids = ();
-    foreach my $value (@values) {
-      push @ids, $attribute_adaptor->get_attrib('allelic_requirement', $value);
-    }        
-    $self->{allelic_requirement_attrib} = join(',', sort @ids);
+    $self->{allelic_requirement_attrib} = $attribute_adaptor->get_attrib('allelic_requirement', $allelic_requirement);
     $self->{allelic_requirement} = $allelic_requirement;
   } else {
-    if (!$self->{allelic_requirement} && $self->{allelic_requirement_attrib} ) {
-      my @ids = split(',', $self->{allelic_requirement_attrib});
-      my @values = ();
-      foreach my $id (@ids) {
-        push @values, $attribute_adaptor->get_value('allelic_requirement', $id);
-      }
-      $self->{allelic_requirement} = join(',', sort @values);
+    if (!$self->{allelic_requirement} && $self->{allelic_requirement_attrib}) {
+      $self->{allelic_requirement} = $attribute_adaptor->get_value('allelic_requirement', $self->{allelic_requirement_attrib});
     }
   }
   return $self->{allelic_requirement};
@@ -100,6 +154,49 @@ sub allelic_requirement_attrib {
   my $self = shift;
   $self->{allelic_requirement_attrib} = shift if @_;
   return $self->{allelic_requirement_attrib};
+}
+
+sub cross_cutting_modifier {
+  my $self = shift;
+  my $allelic_requirement = shift;
+  my $attribute_adaptor = $self->{adaptor}->db->get_AttributeAdaptor;
+
+  if ($cross_cutting_modifier) {
+    $self->{cross_cutting_modifier_attrib} = $attribute_adaptor->get_attrib('cross_cutting_modifier', $cross_cutting_modifier);
+    $self->{cross_cutting_modifier} = $cross_cutting_modifier;
+  } else {
+    if (!$self->{cross_cutting_modifier} && $self->{cross_cutting_modifier_attrib}) {
+      $self->{cross_cutting_modifier} = $attribute_adaptor->get_value('cross_cutting_modifier', $self->{cross_cutting_modifier_attrib});
+    }
+  }
+  return $self->{cross_cutting_modifier};
+}
+
+sub cross_cutting_modifier_attrib {
+  my $self = shift;
+  $self->{cross_cutting_modifier_attrib} = shift if @_;
+  return $self->{cross_cutting_modifier_attrib};
+}
+
+sub original_mutation_consequence {
+  my $self = shift;
+  my $original_mutation_consequence = shift;
+  my $attribute_adaptor = $self->{adaptor}->db->get_AttributeAdaptor;
+  if ($original_mutation_consequence) {
+    $self->{original_mutation_consequence_attrib} = $attribute_adaptor->get_attrib('original_mutation_consequence', $original_mutation_consequence);
+    $self->{original_mutation_consequence} = $original_mutation_consequence;
+  } else { 
+    if (!$self->{original_mutation_consequence} && $self->{original_mutation_consequence_attrib}) {
+      $self->{original_mutation_consequence} = $attribute_adaptor->get_value('original_mutation_consequence', $self->{original_mutation_consequence_attrib});
+    }
+  }
+  return $self->{original_mutation_consequence};
+}
+
+sub original_mutation_consequence_attrib {
+  my $self = shift;
+  $self->{original_mutation_consequence_attrib} = shift if @_;
+  return $self->{original_mutation_consequence_attrib};
 }
 
 sub mutation_consequence {
@@ -121,6 +218,28 @@ sub mutation_consequence_attrib {
   my $self = shift;
   $self->{mutation_consequence_attrib} = shift if @_;
   return $self->{mutation_consequence_attrib};
+}
+
+sub mutation_consequence_flag {
+  my $self = shift;
+  my $mutation_consequence_flag = shift;
+  my $attribute_adaptor = $self->{adaptor}->db->get_AttributeAdaptor;
+
+  if ($mutation_consequence_flag) {
+    $self->{mutation_consequence_flag_attrib} = $attribute_adaptor->get_attrib('mutation_consequence_flag', $mutation_consequence_flag);
+    $self->{mutation_consequence_flag} = $mutation_consequence_flag;
+  } else {
+    if (!$self->{mutation_consequence_flag} && $self->{mutation_consequence_flag_attrib}) {
+      $self->{mutation_consequence_flag} = $attribute_adaptor->get_value('mutation_consequence_flag', $self->{mutation_consequence_flag_attrib});
+    }
+  }
+  return $self->{mutation_consequence_flag};
+}
+
+sub mutation_consequence_flag_attrib {
+  my $self = shift;
+  $self->{mutation_consequence_flag_attrib} = shift if @_;
+  return $self->{mutation_consequence_flag_attrib};
 }
 
 sub restricted_mutation_set {
