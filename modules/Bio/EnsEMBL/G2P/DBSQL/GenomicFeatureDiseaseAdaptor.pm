@@ -74,7 +74,7 @@ sub store {
   
   my $attribute_adaptor = $self->db->get_AttributeAdaptor;
 
-  foreach my $key (qw/allelic_requirement mutation_consequence/)  {
+  foreach my $key (qw/allelic_requirement mutation_consequence cross_cutting_modifier mutation_consequence_flag/)  {
 
     if (defined $gfd->{$key} && ! defined $gfd->{"$key\_attrib"}) {
       my $attrib = $attribute_adaptor->get_attrib($key, $gfd->{$key});
@@ -104,7 +104,9 @@ sub store {
       genomic_feature_id,
       disease_id,
       allelic_requirement_attrib,
+      cross_cutting_modifier_attrib,
       mutation_consequence_attrib,
+      mutation_consequence_flag_attrib,
       restricted_mutation_set
     ) VALUES (?, ?, ?, ?, ?)
   });
@@ -113,7 +115,9 @@ sub store {
     $gfd->{genomic_feature_id},
     $gfd->{disease_id},
     $gfd->{allelic_requirement_attrib},
+    $gfd->{cross_cutting_modifier_attrib},
     $gfd->{mutation_consequence_attrib},
+    $gfd->{mutation_consequence_flag_attrib},
     $gfd->restricted_mutation_set || 0
   );
 
@@ -148,7 +152,9 @@ sub update {
       genomic_feature_id = ?,
       disease_id = ?,
       allelic_requirement_attrib = ?,
+      cross_cutting_modifier_attrib = ?,
       mutation_consequence_attrib = ?,
+      mutation_consequence_flag_attrib = ?,
       restricted_mutation_set = ?
     WHERE genomic_feature_disease_id = ? 
   });
@@ -157,7 +163,9 @@ sub update {
     $gfd->genomic_feature_id,
     $gfd->disease_id,
     $gfd->allelic_requirement_attrib,
+    $gfd->cross_cutting_modifier_attrib,
     $gfd->mutation_consequence_attrib,
+    $gfd->mutation_consequence_flag_attrib,
     $gfd->restricted_mutation_set || 0,
     $gfd->dbID
   );
@@ -181,7 +189,9 @@ sub update_log {
     -disease_id => $gfd->disease_id,
     -genomic_feature_id => $gfd->genomic_feature_id,
     -allelic_requirement_attrib => $gfd->allelic_requirement_attrib,
+    -cross_cutting_modifier_attrib => $gfd->cross_cutting_modifier_attrib,
     -mutation_consequence_attrib => $gfd->mutation_consequence_attrib,
+    -mutation_consequence_flag_attrib => $gfd->mutation_consequence_flag_attrib,
     -user_id => $user->dbID,
     -action => $action, 
     -adaptor => $GFD_log_adaptor,
@@ -346,8 +356,12 @@ sub _columns {
     'gfd.genomic_feature_id',
     'gfd.disease_id',
     'gfdds.GFD_disease_synonym_id AS gfd_disease_synonym_id',
+    'gfd.original_allelic_requirement_attrib',
     'gfd.allelic_requirement_attrib',
+    'gfd.cross_cutting_modifier_attrib',
+    'gfd.original_mutation_consequence_attrib',
     'gfd.mutation_consequence_attrib',
+    'gfd.mutation_consequence_flag_attrib',
     'gfd.restricted_mutation_set',
     'gfdp.panel_attrib',
   );
@@ -410,25 +424,60 @@ sub _obj_from_row {
   my $obj = $self->{_temp_objs}{$row->{genomic_feature_disease_id}};
 
   unless (defined($obj)) {
+    my $original_allelic_requirement;
     my $allelic_requirement;
+    my $cross_cutting_modifier_attrib;
+    my $original_mutation_consequence;
     my $mutation_consequence;
+    my $mutation_consequence_flag_attrib;
+
+    if (defined $row->{original_allelic_requirement_attrib}) {
+      $original_allelic_requirement = $attribute_adaptor->get_value('original_allelic_requirement', $row->{original_allelic_requirement_attrib});
+    }
 
     if (defined $row->{allelic_requirement_attrib}) {
       $allelic_requirement = $attribute_adaptor->get_value('allelic_requirement', $row->{allelic_requirement_attrib});
+    }
+
+    if (defined $row->{cross_cutting_modifier_attrib}) {
+      $cross_cutting_modifier = $attribute_adaptor->get_value('cross_cutting_modifier', $row->{cross_cutting_modifier_attrib});
+    }
+
+    if (defined $row->{original_mutation_consequence_attrib}) {
+      $original_mutation_consequence = $attribute_adaptor->get_value('original_mutation_consequence', $row->{original_mutation_consequence_attrib});
     }
 
     if (defined $row->{mutation_consequence_attrib}) {
       $mutation_consequence = $attribute_adaptor->get_value('mutation_consequence', $row->{mutation_consequence_attrib});
     }
 
+    if (defined $row->{cross_cutting_modifier_attrib}) {
+      $cross_cutting_modifier = $attribute_adaptor->get_value('cross_cutting_modifier', $row->{cross_cutting_modifier_attrib});
+    }
+
     my $obj = Bio::EnsEMBL::G2P::GenomicFeatureDisease->new(
       -genomic_feature_disease_id => $row->{genomic_feature_disease_id},
       -genomic_feature_id => $row->{genomic_feature_id},
       -disease_id => $row->{disease_id},
-      -allelic_requirement_attrib => $row->{allelic_requirement_attrib},
+
+      -original_allelic_requirement => $original_allelic_requirement,
+      -original_allelic_requirement_attrib => $row->{original_allelic_requirement_attrib},
+
       -allelic_requirement => $allelic_requirement,
+      -allelic_requirement_attrib => $row->{allelic_requirement_attrib},
+
+      -cross_cutting_modifier => $cross_cutting_modifier,
+      -cross_cutting_modifier_attrib => $row->{cross_cutting_modifier_attrib},
+
+      -original_mutation_consequence => $original_mutation_consequence,
+      -original_mutation_consequence_attrib => $row->{original_mutation_consequence_attrib},
+
+      -mutation_consequence => $mutation_consequence,
       -mutation_consequence_attrib => $row->{mutation_consequence_attrib},
-      -mutation_consequnece => $mutation_consequence,
+
+      -mutation_consequence_flag => $mutation_consequence_flag,
+      -mutation_consequence_flag_attrib => $row->{mutation_consequence_flag_attrib},
+
       -restricted_mutation_set => $row->{restricted_mutation_set},
       -adaptor => $self,
     );
