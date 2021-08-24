@@ -46,7 +46,7 @@ sub get_attrib {
   my $self = shift;
   my $type = shift;
   my $value = shift;
-  if ($type eq 'allelic_requirement') {
+  if ($value =~ m/,/) {
     my @ids = ();
     foreach my $v (split(',', $value)) {
       my $id = $self->attrib_id_for_type_value($type, $v);
@@ -86,7 +86,7 @@ sub get_value {
   my $self = shift;
   my $type = shift;
   my $attrib = shift;
-  if ($type eq 'allelic_requirement') {
+  if ($attrib =~ m/,/) {
     my @values = ();
     foreach my $id (split(',', $attrib)) {
       my $value =  $self->attrib_value_for_type_id($type, $id);
