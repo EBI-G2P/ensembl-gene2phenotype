@@ -670,8 +670,7 @@ sub get_confidence_attrib {
 }
 
 =head2 get_allelic_requirement_attrib
-  Arg [1]    : String $allelic_requirement - ',' or ';' separated list of
-               allelic requirements from the import file
+  Arg [1]    : String allelic requirement 
   Description: Get the allelic requirement attrib id(s) for the given
                allelic requirement value(s)
   Returntype : String $allelic_requirement_attrib 
@@ -681,15 +680,22 @@ sub get_confidence_attrib {
 
 sub get_allelic_requirement_attrib {
   my $allelic_requirement = shift;
-  my @values = ();
-  foreach my $value (split/;|,/, $allelic_requirement) {
-    my $ar = lc $value;
-    $ar =~ s/^\s+|\s+$//g;
-    push @values, $ar;
-  }
-  return $attrib_adaptor->get_attrib('allelic_requirement', join(',', @values));
+  $allelic_requirement = lc $allelic_requirement
+  $allelic_requirement =~ s/^\s+|\s+$//g;
+  return  $attrib_adaptor->get_attrib('allelic_requirement', $allelic_requirement);
 }
 
+sub get_cross_cutting_modifier_attrib{
+  my $cross_cutting_modifier = shift; 
+  my @values = ();
+  foreach my $val (split /;|,/, $cross_cutting_modifier) {
+    my $ccm = lc $val;
+    my $ccm  =~ s/^\s+|\s+$//g;
+    push @values, $ccm;
+  }
+  return $attrib_adaptor->get_attrib('cross_cutting_modifier', join(',', @values));
+
+}
 =head2 get_mutation_consequence_attrib
   Arg [1]    : String $mutation_consequence - mutation consequence from the
                import file
