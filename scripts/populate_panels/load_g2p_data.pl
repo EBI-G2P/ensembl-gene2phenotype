@@ -76,7 +76,9 @@ Supported columns:
 - disease mim
 - DDD category
 - allelic requirement
+- cross cutting modifier
 - mutation consequence
+- mutation consequences flag 
 - phenotypes
 - organ specificity list
 - pmids
@@ -186,7 +188,9 @@ foreach my $row (@rows) {
   my $disease_mim = $data{'disease mim'};
   my $DDD_category = $data{'DDD category'};
   my $allelic_requirement = $data{'allelic requirement'};
+  my $cross_cutting_modifier = $data('cross cutting modifier');
   my $mutation_consequence = $data{'mutation consequence'};
+  my $mutation_consequences_flag = $data('mutation consequences flag')
   my $panel = $data{'panel'};
   my $prev_symbols = $data{'prev symbols'};
   my $hgnc_id = $data{'hgnc id'};
@@ -236,7 +240,9 @@ foreach my $row (@rows) {
 
   my $confidence_attrib;
   my $allelic_requirement_attrib;
+  my $cross_cutting_modifier_attrib;
   my $mutation_consequence_attrib; 
+  my $mutation_consequence_flag_attrib;
 
   eval { $confidence_attrib = get_confidence_attrib($DDD_category) };
   if ($@) {
@@ -259,6 +265,19 @@ foreach my $row (@rows) {
       die "There was a problem retrieving the allelic requirement attrib for entry $entry $@";
     }
   }
+  my @cross_cut_modifiers = split(',', $cross_cutting_modifier);
+  foreach my $ccm (@cross_cutting_modifier){
+    eval { $cross_cutting_modifier_attrib = get_cross_cutting_modifier_attrib($ccm)};
+    if ($@) {
+      if ($config->{check_input_data}) {
+      print STDERR "    ERROR: There was a problem retrieving the cross cutting modifier attrib $@";
+      print STDERR "    ERROR: Cannot proceed data checking for this entry\n";
+      next;
+      } else {
+      die "There was a problem retrieving the cross cutting modifier attrib for entry $entry $@";
+    }
+  }
+  }
 
   eval { $mutation_consequence_attrib = get_mutation_consequence_attrib($mutation_consequence) };
   if ($@) {
@@ -268,6 +287,17 @@ foreach my $row (@rows) {
       next;
     } else {
       die "There was a problem retrieving the mutation consequence attrib for entry $entry $@";
+    }
+  }
+  
+  eval { $mutation_consequence_flag_attrib = get_mutation_consequence_flag($mutation_consequences_flag)};
+  if ($@) {
+    if ($config->{check_input_data}) {
+      print STDERR "     ERROR: There was a problem retrieving the mutation consequence flag attrib $@";
+      print STDERR "     ERROR: Cannot proceed data checking for this entry \n";
+      next;
+    } else {
+      die "There was a problem retrieving the mutation consequence flag attrib for entry $entry $@";
     }
   }
 
