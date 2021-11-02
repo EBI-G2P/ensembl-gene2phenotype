@@ -478,7 +478,7 @@ sub get_list {
   Arg [3]    : Integer $allelic_requirement_attrib - Can be a single attrib id
   Arg [4]    : Integer Only if defined $cross_cutting_modifier_atrrib- Can be a single attrib id or a list of attrib id 
   Arg [5]    : Integer $mutation_consequence_attrib - Single attrib id
-  Arg [5]    : Integer $mutation_consequence_flag_attrib - Single attrib id 
+  Arg [6]    : Integer $mutation_consequence_flag_attrib - Single attrib id 
   Description: Create a new GenomicFeatureDisease entry.
   Returntype : 
   Exceptions : None
@@ -488,6 +488,15 @@ sub get_list {
 sub create_gfd {
   my ($gf, $disease, $allelic_requirement_attrib, $cross_cutting_modifier_atrrib, $mutation_consequence_attrib, $mutation_consequence_flag_attrib) = @_;
   my $gfd; 
+  if (defined ($mutation_consequence_flag_attrib) && defined ($cross_cutting_modifier_atrrib) ){
+    $gfd = Bio::EnsEMBL::G2P::GenomicFeatureDisease->new(
+      -genomic_feature_id => $gf->dbID,
+      -disease_id => $disease->dbID,
+      -allelic_requirement_attrib => $allelic_requirement_attrib,
+      -mutation_consequence_attrib => $mutation_consequence_attrib,
+      -adaptor => $gfd_adaptor,
+    );
+  ;}
   if (defined ($cross_cutting_modifier_atrrib)) {
     $gfd = Bio::EnsEMBL::G2P::GenomicFeatureDisease->new(
       -genomic_feature_id => $gf->dbID,
@@ -508,16 +517,7 @@ sub create_gfd {
       -adaptor => $gfd_adaptor,
     );
   ;}
-  if (defined ($mutation_consequence_flag_attrib) && defined ($cross_cutting_modifier_atrrib) ){
-    $gfd = Bio::EnsEMBL::G2P::GenomicFeatureDisease->new(
-      -genomic_feature_id => $gf->dbID,
-      -disease_id => $disease->dbID,
-      -allelic_requirement_attrib => $allelic_requirement_attrib,
-      -mutation_consequence_attrib => $mutation_consequence_attrib,
-      -adaptor => $gfd_adaptor,
-    );
-  ;}
-   $gfd = Bio::EnsEMBL::G2P::GenomicFeatureDisease->new(
+  $gfd = Bio::EnsEMBL::G2P::GenomicFeatureDisease->new(
       -genomic_feature_id => $gf->dbID,
       -disease_id => $disease->dbID,
       -allelic_requirement_attrib => $allelic_requirement_attrib,
