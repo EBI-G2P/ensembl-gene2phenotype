@@ -74,7 +74,7 @@ Supported columns:
 - gene mim
 - disease name
 - disease mim
-- DDD category
+- confidence category
 - allelic requirement
 - cross cutting modifier
 - mutation consequence
@@ -186,7 +186,7 @@ foreach my $row (@rows) {
   my $gene_mim = $data{'gene mim'};
   my $disease_name = $data{'disease name'};
   my $disease_mim = $data{'disease mim'};
-  my $DDD_category = $data{'DDD category'};
+  my $confidence_category = $data{'confidence category'};
   my $allelic_requirement = $data{'allelic requirement'};
   my $cross_cutting_modifier = $data('cross cutting modifier');
   my $mutation_consequence = $data{'mutation consequence'};
@@ -212,7 +212,7 @@ foreach my $row (@rows) {
 
   next if (!add_new_entry_to_panel($panel));
 
-  $entry = "$gene_symbol; $disease_name; $DDD_category; $allelic_requirement; $mutation_consequence; Target panel: $g2p_panel";
+  $entry = "$gene_symbol; $disease_name; $confidence_category; $allelic_requirement; $mutation_consequence; Target panel: $g2p_panel";
   print STDERR "$entry\n" if ($config->{check_input_data});
   my $has_missing_data = 0;
   foreach my $field (@required_fields) {
@@ -244,7 +244,7 @@ foreach my $row (@rows) {
   my $mutation_consequence_attrib; 
   my $mutation_consequence_flag_attrib;
 
-  eval { $confidence_attrib = get_confidence_attrib($DDD_category) };
+  eval { $confidence_attrib = get_confidence_attrib($confidence_category) };
   if ($@) {
     if ($config->{check_input_data}) {
       print STDERR "    ERROR: There was a problem retrieving the confidence attrib $@";
