@@ -265,18 +265,16 @@ foreach my $row (@rows) {
       die "There was a problem retrieving the allelic requirement attrib for entry $entry $@";
     }
   }
-  my @cross_cut_modifiers = split(',', $cross_cutting_modifier);
-  foreach my $ccm (@cross_cutting_modifier){
-    eval { $cross_cutting_modifier_attrib = get_cross_cutting_modifier_attrib($ccm)};
-    if ($@) {
-      if ($config->{check_input_data}) {
+ 
+  eval { $cross_cutting_modifier_attrib = get_cross_cutting_modifier_attrib($cross_cutting_modifier)};
+  if ($@) {
+    if ($config->{check_input_data}) {
       print STDERR "    ERROR: There was a problem retrieving the cross cutting modifier attrib $@";
       print STDERR "    ERROR: Cannot proceed data checking for this entry\n";
       next;
-      } else {
+    } else {
       die "There was a problem retrieving the cross cutting modifier attrib for entry $entry $@";
     }
-  }
   }
 
   eval { $mutation_consequence_attrib = get_mutation_consequence_attrib($mutation_consequence) };
@@ -694,8 +692,8 @@ sub get_cross_cutting_modifier_attrib{
     push @values, $ccm;
   }
   return $attrib_adaptor->get_attrib('cross_cutting_modifier', join(',', @values));
-
 }
+
 =head2 get_mutation_consequence_attrib
   Arg [1]    : String $mutation_consequence - mutation consequence from the
                import file
@@ -718,6 +716,13 @@ sub get_mutation_consequence_attrib {
   } else {
     return  $attrib_adaptor->get_attrib('mutation_consequence', $mutation_consequence);
   }
+}
+
+sub get_mutation_consequence_flag{
+  my $mutation_consequences_flag = shift; 
+  mutation_consequences_flag = lc mutation_consequences_flag;
+  mutation_consequences_flag  =~ s/^\s+|\s+$//g;
+  return  $attrib_adaptor->get_attrib('mutation_consequence_flag', $mutation_consequence_flag);
 }
 
 =head2 add_other_disease_names
