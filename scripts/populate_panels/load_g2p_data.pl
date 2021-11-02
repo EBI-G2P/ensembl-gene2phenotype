@@ -497,7 +497,7 @@ sub create_gfd {
       -mutation_consequence_attrib => $mutation_consequence_attrib,
       -adaptor => $gfd_adaptor,
     );
-  };
+  ;}
   if (defined ($mutation_consequence_flag_attrib) ) {
     $gfd = Bio::EnsEMBL::G2P::GenomicFeatureDisease->new(
       -genomic_feature_id => $gf->dbID,
@@ -507,8 +507,8 @@ sub create_gfd {
       -mutation_consequence_flag_attrib => $mutation_consequence_flag_attrib,
       -adaptor => $gfd_adaptor,
     );
-  };
-  if (defined ($mutation_consequence_flag_attrib) && defined (cross_cutting_modifier_atrrib) ){
+  ;}
+  if (defined ($mutation_consequence_flag_attrib) && defined ($cross_cutting_modifier_atrrib) ){
     $gfd = Bio::EnsEMBL::G2P::GenomicFeatureDisease->new(
       -genomic_feature_id => $gf->dbID,
       -disease_id => $disease->dbID,
@@ -516,7 +516,7 @@ sub create_gfd {
       -mutation_consequence_attrib => $mutation_consequence_attrib,
       -adaptor => $gfd_adaptor,
     );
-  };
+  ;}
    $gfd = Bio::EnsEMBL::G2P::GenomicFeatureDisease->new(
       -genomic_feature_id => $gf->dbID,
       -disease_id => $disease->dbID,
@@ -529,10 +529,12 @@ sub create_gfd {
   $gfd = $gfd_adaptor->store($gfd, $user);
 
   my $allelic_requirement = $gfd->allelic_requirement;
+  if (defined ($cross_cutting_modifier_attrib)) {my $cross_cutting_modifier = $gfd->cross_cutting_modifier; }
   my $mutation_consequence = $gfd->mutation_consequence;
+  if (defined $mutation_consequence_flag_attrib) ) {my $mutation_consequence_flag = $gfd->mutation_consequence_flag;}
 
   $import_stats->{new_gfd}++;
-  print $fh_report "Create new GFD: ", $gf->gene_symbol, "; ", $disease->name, "; $allelic_requirement; $mutation_consequence\n"; 
+  print $fh_report "Create new GFD: ", $gf->gene_symbol, "; ", $disease->name, "; $allelic_requirement; $cross_cutting_modifier; $mutation_consequence; $mutation_consequence_flag\n,"; 
 
   return $gfd;
 }
@@ -703,8 +705,8 @@ sub get_confidence_attrib {
 
 =head2 get_allelic_requirement_attrib
   Arg [1]    : String allelic requirement 
-  Description: Get the allelic requirement attrib id(s) for the given
-               allelic requirement value(s)
+  Description: Get the allelic requirement attrib id for the given
+               allelic requirement value
   Returntype : String $allelic_requirement_attrib 
   Exceptions : Throws error if no attrib id can be found for the given value. 
   Status     : Stable
@@ -717,6 +719,14 @@ sub get_allelic_requirement_attrib {
   return  $attrib_adaptor->get_attrib('allelic_requirement', $allelic_requirement);
 }
 
+=head2 get_cross_cutting_modifier_attrib
+  Arg [1]    : String cross cutting modifier 
+  Description: Get the cross cutting modifier attrib id(s) for the given
+               cross cutting modifier value 
+  Returntype : String $cross_cutting_modifier_attrib 
+  Exceptions : Throws error if no attrib id can be found for the given value. 
+  Status     : Stable
+=cut
 sub get_cross_cutting_modifier_attrib{
   my $cross_cutting_modifier = shift; 
   my @values = ();
@@ -751,6 +761,16 @@ sub get_mutation_consequence_attrib {
     return  $attrib_adaptor->get_attrib('mutation_consequence', $mutation_consequence);
   }
 }
+
+=head2 get_mutation_consequence_flag_attrib
+  Arg [1]    : String $mutation_consequence_flag - mutation consequence flag from the
+               import file
+  Description: Get the mutation consequence flag attrib if for the given
+               mutation consequence flag  value.
+  Returntype : 
+  Exceptions : Throws error if no attrib id can be found for the given value. 
+  Status     : Stable
+=cut
 
 sub get_mutation_consequence_flag{
   my $mutation_consequences_flag = shift; 
