@@ -190,7 +190,7 @@ foreach my $row (@rows) {
   my $allelic_requirement = $data{'allelic requirement'};
   my $cross_cutting_modifier = $data{'cross cutting modifier'};
   my $mutation_consequence = $data{'mutation consequence'};
-  my $mutation_consequences_flag = $data{'mutation consequences flag'};
+  my $mutation_consequence_flag = $data{'mutation consequences flag'};
   my $panel = $data{'panel'};
   my $prev_symbols = $data{'prev symbols'};
   my $hgnc_id = $data{'hgnc id'};
@@ -211,8 +211,14 @@ foreach my $row (@rows) {
   }
 
   next if (!add_new_entry_to_panel($panel));
-
   $entry = "$gene_symbol; $disease_name; $confidence_category; $allelic_requirement; $mutation_consequence; Target panel: $g2p_panel";
+  if ($cross_cutting_modifier){
+    $entry = "$gene_symbol; $disease_name; $confidence_category; $allelic_requirement; $cross_cutting_modifier; $mutation_consequence; Target panel: $g2p_panel";
+  }
+  if ($mutation_consequence_flag){
+    $entry = "$gene_symbol; $disease_name; $confidence_category; $allelic_requirement; $mutation_consequence; $mutation_consequence_flag; Target panel: $g2p_panel";
+  }
+
   print STDERR "$entry\n" if ($config->{check_input_data});
   my $has_missing_data = 0;
   foreach my $field (@required_fields) {
@@ -265,18 +271,18 @@ foreach my $row (@rows) {
       die "There was a problem retrieving the allelic requirement attrib for entry $entry $@";
     }
   }
- 
-  eval { $cross_cutting_modifier_attrib = get_cross_cutting_modifier_attrib($cross_cutting_modifier)};
-  if ($@) {
-    if ($config->{check_input_data}) {
-      print STDERR "    ERROR: There was a problem retrieving the cross cutting modifier attrib $@";
-      print STDERR "    ERROR: Cannot proceed data checking for this entry\n";
-      next;
-    } else {
-      die "There was a problem retrieving the cross cutting modifier attrib for entry $entry $@";
+  if ($cross_cutting_modifier){
+    eval { $cross_cutting_modifier_attrib = get_cross_cutting_modifier_attrib($cross_cutting_modifier)};
+    if ($@) {
+      if ($config->{check_input_data}) {
+        print STDERR "    ERROR: There was a problem retrieving the cross cutting modifier attrib $@";
+        print STDERR "    ERROR: Cannot proceed data checking for this entry\n";
+        next;
+      } else {
+        die "There was a problem retrieving the cross cutting modifier attrib for entry $entry $@";
+      }
     }
   }
-
   eval { $mutation_consequence_attrib = get_mutation_consequence_attrib($mutation_consequence) };
   if ($@) {
     if ($config->{check_input_data}) {
@@ -288,14 +294,16 @@ foreach my $row (@rows) {
     }
   }
   
-  eval { $mutation_consequence_flag_attrib = get_mutation_consequence_flag($mutation_consequences_flag)};
-  if ($@) {
-    if ($config->{check_input_data}) {
-      print STDERR "     ERROR: There was a problem retrieving the mutation consequence flag attrib $@";
-      print STDERR "     ERROR: Cannot proceed data checking for this entry \n";
-      next;
-    } else {
-      die "There was a problem retrieving the mutation consequence flag attrib for entry $entry $@";
+  if ($mutation_consequence_flag){
+    eval { $mutation_consequence_flag_attrib = get_mutation_consequence_flag($mutation_consequence_flag)};
+    if ($@) {
+      if ($config->{check_input_data}) {
+        print STDERR "     ERROR: There was a problem retrieving the mutation consequence flag attrib $@";
+        print STDERR "     ERROR: Cannot proceed data checking for this entry \n";
+        next;
+      } else {
+        die "There was a problem retrieving the mutation consequence flag attrib for entry $entry $@";
+      }
     }
   }
 
@@ -715,7 +723,6 @@ sub get_confidence_attrib {
 
 sub get_allelic_requirement_attrib {
   my $allelic_requirement = shift;
-  $allelic_requirement = lc $allelic_requirement;
   $allelic_requirement =~ s/^\s+|\s+$//g;
   return  $attrib_adaptor->get_attrib('allelic_requirement', $allelic_requirement);
 }
@@ -731,9 +738,9 @@ sub get_allelic_requirement_attrib {
 sub get_cross_cutting_modifier_attrib{
   my $cross_cutting_modifier = shift; 
   my @values = ();
-  foreach my $val (split /;|,/, $cross_cutting_modifier) {
-    my $ccm = lc $val;
-    $ccm  =~ s/^\s+|\s+$//g;
+  foreach my $value (split/;|,/, $cross_cutting_modifier){
+    my $ccm = lc $value;
+    $ccm =~ s/^\s+|\s+$//g;
     push @values, $ccm;
   }
   return $attrib_adaptor->get_attrib('cross_cutting_modifier', join(',', @values));
