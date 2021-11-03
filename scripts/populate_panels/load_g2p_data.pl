@@ -157,7 +157,7 @@ my $supported_mc_values = {
 my @required_fields = (
   'gene symbol',
   'disease name',
-  'DDD category',
+  'confidence category',
   'allelic requirement',
   'mutation consequence',
   'panel'
@@ -188,9 +188,9 @@ foreach my $row (@rows) {
   my $disease_mim = $data{'disease mim'};
   my $confidence_category = $data{'confidence category'};
   my $allelic_requirement = $data{'allelic requirement'};
-  my $cross_cutting_modifier = $data('cross cutting modifier');
+  my $cross_cutting_modifier = $data{'cross cutting modifier'};
   my $mutation_consequence = $data{'mutation consequence'};
-  my $mutation_consequences_flag = $data('mutation consequences flag')
+  my $mutation_consequences_flag = $data{'mutation consequences flag'};
   my $panel = $data{'panel'};
   my $prev_symbols = $data{'prev symbols'};
   my $hgnc_id = $data{'hgnc id'};
@@ -529,9 +529,10 @@ sub create_gfd {
   $gfd = $gfd_adaptor->store($gfd, $user);
 
   my $allelic_requirement = $gfd->allelic_requirement;
-  if (defined ($cross_cutting_modifier_attrib)) {my $cross_cutting_modifier = $gfd->cross_cutting_modifier; }
+  my $cross_cutting_modifier = $gfd->cross_cutting_modifier; 
   my $mutation_consequence = $gfd->mutation_consequence;
-  if (defined $mutation_consequence_flag_attrib) ) {my $mutation_consequence_flag = $gfd->mutation_consequence_flag;}
+  my $mutation_consequence_flag = $gfd->mutation_consequence_flag;
+
 
   $import_stats->{new_gfd}++;
   print $fh_report "Create new GFD: ", $gf->gene_symbol, "; ", $disease->name, "; $allelic_requirement; $cross_cutting_modifier; $mutation_consequence; $mutation_consequence_flag\n,"; 
@@ -714,7 +715,7 @@ sub get_confidence_attrib {
 
 sub get_allelic_requirement_attrib {
   my $allelic_requirement = shift;
-  $allelic_requirement = lc $allelic_requirement
+  $allelic_requirement = lc $allelic_requirement;
   $allelic_requirement =~ s/^\s+|\s+$//g;
   return  $attrib_adaptor->get_attrib('allelic_requirement', $allelic_requirement);
 }
@@ -732,7 +733,7 @@ sub get_cross_cutting_modifier_attrib{
   my @values = ();
   foreach my $val (split /;|,/, $cross_cutting_modifier) {
     my $ccm = lc $val;
-    my $ccm  =~ s/^\s+|\s+$//g;
+    $ccm  =~ s/^\s+|\s+$//g;
     push @values, $ccm;
   }
   return $attrib_adaptor->get_attrib('cross_cutting_modifier', join(',', @values));
@@ -774,9 +775,9 @@ sub get_mutation_consequence_attrib {
 
 sub get_mutation_consequence_flag{
   my $mutation_consequences_flag = shift; 
-  mutation_consequences_flag = lc mutation_consequences_flag;
-  mutation_consequences_flag  =~ s/^\s+|\s+$//g;
-  return  $attrib_adaptor->get_attrib('mutation_consequence_flag', $mutation_consequence_flag);
+  $mutation_consequences_flag = lc $mutation_consequences_flag;
+  $mutation_consequences_flag  =~ s/^\s+|\s+$//g;
+  return  $attrib_adaptor->get_attrib('mutation_consequence_flag', $mutation_consequences_flag);
 }
 
 =head2 add_other_disease_names
