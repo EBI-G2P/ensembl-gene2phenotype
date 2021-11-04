@@ -150,9 +150,7 @@ my $g2p_panel = $config->{panel};
 my $panel_attrib_id = $attrib_adaptor->get_attrib('g2p_panel', $g2p_panel);
 die "Couldn't fetch panel_attrib_id for panel $g2p_panel" if (!defined $g2p_panel);
 
-my $supported_mc_values = {
-  'all missense/inframe' => 'all missense/in frame',
-};
+
 
 my @required_fields = (
   'gene symbol',
@@ -181,6 +179,10 @@ foreach my $row (@rows) {
     next;
   }
   my %data = map {$header[$_] => $row->[$_]} (0..$#header);
+  #foreach my $key(keys %data){
+   # my $value = $data{$key};
+    #print ($key, ": ", $value, "\n" );
+  #}
 
   my $gene_symbol = $data{'gene symbol'}; 
   my $gene_mim = $data{'gene mim'};
@@ -190,7 +192,7 @@ foreach my $row (@rows) {
   my $allelic_requirement = $data{'allelic requirement'};
   my $cross_cutting_modifier = $data{'cross cutting modifier'};
   my $mutation_consequence = $data{'mutation consequence'};
-  my $mutation_consequence_flag = $data{'mutation consequences flag'};
+  my $mutation_consequence_flag = $data{'mutation consequences flags'};
   my $panel = $data{'panel'};
   my $prev_symbols = $data{'prev symbols'};
   my $hgnc_id = $data{'hgnc id'};
@@ -211,14 +213,15 @@ foreach my $row (@rows) {
   }
 
   next if (!add_new_entry_to_panel($panel));
-  $entry = "$gene_symbol; $disease_name; $confidence_category; $allelic_requirement; $mutation_consequence; Target panel: $g2p_panel";
   if ($cross_cutting_modifier){
     $entry = "$gene_symbol; $disease_name; $confidence_category; $allelic_requirement; $cross_cutting_modifier; $mutation_consequence; Target panel: $g2p_panel";
   }
-  if ($mutation_consequence_flag){
+  if ($mutation_consequence_flag) {
     $entry = "$gene_symbol; $disease_name; $confidence_category; $allelic_requirement; $mutation_consequence; $mutation_consequence_flag; Target panel: $g2p_panel";
   }
-
+  else {
+    $entry = "$gene_symbol; $disease_name; $confidence_category; $allelic_requirement; $mutation_consequence; Target panel: $g2p_panel";
+  }
   print STDERR "$entry\n" if ($config->{check_input_data});
   my $has_missing_data = 0;
   foreach my $field (@required_fields) {
@@ -763,11 +766,8 @@ sub get_mutation_consequence_attrib {
 
   # Sometimes the provided mutational consequence is not
   # correct and we need to map it to the correct one first
-  if ($supported_mc_values->{$mutation_consequence}) {
-    return $attrib_adaptor->get_attrib('mutation_consequence', $supported_mc_values->{$mutation_consequence}); 
-  } else {
-    return  $attrib_adaptor->get_attrib('mutation_consequence', $mutation_consequence);
-  }
+
+  return $attrib_adaptor->get_attrib('mutation_consequence', $mutation_consequence);
 }
 
 =head2 get_mutation_consequence_flag_attrib
