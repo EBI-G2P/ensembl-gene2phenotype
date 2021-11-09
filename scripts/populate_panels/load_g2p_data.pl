@@ -181,7 +181,7 @@ foreach my $row (@rows) {
   my %data = map {$header[$_] => $row->[$_]} (0..$#header);
   #foreach my $key(keys %data){
    # my $value = $data{$key};
-    #print ($key, ": ", $value, "\n" );
+   #print ($key, ": ", $value, "\n" );
   #}
 
   my $gene_symbol = $data{'gene symbol'}; 
@@ -345,7 +345,7 @@ foreach my $row (@rows) {
     if (scalar @$gfds == 0) { 
       # Entries with same gene symbol, allelic requirement and mutation consequence don't exist
       # Create new GenomicFeatureDiease and GenomicFeatureDiseasePanel
-      my $gfd = create_gfd($gf, $disease, $allelic_requirement_attrib, $mutation_consequence_attrib);
+      my $gfd = create_gfd($gf, $disease, $allelic_requirement_attrib, $cross_cutting_modifier_attrib, $mutation_consequence_attrib, $mutation_consequence_flag_attrib);
       add_gfd_to_panel($gfd, $g2p_panel, $confidence_attrib);
       add_annotations($gfd, %data);
     } elsif (scalar @gfds_with_matching_disease_name == 1) {
@@ -360,7 +360,7 @@ foreach my $row (@rows) {
       } 
     } else {
       if ($add_after_review) {
-        my $gfd = create_gfd($gf, $disease, $allelic_requirement_attrib, $mutation_consequence_attrib);
+        my $gfd = create_gfd($gf, $disease, $allelic_requirement_attrib, $cross_cutting_modifier_attrib, $mutation_consequence_attrib, $mutation_consequence_flag_attrib);
         add_gfd_to_panel($gfd, $g2p_panel, $confidence_attrib);
         add_annotations($gfd, %data);
       } else {
@@ -504,11 +504,13 @@ sub create_gfd {
       -genomic_feature_id => $gf->dbID,
       -disease_id => $disease->dbID,
       -allelic_requirement_attrib => $allelic_requirement_attrib,
+      -cross_cutting_modifier_atrrib => $cross_cutting_modifier_atrrib,
       -mutation_consequence_attrib => $mutation_consequence_attrib,
+      -mutation_consequence_flag_attrib => $mutation_consequence_flag_attrib,
       -adaptor => $gfd_adaptor,
     );
-  ;}
-  if (defined ($cross_cutting_modifier_atrrib)) {
+  }
+  elsif (defined ($cross_cutting_modifier_atrrib)) {
     $gfd = Bio::EnsEMBL::G2P::GenomicFeatureDisease->new(
       -genomic_feature_id => $gf->dbID,
       -disease_id => $disease->dbID,
@@ -517,8 +519,8 @@ sub create_gfd {
       -mutation_consequence_attrib => $mutation_consequence_attrib,
       -adaptor => $gfd_adaptor,
     );
-  ;}
-  if (defined ($mutation_consequence_flag_attrib) ) {
+  }
+  elsif (defined ($mutation_consequence_flag_attrib) ) {
     $gfd = Bio::EnsEMBL::G2P::GenomicFeatureDisease->new(
       -genomic_feature_id => $gf->dbID,
       -disease_id => $disease->dbID,
@@ -527,26 +529,26 @@ sub create_gfd {
       -mutation_consequence_flag_attrib => $mutation_consequence_flag_attrib,
       -adaptor => $gfd_adaptor,
     );
-  ;}
-  $gfd = Bio::EnsEMBL::G2P::GenomicFeatureDisease->new(
+  }
+  else {
+    $gfd = Bio::EnsEMBL::G2P::GenomicFeatureDisease->new(
       -genomic_feature_id => $gf->dbID,
       -disease_id => $disease->dbID,
       -allelic_requirement_attrib => $allelic_requirement_attrib,
-      -cross_cutting_modifier_atrrib => $cross_cutting_modifier_atrrib,
       -mutation_consequence_attrib => $mutation_consequence_attrib,
-      -mutation_consequence_flag_attrib => $mutation_consequence_flag_attrib,
       -adaptor => $gfd_adaptor,
     );
+  }
   $gfd = $gfd_adaptor->store($gfd, $user);
 
   my $allelic_requirement = $gfd->allelic_requirement;
-  my $cross_cutting_modifier = $gfd->cross_cutting_modifier; 
+  #my $cross_cutting_modifier = $gfd->cross_cutting_modifier; 
   my $mutation_consequence = $gfd->mutation_consequence;
-  my $mutation_consequence_flag = $gfd->mutation_consequence_flag;
+  #my $mutation_consequence_flag = $gfd->mutation_consequence_flag;
 
 
   $import_stats->{new_gfd}++;
-  print $fh_report "Create new GFD: ", $gf->gene_symbol, "; ", $disease->name, "; $allelic_requirement; $cross_cutting_modifier; $mutation_consequence; $mutation_consequence_flag\n,"; 
+  print $fh_report "Create new GFD: ", $gf->gene_symbol, "; ", $disease->name, "; $allelic_requirement;  $mutation_consequence\n,"; 
 
   return $gfd;
 }
@@ -763,10 +765,6 @@ sub get_mutation_consequence_attrib {
   my $mutation_consequence = shift;
   $mutation_consequence = lc $mutation_consequence;
   $mutation_consequence =~ s/^\s+|\s+$//g;
-
-  # Sometimes the provided mutational consequence is not
-  # correct and we need to map it to the correct one first
-
   return $attrib_adaptor->get_attrib('mutation_consequence', $mutation_consequence);
 }
 
