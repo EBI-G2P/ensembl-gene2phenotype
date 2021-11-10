@@ -213,7 +213,7 @@ foreach my $row (@rows) {
   }
 
   next if (!add_new_entry_to_panel($panel));
-  if ($cross_cutting_modifier) && ($mutation_consequences_flag){
+  if (($cross_cutting_modifier) && ($mutation_consequence_flag)){
     $entry = "Gene symbol: $gene_symbol; Disease name: $disease_name; Confidence category: $confidence_category; Allelic requirement: $allelic_requirement; Cross cutting modifier: $cross_cutting_modifier; Mutation consequence: $mutation_consequence; Mutation consequence flag: $mutation_consequence_flag; Target panel: $g2p_panel";
   }
   if ($cross_cutting_modifier){
