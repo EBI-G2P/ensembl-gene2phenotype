@@ -213,14 +213,17 @@ foreach my $row (@rows) {
   }
 
   next if (!add_new_entry_to_panel($panel));
+  if ($cross_cutting_modifier) && ($mutation_consequences_flag){
+    $entry = "Gene symbol: $gene_symbol; Disease name: $disease_name; Confidence category: $confidence_category; Allelic requirement: $allelic_requirement; Cross cutting modifier: $cross_cutting_modifier; Mutation consequence: $mutation_consequence; Mutation consequence flag: $mutation_consequence_flag; Target panel: $g2p_panel";
+  }
   if ($cross_cutting_modifier){
-    $entry = "$gene_symbol; $disease_name; $confidence_category; $allelic_requirement; $cross_cutting_modifier; $mutation_consequence; Target panel: $g2p_panel";
+    $entry = "Gene symbol:  $gene_symbol; Disease name:  $disease_name; Confidence category:  $confidence_category; Allelic requirement:  $allelic_requirement; Cross cutting modifier: $cross_cutting_modifier; Mutation consequence:  $mutation_consequence; Target panel: $g2p_panel";
   }
   if ($mutation_consequence_flag) {
-    $entry = "$gene_symbol; $disease_name; $confidence_category; $allelic_requirement; $mutation_consequence; $mutation_consequence_flag; Target panel: $g2p_panel";
+    $entry = "Gene symbol: $gene_symbol; Disease name: $disease_name; Confidence category: $confidence_category; Allelic requirement: $allelic_requirement; Mutation consequence: $mutation_consequence; Mutation consequence flag: $mutation_consequence_flag; Target panel: $g2p_panel";
   }
   else {
-    $entry = "$gene_symbol; $disease_name; $confidence_category; $allelic_requirement; $mutation_consequence; Target panel: $g2p_panel";
+    $entry = "Gene symbol: $gene_symbol; Disease name: $disease_name; Confidence category: $confidence_category; Allelic requirement: $allelic_requirement; Mutation consequence: $mutation_consequence; Target panel: $g2p_panel";
   }
   print STDERR "$entry\n" if ($config->{check_input_data});
   my $has_missing_data = 0;
@@ -298,7 +301,7 @@ foreach my $row (@rows) {
   }
   
   if ($mutation_consequence_flag){
-    eval { $mutation_consequence_flag_attrib = get_mutation_consequence_flag($mutation_consequence_flag)};
+    eval { $mutation_consequence_flag_attrib = get_mutation_consequence_flag_attrib($mutation_consequence_flag)};
     if ($@) {
       if ($config->{check_input_data}) {
         print STDERR "     ERROR: There was a problem retrieving the mutation consequence flag attrib $@";
@@ -487,7 +490,7 @@ sub get_list {
   Arg [1]    : GenomicFeature
   Arg [2]    : Disease
   Arg [3]    : Integer $allelic_requirement_attrib - Can be a single attrib id
-  Arg [4]    : Integer Only if defined $cross_cutting_modifier_atrrib- Can be a single attrib id or a list of attrib id 
+  Arg [4]    : Integer Only if defined $cross_cutting_modifier_attrib- Can be a single attrib id or a list of attrib id 
   Arg [5]    : Integer $mutation_consequence_attrib - Single attrib id
   Arg [6]    : Integer $mutation_consequence_flag_attrib - Single attrib id 
   Description: Create a new GenomicFeatureDisease entry.
@@ -497,25 +500,25 @@ sub get_list {
 =cut
 
 sub create_gfd {
-  my ($gf, $disease, $allelic_requirement_attrib, $cross_cutting_modifier_atrrib, $mutation_consequence_attrib, $mutation_consequence_flag_attrib) = @_;
+  my ($gf, $disease, $allelic_requirement_attrib, $cross_cutting_modifier_attrib, $mutation_consequence_attrib, $mutation_consequence_flag_attrib) = @_;
   my $gfd; 
-  if (defined ($mutation_consequence_flag_attrib) && defined ($cross_cutting_modifier_atrrib) ){
+  if (defined ($mutation_consequence_flag_attrib) && defined ($cross_cutting_modifier_attrib) ){
     $gfd = Bio::EnsEMBL::G2P::GenomicFeatureDisease->new(
       -genomic_feature_id => $gf->dbID,
       -disease_id => $disease->dbID,
       -allelic_requirement_attrib => $allelic_requirement_attrib,
-      -cross_cutting_modifier_atrrib => $cross_cutting_modifier_atrrib,
+      -cross_cutting_modifier_atrrib => $cross_cutting_modifier_attrib,
       -mutation_consequence_attrib => $mutation_consequence_attrib,
       -mutation_consequence_flag_attrib => $mutation_consequence_flag_attrib,
       -adaptor => $gfd_adaptor,
     );
   }
-  elsif (defined ($cross_cutting_modifier_atrrib)) {
+  elsif (defined ($cross_cutting_modifier_attrib)) {
     $gfd = Bio::EnsEMBL::G2P::GenomicFeatureDisease->new(
       -genomic_feature_id => $gf->dbID,
       -disease_id => $disease->dbID,
       -allelic_requirement_attrib => $allelic_requirement_attrib,
-      -cross_cutting_modifier_atrrib => $cross_cutting_modifier_atrrib,
+      -cross_cutting_modifier_atrrib => $cross_cutting_modifier_attrib,
       -mutation_consequence_attrib => $mutation_consequence_attrib,
       -adaptor => $gfd_adaptor,
     );
@@ -542,13 +545,13 @@ sub create_gfd {
   $gfd = $gfd_adaptor->store($gfd, $user);
 
   my $allelic_requirement = $gfd->allelic_requirement;
-  #my $cross_cutting_modifier = $gfd->cross_cutting_modifier; 
+  my $cross_cutting_modifier = $gfd->cross_cutting_modifier if (defined ($cross_cutting_modifier_attrib)); 
   my $mutation_consequence = $gfd->mutation_consequence;
-  #my $mutation_consequence_flag = $gfd->mutation_consequence_flag;
+  my $mutation_consequence_flag = $gfd->mutation_consequence_flag if (defined ($mutation_consequence_flag_attrib));
 
 
   $import_stats->{new_gfd}++;
-  print $fh_report "Create new GFD: ", $gf->gene_symbol, "; ", $disease->name, "; $allelic_requirement;  $mutation_consequence\n,"; 
+  print $fh_report "Create new GFD: ", $gf->gene_symbol, "; ", $disease->name, "; $allelic_requirement; $cross_cutting_modifier; $mutation_consequence; $mutation_consequence_flag\n,"; 
 
   return $gfd;
 }
@@ -778,7 +781,7 @@ sub get_mutation_consequence_attrib {
   Status     : Stable
 =cut
 
-sub get_mutation_consequence_flag{
+sub get_mutation_consequence_flag_attrib{
   my $mutation_consequences_flag = shift; 
   $mutation_consequences_flag = lc $mutation_consequences_flag;
   $mutation_consequences_flag  =~ s/^\s+|\s+$//g;
