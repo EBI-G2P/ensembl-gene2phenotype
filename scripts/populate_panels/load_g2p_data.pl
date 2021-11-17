@@ -210,9 +210,8 @@ foreach my $row (@rows) {
  
   next if (!add_new_entry_to_panel($panel));
   $entry = "Gene symbol: $gene_symbol; Disease name: $disease_name; Confidence category: $confidence_category; Allelic requirement: $allelic_requirement; Mutation consequence: $mutation_consequence; Target panel: $g2p_panel ";
-  $entry = $entry . "Cross cutting modifier: $cross_cutting_modifier; Mutation consequence flags: $mutation_consequence_flag; " if $cross_cutting_modifier && $mutation_consequence_flag;
-  $entry = $entry . "Cross cutting modifier: $cross_cutting_modifier; " elsif $cross_cutting_modifier;
-  $entry = $entry . "Mutation consequence flags: $mutation_consequence_flag; " elsif $mutation_consequence_flag;
+  $entry = $entry . "Cross cutting modifier: $cross_cutting_modifier; " if $cross_cutting_modifier;
+  $entry = $entry . "Mutation consequence flags: $mutation_consequence_flag; " if $mutation_consequence_flag;
   
   print STDERR "$entry\n" if ($config->{check_input_data});
   my $has_missing_data = 0;
