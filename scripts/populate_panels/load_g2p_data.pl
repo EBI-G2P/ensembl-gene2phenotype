@@ -179,10 +179,6 @@ foreach my $row (@rows) {
     next;
   }
   my %data = map {$header[$_] => $row->[$_]} (0..$#header);
-  #foreach my $key(keys %data){
-   # my $value = $data{$key};
-   #print ($key, ": ", $value, "\n" );
-  #}
 
   my $gene_symbol = $data{'gene symbol'}; 
   my $gene_mim = $data{'gene mim'};
@@ -211,20 +207,13 @@ foreach my $row (@rows) {
       die "ERROR: No panel information provided for $entry\n";
     }
   }
-
+ 
   next if (!add_new_entry_to_panel($panel));
-  if (($cross_cutting_modifier) && ($mutation_consequence_flag)){
-    $entry = "Gene symbol: $gene_symbol; Disease name: $disease_name; Confidence category: $confidence_category; Allelic requirement: $allelic_requirement; Cross cutting modifier: $cross_cutting_modifier; Mutation consequence: $mutation_consequence; Mutation consequence flag: $mutation_consequence_flag; Target panel: $g2p_panel";
-  }
-  if ($cross_cutting_modifier){
-    $entry = "Gene symbol:  $gene_symbol; Disease name:  $disease_name; Confidence category:  $confidence_category; Allelic requirement:  $allelic_requirement; Cross cutting modifier: $cross_cutting_modifier; Mutation consequence:  $mutation_consequence; Target panel: $g2p_panel";
-  }
-  if ($mutation_consequence_flag) {
-    $entry = "Gene symbol: $gene_symbol; Disease name: $disease_name; Confidence category: $confidence_category; Allelic requirement: $allelic_requirement; Mutation consequence: $mutation_consequence; Mutation consequence flag: $mutation_consequence_flag; Target panel: $g2p_panel";
-  }
-  else {
-    $entry = "Gene symbol: $gene_symbol; Disease name: $disease_name; Confidence category: $confidence_category; Allelic requirement: $allelic_requirement; Mutation consequence: $mutation_consequence; Target panel: $g2p_panel";
-  }
+  $entry = "Gene symbol: $gene_symbol; Disease name: $disease_name; Confidence category: $confidence_category; Allelic requirement: $allelic_requirement; Mutation consequence: $mutation_consequence; Target panel: $g2p_panel ";
+  $entry = $entry . "Cross cutting modifier: $cross_cutting_modifier; Mutation consequence flags: $mutation_consequence_flag; " if $cross_cutting_modifier && $mutation_consequence_flag;
+  $entry = $entry . "Cross cutting modifier: $cross_cutting_modifier; " elsif $cross_cutting_modifier;
+  $entry = $entry . "Mutation consequence flags: $mutation_consequence_flag; " elsif $mutation_consequence_flag;
+  
   print STDERR "$entry\n" if ($config->{check_input_data});
   my $has_missing_data = 0;
   foreach my $field (@required_fields) {
