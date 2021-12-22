@@ -539,7 +539,9 @@ sub create_gfd {
 
 
   $import_stats->{new_gfd}++;
-  print $fh_report "Create new GFD: ", $gf->gene_symbol, "; ", $disease->name, "; $allelic_requirement; $cross_cutting_modifier; $mutation_consequence; $mutation_consequence_flag\n,"; 
+  print $fh_report "Create new GFD: ", $gf->gene_symbol, "; ", $disease->name, "; $allelic_requirement; $mutation_consequence; $mutation_consequence_flag\n," if ($mutation_consequence_flag);
+  print $fh_report "Create new GFD: ", $gf->gene_symbol, "; ", $disease->name, "; $allelic_requirement; $cross_cutting_modifier; $mutation_consequence\n," if ($cross_cutting_modifier);
+  print $fh_report "Create new GFD: ", $gf->gene_symbol, "; ", $disease->name, "; $allelic_requirement; $mutation_consequence\n,"; 
 
   return $gfd;
 }
@@ -552,7 +554,7 @@ sub create_gfd {
   Returntype : 
   Exceptions : None
   Status     : Stable
-=cut
+=cut 
 
 sub add_gfd_to_panel {
   my ($gfd, $g2p_panel, $confidence_attrib) = @_;
