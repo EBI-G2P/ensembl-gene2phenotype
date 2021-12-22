@@ -539,9 +539,10 @@ sub create_gfd {
 
 
   $import_stats->{new_gfd}++;
-  print $fh_report "Create new GFD: ", $gf->gene_symbol, "; ", $disease->name, "; $allelic_requirement; $mutation_consequence; $mutation_consequence_flag\n," if ($mutation_consequence_flag);
-  print $fh_report "Create new GFD: ", $gf->gene_symbol, "; ", $disease->name, "; $allelic_requirement; $cross_cutting_modifier; $mutation_consequence\n," if ($cross_cutting_modifier);
-  print $fh_report "Create new GFD: ", $gf->gene_symbol, "; ", $disease->name, "; $allelic_requirement; $mutation_consequence\n,"; 
+  my $status = $fh_report "Create new GFD: ", $gf->gene_symbol, "; ", $disease->name, "; $allelic_requirement; $mutation_consequence:"; 
+  print $status . $mutation_consequence_flag . "\n," if ($mutation_consequence_flag);
+  print $status . $cross_cutting_modifier . "\n," if ($cross_cutting_modifier);
+  print $status . "\n,"; 
 
   return $gfd;
 }
