@@ -59,6 +59,7 @@ sub store {
     INSERT INTO genomic_feature_disease_comment (
       genomic_feature_disease_id,
       comment_text,
+      is_public,
       created,
       user_id
     ) VALUES (?,?,CURRENT_TIMESTAMP,?)
@@ -67,6 +68,7 @@ sub store {
   $sth->execute(
     $genomic_feature_disease_comment->get_GenomicFeatureDisease()->dbID(),
     $genomic_feature_disease_comment->comment_text,
+    $genomic_feature_disease_comment->is_public || 0
     $user->user_id 
   );
   $sth->finish();
@@ -95,6 +97,7 @@ sub delete {
     INSERT INTO GFD_comment_deleted (
       genomic_feature_disease_id,
       comment_text,
+      is_public,
       created,
       user_id,
       deleted,
@@ -105,6 +108,7 @@ sub delete {
   $sth->execute(
     $GFD_comment->GFD_id,
     $GFD_comment->comment_text,
+    $GFD_comment->is_public || 0
     $GFD_comment->created,
     $GFD_comment->{user_id},
     $user->user_id
@@ -142,6 +146,7 @@ sub _columns {
     'gfdc.genomic_feature_disease_comment_id',
     'gfdc.genomic_feature_disease_id',
     'gfdc.comment_text',
+    'gfdc.is_public',
     'gfdc.created',
     'gfdc.user_id',
   );
