@@ -976,10 +976,10 @@ sub add_public_comments {
   my $public_comments = shift; 
   my $user = shift; 
   return 0 if ($public_comments);
-   $comments =~ s/^\s+|\s+$//g;
+   $public_comments =~ s/^\s+|\s+$//g;
   my $count = 0;
   my @existing_comments = @{$gfd_comment_adaptor->fetch_all_by_GenomicFeatureDisease($gfd)}; 
-  if (! grep { $comments eq $_->comment_text} @existing_comments) {
+  if (! grep { $public_comments eq $_->comment_text} @existing_comments) {
     my $gfd_id = $gfd->dbID;
     my $gfd_comment = Bio::EnsEMBL::G2P::GenomicFeatureDiseaseComment->new(
       -comment_text => $comments,
