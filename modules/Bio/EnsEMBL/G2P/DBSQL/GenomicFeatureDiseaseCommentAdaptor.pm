@@ -68,8 +68,8 @@ sub store {
   $sth->execute(
     $genomic_feature_disease_comment->get_GenomicFeatureDisease()->dbID(),
     $genomic_feature_disease_comment->comment_text,
-    $genomic_feature_disease_comment->is_public || 0
-    $user->user_id 
+    $genomic_feature_disease_comment->is_public || 0,
+    $user->user_id,
   );
   $sth->finish();
 
@@ -108,10 +108,10 @@ sub delete {
   $sth->execute(
     $GFD_comment->GFD_id,
     $GFD_comment->comment_text,
-    $GFD_comment->is_public || 0
+    $GFD_comment->is_public || 0,
     $GFD_comment->created,
     $GFD_comment->{user_id},
-    $user->user_id
+    $user->user_id,
   );
   $sth->finish();
 

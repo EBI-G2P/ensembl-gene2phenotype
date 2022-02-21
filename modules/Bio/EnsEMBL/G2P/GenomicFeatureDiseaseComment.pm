@@ -29,7 +29,7 @@ sub new {
   my $caller = shift;
   my $class = ref($caller) || $caller;
 
-  my ($genomic_feature_disease_comment_id, $genomic_feature_disease_id, $comment_text, $created, $user_id, $adaptor) =
+  my ($genomic_feature_disease_comment_id, $genomic_feature_disease_id, $comment_text, $is_public, $created, $user_id, $adaptor) =
     rearrange(['genomic_feature_disease_comment_id', 
       'genomic_feature_disease_id', 
       'comment_text',
