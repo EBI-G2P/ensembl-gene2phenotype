@@ -147,7 +147,7 @@ sub download_data {
   }
   $sth->finish();
 
-  $sth = $dbh->prepare(q{SELECT genomic_feature_disease_comment_id, comment_text from genomic_feature_disease_comment WHERE is_public = 1;})
+  $sth = $dbh->prepare(q{SELECT genomic_feature_disease_comment_id, comment_text from genomic_feature_disease_comment WHERE is_public = 1;});
   $sth->execute() or die 'Could not execute statement: ' . $sth->errstr;
   while (my $row = $sth->fetchrow_arrayref()) {
     my ($gfd_comment_id, $text) = @$row;
@@ -208,7 +208,7 @@ sub write_data {
     LEFT JOIN genomic_feature gf ON gfd.genomic_feature_id = gf.genomic_feature_id
     LEFT JOIN disease d ON gfd.disease_id = d.disease_id
     LEFT JOIN attrib a ON gfdp.panel_attrib = a.attrib_id
-    LEFT JOIN genomic_feature_disease_commnet gfdc ON gfd.genomic_feature_disease_id = gfdc.genomic_feature_disease_id 
+    LEFT JOIN genomic_feature_disease_comment gfdc ON gfd.genomic_feature_disease_id = gfdc.genomic_feature_disease_id 
     $where;
   });
   $sth->execute() or die 'Could not execute statement: ' . $sth->errstr;
@@ -253,9 +253,9 @@ sub write_data {
     }  
 
     $created = $gfd_panel_create_dates->{$gfd_panel_id} || 'No date';
-    $comments = $comment_text->{$gfdc_id} || "No comment";
+    my $comments = $comments_text->{$gfdc_id} || "No comment";
     # The order is important and corresponds to the order of the fields in the header row 
-    my @row = ($gene_symbol, $gene_mim, $disease_name, $disease_mim, $confidence_category, $allelic_requirement, $mutation_consequence, @annotations, $panel, $prev_symbols, $hgnc_id, $created, $cross_cutting_modifier, $mutation_consequence_flag, $clinical_review_flag, $comment);
+    my @row = ($gene_symbol, $gene_mim, $disease_name, $disease_mim, $confidence_category, $allelic_requirement, $mutation_consequence, @annotations, $panel, $prev_symbols, $hgnc_id, $created, $cross_cutting_modifier, $mutation_consequence_flag, $clinical_review_flag, $comments);
 
     $csv->print ($fh, \@row);
   }
