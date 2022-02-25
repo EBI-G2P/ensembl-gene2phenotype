@@ -391,5 +391,5 @@ CREATE TABLE disease_ontology_mapping (
   ontology_accession_id INT(10) NOT NULL, 
   mapped_by_attrib SET(437, 438, 439, 440, 441, 442, 443, 444) DEFAULT NULL,
   PRIMARY KEY (disease_ontology_mapping_id),
-  KEY ontology_term_idx (ontology_accession_id)
+  KEY ontology_term_idx (disease_id, ontology_accession_id)
 ) ENGINE=INNODB; 
