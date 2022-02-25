@@ -377,3 +377,19 @@ CREATE TABLE genomic_feature_statistic_attrib (
   KEY genomic_feature_statistic_idx (genomic_feature_statistic_id),
   KEY type_value_idx (attrib_type_id, value)
 ) ENGINE=INNODB; 
+
+CREATE TABLE ontology_term (
+  ontology_accession_id int(10) NOT NULL,
+  ontology_accession VARCHAR(255) DEFAULT NULL,
+  description VARCHAR(255) DEFAULT NULL, 
+  PRIMARY KEY (ontology_accession_id)
+) ENGINE=INNODB; 
+
+CREATE TABLE disease_ontology_mapping (
+  disease_ontology_mapping_id int(10) NOT NULL, 
+  disease_id INT(10) NOT NULL,
+  ontology_accession_id INT(10) NOT NULL, 
+  mapped_by_attrib SET(437, 438, 439, 440, 441, 442, 443, 444) DEFAULT NULL,
+  PRIMARY KEY (disease_ontology_mapping_id),
+  KEY ontology_term_idx (ontology_accession_id)
+) ENGINE=INNODB; 
