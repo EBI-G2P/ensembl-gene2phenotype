@@ -79,11 +79,11 @@ sub mapped_by {
   my $attribute_adaptor = $self->{adaptor}->db->get_AttributeAdaptor;
   if ($mapped_by){
     $self->{mapped_by} = $mapped_by;
-      $self->{mapped_by_attrib} = $attribute_adaptor->get_attrib('ontology mapping', $self->{mapped_by});
+      $self->{mapped_by_attrib} = $attribute_adaptor->get_attrib('ontology_mapping', $self->{mapped_by});
   }
   else {
     if ($self->{mapped_by_attrib} && !$self->{mapped_by}){
-       $self->{mapped_by_attrib} = $attribute_adaptor->get_value('ontology mapping', $self->{mapped_by_attrib});
+       $self->{mapped_by_attrib} = $attribute_adaptor->get_value('ontology_mapping', $self->{mapped_by_attrib});
     }
   }
   return $self->{mapped_by};
