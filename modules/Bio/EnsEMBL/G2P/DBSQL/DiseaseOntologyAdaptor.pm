@@ -114,3 +114,57 @@ sub fetch_by_disease {
  my $constraint = "DO.disease_id=$disease_id;";
  return $self->generic_fetch($constraint);
 }
+
+sub fetch_by_ontology {
+  my $self = shift;
+  my $ontolgy = shift;
+  my $ontology_accession_id = $ontology->ontology_accession_id;
+  my $constraint = "DO.ontology_accession_id=$ontology_accession_id";
+  return $self->generic_fetch($constraint);
+}
+
+sub _columns {
+  my $self = shift;
+  my @cols = (
+    'DO.disease_ontology_mapping_id',
+    'DO.disease_id',
+    'DO.disease_ontology_id',
+    'DO.mapped_by_attrib',
+  );
+  return @cols;
+}
+
+sub _tables {
+  my $self = shift;
+  my @tables (
+    ['disease_ontology_mapping', 'DO'],
+  );
+  return @tables;
+}
+
+sub _objs_from_sth {
+  my $self = shift;
+  my $sth = shift;
+
+  my (
+    $disease_ontology_mapping_id,
+    $disease_id,
+    $ontology_accession_id,
+    $mapped_by_attrib
+  );
+
+  $sth->bind_columns(\(
+    $disease_ontology_mapping_id,
+    $disease_id,
+    $ontology_accession_id,
+    $mapped_by_attrib,   
+  ));
+
+  my @objs;
+
+  my $attribute_adaptor = $self->db->get_AttributeAdaptor;
+
+  while ($sth->fetch()){
+    my $
+  }
+}
