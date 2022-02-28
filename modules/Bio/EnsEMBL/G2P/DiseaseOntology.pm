@@ -49,31 +49,31 @@ sub dbID {
   return $self->{disease_ontology_mapping_id};
 }
 
-sub disease_ontology_mapping_id{
+sub disease_ontology_mapping_id {
   my $self = shift; 
   $self->{disease_ontology_mapping_id} = shift if @_;
   return $self->{disease_ontology_mapping_id};
 }
 
-sub disease_id{
+sub disease_id {
   my $self = $shift;
   $self->{disease_id} = shift if @_;
   return $self->{disease_id};
 }
 
-sub ontology_accession_id{
+sub ontology_accession_id {
   my $self = shift;
   $self->{ontology_accession_id} = shift if @_;
   return $self->{ontology_accession_id};
 }
 
-sub mapped_by_attrib{
+sub mapped_by_attrib {
   my $self = shift; 
   $self->{mapped_by_attrib} = shift if @_;
   return $self->{mapped_by_attrib};
 }
 
-sub mapped_by{
+sub mapped_by {
   my $self = shift;
   my $mapped_by = shift; 
   my $attribute_adaptor = $self->{adaptor}->db->get_AttributeAdaptor;

@@ -64,7 +64,7 @@ ALTER TABLE GFD_disease_synonym ADD FOREIGN KEY (disease_id) REFERENCES disease(
 ALTER TABLE genomic_feature_statistic ADD FOREIGN KEY (genomic_feature_id) REFERENCES genomic_feature(genomic_feature_id);
 
 ALTER TABLE disease_ontology_mapping 
-ADD FOREIGN KEY (disease_id) REFERENCES disease(disease_id),
-ADD FOREIGN KEY (ontology_accession_id) REFERENCES ontology_accession(ontology_accession_id);
+ADD FOREIGN KEY (disease_id) REFERENCES disease(disease_id) ON DELETE CASCADE ON UPDATE CASCADE,
+ADD FOREIGN KEY (ontology_accession_id) REFERENCES ontology_accession(ontology_accession_id) ON DELETE CASCADE ON UPDATE CASCADE;
 
 
