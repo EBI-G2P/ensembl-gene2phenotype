@@ -83,7 +83,7 @@ sub mapped_by {
   }
   else {
     if ($self->{mapped_by_attrib} && !$self->{mapped_by}){
-       $self->{mapped_by_attrib} = $attribute_adaptor->get_attrib('ontology mapping', $self->{mapped_by_attrib});
+       $self->{mapped_by_attrib} = $attribute_adaptor->get_value('ontology mapping', $self->{mapped_by_attrib});
     }
   }
   return $self->{mapped_by};
