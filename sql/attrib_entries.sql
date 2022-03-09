@@ -106,6 +106,7 @@ INSERT IGNORE INTO attrib (attrib_id, attrib_type_id, value) VALUES (56, 12, 'ty
 INSERT IGNORE INTO attrib (attrib_id, attrib_type_id, value) VALUES (57, 12, 'typified by age related penetrance');
 INSERT IGNORE INTO attrib (attrib_id, attrib_type_id, value) VALUES (58, 12, 'typified by reduced penetrance');
 INSERT IGNORE INTO attrib (attrib_id, attrib_type_id, value) VALUES (70, 12, 'imprinted');
+INSERT IGNORE INTO attrib (attrib_id, attrib_type_id, value) VALUES (82, 12, 'potential IF');
 
 INSERT IGNORE INTO attrib (attrib_id, attrib_type_id, value) VALUES (59, 13, 'biallelic_autosomal');
 INSERT IGNORE INTO attrib (attrib_id, attrib_type_id, value) VALUES (60, 13, 'biallelic_PAR');
