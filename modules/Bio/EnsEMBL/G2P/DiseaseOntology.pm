@@ -88,3 +88,11 @@ sub mapped_by {
   }
   return $self->{mapped_by};
 }
+
+sub get_all_GenomicFeatureDiseases{
+  my $self = shift;
+  my $genomic_feature_disease_adaptor = $self->{adaptor}->db->get_GenomicfeatureDiseaseAdaptor;
+  return $genomic_feature_disease_adaptor->fetch_all_by_disease_id($self->dbID)
+}
+
+1;
