@@ -95,7 +95,7 @@ CREATE TABLE user (
   user_id int(10) unsigned NOT NULL AUTO_INCREMENT,
   username varchar(255) NOT NULL,
   email varchar(255) NOT NULL,
-  panel_attrib set('36','37','38','39','40','41','42','43','45','46','47','48') DEFAULT NULL,
+  panel_attrib set('36','37','38','39','40','41','42','43','45','46','47','48','83') DEFAULT NULL,
   PRIMARY KEY (user_id),
   UNIQUE KEY user_idx (username),
   UNIQUE KEY email_idx (email)
