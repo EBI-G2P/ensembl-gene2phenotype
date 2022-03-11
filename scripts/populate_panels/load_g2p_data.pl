@@ -563,6 +563,7 @@ sub get_mondo_exists {
     returm $mondo[0];
   }
 }
+
 sub get_ontology_accession {
   my ($disease_mim, $disease_mondo) = @_;
   if (!defined ($disease_mondo)){
@@ -575,9 +576,31 @@ sub get_ontology_accession {
     warn "Failed!\n" unless $response->{success};
     my $result = JSON->new->decode($response->{content});
     foreach my $id  (@{$result->{response}->{docs}}){
-      my mondo_id 
+      my $mondo_id = $id->{obo_id};
+      my $mondo = get_mondo_exists($mondo_id)
+      if (! defined ($mondo)){
+        $mondo = Bio::EnsEMBL::G2P::OntologyTerm->new(
+            -ontology_accession => $mondo_id,
+            -description        => "OLS extract",
+            -adaptor            => $ontology_accession_adaptor,
+        );
+        $mondo = $ontology_accession_adaptor->store($mondo);
+      }
     }
   }
+  
+  if (defined ($disease_mondo)){
+    my $mondo = get_mondo_exists($disease_mondo)
+      if (! defined ($mondo)){
+        $mondo = Bio::EnsEMBL::G2P::OntologyTerm->new(
+            -ontology_accession => $disease_mondo,
+            -description        => "OLS extract",
+            -adaptor            => $ontology_accession_adaptor,
+        );
+        $mondo = $ontology_accession_adaptor->store($mondo);
+      }
+  }
+
 }
 =head2 add_gfd_to_panel
   Arg [1]    : GenomicFeatureDisease database
