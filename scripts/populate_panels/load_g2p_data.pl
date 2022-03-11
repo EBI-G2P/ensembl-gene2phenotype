@@ -74,14 +74,17 @@ Supported columns:
 - gene mim
 - disease name
 - disease mim
-- DDD category
+- confidence category
 - allelic requirement
+- cross cutting modifier
 - mutation consequence
+- mutation consequences flag 
 - phenotypes
 - organ specificity list
 - pmids
 - panel
-- comments
+- comments 
+- public comments 
 - other disease names
 - add after review
 
@@ -95,12 +98,15 @@ use warnings;
 use Bio::EnsEMBL::Registry;
 use DBI;
 use FileHandle;
+use HTTP::Tiny;
+use JSON;
 use Getopt::Long;
 use Pod::Usage qw(pod2usage);
 use Spreadsheet::Read;
 use Text::CSV;
 
 my $args = scalar @ARGV;
+my $http = HTTP::Tiny->new();
 my $config = {};
 GetOptions(
   $config,
@@ -126,6 +132,8 @@ $registry->load_all($registry_file);
 my $species = 'human';
 my $gf_adaptor                  = $registry->get_adaptor($species, 'gene2phenotype', 'GenomicFeature');
 my $disease_adaptor             = $registry->get_adaptor($species, 'gene2phenotype', 'Disease');
+my $ontology_accession_adaptor  = $registry->get_adaptor($species, 'gene2phenotype', 'OntologyTerm')
+my $disease_ontology_adaptor    = $registry->get_adaptor($species, 'gene2phenotype', 'DiseaseOntology');
 my $gfd_adaptor                 = $registry->get_adaptor($species, 'gene2phenotype', 'GenomicFeatureDisease');
 my $gfd_panel_adaptor           = $registry->get_adaptor($species, 'gene2phenotype', 'GenomicFeatureDiseasePanel');
 my $gfd_disease_synonym_adaptor = $registry->get_adaptor($species, 'gene2phenotype', 'GFDDiseaseSynonym');
@@ -148,14 +156,12 @@ my $g2p_panel = $config->{panel};
 my $panel_attrib_id = $attrib_adaptor->get_attrib('g2p_panel', $g2p_panel);
 die "Couldn't fetch panel_attrib_id for panel $g2p_panel" if (!defined $g2p_panel);
 
-my $supported_mc_values = {
-  'all missense/inframe' => 'all missense/in frame',
-};
+
 
 my @required_fields = (
   'gene symbol',
   'disease name',
-  'DDD category',
+  'confidence category',
   'allelic requirement',
   'mutation consequence',
   'panel'
@@ -184,9 +190,12 @@ foreach my $row (@rows) {
   my $gene_mim = $data{'gene mim'};
   my $disease_name = $data{'disease name'};
   my $disease_mim = $data{'disease mim'};
-  my $DDD_category = $data{'DDD category'};
+  my $disease_mondo = $data{'disease mondo'}
+  my $confidence_category = $data{'confidence category'};
   my $allelic_requirement = $data{'allelic requirement'};
+  my $cross_cutting_modifier = $data{'cross cutting modifier'};
   my $mutation_consequence = $data{'mutation consequence'};
+  my $mutation_consequence_flag = $data{'mutation consequences flags'};
   my $panel = $data{'panel'};
   my $prev_symbols = $data{'prev symbols'};
   my $hgnc_id = $data{'hgnc id'};
@@ -205,10 +214,12 @@ foreach my $row (@rows) {
       die "ERROR: No panel information provided for $entry\n";
     }
   }
-
+ 
   next if (!add_new_entry_to_panel($panel));
-
-  $entry = "$gene_symbol; $disease_name; $DDD_category; $allelic_requirement; $mutation_consequence; Target panel: $g2p_panel";
+  $entry = "Gene symbol: $gene_symbol; Disease name: $disease_name; Confidence category: $confidence_category; Allelic requirement: $allelic_requirement; Mutation consequence: $mutation_consequence; Target panel: $g2p_panel ";
+  $entry = $entry . "Cross cutting modifier: $cross_cutting_modifier; " if $cross_cutting_modifier;
+  $entry = $entry . "Mutation consequence flags: $mutation_consequence_flag; " if $mutation_consequence_flag;
+  
   print STDERR "$entry\n" if ($config->{check_input_data});
   my $has_missing_data = 0;
   foreach my $field (@required_fields) {
@@ -236,9 +247,11 @@ foreach my $row (@rows) {
 
   my $confidence_attrib;
   my $allelic_requirement_attrib;
+  my $cross_cutting_modifier_attrib;
   my $mutation_consequence_attrib; 
+  my $mutation_consequence_flag_attrib;
 
-  eval { $confidence_attrib = get_confidence_attrib($DDD_category) };
+  eval { $confidence_attrib = get_confidence_attrib($confidence_category) };
   if ($@) {
     if ($config->{check_input_data}) {
       print STDERR "    ERROR: There was a problem retrieving the confidence attrib $@";
@@ -259,7 +272,18 @@ foreach my $row (@rows) {
       die "There was a problem retrieving the allelic requirement attrib for entry $entry $@";
     }
   }
-
+  if ($cross_cutting_modifier){
+    eval { $cross_cutting_modifier_attrib = get_cross_cutting_modifier_attrib($cross_cutting_modifier)};
+    if ($@) {
+      if ($config->{check_input_data}) {
+        print STDERR "    ERROR: There was a problem retrieving the cross cutting modifier attrib $@";
+        print STDERR "    ERROR: Cannot proceed data checking for this entry\n";
+        next;
+      } else {
+        die "There was a problem retrieving the cross cutting modifier attrib for entry $entry $@";
+      }
+    }
+  }
   eval { $mutation_consequence_attrib = get_mutation_consequence_attrib($mutation_consequence) };
   if ($@) {
     if ($config->{check_input_data}) {
@@ -268,6 +292,19 @@ foreach my $row (@rows) {
       next;
     } else {
       die "There was a problem retrieving the mutation consequence attrib for entry $entry $@";
+    }
+  }
+  
+  if ($mutation_consequence_flag){
+    eval { $mutation_consequence_flag_attrib = get_mutation_consequence_flag_attrib($mutation_consequence_flag)};
+    if ($@) {
+      if ($config->{check_input_data}) {
+        print STDERR "     ERROR: There was a problem retrieving the mutation consequence flag attrib $@";
+        print STDERR "     ERROR: Cannot proceed data checking for this entry \n";
+        next;
+      } else {
+        die "There was a problem retrieving the mutation consequence flag attrib for entry $entry $@";
+      }
     }
   }
 
@@ -306,7 +343,7 @@ foreach my $row (@rows) {
     if (scalar @$gfds == 0) { 
       # Entries with same gene symbol, allelic requirement and mutation consequence don't exist
       # Create new GenomicFeatureDiease and GenomicFeatureDiseasePanel
-      my $gfd = create_gfd($gf, $disease, $allelic_requirement_attrib, $mutation_consequence_attrib);
+      my $gfd = create_gfd($gf, $disease, $allelic_requirement_attrib, $cross_cutting_modifier_attrib, $mutation_consequence_attrib, $mutation_consequence_flag_attrib);
       add_gfd_to_panel($gfd, $g2p_panel, $confidence_attrib);
       add_annotations($gfd, %data);
     } elsif (scalar @gfds_with_matching_disease_name == 1) {
@@ -321,7 +358,7 @@ foreach my $row (@rows) {
       } 
     } else {
       if ($add_after_review) {
-        my $gfd = create_gfd($gf, $disease, $allelic_requirement_attrib, $mutation_consequence_attrib);
+        my $gfd = create_gfd($gf, $disease, $allelic_requirement_attrib, $cross_cutting_modifier_attrib, $mutation_consequence_attrib, $mutation_consequence_flag_attrib);
         add_gfd_to_panel($gfd, $g2p_panel, $confidence_attrib);
         add_annotations($gfd, %data);
       } else {
@@ -360,6 +397,7 @@ sub add_annotations {
   my $organs = $data{'organ specificity list'};
   my $pmids = $data{'pmids'};
   my $comments = $data{'comments'};
+  my $public_comments = $data{'public comments'};
 
   my $count = add_other_disease_names($gfd, $other_disease_names);
   print $fh_report "    Added $count other disease names\n" if ($count > 0);
@@ -374,6 +412,9 @@ sub add_annotations {
   print $fh_report "    Added $count organs\n" if ($count > 0);
   
   $count = add_comments($gfd, $comments, $user);
+  print $fh_report "    Added $count comments\n" if ($count > 0);
+
+  $count = add_public_comments($gfd, $public_comments, $user);
   print $fh_report "    Added $count comments\n" if ($count > 0);
 
 }
@@ -447,8 +488,10 @@ sub get_list {
 =head2 create_gfd
   Arg [1]    : GenomicFeature
   Arg [2]    : Disease
-  Arg [3]    : Integer $allelic_requirement_attrib - Can be a single attrib id or comma separated list of attrib ids.
-  Arg [4]    : Integer $mutation_consequence_attrib - Single attrib id
+  Arg [3]    : Integer $allelic_requirement_attrib - Can be a single attrib id
+  Arg [4]    : Integer Only if defined $cross_cutting_modifier_attrib- Can be a single attrib id or a list of attrib id 
+  Arg [5]    : Integer $mutation_consequence_attrib - Single attrib id
+  Arg [6]    : Integer $mutation_consequence_flag_attrib - Single attrib id 
   Description: Create a new GenomicFeatureDisease entry.
   Returntype : 
   Exceptions : None
@@ -456,18 +499,55 @@ sub get_list {
 =cut
 
 sub create_gfd {
-  my ($gf, $disease, $allelic_requirement_attrib, $mutation_consequence_attrib) = @_;
-  my $gfd = Bio::EnsEMBL::G2P::GenomicFeatureDisease->new(
+  my ($gf, $disease, $allelic_requirement_attrib, $cross_cutting_modifier_attrib, $mutation_consequence_attrib, $mutation_consequence_flag_attrib) = @_;
+  my $gfd; 
+  if (defined ($mutation_consequence_flag_attrib) && defined ($cross_cutting_modifier_attrib) ){
+    $gfd = Bio::EnsEMBL::G2P::GenomicFeatureDisease->new(
+      -genomic_feature_id => $gf->dbID,
+      -disease_id => $disease->dbID,
+      -allelic_requirement_attrib => $allelic_requirement_attrib,
+      -cross_cutting_modifier_atrrib => $cross_cutting_modifier_attrib,
+      -mutation_consequence_attrib => $mutation_consequence_attrib,
+      -mutation_consequence_flag_attrib => $mutation_consequence_flag_attrib,
+      -adaptor => $gfd_adaptor,
+    );
+  }
+  elsif (defined ($cross_cutting_modifier_attrib)) {
+    $gfd = Bio::EnsEMBL::G2P::GenomicFeatureDisease->new(
+      -genomic_feature_id => $gf->dbID,
+      -disease_id => $disease->dbID,
+      -allelic_requirement_attrib => $allelic_requirement_attrib,
+      -cross_cutting_modifier_atrrib => $cross_cutting_modifier_attrib,
+      -mutation_consequence_attrib => $mutation_consequence_attrib,
+      -adaptor => $gfd_adaptor,
+    );
+  }
+  elsif (defined ($mutation_consequence_flag_attrib) ) {
+    $gfd = Bio::EnsEMBL::G2P::GenomicFeatureDisease->new(
+      -genomic_feature_id => $gf->dbID,
+      -disease_id => $disease->dbID,
+      -allelic_requirement_attrib => $allelic_requirement_attrib,
+      -mutation_consequence_attrib => $mutation_consequence_attrib,
+      -mutation_consequence_flag_attrib => $mutation_consequence_flag_attrib,
+      -adaptor => $gfd_adaptor,
+    );
+  }
+  else {
+    $gfd = Bio::EnsEMBL::G2P::GenomicFeatureDisease->new(
       -genomic_feature_id => $gf->dbID,
       -disease_id => $disease->dbID,
       -allelic_requirement_attrib => $allelic_requirement_attrib,
       -mutation_consequence_attrib => $mutation_consequence_attrib,
       -adaptor => $gfd_adaptor,
     );
+  }
   $gfd = $gfd_adaptor->store($gfd, $user);
 
   my $allelic_requirement = $gfd->allelic_requirement;
+  my $cross_cutting_modifier = $gfd->cross_cutting_modifier if (defined ($cross_cutting_modifier_attrib)); 
   my $mutation_consequence = $gfd->mutation_consequence;
+  my $mutation_consequence_flag = $gfd->mutation_consequence_flag if (defined ($mutation_consequence_flag_attrib));
+
 
   $import_stats->{new_gfd}++;
   print $fh_report "Create new GFD: ", $gf->gene_symbol, "; ", $disease->name, "; $allelic_requirement; $mutation_consequence\n"; 
@@ -475,6 +555,30 @@ sub create_gfd {
   return $gfd;
 }
 
+sub get_mondo_exists {
+  my $self = shift;
+  my $mondo_id = shift;
+  my @mondo =  $ontology_accession_adaptor->fetch_all_by_accession($mondo_id);
+  if (scalar @mondo > 0 ){
+    returm $mondo[0];
+  }
+}
+sub get_ontology_accession {
+  my ($disease_mim, $disease_mondo) = @_;
+  if (!defined ($disease_mondo)){
+    my $server = 'http://www.ebi.ac.uk/ols/api/search?q=';
+    my $ontology = '&ontology=mondo';
+    my $request = $server . $disease_mim . $ontology;
+    my $response = $http->get($request, 
+             {headers => { 'Content-type' => 'application/xml' }
+    });
+    warn "Failed!\n" unless $response->{success};
+    my $result = JSON->new->decode($response->{content});
+    foreach my $id  (@{$result->{response}->{docs}}){
+      my mondo_id 
+    }
+  }
+}
 =head2 add_gfd_to_panel
   Arg [1]    : GenomicFeatureDisease database
   Arg [2]    : String $g2p_panel - Add GFD to this panel
@@ -483,7 +587,7 @@ sub create_gfd {
   Returntype : 
   Exceptions : None
   Status     : Stable
-=cut
+=cut 
 
 sub add_gfd_to_panel {
   my ($gfd, $g2p_panel, $confidence_attrib) = @_;
@@ -616,6 +720,7 @@ sub get_disease {
     $disease->mim($disease_mim);
     $disease_adaptor->update($disease);
   }
+
   return $disease;
 }
 
@@ -640,10 +745,9 @@ sub get_confidence_attrib {
 }
 
 =head2 get_allelic_requirement_attrib
-  Arg [1]    : String $allelic_requirement - ',' or ';' separated list of
-               allelic requirements from the import file
-  Description: Get the allelic requirement attrib id(s) for the given
-               allelic requirement value(s)
+  Arg [1]    : String allelic requirement 
+  Description: Get the allelic requirement attrib id for the given
+               allelic requirement value
   Returntype : String $allelic_requirement_attrib 
   Exceptions : Throws error if no attrib id can be found for the given value. 
   Status     : Stable
@@ -651,13 +755,27 @@ sub get_confidence_attrib {
 
 sub get_allelic_requirement_attrib {
   my $allelic_requirement = shift;
+  $allelic_requirement =~ s/^\s+|\s+$//g;
+  return  $attrib_adaptor->get_attrib('allelic_requirement', $allelic_requirement);
+}
+
+=head2 get_cross_cutting_modifier_attrib
+  Arg [1]    : String cross cutting modifier 
+  Description: Get the cross cutting modifier attrib id(s) for the given
+               cross cutting modifier value 
+  Returntype : String $cross_cutting_modifier_attrib 
+  Exceptions : Throws error if no attrib id can be found for the given value. 
+  Status     : Stable
+=cut
+sub get_cross_cutting_modifier_attrib{
+  my $cross_cutting_modifier = shift; 
   my @values = ();
-  foreach my $value (split/;|,/, $allelic_requirement) {
-    my $ar = lc $value;
-    $ar =~ s/^\s+|\s+$//g;
-    push @values, $ar;
+  foreach my $value (split/;|,/, $cross_cutting_modifier){
+    my $ccm = lc $value;
+    $ccm =~ s/^\s+|\s+$//g;
+    push @values, $ccm;
   }
-  return $attrib_adaptor->get_attrib('allelic_requirement', join(',', @values));
+  return $attrib_adaptor->get_attrib('cross_cutting_modifier', join(',', @values));
 }
 
 =head2 get_mutation_consequence_attrib
@@ -674,14 +792,24 @@ sub get_mutation_consequence_attrib {
   my $mutation_consequence = shift;
   $mutation_consequence = lc $mutation_consequence;
   $mutation_consequence =~ s/^\s+|\s+$//g;
+  return $attrib_adaptor->get_attrib('mutation_consequence', $mutation_consequence);
+}
 
-  # Sometimes the provided mutational consequence is not
-  # correct and we need to map it to the correct one first
-  if ($supported_mc_values->{$mutation_consequence}) {
-    return $attrib_adaptor->get_attrib('mutation_consequence', $supported_mc_values->{$mutation_consequence}); 
-  } else {
-    return  $attrib_adaptor->get_attrib('mutation_consequence', $mutation_consequence);
-  }
+=head2 get_mutation_consequence_flag_attrib
+  Arg [1]    : String $mutation_consequence_flag - mutation consequence flag from the
+               import file
+  Description: Get the mutation consequence flag attrib if for the given
+               mutation consequence flag  value.
+  Returntype : 
+  Exceptions : Throws error if no attrib id can be found for the given value. 
+  Status     : Stable
+=cut
+
+sub get_mutation_consequence_flag_attrib{
+  my $mutation_consequences_flag = shift; 
+  $mutation_consequences_flag = lc $mutation_consequences_flag;
+  $mutation_consequences_flag  =~ s/^\s+|\s+$//g;
+  return  $attrib_adaptor->get_attrib('mutation_consequence_flag', $mutation_consequences_flag);
 }
 
 =head2 add_other_disease_names
@@ -869,4 +997,27 @@ sub add_comments {
     $count++;
   }
   return $count;
+}
+
+sub add_public_comments {
+  my $gfd = shift; 
+  my $public_comments = shift; 
+  my $user = shift; 
+  return 0 if (!$public_comments);
+   $public_comments =~ s/^\s+|\s+$//g;
+  my $count = 0;
+  my @existing_comments = @{$gfd_comment_adaptor->fetch_all_by_GenomicFeatureDisease($gfd)}; 
+  if (! grep { $public_comments eq $_->comment_text} @existing_comments) {
+    my $gfd_id = $gfd->dbID;
+    my $gfd_comment = Bio::EnsEMBL::G2P::GenomicFeatureDiseaseComment->new(
+      -comment_text => $public_comments,
+      -genomic_feature_disease_id => $gfd_id,
+      -is_public => 1,
+      -adaptor => $gfd_comment_adaptor,
+    );
+    $gfd_comment_adaptor->store($gfd_comment, $user);
+    $count++;
+  }
+  return $count;
+
 }
