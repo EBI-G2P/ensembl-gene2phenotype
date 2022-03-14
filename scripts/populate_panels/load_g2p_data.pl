@@ -561,7 +561,7 @@ sub create_gfd {
 
 sub add_ontology_accession {
    my ($disease_mim, $disease_mondo) = @_;
-   if (defined($disease_mim) && !defined ($disease_mondo)) {
+   if ($disease_mim && !$disease_mondo) {
      my @mondo = get_ontology_accession($disease_mim):
      my $attribute = "OLS exact";
      my $disease_id = $disease->dbID;
@@ -577,7 +577,7 @@ sub add_ontology_accession {
         $dom = $disease_ontology_adaptor->store($dom);
      }
    }
-   if (defined $disease_mondo){
+   if ($disease_mondo){
      my @mondo = get_ontology_accession($disease_mondo);
      my $attribute = "Data source";
      my $disease_id = $disease->dbID;
@@ -593,7 +593,8 @@ sub add_ontology_accession {
        $dom = $disease_ontology_adaptor->store($dom);
      }
    }
-   return $dom;
+  print $fh_report "Disease ontology mapping has been added to the database"; 
+ 
 
 }
 sub get_mondo_exists {
@@ -609,7 +610,7 @@ sub get_ontology_accession {
   my ($disease_mim, $disease_mondo) = @_;
   my $mondo_description = "OLS extract";
   my $given_mondo_descript = "Term by Curator";
-  if (!defined ($disease_mondo) && defined ($disease_mim)){
+  if (!$disease_mondo && $disease_mim){
     my $server = 'http://www.ebi.ac.uk/ols/api/search?q=';
     my $ontology = '&ontology=mondo';
     my $request = $server . $disease_mim . $ontology;
@@ -633,7 +634,7 @@ sub get_ontology_accession {
     }
   }
   
-  if (defined ($disease_mondo)){
+  if ($disease_mondo){
     my $mondo = get_mondo_exists($disease_mondo)
       if (! defined ($mondo)){
         $mondo = Bio::EnsEMBL::G2P::OntologyTerm->new(
