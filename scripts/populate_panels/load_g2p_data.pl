@@ -132,7 +132,7 @@ $registry->load_all($registry_file);
 my $species = 'human';
 my $gf_adaptor                  = $registry->get_adaptor($species, 'gene2phenotype', 'GenomicFeature');
 my $disease_adaptor             = $registry->get_adaptor($species, 'gene2phenotype', 'Disease');
-my $ontology_accession_adaptor  = $registry->get_adaptor($species, 'gene2phenotype', 'OntologyTerm')
+my $ontology_accession_adaptor  = $registry->get_adaptor($species, 'gene2phenotype', 'OntologyTerm');
 my $disease_ontology_adaptor    = $registry->get_adaptor($species, 'gene2phenotype', 'DiseaseOntology');
 my $gfd_adaptor                 = $registry->get_adaptor($species, 'gene2phenotype', 'GenomicFeatureDisease');
 my $gfd_panel_adaptor           = $registry->get_adaptor($species, 'gene2phenotype', 'GenomicFeatureDiseasePanel');
@@ -190,7 +190,7 @@ foreach my $row (@rows) {
   my $gene_mim = $data{'gene mim'};
   my $disease_name = $data{'disease name'};
   my $disease_mim = $data{'disease mim'};
-  my $disease_mondo = $data{'disease mondo'}
+  my $disease_mondo = $data{'disease mondo'};
   my $confidence_category = $data{'confidence category'};
   my $allelic_requirement = $data{'allelic requirement'};
   my $cross_cutting_modifier = $data{'cross cutting modifier'};
