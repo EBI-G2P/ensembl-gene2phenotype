@@ -117,7 +117,7 @@ sub fetch_by_disease {
 
 sub fetch_by_ontology {
   my $self = shift;
-  my $ontolgy = shift;
+  my $ontology = shift;
   my $ontology_accession_id = $ontology->ontology_accession_id;
   my $constraint = "DO.ontology_accession_id=$ontology_accession_id";
   return $self->generic_fetch($constraint);
