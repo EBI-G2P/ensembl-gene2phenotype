@@ -40,7 +40,7 @@ sub store {
     INSERT INTO ontology_term (
       ontology_accession, 
       description
-    ) VALUES (?,?,?)
+    ) VALUES (?,?)
   });
 
   $sth->execute(

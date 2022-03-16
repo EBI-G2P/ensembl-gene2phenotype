@@ -348,6 +348,7 @@ foreach my $row (@rows) {
       my $gfd = create_gfd($gf, $disease, $allelic_requirement_attrib, $cross_cutting_modifier_attrib, $mutation_consequence_attrib, $mutation_consequence_flag_attrib);
       add_gfd_to_panel($gfd, $g2p_panel, $confidence_attrib);
       add_ontology_accession($disease_mim, $disease_mondo);
+      print  $disease_mim, $disease_mondo;
       add_annotations($gfd, %data);
     } elsif (scalar @gfds_with_matching_disease_name == 1) {
       my $gfd = $gfds_with_matching_disease_name[0];
@@ -365,6 +366,7 @@ foreach my $row (@rows) {
         add_gfd_to_panel($gfd, $g2p_panel, $confidence_attrib);
         add_annotations($gfd, %data);
         add_ontology_accession($disease_mim, $disease_mondo);
+        print  $disease_mim, $disease_mondo;
       } else {
         warn("Entry $entry cannot be added to the database because entries with the same gene symbol, allelic requirement and mutation consequence exist\n");
       }
