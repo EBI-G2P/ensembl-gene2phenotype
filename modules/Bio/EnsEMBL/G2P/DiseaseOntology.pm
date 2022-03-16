@@ -35,7 +35,7 @@ sub new {
   my $self = bless {
     'disease_ontology_mapping_id' => $disease_ontology_mapping_id,
     'disease_id' => $disease_id, 
-    'ontology_accession_id' => $ontology_accession,
+    'ontology_accession_id' => $ontology_accession_id,
     'mapped_by_attrib' => $mapped_by_attrib,
     'adaptor' => $adaptor,
   }, $class;
@@ -56,7 +56,7 @@ sub disease_ontology_mapping_id {
 }
 
 sub disease_id {
-  my $self = $shift;
+  my $self = shift;
   $self->{disease_id} = shift if @_;
   return $self->{disease_id};
 }

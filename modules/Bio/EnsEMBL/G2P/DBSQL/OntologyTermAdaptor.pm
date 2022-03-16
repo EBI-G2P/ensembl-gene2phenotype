@@ -20,6 +20,7 @@ use warnings;
 
 package Bio::EnsEMBL::G2P::DBSQL::OntologyTermAdaptor;
 
+use Bio::EnsEMBL::G2P::OntologyTerm;
 use Bio::EnsEMBL::G2P::DBSQL::BaseAdaptor;
 use DBI qw(:sql_types);
 
@@ -45,7 +46,7 @@ sub store {
   $sth->execute(
       $OntologyTerm->ontology_accession,
       $OntologyTerm->description || undef,
-  )
+  );
 
   $sth->finish;
 
@@ -95,7 +96,7 @@ sub fetch_by_dbID {
 }
 
 sub fetch_by_description {
-  my $self = $shift;
+  my $self = shift;
   my $description = shift; 
   $description = s/'/\\'/g;
   my $constraint = "OntologyTerm.description='$description'";
@@ -112,13 +113,12 @@ sub fetch_all_by_description {
   return $result; 
 }
 
-sub fetch_all_by_accession {
+sub fetch_by_accession {
   my $self = shift;
   my $ontology_accession = shift;
-  $ontology_accession =  s/'/\\'/g;
   my $constraint = "OntologyTerm.ontology_accession='$ontology_accession'";
   my $result = $self->generic_fetch($constraint);
-  return $result; 
+  return $result->[0]; 
 }
 
 sub _columns {
@@ -136,7 +136,7 @@ sub _tables {
   my @tables = (
       ['ontology_term', 'OntologyTerm'],
   );
-  returm @tables;
+  return @tables;
 }
 
 sub _objs_from_sth {
