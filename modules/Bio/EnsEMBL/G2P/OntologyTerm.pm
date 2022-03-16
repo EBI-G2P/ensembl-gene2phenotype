@@ -62,6 +62,6 @@ sub ontology_accession {
 
 sub description {
   my $self = shift;
-  $self->{description} = shift if @_:
+  $self->{description} = shift if @_;
   return $self->{description};
 }
