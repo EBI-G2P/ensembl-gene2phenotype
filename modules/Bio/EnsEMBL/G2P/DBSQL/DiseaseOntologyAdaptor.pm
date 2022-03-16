@@ -172,12 +172,12 @@ sub _objs_from_sth {
       $mapped_by = $attribute_adaptor->get_value('ontology_mapping', $mapped_by_attrib);
     }
     my $obj = Bio::EnsEMBL::G2P::DiseaseOntology->new(
-      --disease_ontology_mapping_id => $disease_ontology_mapping_id,
-      --disease_id => $disease_id,
-      --ontology_accession_id => $ontology_accession_id,
-      --mapped_by_attrib => $mapped_by_attrib,
-      --mapped_by => $mapped_by,
-      --adaptor => $self,
+      -disease_ontology_mapping_id => $disease_ontology_mapping_id,
+      -disease_id => $disease_id,
+      -ontology_accession_id => $ontology_accession_id,
+      -mapped_by_attrib => $mapped_by_attrib,
+      -mapped_by => $mapped_by,
+      -adaptor => $self,
     );
     push (@objs, $obj);
   }
