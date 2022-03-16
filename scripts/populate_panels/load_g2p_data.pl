@@ -615,9 +615,9 @@ sub get_ontology_accession {
     warn "Failed!\n" unless $response->{success};
     my $result = JSON->new->decode($response->{content});
     foreach my $id  (@{$result->{response}->{docs}}){
-      my @mondos = $ontology_accession_adaptor->fetch_all_by_accession( $id->{obo_id});
+      my @mondos = $ontology_accession_adaptor->fetch_by_accession( $id->{obo_id});
       my $mondo = $mondos[0];
-      if (! defined ($mondo)){
+      if (! defined $mondo){
         $mondo = Bio::EnsEMBL::G2P::OntologyTerm->new(
             -ontology_accession => $id->{obo_id},
             -description        => $mondo_description,
@@ -635,7 +635,7 @@ sub get_ontology_accession {
     $disease_mondo =~ s/^\s+|\s+$//g;
     my @mondos = $ontology_accession_adaptor->fetch_all_by_accession($disease_mondo);
     my $mondo = $mondos[0];
-    if (! defined ($mondo)){
+    if (! defined $mondo){
       $mondo = Bio::EnsEMBL::G2P::OntologyTerm->new(
           -ontology_accession => $disease_mondo,
           -description        => $given_mondo_descript,
