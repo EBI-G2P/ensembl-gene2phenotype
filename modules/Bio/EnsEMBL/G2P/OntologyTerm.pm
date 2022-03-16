@@ -29,7 +29,7 @@ sub new {
   my $caller = shift; 
   my $class = ref($caller) || $caller;
   my ($ontology_accession_id, $ontology_accession, $description, $adaptor) = 
-  rearrange(['ontology_accession_id', 'ontology_accession', 'description', 'adaptor'])
+  rearrange(['ontology_accession_id', 'ontology_accession', 'description', 'adaptor']);
 
   my $self = bless {
     'dbID' => $ontology_accession_id,
@@ -39,7 +39,7 @@ sub new {
     'adaptor' => $adaptor,
   }, $classs;
 
-  return self;
+  return $self;
 }
 
 sub dbID {

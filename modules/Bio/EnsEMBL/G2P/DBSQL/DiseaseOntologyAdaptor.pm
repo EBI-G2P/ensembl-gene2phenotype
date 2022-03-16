@@ -40,11 +40,11 @@ sub store {
   my $attribute_adaptor = $self->db->get_AttributeAdaptor;
   
   if (defined $DO->{mapped_by} && ! defined $DO->{mapped_by_attrib}){
-    $DO->mapped_by_attrib = $attribute_adaptor->get_attrib('ontology_mapping', $D0->{mapped_by});
+    $DO->mapped_by_attrib = $attribute_adaptor->get_attrib('ontology_mapping', $DO->{mapped_by});
   }
 
   if (defined $DO->{mapped_by_attrib} && ! defined $DO->{mapped_by}){
-    $D0->mapped_by = $attribute_adaptor->get_value('ontology_mapping', $DO->{mapped_by_attrib});
+    $DO->mapped_by = $attribute_adaptor->get_value('ontology_mapping', $DO->{mapped_by_attrib});
   }
   
   my $sth = $dbh->prepare(q{
@@ -72,13 +72,13 @@ sub store {
 
 sub update {
   my $self = shift;
-  my $D0 = shift;
+  my $DO = shift;
   my $dbh = $self->dbc->db_handle;
   if (!ref($DO) || $DO->isa('Bio::EnsEMBL::G2P::DiseaseOntology')){
     die("Bio::EnsEMBL::G2P::DiseaseOntology arg expected");
   }
 
-  my $sth = $db->prepare(q{
+  my $sth = $dbh->prepare(q{
     UPDATE disease_ontology_mapping
     SET 
       mapped_by_attrib = ?
