@@ -136,11 +136,12 @@ sub _columns {
 
 sub _tables {
   my $self = shift;
-  my @tables (
+  my @tables = (
     ['disease_ontology_mapping', 'DO'],
   );
   return @tables;
 }
+
 
 sub _objs_from_sth {
   my $self = shift;

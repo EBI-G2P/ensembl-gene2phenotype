@@ -37,7 +37,7 @@ sub new {
     'ontology_accession' => $ontology_accession,
     'description' => $description, 
     'adaptor' => $adaptor,
-  }, $classs;
+  }, $class;
 
   return $self;
 }
@@ -56,7 +56,7 @@ sub ontology_accession_id {
 
 sub ontology_accession {
     my $self = shift;
-    $self->{ontology_accession} = shift of @_;
+    $self->{ontology_accession} = shift if @_;
     return $self->{ontology_accession};
 }
 
