@@ -51,4 +51,5 @@ ok($do_term->dbID == $dbID, 'fetched by dbID');
 ok($do_term->disease_ontology_mapping_id == $dbID, 'fetched by disease ontology mapping id' );
 
 done_testing();
+
 1;
