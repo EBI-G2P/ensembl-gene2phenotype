@@ -59,15 +59,17 @@ sub store {
     INSERT INTO genomic_feature_disease_comment (
       genomic_feature_disease_id,
       comment_text,
+      is_public,
       created,
       user_id
-    ) VALUES (?,?,CURRENT_TIMESTAMP,?)
+    ) VALUES (?,?,?,CURRENT_TIMESTAMP,?)
   });
 
   $sth->execute(
     $genomic_feature_disease_comment->get_GenomicFeatureDisease()->dbID(),
     $genomic_feature_disease_comment->comment_text,
-    $user->user_id 
+    $genomic_feature_disease_comment->is_public || 0,
+    $user->user_id,
   );
   $sth->finish();
 
@@ -95,19 +97,21 @@ sub delete {
     INSERT INTO GFD_comment_deleted (
       genomic_feature_disease_id,
       comment_text,
+      is_public,
       created,
       user_id,
       deleted,
       deleted_by_user_id
-    ) VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP, ?)
+    ) VALUES (?, ?, ?, ?, ?, CURRENT_TIMESTAMP, ?)
   });
 
   $sth->execute(
     $GFD_comment->GFD_id,
     $GFD_comment->comment_text,
+    $GFD_comment->is_public || 0,
     $GFD_comment->created,
     $GFD_comment->{user_id},
-    $user->user_id
+    $user->user_id,
   );
   $sth->finish();
 
@@ -142,6 +146,7 @@ sub _columns {
     'gfdc.genomic_feature_disease_comment_id',
     'gfdc.genomic_feature_disease_id',
     'gfdc.comment_text',
+    'gfdc.is_public',
     'gfdc.created',
     'gfdc.user_id',
   );
@@ -170,8 +175,8 @@ sub _tables {
 sub _objs_from_sth {
   my ($self, $sth) = @_;
 
-  my ($GFD_comment_id, $GFD_id, $comment_text, $created, $user_id);
-  $sth->bind_columns(\($GFD_comment_id, $GFD_id, $comment_text, $created, $user_id));
+  my ($GFD_comment_id, $GFD_id, $comment_text, $is_public, $created, $user_id);
+  $sth->bind_columns(\($GFD_comment_id, $GFD_id, $comment_text, $is_public, $created, $user_id));
 
   my @objs;
 
@@ -180,6 +185,7 @@ sub _objs_from_sth {
       -genomic_feature_disease_comment_id => $GFD_comment_id,
       -genomic_feature_disease_id => $GFD_id,
       -comment_text => $comment_text,
+      -is_public => $is_public,
       -created => $created,
       -user_id => $user_id,
       -adaptor => $self,

@@ -79,7 +79,7 @@
 790	22608502	Deleterious mutations in LRBA are associated with a syndrome of immune deficiency and autoimmunity.	Am J Hum Genet. 90: 986-1001, 2012.
 804	17068770	Biochemical and molecular characterization of 18 patients with pyridoxine-dependent epilepsy and mutations of the antiquitin (ALDH7A1) gene.	Hum Mutat. 28: 19-26, 2007.
 805	17373699	Involvement of DFNB59 mutations in autosomal recessive nonsyndromic hearing impairment.	Hum Mutat. 28: 718-723, 2007.
-813	23623387	Yunis-VarÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n syndrome is caused by mutations in FIG4, encoding a phosphoinositide phosphatase.	Am J Hum Genet. 92: 781-791, 2013.
+813	23623387	Yunis-VarÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n syndrome is caused by mutations in FIG4, encoding a phosphoinositide phosphatase.	Am J Hum Genet. 92: 781-791, 2013.
 823	9758627	A missense mutation in the zinc-finger domain of the human hairless gene underlies congenital atrichia in a family of Irish travellers.	Am J Hum Genet. 63: 984-991, 1998.
 833	11851880	A site-specific plectin mutation causes dominant epidermolysis bullosa simplex Ogna: two identical de novo mutations.	J Invest Dermatol. 118: 87-93, 2002.
 844	10665500	Prenatal testing for late infantile neuronal ceroid lipofuscinosis.	Ann Neurol. 47: 254-257, 2000.
@@ -125,7 +125,7 @@
 1224	20631719	A novel GATA6 mutation in patients with tetralogy of Fallot or atrial septal defect.	J Hum Genet. 55: 662-667, 2010.
 1231	15805154	Distinct CDH3 mutations cause ectodermal dysplasia, ectrodactyly, macular dystrophy (EEM syndrome).	J Med Genet. 42: 292-298, 2005.
 1245	16080122	Homozygous deletion of the very low density lipoprotein receptor gene causes autosomal recessive cerebellar hypoplasia with cerebral gyral simplification.	Am J Hum Genet. 77: 477-483, 2005.
-1246	10391219	Mutations in the gene encoding 3 beta-hydroxysteroid-delta 8, delta 7-isomerase cause X-linked dominant Conradi-HÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¼nermann syndrome.	Nat Genet. 22: 291-294, 1999.
+1246	10391219	Mutations in the gene encoding 3 beta-hydroxysteroid-delta 8, delta 7-isomerase cause X-linked dominant Conradi-HÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¼nermann syndrome.	Nat Genet. 22: 291-294, 1999.
 1261	19760620	Connective tissue involvement in two patients with features of cranioectodermal dysplasia.	Am J Med Genet A. 149A: 2212-2215, 2009.
 1263	20950787	Infantile cerebral and cerebellar atrophy is associated with a mutation in the MED17 subunit of the transcription preinitiation mediator complex.	Am J Hum Genet. 87: 667-670, 2010.
 1265	18830228	Misleading behavioural phenotype with adenylosuccinate lyase deficiency.	Eur J Hum Genet. 17: 133-136, 2009.
@@ -161,7 +161,7 @@
 1518	10070612	3-Methylglutaconic aciduria type I: clinical heterogeneity as a neurometabolic disease.	J Inherit Metab Dis. 22: 1-8, 1999.
 1520	9662406	CLN5, a novel gene encoding a putative transmembrane protein mutated in Finnish variant late infantile neuronal ceroid lipofuscinosis.	Nat Genet. 19: 286-288, 1998.
 1526	23176823	Mutations in DDHD2, encoding an intracellular phospholipase A(1), cause a recessive form of complex hereditary spastic paraplegia.	Am J Hum Genet. 91: 1073-1081, 2012.
-1579	22522421	Mutations in ISPD cause Walker-Warburg syndrome and defective  glycosylation of ÃƒÆ’Ã†â€™Ãƒâ€¦Ã‚Â½ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â±-dystroglycan.	Nat Genet. 44: 581-585, 2012.
+1579	22522421	Mutations in ISPD cause Walker-Warburg syndrome and defective  glycosylation of ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â½ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â±-dystroglycan.	Nat Genet. 44: 581-585, 2012.
 1582	10069709	Clinical spectrum of infantile free sialic acid storage disease.	Am J Med Genet. 82: 385-391, 1999.
 1594	16606836	Mutations in fibroblast growth factor receptor 1 cause both Kallmann syndrome and normosmic idiopathic hypogonadotropic hypogonadism.	Proc Natl Acad Sci U S A. 103: 6281-6286, 2006.
 1600	16542398	Succinic semialdehyde dehydrogenase deficiency: clinical, biochemical and molecular characterization of a new patient with severe phenotype and a novel mutation.	Clin Genet. 69: 294-296, 2006.
@@ -256,7 +256,7 @@
 2357	17336067	A novel FKRP mutation in congenital muscular dystrophy disrupts the dystrophin glycoprotein complex.	Neuromuscul Disord. 17: 285-289, 2007.
 2369	11919560	The gene mutated in autosomal recessive polycystic kidney disease encodes a large, receptor-like protein.	Nat Genet. 30: 259-269, 2002.
 2382	7603790	Medium chain acyl-CoA dehydrogenase deficiency in Pennsylvania: neonatal screening shows high incidence and unexpected mutation frequencies.	Pediatr Res. 37: 675-678, 1995.
-2384	20111056	Novel mutations in the SIL1 gene in a Japanese pedigree with the Marinesco-SjÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¶gren syndrome.	J Hum Genet. 55: 142-146, 2010.
+2384	20111056	Novel mutations in the SIL1 gene in a Japanese pedigree with the Marinesco-SjÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¶gren syndrome.	J Hum Genet. 55: 142-146, 2010.
 2389	12555939	CblE type of homocystinuria due to methionine synthase reductase deficiency: clinical and molecular studies and prenatal diagnosis in two families.	J Inherit Metab Dis. 25: 461-476, 2002.
 2403	22461475	Exome sequencing reveals a pallidin mutation in a Hermansky-Pudlak-like primary immunodeficiency syndrome.	Blood. 119: 3185-3187, 2012.
 2404	20004763	A truncating mutation of TRAPPC9 is associated with autosomal-recessive intellectual disability and postnatal microcephaly.	Am J Hum Genet. 85: 897-902, 2009.
@@ -372,7 +372,7 @@
 3321	12749062	Melorheostosis in a family with autosomal dominant osteopoikilosis: report of a third family.	Am J Med Genet A. 119A: 188-193, 2003.
 3338	15249611	A novel mutation in KCNQ2 associated with BFNC, drug resistant epilepsy, and mental retardation.	Neurology. 63: 57-65, 2004.
 3342	474617	Autosomal dominant inheritance of scalp defects with ectrodactyly.	Am J Med Genet. 3: 35-41, 1979.
-3350	11251574	A new case of alpha-N-acetylgalactosaminidase deficiency with angiokeratoma corporis diffusum, with MÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â©niÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¨re's syndrome and without mental retardation.	Br J Dermatol. 144: 363-368, 2001.
+3350	11251574	A new case of alpha-N-acetylgalactosaminidase deficiency with angiokeratoma corporis diffusum, with MÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â©niÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¨re's syndrome and without mental retardation.	Br J Dermatol. 144: 363-368, 2001.
 3351	11784876	Paternally inherited inactivating mutations of the GNAS1 gene in progressive osseous heteroplasia.	N Engl J Med. 346: 99-106, 2002.
 3353	22265014	Mutations in KAT6B, encoding a histone acetyltransferase, cause Genitopatellar syndrome.	Am J Hum Genet. 90: 282-289, 2012.
 3354	9412782	A single-base deletion in the 3'-coding region of glycogen-debranching enzyme is prevalent in glycogen storage disease type IIIA in a population of North African Jewish patients.	Eur J Hum Genet. 5: 266-270, 1997.
@@ -528,7 +528,7 @@
 4670	19235232	Novel mutations in 3-phosphoglycerate dehydrogenase (PHGDH) are distributed throughout the protein and result in altered enzyme kinetics.	Hum Mutat. 30: 749-756, 2009.
 4681	19800048	OFD1 is mutated in X-linked Joubert syndrome and interacts with LCA5-encoded lebercilin.	Am J Hum Genet. 85: 465-481, 2009.
 4682	9399886	Cloning of the human carnitine-acylcarnitine carrier cDNA and identification of the molecular defect in a patient.	Am J Hum Genet. 61: 1239-1245, 1997.
-4694	23001123	Mutations in ADAR1 cause Aicardi-GoutiÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¨res syndrome associated with a type I interferon signature.	Nat Genet. 44: 1243-1248, 2012.
+4694	23001123	Mutations in ADAR1 cause Aicardi-GoutiÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¨res syndrome associated with a type I interferon signature.	Nat Genet. 44: 1243-1248, 2012.
 4705	20065143	Biotin-responsive basal ganglia disease in ethnic Europeans with novel SLC19A3 mutations.	Arch Neurol. 67: 126-130, 2010.
 4707	14661163	A novel syndrome combining thyroid and neurological abnormalities is associated with mutations in a monocarboxylate transporter gene.	Am J Hum Genet. 74: 168-175, 2004.
 4709	15486829	A common mutation is associated with a mild, potentially asymptomatic phenotype in patients with isovaleric acidemia diagnosed by newborn screening.	Am J Hum Genet. 75: 1136-1142, 2004.
@@ -922,7 +922,7 @@
 7796	22366787	Heterozygous missense mutations in SMARCA2 cause Nicolaides-Baraitser syndrome.	Nat Genet. 44: 445-9, s1, 2012.
 7802	15551337	Novel COL9A3 mutation in a family with multiple epiphyseal dysplasia.	Am J Med Genet A. 132A: 181-184, 2005.
 7812	17296897	New phenotype associated with an Arg116Cys mutation in the CRYAA gene: nuclear cataract, iris coloboma, and microphthalmia.	Arch Ophthalmol. 125: 213-216, 2007.
-7822	22494134	Clinical phenotype and mutant TRÃƒÆ’Ã†â€™Ãƒâ€¦Ã‚Â½ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â±1.	N Engl J Med. 366: 1451-1453, 2012.
+7822	22494134	Clinical phenotype and mutant TRÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â½ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â±1.	N Engl J Med. 366: 1451-1453, 2012.
 7825	8757037	Spontaneous multivessel cervical artery dissection in a patient with a substitution of alanine for glycine (G13A) in the alpha 1 (I) chain of type I collagen.	Neurology. 47: 552-556, 1996.
 7827	17186469	Mutations in the gene encoding the Wnt-signaling component R-spondin 4 (RSPO4) cause autosomal recessive anonychia.	Am J Hum Genet. 79: 1105-1109, 2006.
 7832	1301192	Identification of a missense mutation (S436R) in the acid sphingomyelinase gene from a Japanese patient with type B Niemann-Pick disease.	Hum Mutat. 1: 70-71, 1992.
@@ -976,7 +976,7 @@
 8141	7670563	A novel E250X mutation of the PIT1 gene in a patient with combined pituitary hormone deficiency.	Endocr J. 42: 351-354, 1995.
 8159	18684116	The clinical and genetic epidemiology of neuronal ceroid lipofuscinosis in Newfoundland.	Clin Genet. 74: 213-222, 2008.
 8177	7757081	A radiographic, morphologic, biochemical and molecular analysis of a case of achondrogenesis type II resulting from substitution for a glycine residue (Gly691-->Arg) in the type II collagen trimer.	Hum Mol Genet. 4: 285-288, 1995.
-8191	18285827	Novel SIL1 mutations and exclusion of functional candidate genes in Marinesco-SjÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¶gren syndrome.	Eur J Hum Genet. 16: 961-969, 2008.
+8191	18285827	Novel SIL1 mutations and exclusion of functional candidate genes in Marinesco-SjÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¶gren syndrome.	Eur J Hum Genet. 16: 961-969, 2008.
 8202	7581385	Linkage of autosomal dominant iris hypoplasia to the region of the Rieger syndrome locus (4q25).	Hum Mol Genet. 4: 1435-1439, 1995.
 8222	12389028	Mutation of TBCE causes hypoparathyroidism-retardation-dysmorphism and autosomal recessive Kenny-Caffey syndrome.	Nat Genet. 32: 448-452, 2002.
 8227	16968793	Nonclassic congenital lipoid adrenal hyperplasia: a new disorder of the steroidogenic acute regulatory protein with very late presentation and normal male genitalia.	J Clin Endocrinol Metab. 91: 4781-4785, 2006.
@@ -1133,7 +1133,7 @@
 9570	21782149	Mutations in ANKRD11 cause KBG syndrome, characterized by intellectual disability, skeletal malformations, and macrodontia.	Am J Hum Genet. 89: 289-294, 2011.
 9574	22539873	A novel FBN1 mutation in a Chinese family with isolated ectopia lentis.	Mol Vis. 18: 945-950, 2012.
 9588	10678659	Rothmund-Thomson syndrome due to RECQ4 helicase mutations: report and clinical and molecular comparisons with Bloom syndrome and Werner syndrome.	Am J Med Genet. 90: 223-228, 2000.
-9639	8133980	KohlschÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¼tter syndrome: syndrome of epilepsy--dementia--amelogenesis imperfecta.	Neuropediatrics. 24: 337-338, 1993.
+9639	8133980	KohlschÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¼tter syndrome: syndrome of epilepsy--dementia--amelogenesis imperfecta.	Neuropediatrics. 24: 337-338, 1993.
 9641	11402105	MeCP2 mutations in children with and without the phenotype of Rett syndrome.	Neurology. 56: 1486-1495, 2001.
 9657	10431244	Spontaneous functional correction of homozygous fanconi anaemia alleles reveals novel mechanistic basis for reverse mosaicism.	Nat Genet. 22: 379-383, 1999.
 9658	15852392	Very late onset in ataxia oculomotor apraxia type I.	Ann Neurol. 57: 777, 2005.
@@ -1223,7 +1223,7 @@
 10412	12605447	Leukodystrophy associated with oligodontia in a large inbred family: fortuitous association or new entity?	Am J Med Genet A. 118A: 76-81, 2003.
 10423	17696123	Mutations in the cyclic adenosine monophosphate response element of the tyrosine hydroxylase gene.	Ann Neurol. 62: 422-426, 2007.
 10425	15633164	A splicing mutation in the alpha/beta GlcNAc-1-phosphotransferase gene results in an adult onset form of mucolipidosis III associated with sensory neuropathy and cardiomyopathy.	Am J Med Genet A. 132A: 369-375, 2005.
-10426	16845400	Mutations in genes encoding ribonuclease H2 subunits cause Aicardi-GoutiÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¨res syndrome and mimic congenital viral brain infection.	Nat Genet. 38: 910-916, 2006.
+10426	16845400	Mutations in genes encoding ribonuclease H2 subunits cause Aicardi-GoutiÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¨res syndrome and mimic congenital viral brain infection.	Nat Genet. 38: 910-916, 2006.
 10434	12960215	Wolcott-Rallison syndrome: pathogenic insights into neonatal diabetes from new mutation and expression studies of EIF2AK3.	J Med Genet. 40: 685-689, 2003.
 10435	15805158	Subset of individuals with autism spectrum disorders and extreme macrocephaly associated with germline PTEN tumour suppressor gene mutations.	J Med Genet. 42: 318-321, 2005.
 10457	12599187	Syndromic form of X-linked mental retardation with marked hypotonia in early life, severe mental handicap, and difficult adult behavior maps to Xp22.	Am J Med Genet A. 117A: 245-250, 2003.
@@ -1246,7 +1246,7 @@
 10626	1308353	Waardenburg syndrome associated with meningomyelocele.	Am J Med Genet. 42: 135-136, 1992.
 10636	8857020	Intrauterine growth retardation and postnatal growth failure associated with deletion of the insulin-like growth factor I gene.	N Engl J Med. 335: 1363-1367, 1996.
 10637	18423520	Mutation in the human homeobox gene NKX5-3 causes an oculo-auricular syndrome.	Am J Hum Genet. 82: 1178-1184, 2008.
-10639	9829906	Spectrum of mutations and sequence variants in the FALDH gene in patients with SjÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¶gren-Larsson syndrome.	Hum Mutat. 12: 377-384, 1998.
+10639	9829906	Spectrum of mutations and sequence variants in the FALDH gene in patients with SjÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¶gren-Larsson syndrome.	Hum Mutat. 12: 377-384, 1998.
 10646	8681379	Mutations of the human homolog of Drosophila patched in the nevoid basal cell carcinoma syndrome.	Cell. 85: 841-851, 1996.
 10653	10424812	CDKN1C expression in Beckwith-Wiedemann syndrome patients with allele imbalance.	J Med Genet. 36: 524-531, 1999.
 10666	10612394	The DNA double-strand break repair gene hMRE11 is mutated in individuals with an ataxia-telangiectasia-like disorder.	Cell. 99: 577-587, 1999.
@@ -1257,7 +1257,7 @@
 10717	16909383	A new autosomal recessive form of Stickler syndrome is caused by a mutation in the COL9A1 gene.	Am J Hum Genet. 79: 449-457, 2006.
 10726	15654694	A novel 9 bp deletion in the filamin a gene causes an otopalatodigital-spectrum disorder with a variable, intermediate phenotype.	Am J Med Genet A. 132A: 386-390, 2005.
 10730	22541559	Mutations in NSUN2 cause autosomal-recessive intellectual disability.	Am J Hum Genet. 90: 847-855, 2012.
-10733	7496176	Generalized lysosomal storage in Yunis VarÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n syndrome.	Neuromuscul Disord. 5: 423-428, 1995.
+10733	7496176	Generalized lysosomal storage in Yunis VarÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³n syndrome.	Neuromuscul Disord. 5: 423-428, 1995.
 10741	10737981	beta-galactosidase gene mutations affecting the lysosomal enzyme and the elastin-binding protein in GM1-gangliosidosis patients with cardiac involvement.	Hum Mutat. 15: 354-366, 2000.
 10742	8325895	Characterization of an arginine 789 to cysteine substitution in alpha 1 (II) collagen chains of a patient with spondyloepiphyseal dysplasia.	J Biol Chem. 268: 15238-15245, 1993.
 10754	18182455	A maternal epimutation of GNAS leads to Albright osteodystrophy and parathyroid hormone resistance.	J Clin Endocrinol Metab. 93: 661-665, 2008.
@@ -1416,7 +1416,7 @@
 12064	2480601	Pelizaeus-Merzbacher disease: tight linkage to proteolipid protein gene exon variant.	Proc Natl Acad Sci U S A. 86: 9427-9430, 1989.
 12071	20817137	Exome sequencing identifies WDR35 variants involved in Sensenbrenner syndrome.	Am J Hum Genet. 87: 418-423, 2010.
 12077	15641023	A novel autosomal recessive nonsyndromic hearing impairment locus (DFNB42) maps to chromosome 3q13.31-q22.3.	Am J Med Genet A. 133A: 18-22, 2005.
-12081	9063741	Homozygosity mapping at AlstrÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¶m syndrome to chromosome 2p.	Hum Mol Genet. 6: 213-219, 1997.
+12081	9063741	Homozygosity mapping at AlstrÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¶m syndrome to chromosome 2p.	Hum Mol Genet. 6: 213-219, 1997.
 12086	9158138	Apparent digenic inheritance of Waardenburg syndrome type 2 (WS2) and autosomal recessive ocular albinism (AROA).	Hum Mol Genet. 6: 659-664, 1997.
 12092	3475710	Mutations in the human adenosine deaminase gene that affect protein structure and RNA splicing.	Proc Natl Acad Sci U S A. 84: 5947-5951, 1987.
 12097	21062273	Paternal mosaicism of an STXBP1 mutation in OS.	Clin Genet. 80: 484-488, 2011.
@@ -1480,7 +1480,7 @@
 12577	8818947	An autosomal dominant syndrome of renal and anogenital malformations with syndactyly.	J Med Genet. 33: 594-596, 1996.
 12585	11992261	PTPN11 mutations in Noonan syndrome: molecular spectrum, genotype-phenotype correlation, and phenotypic heterogeneity.	Am J Hum Genet. 70: 1555-1563, 2002.
 12588	16470690	A novel mutation in the DNA-binding domain of MAF at 16q23.1 associated with autosomal dominant "cerulean cataract" in an Indian family.	Am J Med Genet A. 140: 558-566, 2006.
-12590	21712857	Identification of a Gypsy SHOX mutation (p.A170P) in LÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â©ri-Weill dyschondrosteosis and Langer mesomelic dysplasia.	Eur J Hum Genet. 19: 1218-1225, 2011.
+12590	21712857	Identification of a Gypsy SHOX mutation (p.A170P) in LÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â©ri-Weill dyschondrosteosis and Langer mesomelic dysplasia.	Eur J Hum Genet. 19: 1218-1225, 2011.
 12594	7858169	Late infantile metachromatic leukodystrophy in Israel.	Biomed Pharmacother. 48: 347-350, 1994.
 12607	22161967	Identification of 83 novel alpha-mannosidosis-associated sequence variants: functional analysis of MAN2B1 missense mutations.	Hum Mutat. 33: 511-520, 2012.
 12613	10218527	Clinical features of the prevalent form of childhood deafness, DFNB1, due to a connexin-26 gene defect: implications for genetic counselling.	Lancet. 353: 1298-1303, 1999.
@@ -1590,7 +1590,7 @@
 13465	19533799	A case of Asian Indian OCA3 patient.	Am J Med Genet A. 149A: 1578-1580, 2009.
 13466	11085914	Mutations in the hepatocyte nuclear factor-1beta gene are associated with familial hypoplastic glomerulocystic kidney disease.	Am J Hum Genet. 68: 219-224, 2001.
 13469	22729224	De novo germline and postzygotic mutations in AKT3, PIK3R2 and PIK3CA cause a spectrum of related megalencephaly syndromes.	Nat Genet. 44: 934-940, 2012.
-13486	11941370	Mutation of ALMS1, a large gene with a tandem repeat encoding 47 amino acids, causes AlstrÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¶m syndrome.	Nat Genet. 31: 79-83, 2002.
+13486	11941370	Mutation of ALMS1, a large gene with a tandem repeat encoding 47 amino acids, causes AlstrÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¶m syndrome.	Nat Genet. 31: 79-83, 2002.
 13506	15146390	Mutations in the transmembrane natriuretic peptide receptor NPR-B impair skeletal growth and cause acromesomelic dysplasia, type Maroteaux.	Am J Hum Genet. 75: 27-34, 2004.
 13521	15591271	Mutation in PITX2 is associated with ring dermoid of the cornea.	J Med Genet. 41: e129, 2004.
 13532	19377476	A systematic, large-scale resequencing screen of X-chromosome coding exons in mental retardation.	Nat Genet. 41: 535-543, 2009.
@@ -1640,17 +1640,17 @@
 13896	16148061	2-Methyl-3-hydroxybutyryl-CoA dehydrogenase (MHBD) deficiency: an X-linked inborn error of isoleucine metabolism that may mimic a mitochondrial disease.	Pediatr Res. 58: 488-491, 2005.
 13906	9090382	Rhizomelic chondrodysplasia punctata is a peroxisomal protein targeting disease caused by a non-functional PTS2 receptor.	Nat Genet. 15: 377-380, 1997.
 13923	16630169	LADD syndrome is caused by FGF10 mutations.	Clin Genet. 69: 349-354, 2006.
-13931	2331520	Point mutations in the uroporphyrinogen III synthase gene in congenital erythropoietic porphyria (GÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¼nther's disease).	Blood. 75: 1763-1765, 1990.
+13931	2331520	Point mutations in the uroporphyrinogen III synthase gene in congenital erythropoietic porphyria (GÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¼nther's disease).	Blood. 75: 1763-1765, 1990.
 13932	11477602	Meier-Gorlin syndrome: report of eight additional cases and review.	Am J Med Genet. 102: 115-124, 2001.
 13938	1550123	Mucopolysaccharidosis type VI: identification of three mutations in the arylsulfatase B gene of patients with the severe and mild phenotypes provides molecular evidence for genetic heterogeneity.	Am J Hum Genet. 50: 795-800, 1992.
 13948	8153634	A cell cycle regulator potentially involved in genesis of many tumor types.	Science. 264: 436-440, 1994.
 13958	8198123	Mutations in the lysosomal beta-galactosidase gene that cause the adult form of GM1 gangliosidosis.	Am J Hum Genet. 54: 1004-1013, 1994.
 13966	22371254	Mutations in the satellite cell gene MEGF10 cause a recessive congenital myopathy with minicores.	Neurogenetics. 13: 115-124, 2012.
 13970	18283415	Novel point mutations in GDF5 associated with two distinct limb malformations in Chinese: brachydactyly type C and proximal symphalangism.	J Hum Genet. 53: 368-374, 2008.
-13985	17594715	Spectrum of ALMS1 variants and evaluation of genotype-phenotype correlations in AlstrÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¶m syndrome.	Hum Mutat. 28: 1114-1123, 2007.
+13985	17594715	Spectrum of ALMS1 variants and evaluation of genotype-phenotype correlations in AlstrÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¶m syndrome.	Hum Mutat. 28: 1114-1123, 2007.
 13993	8817341	Recessively inherited L-DOPA-responsive parkinsonism in infancy caused by a point mutation (L205P) in the tyrosine hydroxylase gene.	Hum Mol Genet. 5: 1023-1028, 1996.
 14025	20825431	Molecular analysis of Sanfilippo syndrome type C in Spain: seven novel HGSNAT mutations and characterization of the mutant alleles.	Clin Genet. 80: 367-374, 2011.
-14028	11741829	Albers-SchÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¶nberg disease (autosomal dominant osteopetrosis, type II) results from mutations in the ClCN7 chloride channel gene.	Hum Mol Genet. 10: 2861-2867, 2001.
+14028	11741829	Albers-SchÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¶nberg disease (autosomal dominant osteopetrosis, type II) results from mutations in the ClCN7 chloride channel gene.	Hum Mol Genet. 10: 2861-2867, 2001.
 14043	19793311	Mutational spectrum of CDKL5 in early-onset encephalopathies: a study of a large collection of French patients and review of the literature.	Clin Genet. 76: 357-371, 2009.
 14046	23519211	Deciphering the glycosylome of dystroglycanopathies using haploid screens for lassa virus entry.	Science. 340: 479-483, 2013.
 14065	22333901	Symmetric polymicrogyria and pachygyria associated with TUBB2B gene mutations.	Eur J Hum Genet. 20: 995-998, 2012.
@@ -1719,7 +1719,7 @@
 14605	1605230	Spastic paraplegia with iron deposits in the basal ganglia: a new X-linked mental retardation syndrome.	Am J Med Genet. 43: 479-490, 1992.
 14610	16804542	Mutations in the gene encoding pejvakin, a newly identified protein of the afferent auditory pathway, cause DFNB59 auditory neuropathy.	Nat Genet. 38: 770-778, 2006.
 14618	15846561	Heterozygous mutations of OTX2 cause severe ocular malformations.	Am J Hum Genet. 76: 1008-1022, 2005.
-14621	16282977	Mutations in SIL1 cause Marinesco-SjÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¶gren syndrome, a cerebellar ataxia with cataract and myopathy.	Nat Genet. 37: 1312-1314, 2005.
+14621	16282977	Mutations in SIL1 cause Marinesco-SjÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¶gren syndrome, a cerebellar ataxia with cataract and myopathy.	Nat Genet. 37: 1312-1314, 2005.
 14622	22922874	Mutations in ABCD4 cause a new inborn error of vitamin B12 metabolism.	Nat Genet. 44: 1152-1155, 2012.
 14625	10839543	Genomic rearrangement in NEMO impairs NF-kappaB activation and is a cause of incontinentia pigmenti. The International Incontinentia Pigmenti (IP) Consortium.	Nature. 405: 466-472, 2000.
 14627	12754705	Mutation analysis in patients with N-acetylglutamate synthase deficiency.	Hum Mutat. 21: 593-597, 2003.
@@ -1935,7 +1935,7 @@
 16288	14991055	Mutations in the gene encoding filamin B disrupt vertebral segmentation, joint formation and skeletogenesis.	Nat Genet. 36: 405-410, 2004.
 16290	9690476	An ancient retrotransposal insertion causes Fukuyama-type congenital muscular dystrophy.	Nature. 394: 388-392, 1998.
 16294	9538513	Human UDP-galactose 4' epimerase (GALE) gene and identification of five missense mutations in patients with epimerase-deficiency galactosemia.	Mol Genet Metab. 63: 26-30, 1998.
-16309	23023332	Mutations in the TGF-ÃƒÆ’Ã†â€™Ãƒâ€¦Ã‚Â½ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â² repressor SKI cause Shprintzen-Goldberg syndrome with aortic aneurysm.	Nat Genet. 44: 1249-1254, 2012.
+16309	23023332	Mutations in the TGF-ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â½ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â² repressor SKI cause Shprintzen-Goldberg syndrome with aortic aneurysm.	Nat Genet. 44: 1249-1254, 2012.
 16311	16311595	Identification of the gene responsible for methylmalonic aciduria and homocystinuria, cblC type.	Nat Genet. 38: 93-100, 2006.
 16321	10973251	Mutations in MKKS cause obesity, retinal dystrophy and renal malformations associated with Bardet-Biedl syndrome.	Nat Genet. 26: 67-70, 2000.
 16328	17850630	Distribution and frequencies of CDH23 mutations in Japanese patients with non-syndromic hearing loss.	Clin Genet. 72: 339-344, 2007.
@@ -1980,7 +1980,7 @@
 16696	22500628	Somatic activation of AKT3 causes hemispheric developmental brain malformations.	Neuron. 74: 41-48, 2012.
 16721	8659540	A duplicated PLP gene causing Pelizaeus-Merzbacher disease detected by comparative multiplex PCR.	Am J Hum Genet. 59: 32-39, 1996.
 16733	9762612	A fucosidosis patient with relative longevity and a missense mutation in exon 7 of the alpha-fucosidase gene.	J Inherit Metab Dis. 21: 688-689, 1998.
-16741	22424600	Mutations in ROGDI Cause KohlschÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¼tter-TÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¶nz Syndrome.	Am J Hum Genet. 90: 701-707, 2012.
+16741	22424600	Mutations in ROGDI Cause KohlschÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¼tter-TÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¶nz Syndrome.	Am J Hum Genet. 90: 701-707, 2012.
 16759	12376936	Late infantile neuronal ceroid lipofuscinosis: quantitative description of the clinical course in patients with CLN2 mutations.	Am J Med Genet. 112: 347-354, 2002.
 16768	17935213	Arterial tortuosity syndrome: clinical and molecular findings in 12 newly identified families.	Hum Mutat. 29: 150-158, 2008.
 16774	21964829	Fetal akinesia in metatropic dysplasia: The combined phenotype of chondrodysplasia and neuropathy?	Am J Med Genet A. 155A: 2860-2864, 2011.
@@ -2034,7 +2034,7 @@
 17271	10441570	The phenotypic spectrum of GLI3 morphopathies includes autosomal dominant preaxial polydactyly type-IV and postaxial polydactyly type-A/B; No phenotype prediction from the position of GLI3 mutations.	Am J Hum Genet. 65: 645-655, 1999.
 17272	16900296	A novel deletion mutation in CENPJ gene in a Pakistani family with autosomal recessive primary microcephaly.	J Hum Genet. 51: 760-764, 2006.
 17287	12297989	Autosomal dominant familial calcium pyrophosphate dihydrate deposition disease is caused by mutation in the transmembrane protein ANKH.	Am J Hum Genet. 71: 985-991, 2002.
-17295	23453667	Mutations in B3GALNT2 cause congenital muscular dystrophy and hypoglycosylation of ÃƒÆ’Ã†â€™Ãƒâ€¦Ã‚Â½ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â±-dystroglycan.	Am J Hum Genet. 92: 354-365, 2013.
+17295	23453667	Mutations in B3GALNT2 cause congenital muscular dystrophy and hypoglycosylation of ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â½ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â±-dystroglycan.	Am J Hum Genet. 92: 354-365, 2013.
 17299	12554676	Tissue-specific RNA surveillance? Nonsense-mediated mRNA decay causes collagen X haploinsufficiency in Schmid metaphyseal chondrodysplasia cartilage.	Hum Mol Genet. 12: 217-225, 2003.
 17321	21737058	Exome sequencing identifies CCDC8 mutations in 3-M syndrome, suggesting that CCDC8 contributes in a pathway with CUL7 and OBSL1 to control human growth.	Am J Hum Genet. 89: 148-153, 2011.
 17322	19225462	A large-scale mutation search reveals genetic heterogeneity in 3M syndrome.	Eur J Hum Genet. 17: 395-400, 2009.
@@ -2092,7 +2092,7 @@
 17685	2079835	Beta-mannosidase deficiency: heterogeneous manifestation in the first female patient and her brother.	J Inherit Metab Dis. 13: 867-872, 1990.
 17688	9804340	Xeroderma pigmentosum group C splice mutation associated with autism and hypoglycinemia.	J Invest Dermatol. 111: 791-796, 1998.
 17718	2023926	Niemann-Pick disease: a frequent missense mutation in the acid sphingomyelinase gene of Ashkenazi Jewish type A and B patients.	Proc Natl Acad Sci U S A. 88: 3748-3752, 1991.
-17724	17850632	Molecular analysis and long-term clinical evaluation of three siblings with AlstrÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¶m syndrome.	Clin Genet. 72: 351-356, 2007.
+17724	17850632	Molecular analysis and long-term clinical evaluation of three siblings with AlstrÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¶m syndrome.	Clin Genet. 72: 351-356, 2007.
 17732	17186472	Leigh syndrome with nephropathy and CoQ10 deficiency due to decaprenyl diphosphate synthase subunit 2 (PDSS2) mutations.	Am J Hum Genet. 79: 1125-1129, 2006.
 17744	11093276	Spectrum of mutations in the Fanconi anaemia group G gene, FANCG/XRCC9.	Eur J Hum Genet. 8: 861-868, 2000.
 17751	9590180	Nibrin, a novel DNA double-strand break repair protein, is mutated in Nijmegen breakage syndrome.	Cell. 93: 467-476, 1998.
@@ -2117,7 +2117,7 @@
 17958	23122588	Mutations in COX7B cause microphthalmia with linear skin lesions, an unconventional mitochondrial disease.	Am J Hum Genet. 91: 942-949, 2012.
 17972	12215968	GRACILE syndrome, a lethal metabolic disorder with iron overload, is caused by a point mutation in BCS1L.	Am J Hum Genet. 71: 863-876, 2002.
 17982	9215670	Elastin point mutations cause an obstructive vascular disease, supravalvular aortic stenosis.	Hum Mol Genet. 6: 1021-1028, 1997.
-17988	21953331	Mutations in proteasome subunit ÃƒÆ’Ã†â€™Ãƒâ€¦Ã‚Â½ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â² type 8 cause chronic atypical neutrophilic dermatosis with lipodystrophy and elevated temperature with evidence of genetic and phenotypic heterogeneity.	Arthritis Rheum. 64: 895-907, 2012.
+17988	21953331	Mutations in proteasome subunit ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â½ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â² type 8 cause chronic atypical neutrophilic dermatosis with lipodystrophy and elevated temperature with evidence of genetic and phenotypic heterogeneity.	Arthritis Rheum. 64: 895-907, 2012.
 17992	7842019	Occipital horn syndrome and a mild Menkes phenotype associated with splice site mutations at the MNK locus.	Nat Genet. 8: 195-202, 1994.
 18006	11502839	A novel mutation (Q40P) in PAX8 associated with congenital hypothyroidism and thyroid hypoplasia: evidence for phenotypic variability in mother and child.	J Clin Endocrinol Metab. 86: 3962-3967, 2001.
 18016	10777357	Marie Unna hereditary hypotrichosis gene maps to human chromosome 8p21 near hairless.	J Invest Dermatol. 114: 595-597, 2000.
@@ -2137,7 +2137,7 @@
 18195	18830232	Mutational analysis of the ACVR1 gene in Italian patients affected with fibrodysplasia ossificans progressiva: confirmations and advancements.	Eur J Hum Genet. 17: 311-318, 2009.
 18203	15637728	A novel GJA1 mutation causes oculodentodigital dysplasia without syndactyly.	Am J Med Genet A. 133A: 58-60, 2005.
 18230	16308660	BBS8 is rarely mutated in a cohort of 128 Bardet-Biedl syndrome families.	J Hum Genet. 51: 81-84, 2006.
-18236	11941369	Mutations in ALMS1 cause obesity, type 2 diabetes and neurosensory degeneration in AlstrÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¶m syndrome.	Nat Genet. 31: 74-78, 2002.
+18236	11941369	Mutations in ALMS1 cause obesity, type 2 diabetes and neurosensory degeneration in AlstrÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¶m syndrome.	Nat Genet. 31: 74-78, 2002.
 18241	8664897	Mucopolysaccharidosis type I: identification of common mutations that cause Hurler and Scheie syndromes in Japanese populations.	Hum Mutat. 7: 23-29, 1996.
 18242	9430594	A potassium channel mutation in neonatal human epilepsy.	Science. 279: 403-406, 1998.
 18243	8408834	Xeroderma pigmentosum-Cockayne syndrome complex in two patients: absence of skin tumors despite severe deficiency of DNA excision repair.	J Am Acad Dermatol. 29: 883-889, 1993.
@@ -2151,7 +2151,7 @@
 18320	18408718	Mutations in TMPRSS6 cause iron-refractory iron deficiency anemia (IRIDA).	Nat Genet. 40: 569-571, 2008.
 18340	10980529	Mutational analysis of GLUT1 (SLC2A1) in Glut-1 deficiency syndrome.	Hum Mutat. 16: 224-231, 2000.
 18342	9170407	Evidence for a dystrophin missense mutation as a cause of X-linked dilated cardiomyopathy.	Circulation. 95: 2434-2440, 1997.
-18359	21129723	PSMB8 encoding the ÃƒÆ’Ã†â€™Ãƒâ€¦Ã‚Â½ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â²5i proteasome subunit is mutated in joint contractures, muscle atrophy, microcytic anemia, and panniculitis-induced lipodystrophy syndrome.	Am J Hum Genet. 87: 866-872, 2010.
+18359	21129723	PSMB8 encoding the ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â½ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â²5i proteasome subunit is mutated in joint contractures, muscle atrophy, microcytic anemia, and panniculitis-induced lipodystrophy syndrome.	Am J Hum Genet. 87: 866-872, 2010.
 18364	24424123	Delineation of C12orf65-related phenotypes: a genotype-phenotype relationship.	Eur J Hum Genet. 22: 1019-1025, 2014.
 18365	17290294	A familial childhood-onset relapsing nephrotic syndrome.	Kidney Int. 71: 946-951, 2007.
 18366	9463337	HMG CoA lyase deficiency: identification of five causal point mutations in codons 41 and 42, including a frequent Saudi Arabian mutation, R41Q.	Am J Hum Genet. 62: 295-300, 1998.
@@ -2288,14 +2288,14 @@
 19572	16116617	Mutation spectrum and functional analysis of epidermis-type lipoxygenases in patients with autosomal recessive congenital ichthyosis.	Hum Mutat. 26: 351-361, 2005.
 19574	20082460	Aarskog-Scott syndrome: clinical update and report of nine novel mutations of the FGD1 gene.	Am J Med Genet A. 152A: 313-318, 2010.
 19577	8530105	A 4-megabase YAC contig that spans the Langer-Giedion syndrome region on human chromosome 8q24.1: use in refining the location of the trichorhinophalangeal syndrome and multiple exostoses genes (TRPS1 and EXT1).	Genomics. 29: 87-97, 1995.
-19581	21877133	Novel Alu retrotransposon insertion leading to AlstrÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¶m syndrome.	Hum Genet. 131: 407-413, 2012.
+19581	21877133	Novel Alu retrotransposon insertion leading to AlstrÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¶m syndrome.	Hum Genet. 131: 407-413, 2012.
 19582	23246290	Mutations in SNRPE, which encodes a core protein of the spliceosome, cause autosomal-dominant hypotrichosis simplex.	Am J Hum Genet. 92: 81-87, 2013.
 19588	22577224	Whole exome sequencing identifies a splicing mutation in NSUN2 as a cause of a Dubowitz-like syndrome.	J Med Genet. 49: 380-385, 2012.
 19597	9529346	The African origin of the common mutation in African American patients with glycogen-storage disease type II.	Am J Hum Genet. 62: 991-994, 1998.
 19603	19668216	Mutations in INPP5E, encoding inositol polyphosphate-5-phosphatase E, link phosphatidyl inositol signaling to the ciliopathies.	Nat Genet. 41: 1032-1036, 2009.
 19620	10835633	Mutations in LHX3 result in a new syndrome revealed by combined pituitary hormone deficiency.	Nat Genet. 25: 182-186, 2000.
 19633	18174396	Mutations in the pericentrin (PCNT) gene cause primordial dwarfism.	Science. 319: 816-819, 2008.
-19636	16845398	Mutations in the gene encoding the 3'-5' DNA exonuclease TREX1 cause Aicardi-GoutiÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¨res syndrome at the AGS1 locus.	Nat Genet. 38: 917-920, 2006.
+19636	16845398	Mutations in the gene encoding the 3'-5' DNA exonuclease TREX1 cause Aicardi-GoutiÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¨res syndrome at the AGS1 locus.	Nat Genet. 38: 917-920, 2006.
 19641	18070134	Identification of a novel TGFBR1 mutation in a Loeys-Dietz syndrome type II patient with vascular Ehlers-Danlos syndrome phenotype.	Clin Genet. 73: 290-293, 2008.
 19659	8948562	The pathophysiology and genetics of congenital lipoid adrenal hyperplasia.	N Engl J Med. 335: 1870-1878, 1996.
 19677	11232006	Autosomal dominant transmission of congenital thyroid hypoplasia due to loss-of-function mutation of PAX8.	J Clin Endocrinol Metab. 86: 234-238, 2001.
@@ -2325,7 +2325,7 @@
 19866	8944027	Retinal-specific guanylate cyclase gene mutations in Leber's congenital amaurosis.	Nat Genet. 14: 461-464, 1996.
 19877	16688751	A missense mutation in the ZFHX1B gene associated with an atypical Mowat-Wilson syndrome phenotype.	Am J Med Genet A. 140: 1223-1227, 2006.
 19881	18409203	The arthrochalasia type of Ehlers-Danlos syndrome (EDS VIIA and VIIB): the diagnostic value of collagen fibril ultrastructure.	Am J Med Genet A. 146A: 1341-1346, 2008.
-19896	12415272	Mutations in PHF6 are associated with BÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¶rjeson-Forssman-Lehmann syndrome.	Nat Genet. 32: 661-665, 2002.
+19896	12415272	Mutations in PHF6 are associated with BÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¶rjeson-Forssman-Lehmann syndrome.	Nat Genet. 32: 661-665, 2002.
 19906	8845844	Missense FGFR3 mutations create cysteine residues in thanatophoric dwarfism type I (TD1).	Hum Mol Genet. 5: 509-512, 1996.
 19919	19786696	De novo mutations of voltage-gated sodium channel alphaII gene SCN2A in intractable epilepsies.	Neurology. 73: 1046-1053, 2009.
 19935	21439540	A mutation in LIPN, encoding epidermal lipase N, causes a late-onset form of autosomal-recessive congenital ichthyosis.	Am J Hum Genet. 88: 482-487, 2011.
@@ -2353,7 +2353,7 @@
 20067	18854860	Xq28 duplication presenting with intestinal and bladder dysfunction and a distinctive facial appearance.	Eur J Hum Genet. 17: 434-443, 2009.
 20092	7833915	Assignment of a locus for dominantly inherited venous malformations to chromosome 9p.	Hum Mol Genet. 3: 1583-1587, 1994.
 20096	22883145	TCTN3 mutations cause Mohr-Majewski syndrome.	Am J Hum Genet. 91: 372-378, 2012.
-20098	22512483	Integrin ÃƒÆ’Ã†â€™Ãƒâ€¦Ã‚Â½ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â±3 mutations with kidney, lung, and skin disease.	N Engl J Med. 366: 1508-1514, 2012.
+20098	22512483	Integrin ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â½ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â±3 mutations with kidney, lung, and skin disease.	N Engl J Med. 366: 1508-1514, 2012.
 20111	19481194	Mutations in the heparan-sulfate proteoglycan glypican 6 (GPC6) impair endochondral ossification and cause recessive omodysplasia.	Am J Hum Genet. 84: 760-770, 2009.
 20117	9020840	A human homologue of the Drosophila eyes absent gene underlies branchio-oto-renal (BOR) syndrome and identifies a novel gene family.	Nat Genet. 15: 157-164, 1997.
 20123	8252036	Cloning of the human aspartoacylase cDNA and a common missense mutation in Canavan disease.	Nat Genet. 5: 118-123, 1993.
@@ -2391,7 +2391,7 @@
 20350	1605226	New X-linked syndrome with seizures, acquired micrencephaly, and agenesis of the corpus callosum.	Am J Med Genet. 43: 458-466, 1992.
 20352	7586649	Clinical and molecular analysis of a Japanese boy with Morquio B disease.	Clin Genet. 48: 103-108, 1995.
 20354	16816024	A nonsense mutation in the first transmembrane domain of connexin 43 underlies autosomal recessive oculodentodigital syndrome.	J Med Genet. 43: e37, 2006.
-20361	16282978	The gene disrupted in Marinesco-SjÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¶gren syndrome encodes SIL1, an HSPA5 cochaperone.	Nat Genet. 37: 1309-1311, 2005.
+20361	16282978	The gene disrupted in Marinesco-SjÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¶gren syndrome encodes SIL1, an HSPA5 cochaperone.	Nat Genet. 37: 1309-1311, 2005.
 20368	17033958	Mutations in TMEM76* cause mucopolysaccharidosis IIIC (Sanfilippo C syndrome).	Am J Hum Genet. 79: 807-819, 2006.
 20371	22892527	Prevalence of SHANK3 variants in patients with different subtypes of autism spectrum disorders.	Eur J Hum Genet. 21: 310-316, 2013.
 20380	21671392	A loss of function mutation in the COL9A2 gene causes autosomal recessive Stickler syndrome.	Am J Med Genet A. 155A: 1668-1672, 2011.
@@ -2513,7 +2513,7 @@
 21375	17468754	IFT80, which encodes a conserved intraflagellar transport protein, is mutated in Jeune asphyxiating thoracic dystrophy.	Nat Genet. 39: 727-729, 2007.
 21382	9585612	Amerindian pyruvate carboxylase deficiency is associated with two distinct missense mutations.	Am J Hum Genet. 62: 1312-1319, 1998.
 21387	11586299	Early-onset ataxia with ocular motor apraxia and hypoalbuminemia is caused by mutations in a new HIT superfamily gene.	Nat Genet. 29: 184-188, 2001.
-21453	16411202	Yellow teeth, seizures, and mental retardation: a less severe case of KohlschÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¼tter-TÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¶nz syndrome.	Am J Med Genet A. 140: 281-283, 2006.
+21453	16411202	Yellow teeth, seizures, and mental retardation: a less severe case of KohlschÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¼tter-TÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¶nz syndrome.	Am J Med Genet A. 140: 281-283, 2006.
 21454	8199595	Pyruvate dehydrogenase deficiency in a male caused by a point mutation (F205L) in the E1 alpha subunit.	Hum Mutat. 3: 152-155, 1994.
 21467	17256797	Skin changes in oculo-dento-digital dysplasia are correlated with C-terminal truncations of connexin 43.	Am J Med Genet A. 143: 360-363, 2007.
 21472	12815595	The molecular basis of glutamate formiminotransferase deficiency.	Hum Mutat. 22: 67-73, 2003.
@@ -2664,7 +2664,7 @@
 22762	11093271	PAX2 mutations in renal-coloboma syndrome: mutational hotspot and germline mosaicism.	Eur J Hum Genet. 8: 820-826, 2000.
 22768	16411201	Monoallelic BUB1B mutations and defective mitotic-spindle checkpoint in seven families with premature chromatid separation (PCS) syndrome.	Am J Med Genet A. 140: 358-367, 2006.
 22797	11013442	High mutation detection rate in TCOF1 among Treacher Collins syndrome patients reveals clustering of mutations and 16 novel pathogenic changes.	Hum Mutat. 16: 315-322, 2000.
-22808	11704931	Spinal neurofibromatosis without cafÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â©-au-lait macules in two families with null mutations of the NF1 gene.	Am J Hum Genet. 69: 1395-1400, 2001.
+22808	11704931	Spinal neurofibromatosis without cafÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â©-au-lait macules in two families with null mutations of the NF1 gene.	Am J Hum Genet. 69: 1395-1400, 2001.
 22822	18231121	Mutation screening of the Ectodysplasin-A receptor gene EDAR in hypohidrotic ectodermal dysplasia.	Eur J Hum Genet. 16: 673-679, 2008.
 22828	17044012	Fukutin gene mutations in steroid-responsive limb girdle muscular dystrophy.	Ann Neurol. 60: 603-610, 2006.
 22831	2574462	Arylsulfatase A pseudodeficiency: loss of a polyadenylylation signal and N-glycosylation site.	Proc Natl Acad Sci U S A. 86: 9436-9440, 1989.
@@ -2720,7 +2720,7 @@
 23272	17970811	A novel mutation in the VDR gene in hereditary vitamin D-resistant rickets.	Br J Dermatol. 158: 168-171, 2008.
 23274	11359211	De novo mutations in the sodium-channel gene SCN1A cause severe myoclonic epilepsy of infancy.	Am J Hum Genet. 68: 1327-1332, 2001.
 23275	20581743	Identification of GATA6 sequence variants in patients with congenital heart defects.	Pediatr Res. 68: 281-285, 2010.
-23285	7625549	A further family with epilepsy, dementia and yellow teeth: the KohlschÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¼tter syndrome.	Brain Dev. 17: 133-8; discussion 142-3, 1995.
+23285	7625549	A further family with epilepsy, dementia and yellow teeth: the KohlschÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¼tter syndrome.	Brain Dev. 17: 133-8; discussion 142-3, 1995.
 23297	9536089	Acyl-CoA:dihydroxyacetonephosphate acyltransferase: cloning of the human cDNA and resolution of the molecular basis in rhizomelic chondrodysplasia punctata type 2.	Hum Mol Genet. 7: 847-853, 1998.
 23309	1550586	Intermediate form of mucopolysaccharidosis type II (Hunter disease): a C1327 to T substitution in the iduronate sulfatase gene.	Biochem Biophys Res Commun. 183: 809-813, 1992.
 23320	18728072	Refinement of cortical dysgeneses spectrum associated with TUBA1A mutations.	J Med Genet. 45: 647-653, 2008.
@@ -2777,7 +2777,7 @@
 23578	9106533	Further delineation of renal-coloboma syndrome in patients with extreme variability of phenotype and identical PAX2 mutations.	Am J Hum Genet. 60: 869-878, 1997.
 23579	11121128	Clinical, cellular, and molecular features of an Israeli xeroderma pigmentosum family with a frameshift mutation in the XPC gene: sun protection prolongs life.	J Invest Dermatol. 115: 974-980, 2000.
 23580	9661642	A novel mutation affecting the interdomain link region of the growth hormone receptor in a Vietnamese girl, and response to long-term treatment with recombinant human insulin-like growth factor-I and luteinizing hormone-releasing hormone analogue.	J Clin Endocrinol Metab. 83: 2554-2561, 1998.
-23581	9250352	Mutations associated with SjÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¶gren-Larsson syndrome.	Ann Hum Genet. 61: 235-242, 1997.
+23581	9250352	Mutations associated with SjÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¶gren-Larsson syndrome.	Ann Hum Genet. 61: 235-242, 1997.
 23582	10523019	A frame-shift mutation in the type I parathyroid hormone (PTH)/PTH-related peptide receptor causing Blomstrand lethal osteochondrodysplasia.	J Clin Endocrinol Metab. 84: 3713-3720, 1999.
 23583	9195225	DNA repair characteristics and mutations in the ERCC2 DNA repair and transcription gene in a trichothiodystrophy patient.	Hum Mutat. 9: 519-525, 1997.
 23584	1895316	Characterisation of a glycine to valine substitution at amino acid position 910 of the triple helical region of type III collagen in a patient with Ehlers-Danlos syndrome type IV.	J Med Genet. 28: 458-463, 1991.
@@ -2842,7 +2842,7 @@
 23658	9143918	Norrie disease gene mutation in a large Costa Rican kindred with a novel phenotype including venous insufficiency.	Hum Mutat. 9: 402-408, 1997.
 23659	9837823	Multiple molecular mechanisms underlying subdiagnostic variants of Marfan syndrome.	Am J Hum Genet. 63: 1703-1711, 1998.
 23660	16773572	Germline missense mutations affecting KRAS Isoform B are associated with a severe Noonan syndrome phenotype.	Am J Hum Genet. 79: 129-135, 2006.
-23662	9254849	A missense mutation in the FALDH gene identified in SjÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¶gren-Larsson syndrome patients originating from the northern part of Sweden.	Hum Genet. 100: 201-203, 1997.
+23662	9254849	A missense mutation in the FALDH gene identified in SjÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¶gren-Larsson syndrome patients originating from the northern part of Sweden.	Hum Genet. 100: 201-203, 1997.
 23663	8326489	Two new mutations in the dihydropteridine reductase gene in patients with tetrahydrobiopterin deficiency.	J Med Genet. 30: 465-469, 1993.
 23664	10839884	Children with ocular motor apraxia type Cogan carry deletions in the gene (NPHP1) for juvenile nephronophthisis.	J Pediatr. 136: 828-831, 2000.
 23665	7683951	A missense mutation in the proteolipid protein gene responsible for Pelizaeus-Merzbacher disease in a Japanese family.	Hum Mol Genet. 2: 19-22, 1993.
@@ -3075,7 +3075,7 @@
 23967	9586546	Mutations in fibroblast growth factor receptor 2 gene and craniosynostotic syndromes in Japanese children.	J Craniofac Surg. 9: 162-170, 1998.
 23968	9643285	A silent mutation, C924T (G308G), in the L1CAM gene results in X linked hydrocephalus (HSAS).	J Med Genet. 35: 456-462, 1998.
 23969	12675839	Atypical familial juvenile hyperuricemic nephropathy associated with a hepatocyte nuclear factor-1beta gene mutation.	Kidney Int. 63: 1645-1651, 2003.
-23970	10792573	A novel point mutation of the FALDH gene in a Japanese family with SjÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¶gren-Larsson syndrome.	J Invest Dermatol. 114: 1065-1066, 2000.
+23970	10792573	A novel point mutation of the FALDH gene in a Japanese family with SjÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¶gren-Larsson syndrome.	J Invest Dermatol. 114: 1065-1066, 2000.
 23971	12837689	Heterozygous mutations in BBS1, BBS2 and BBS6 have a potential epistatic effect on Bardet-Biedl patients with two mutations at a second BBS locus.	Hum Mol Genet. 12: 1651-1659, 2003.
 23972	12424709	Molecular analysis of the cyclic AMP-dependent protein kinase A (PKA) regulatory subunit 1A (PRKAR1A) gene in patients with Carney complex and primary pigmented nodular adrenocortical disease (PPNAD) reveals novel mutations and clues for pathophysiology: augmented PKA signaling is associated with adrenal tumorigenesis in PPNAD.	Am J Hum Genet. 71: 1433-1442, 2002.
 23973	7981715	Complex arylsulfatase A alleles causing metachromatic leukodystrophy.	Hum Mutat. 4: 119-127, 1994.
@@ -3155,7 +3155,7 @@
 24067	15287423	Neonatal Marfan syndrome caused by an exon 25 mutation of the fibrillin-1 gene.	Genet Couns. 15: 219-225, 2004.
 24068	9342192	Novel cystatin B mutation and diagnostic PCR assay in an Unverricht-Lundborg progressive myoclonus epilepsy patient.	Am J Med Genet. 74: 467-471, 1997.
 24069	11889214	SHOX nullizygosity and haploinsufficiency in a Japanese family: implication for the development of Turner skeletal features.	J Clin Endocrinol Metab. 87: 1390-1394, 2002.
-24070	8528251	SjÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¶gren-Larsson syndrome is caused by mutations in the fatty aldehyde dehydrogenase gene.	Nat Genet. 12: 52-57, 1996.
+24070	8528251	SjÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¶gren-Larsson syndrome is caused by mutations in the fatty aldehyde dehydrogenase gene.	Nat Genet. 12: 52-57, 1996.
 24071	2233247	Sequence of a cDNA encoding human galactose-1-phosphate uridyl transferase.	Mol Biol Med. 7: 365-369, 1990.
 24074	8430702	Occurrence of a 2-bp (AT) deletion allele and a nonsense (G-to-T) mutant allele at the E2 (DBT) locus of six patients with maple syrup urine disease: multiple-exon skipping as a secondary effect of the mutations.	Am J Hum Genet. 52: 414-424, 1993.
 24075	9744480	A phosphoglycerate kinase mutant (PGK Herlev; D285V) in a Danish patient with isolated chronic hemolytic anemia: mechanism of mutation and structure-function relationships.	Hum Mutat. 12: 280-287, 1998.
@@ -3336,7 +3336,7 @@
 24323	8318997	Mutations of the fumarylacetoacetate hydrolase gene in four patients with tyrosinemia, type I.	Hum Mutat. 2: 85-93, 1993.
 24324	7929823	A novel mutation in medium chain acyl-CoA dehydrogenase causes sudden neonatal death.	J Clin Invest. 94: 1477-1483, 1994.
 24325	1355630	Deletion of the Hunter gene and both DXS466 and DXS304 in a patient with mucopolysaccharidosis type II.	Am J Med Genet. 44: 100-103, 1992.
-24328	7985018	Molecular basis of mammalian sexual determination: activation of MÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¼llerian inhibiting substance gene expression by SRY.	Science. 266: 1494-1500, 1994.
+24328	7985018	Molecular basis of mammalian sexual determination: activation of MÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¼llerian inhibiting substance gene expression by SRY.	Science. 266: 1494-1500, 1994.
 24329	1601417	Point mutations and polymorphisms in the human dystrophin gene identified in genomic DNA sequences amplified by multiplex PCR.	Hum Genet. 89: 253-258, 1992.
 24330	10777358	A novel 5' (4041insA) mutation in a patient with numerous manifestations of Cowden disease.	J Invest Dermatol. 114: 597-598, 2000.
 24331	8320698	A T+6 to C+6 mutation in the donor splice site of COL3A1 IVS7 causes exon skipping and results in Ehlers-Danlos syndrome type IV.	J Med Genet. 30: 376-380, 1993.
@@ -3357,7 +3357,7 @@
 24348	12844284	Germline PTEN promoter mutations and deletions in Cowden/Bannayan-Riley-Ruvalcaba syndrome result in aberrant PTEN protein and dysregulation of the phosphoinositol-3-kinase/Akt pathway.	Am J Hum Genet. 73: 404-411, 2003.
 24349	10720943	Abnormal nephron development associated with a frameshift mutation in the transcription factor hepatocyte nuclear factor-1 beta.	Kidney Int. 57: 898-907, 2000.
 24350	8439212	Detection of point mutations in the Kirsten-ras oncogene provides evidence for the multicentricity of pancreatic carcinoma.	Ann Surg. 217: 138-143, 1993.
-24351	10942423	The Conradi-HÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¼nermann-Happle syndrome (CDPX2) and emopamil binding protein: novel mutations, and somatic and gonadal mosaicism.	Hum Mol Genet. 9: 1951-1955, 2000.
+24351	10942423	The Conradi-HÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¼nermann-Happle syndrome (CDPX2) and emopamil binding protein: novel mutations, and somatic and gonadal mosaicism.	Hum Mol Genet. 9: 1951-1955, 2000.
 24355	8353501	Molecular defect in a patient with pyridoxine-responsive homocystinuria.	Hum Mol Genet. 2: 815-816, 1993.
 24357	1972503	Molecular lesion in patients with medium-chain acyl-CoA dehydrogenase deficiency.	Lancet. 335: 1589, 1990.
 24358	19897589	Overexpression of Hr links excessive induction of Wnt signaling to Marie Unna hereditary hypotrichosis.	Hum Mol Genet. 19: 445-453, 2010.
@@ -3429,7 +3429,7 @@
 24446	8098182	Single base mutation that substitutes glutamic acid for glycine 1021 in the COL3A1 gene and causes Ehlers-Danlos syndrome type IV.	Am J Med Genet. 46: 278-283, 1993.
 24447	10602363	Carbohydrate-deficient glycoprotein syndrome type 1A: expression and characterisation of wild type and mutant PMM2 in E. coli.	Eur J Hum Genet. 7: 884-888, 1999.
 24448	17546645	Mutational spectrum of MYO15A: the large N-terminal extension of myosin XVA is required for hearing.	Hum Mutat. 28: 1014-1019, 2007.
-24449	17026626	A novel mutation in BAP/SIL1 gene causes Marinesco-SjÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¶gren syndrome in an extended pedigree.	Clin Genet. 70: 420-423, 2006.
+24449	17026626	A novel mutation in BAP/SIL1 gene causes Marinesco-SjÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¶gren syndrome in an extended pedigree.	Clin Genet. 70: 420-423, 2006.
 24451	8986632	Dideoxyfingerprinting (ddF) analysis of the type X collagen gene (COL10A1) and identification of a novel mutation (S671P) in a kindred with Schmid metaphyseal chondrodysplasia.	Biochem Mol Med. 59: 112-117, 1996.
 24452	7981590	A possible missense mutation detected in the dystrophin gene by Double-Strand Conformation Analysis (DSCA).	Neuromuscul Disord. 4: 335-341, 1994.
 24454	1349576	Identification of three novel PKU mutations among Chinese: evidence for recombination or recurrent mutation at the PAH locus.	Genomics. 13: 230-231, 1992.
@@ -3475,7 +3475,7 @@
 24506	10767332	Characterization of the sialidase molecular defects in sialidosis patients suggests the structural organization of the lysosomal multienzyme complex.	Hum Mol Genet. 9: 1075-1085, 2000.
 24507	12016587	BBS4 is a minor contributor to Bardet-Biedl syndrome and may also participate in triallelic inheritance.	Am J Hum Genet. 71: 22-29, 2002.
 24511	8869397	Molecular basis of galactose-1-phosphate uridyltransferase deficiency involving skeletal muscle.	J Neurol. 243: 102-103, 1996.
-24513	15466013	A novel PHF6 mutation results in enhanced exon skipping and mild BÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¶rjeson-Forssman-Lehmann syndrome.	J Med Genet. 41: 778-783, 2004.
+24513	15466013	A novel PHF6 mutation results in enhanced exon skipping and mild BÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¶rjeson-Forssman-Lehmann syndrome.	J Med Genet. 41: 778-783, 2004.
 24514	2840952	Phenylalanine hydroxylase deficiency caused by a single base substitution in an exon of the human phenylalanine hydroxylase gene.	Biochemistry. 27: 2881-2885, 1988.
 24516	2011574	Molecular basis of galactosemia: mutations and polymorphisms in the gene encoding human galactose-1-phosphate uridylyltransferase.	Proc Natl Acad Sci U S A. 88: 2633-2637, 1991.
 24517	19489875	Protracted course of juvenile ceroid lipofuscinosis associated with a novel CLN3 mutation (p.Y199X).	Clin Genet. 76: 38-45, 2009.
@@ -3531,7 +3531,7 @@
 24577	10190324	Supravalvular aortic stenosis: a splice site mutation within the elastin gene results in reduced expression of two aberrantly spliced transcripts.	Hum Genet. 104: 135-142, 1999.
 24580	14560312	Novel missense mutations in the TRPS1 transcription factor define the nuclear localization signal.	Eur J Hum Genet. 12: 121-126, 2004.
 24581	1897530	Molecular characterization of two galactosemia mutations: correlation of mutations with highly conserved domains in galactose-1-phosphate uridyl transferase.	Am J Hum Genet. 49: 860-867, 1991.
-24582	10577908	The molecular basis of SjÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¶gren-Larsson syndrome: mutation analysis of the fatty aldehyde dehydrogenase gene.	Am J Hum Genet. 65: 1547-1560, 1999.
+24582	10577908	The molecular basis of SjÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¶gren-Larsson syndrome: mutation analysis of the fatty aldehyde dehydrogenase gene.	Am J Hum Genet. 65: 1547-1560, 1999.
 24584	8571952	Defects in the DNA repair and transcription gene ERCC2(XPD) in trichothiodystrophy.	Am J Hum Genet. 58: 263-270, 1996.
 24585	8401540	Type A Niemann-Pick disease: a frameshift mutation in the acid sphingomyelinase gene (fsP330) occurs in Ashkenazi Jewish patients.	Hum Mutat. 2: 317-319, 1993.
 24586	9328482	Two different connexin 26 mutations in an inbred kindred segregating non-syndromic recessive deafness: implications for genetic studies in isolated populations.	Hum Mol Genet. 6: 2163-2172, 1997.
@@ -3548,13 +3548,13 @@
 24598	23934111	De novo mutations in epileptic encephalopathies.	Nature. 501: 217-221, 2013.
 24599	23891471	Mutations in ZMYND10, a gene essential for proper axonemal assembly of inner and outer dynein arms in humans and flies, cause primary ciliary dyskinesia.	Am J Hum Genet. 93: 346-356, 2013.
 24600	21493957	Multiple congenital anomalies-hypotonia-seizures syndrome is caused by a mutation in PIGN.	J Med Genet. 48: 383-389, 2011.
-24601	23768512	Mutations in GDP-mannose pyrophosphorylase B cause congenital and limb-girdle muscular dystrophies associated with hypoglycosylation of ÃƒÆ’Ã†â€™Ãƒâ€¦Ã‚Â½ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â±-dystroglycan.	Am J Hum Genet. 93: 29-41, 2013.
+24601	23768512	Mutations in GDP-mannose pyrophosphorylase B cause congenital and limb-girdle muscular dystrophies associated with hypoglycosylation of ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â½ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â±-dystroglycan.	Am J Hum Genet. 93: 29-41, 2013.
 24602	24140112	SCRIB and PUF60 are primary drivers of the multisystemic phenotypes of the 8q24.3 copy-number variant.	Am J Hum Genet. 93: 798-811, 2013.
 24603	24241535	Gain-of-function mutations in the phosphatidylserine synthase 1 (PTDSS1) gene cause Lenz-Majewski syndrome.	Nat Genet. 46: 70-76, 2014.
 24604	1979337	Molecular cloning and sequence of the complementary DNA encoding human mitochondrial acetoacetyl-coenzyme A thiolase and study of the variant enzymes in cultured fibroblasts from patients with 3-ketothiolase deficiency.	J Clin Invest. 86: 2086-2092, 1990.
 24605	22922033	Mutation of membrane type-1 metalloproteinase, MT1-MMP, causes the multicentric osteolysis and arthritis disease Winchester syndrome.	Am J Hum Genet. 91: 572-576, 2012.
 24606	24076603	Truncating mutations of MAGEL2 cause Prader-Willi phenotypes and autism.	Nat Genet. 45: 1405-1408, 2013.
-24607	15317892	A WNT4 mutation associated with MÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¼llerian-duct regression and virilization in a 46,XX woman.	N Engl J Med. 351: 792-798, 2004.
+24607	15317892	A WNT4 mutation associated with MÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¼llerian-duct regression and virilization in a 46,XX woman.	N Engl J Med. 351: 792-798, 2004.
 24608	23022099	Infantile encephaloneuromyopathy and defective mitochondrial translation are due to a homozygous RMND1 mutation.	Am J Hum Genet. 91: 729-736, 2012.
 24609	17932120	Heterozygous deletion of ITPR1, but not SUMF1, in spinocerebellar ataxia type 16.	J Med Genet. 45: 32-35, 2008.
 24610	23746550	De novo mutations in the genome organizer CTCF cause intellectual disability.	Am J Hum Genet. 93: 124-131, 2013.
@@ -3568,7 +3568,7 @@
 24618	11577372	Alpha-B crystallin gene (CRYAB) mutation causes dominant congenital posterior polar cataract in humans.	Am J Hum Genet. 69: 1141-1145, 2001.
 24619	23332920	Constitutive activation of the calcium sensor STIM1 causes tubular-aggregate myopathy.	Am J Hum Genet. 92: 271-278, 2013.
 24620	23647072	Exome sequencing reveals new causal mutations in children with epileptic encephalopathies.	Epilepsia. 54: 1270-1281, 2013.
-24621	23993195	De Novo mutations in GNAO1, encoding a GÃƒÆ’Ã†â€™Ãƒâ€¦Ã‚Â½ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â±o subunit of heterotrimeric G proteins, cause epileptic encephalopathy.	Am J Hum Genet. 93: 496-505, 2013.
+24621	23993195	De Novo mutations in GNAO1, encoding a GÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â½ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â±o subunit of heterotrimeric G proteins, cause epileptic encephalopathy.	Am J Hum Genet. 93: 496-505, 2013.
 24622	23768514	Mutations in KARS, encoding lysyl-tRNA synthetase, cause autosomal-recessive nonsyndromic hearing impairment DFNB89.	Am J Hum Genet. 93: 132-140, 2013.
 24623	21741611	Inactivation of IL11 signaling causes craniosynostosis, delayed tooth eruption, and supernumerary teeth.	Am J Hum Genet. 89: 67-81, 2011.
 24624	19182255	Comprehensive mutational screening in a cohort of Danish families with hereditary congenital cataract.	Invest Ophthalmol Vis Sci. 50: 3291-3303, 2009.
@@ -3584,7 +3584,7 @@
 24634	22152683	Disruption of teashirt zinc finger homeobox 1 is associated with congenital aural atresia in humans.	Am J Hum Genet. 89: 813-819, 2011.
 24635	23993194	Mutations in FBXL4, encoding a mitochondrial protein, cause early-onset mitochondrial encephalomyopathy.	Am J Hum Genet. 93: 482-495, 2013.
 24636	12624153	Neuronal migration defect in a BRCA1 gene carrier: possible focal nullisomy?	J Med Genet. 40: e24, 2003.
-24637	22351933	Agammaglobulinemia and absent B lineage cells in a patient lacking the p85ÃƒÆ’Ã†â€™Ãƒâ€¦Ã‚Â½ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â± subunit of PI3K.	J Exp Med. 209: 463-470, 2012.
+24637	22351933	Agammaglobulinemia and absent B lineage cells in a patient lacking the p85ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â½ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â± subunit of PI3K.	J Exp Med. 209: 463-470, 2012.
 24639	23872636	DYX1C1 is required for axonemal dynein assembly and ciliary motility.	Nat Genet. 45: 995-1003, 2013.
 24640	20844286	Disruption at the PTCHD1 Locus on Xp22.11 in Autism spectrum disorder and intellectual disability.	Sci Transl Med. 2: 49ra68, 2010.
 24641	16103912	Fog2 is required for normal diaphragm and lung development in mice and humans.	PLoS Genet. 1: 58-65, 2005.
@@ -3597,13 +3597,13 @@
 24649	24140113	Defects in the IFT-B component IFT172 cause Jeune and Mainzer-Saldino syndromes in humans.	Am J Hum Genet. 93: 915-925, 2013.
 24650	23770608	An in-frame deletion at the polymerase active site of POLD1 causes a multisystem disorder with lipodystrophy.	Nat Genet. 45: 947-950, 2013.
 24651	8101040	Enzymological and mutational analysis of a complex primary hyperoxaluria type 1 phenotype involving alanine:glyoxylate aminotransferase peroxisome-to-mitochondrion mistargeting and intraperoxisomal aggregation.	Am J Hum Genet. 53: 417-432, 1993.
-24653	23000145	A hypermorphic missense mutation in PLCG2, encoding phospholipase CÃƒÆ’Ã†â€™Ãƒâ€¦Ã‚Â½ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³2, causes a dominantly inherited autoinflammatory disease with immunodeficiency.	Am J Hum Genet. 91: 713-720, 2012.
+24653	23000145	A hypermorphic missense mutation in PLCG2, encoding phospholipase CÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â½ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³2, causes a dominantly inherited autoinflammatory disease with immunodeficiency.	Am J Hum Genet. 91: 713-720, 2012.
 24654	24055112	Mutations in SPAG1 cause primary ciliary dyskinesia associated with defective outer and inner dynein arms.	Am J Hum Genet. 93: 711-720, 2013.
 24655	23932106	Biallelic SZT2 mutations cause infantile encephalopathy with epilepsy and dysmorphic corpus callosum.	Am J Hum Genet. 93: 524-529, 2013.
 24656	23910460	Mutations in CYC1, encoding cytochrome c1 subunit of respiratory chain complex III, cause insulin-responsive hyperglycemia.	Am J Hum Genet. 93: 384-389, 2013.
-24657	23582646	A de novo mutation in the ÃƒÆ’Ã†â€™Ãƒâ€¦Ã‚Â½ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â²-tubulin gene TUBB4A results in the leukoencephalopathy hypomyelination with atrophy of the basal ganglia and cerebellum.	Am J Hum Genet. 92: 767-773, 2013.
+24657	23582646	A de novo mutation in the ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â½ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â²-tubulin gene TUBB4A results in the leukoencephalopathy hypomyelination with atrophy of the basal ganglia and cerebellum.	Am J Hum Genet. 92: 767-773, 2013.
 24658	23114594	DGAT1 mutation is linked to a congenital diarrheal disorder.	J Clin Invest. 122: 4680-4684, 2012.
-24660	24285859	The HNF4A R76W mutation causes atypical dominant Fanconi syndrome in addition to a ÃƒÆ’Ã†â€™Ãƒâ€¦Ã‚Â½ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â² cell phenotype.	J Med Genet. 51: 165-169, 2014.
+24660	24285859	The HNF4A R76W mutation causes atypical dominant Fanconi syndrome in addition to a ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â½ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â² cell phenotype.	J Med Genet. 51: 165-169, 2014.
 24661	23791108	Gain-of-function mutations in RIT1 cause Noonan syndrome, a RAS/MAPK pathway syndrome.	Am J Hum Genet. 93: 173-180, 2013.
 24662	21572413	Recessive LAMC3 mutations cause malformations of occipital cortical development.	Nat Genet. 43: 590-594, 2011.
 24663	24360809	Dominant mutations in GRHL3 cause Van der Woude Syndrome and disrupt oral periderm development.	Am J Hum Genet. 94: 23-32, 2014.
@@ -3624,7 +3624,7 @@
 24680	24036948	A de novo gain-of-function mutation in SCN11A causes loss of pain perception.	Nat Genet. 45: 1399-1404, 2013.
 24681	18514161	Hyperglycosylation and reduced GABA currents of mutated GABRB3 polypeptide in remitting childhood absence epilepsy.	Am J Hum Genet. 82: 1249-1261, 2008.
 24682	9590290	Mutations in the human alpha-tectorin gene cause autosomal dominant non-syndromic hearing impairment.	Nat Genet. 19: 60-62, 1998.
-24683	24183449	WDR34 mutations that cause short-rib polydactyly syndrome type III/severe asphyxiating thoracic dysplasia reveal a role for the NF-ÃƒÆ’Ã†â€™Ãƒâ€¦Ã‚Â½ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚ÂºB pathway in cilia.	Am J Hum Genet. 93: 926-931, 2013.
+24683	24183449	WDR34 mutations that cause short-rib polydactyly syndrome type III/severe asphyxiating thoracic dysplasia reveal a role for the NF-ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â½ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚ÂºB pathway in cilia.	Am J Hum Genet. 93: 926-931, 2013.
 24684	19559399	Loss-of-function mutation in the dioxygenase-encoding FTO gene causes severe growth retardation and multiple malformations.	Am J Hum Genet. 85: 106-111, 2009.
 24685	23810381	TM4SF20 ancestral deletion and susceptibility to a pediatric disorder of early language delay and cerebral white matter hyperintensities.	Am J Hum Genet. 93: 197-210, 2013.
 24686	23418308	Mutation in PHC1 implicates chromatin remodeling in primary microcephaly pathogenesis.	Hum Mol Genet. 22: 2200-2213, 2013.
@@ -3648,7 +3648,7 @@
 24704	23603762	Mutations in TUBG1, DYNC1H1, KIF5C and KIF2A cause malformations of cortical development and microcephaly.	Nat Genet. 45: 639-647, 2013.
 24705	23332918	Exonic deletions in AUTS2 cause a syndromic form of intellectual disability and suggest a critical role for the C terminus.	Am J Hum Genet. 92: 210-220, 2013.
 24706	20018682	Homozygous frameshift mutation in TMCO1 causes a syndrome with craniofacial dysmorphism, skeletal anomalies, and mental retardation.	Proc Natl Acad Sci U S A. 107: 258-263, 2010.
-24707	18464934	Sodium channel ÃƒÆ’Ã†â€™Ãƒâ€¦Ã‚Â½ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â²1 subunit mutations associated with Brugada syndrome and cardiac conduction disease in humans.	J Clin Invest. 118: 2260-2268, 2008.
+24707	18464934	Sodium channel ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â½ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â²1 subunit mutations associated with Brugada syndrome and cardiac conduction disease in humans.	J Clin Invest. 118: 2260-2268, 2008.
 24708	9326927	Mutations in RPE65 cause Leber's congenital amaurosis.	Nat Genet. 17: 139-141, 1997.
 24709	22986007	Missense mutations in ITPR1 cause autosomal dominant congenital nonprogressive spinocerebellar ataxia.	Orphanet J Rare Dis. 7: 67, 2012.
 24710	23746549	Mutations in KLHL40 are a frequent cause of severe autosomal-recessive nemaline myopathy.	Am J Hum Genet. 93: 6-18, 2013.
@@ -3659,13 +3659,13 @@
 24715	9949200	An alpha-tectorin gene defect causes a newly identified autosomal recessive form of sensorineural pre-lingual non-syndromic deafness, DFNB21.	Hum Mol Genet. 8: 409-412, 1999.
 24717	23664117	Mutations in B3GALT6, which encodes a glycosaminoglycan linker region enzyme, cause a spectrum of skeletal and connective tissue disorders.	Am J Hum Genet. 92: 927-934, 2013.
 24718	23403903	Dosage changes of MED13L further delineate its role in congenital heart defects and intellectual disability.	Eur J Hum Genet. 21: 1100-1104, 2013.
-24719	21337604	Infantile muscular dystrophy in Canadian aboriginals is an ÃƒÆ’Ã†â€™Ãƒâ€¦Ã‚Â½ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â±B-crystallinopathy.	Ann Neurol. 69: 866-871, 2011.
+24719	21337604	Infantile muscular dystrophy in Canadian aboriginals is an ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â½ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â±B-crystallinopathy.	Ann Neurol. 69: 866-871, 2011.
 24720	22842232	De novo mutations in ATP1A3 cause alternating hemiplegia of childhood.	Nat Genet. 44: 1030-1034, 2012.
 24721	23830518	Recessive TRAPPC11 mutations cause a disease spectrum of limb girdle muscular dystrophy and myopathy with movement disorder and intellectual disability.	Am J Hum Genet. 93: 181-190, 2013.
 24722	9185503	A homozygous mutation in the integrin alpha6 gene in junctional epidermolysis bullosa with pyloric atresia.	J Clin Invest. 99: 2826-2831, 1997.
 24723	14657428	IGF-I receptor mutations resulting in intrauterine and postnatal growth retardation.	N Engl J Med. 349: 2211-2222, 2003.
 24724	18179883	SERKAL syndrome: an autosomal-recessive disorder caused by a loss-of-function mutation in WNT4.	Am J Hum Genet. 82: 39-47, 2008.
-24725	21892160	Germline deletion of the miR-17ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã¢â‚¬Â¹ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¼92 cluster causes skeletal and growth defects in humans.	Nat Genet. 43: 1026-1030, 2011.
+24725	21892160	Germline deletion of the miR-17ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¹ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¼92 cluster causes skeletal and growth defects in humans.	Nat Genet. 43: 1026-1030, 2011.
 24726	23974871	Desmoglein 1 deficiency results in severe dermatitis, multiple allergies and metabolic wasting.	Nat Genet. 45: 1244-1248, 2013.
 24727	24462371	Heterozygous loss-of-function mutations in YAP1 cause both isolated and syndromic optic fissure closure defects.	Am J Hum Genet. 94: 295-302, 2014.
 24728	25192046	Mutations in FEZF1 cause Kallmann syndrome.	Am J Hum Genet. 95: 326-331, 2014.
@@ -3740,7 +3740,7 @@
 24797	25557780	CRB2 mutations produce a phenotype resembling congenital nephrosis, Finnish type, with cerebral ventriculomegaly and raised alpha-fetoprotein.	Am J Hum Genet. 96: 162-169, 2015.
 24798	15915161	Loss of ZDHHC15 expression in a woman with a balanced translocation t(X;15)(q13.3;cen) and severe mental retardation.	Eur J Hum Genet. 13: 970-977, 2005.
 24799	25533962	Large-scale discovery of novel genetic causes of developmental disorders.	Nature. 519: 223-228, 2015.
-24800	10655055	ARSACS, a spastic ataxia common in northeastern QuÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â©bec, is caused by mutations in a new gene encoding an 11.5-kb ORF.	Nat Genet. 24: 120-125, 2000.
+24800	10655055	ARSACS, a spastic ataxia common in northeastern QuÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â©bec, is caused by mutations in a new gene encoding an 11.5-kb ORF.	Nat Genet. 24: 120-125, 2000.
 24801	15937479	Calcium-sensitive potassium channelopathy in human epilepsy and paroxysmal movement disorder.	Nat Genet. 37: 733-738, 2005.
 24802	25018096	Disruption of the basal body protein POC1B results in autosomal-recessive cone-rod dystrophy.	Am J Hum Genet. 95: 131-142, 2014.
 24803	25129144	JAGN1 deficiency causes aberrant myeloid cell homeostasis and congenital neutropenia.	Nat Genet. 46: 1021-1027, 2014.
@@ -3758,7 +3758,7 @@
 24815	11791205	Rapsyn mutations in humans cause endplate acetylcholine-receptor deficiency and myasthenic syndrome.	Am J Hum Genet. 70: 875-885, 2002.
 24816	22100072	Recessive mutations in ELOVL4 cause ichthyosis, intellectual disability, and spastic quadriplegia.	Am J Hum Genet. 89: 745-750, 2011.
 24817	25480035	Biallelic truncating mutations in FMN2, encoding the actin-regulatory protein Formin 2, cause nonsyndromic autosomal-recessive intellectual disability.	Am J Hum Genet. 95: 721-728, 2014.
-24818	23246003	Mutations in the ÃƒÆ’Ã†â€™Ãƒâ€¦Ã‚Â½ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â²-tubulin gene TUBB5 cause microcephaly with structural brain abnormalities.	Cell Rep. 2: 1554-1562, 2012.
+24818	23246003	Mutations in the ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â½ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â²-tubulin gene TUBB5 cause microcephaly with structural brain abnormalities.	Cell Rep. 2: 1554-1562, 2012.
 24819	11586297	The gene encoding alsin, a protein with three guanine-nucleotide exchange factor domains, is mutated in a form of recessive amyotrophic lateral sclerosis.	Nat Genet. 29: 160-165, 2001.
 24820	25342064	Whole exome sequencing in family trios reveals de novo mutations in PURA as a cause of severe neurodevelopmental delay and learning disability.	J Med Genet. 51: 806-813, 2014.
 24822	9356020	A nonsense mutation in the inward rectifier potassium channel gene, Kir6.2, is associated with familial hyperinsulinism.	Diabetes. 46: 1743-1748, 1997.
@@ -3767,7 +3767,7 @@
 24825	24680889	De novo loss-of-function mutations in SETD5, encoding a methyltransferase in a 3p25 microdeletion syndrome critical region, cause intellectual disability.	Am J Hum Genet. 94: 618-624, 2014.
 24826	25192045	CCDC151 mutations cause primary ciliary dyskinesia by disruption of the outer dynein arm docking complex formation.	Am J Hum Genet. 95: 257-274, 2014.
 24827	25620207	Keppen-Lubinsky syndrome is caused by mutations in the inwardly rectifying K+ channel encoded by KCNJ6.	Am J Hum Genet. 96: 295-300, 2015.
-24828	25817018	Mutations in TUBGCP4 alter microtubule organization via the ÃƒÆ’Ã†â€™Ãƒâ€¦Ã‚Â½ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³-tubulin ring complex in autosomal-recessive microcephaly with chorioretinopathy.	Am J Hum Genet. 96: 666-674, 2015.
+24828	25817018	Mutations in TUBGCP4 alter microtubule organization via the ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â½ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³-tubulin ring complex in autosomal-recessive microcephaly with chorioretinopathy.	Am J Hum Genet. 96: 666-674, 2015.
 24829	19409522	The mitochondrial disulfide relay system protein GFER is mutated in autosomal-recessive myopathy with cataract and combined respiratory-chain deficiency.	Am J Hum Genet. 84: 594-604, 2009.
 24830	25362483	Mutations in STX1B, encoding a presynaptic protein, cause fever-associated epilepsy syndromes.	Nat Genet. 46: 1327-1332, 2014.
 24831	24336167	Loss-of-function mutations in MICU1 cause a brain and muscle disorder linked to primary alterations in mitochondrial calcium signaling.	Nat Genet. 46: 188-193, 2014.
@@ -3777,7 +3777,7 @@
 24835	10932188	Mutations of PVRL1, encoding a cell-cell adhesion molecule/herpesvirus receptor, in cleft lip/palate-ectodermal dysplasia.	Nat Genet. 25: 427-430, 2000.
 24836	22305531	The phenotype of a germline mutation in PIGA: the gene somatically mutated in paroxysmal nocturnal hemoglobinuria.	Am J Hum Genet. 90: 295-300, 2012.
 24837	25839329	De novo mutations in SIK1 cause a spectrum of developmental epilepsies.	Am J Hum Genet. 96: 682-690, 2015.
-24838	25434005	Mutations in RAB39B cause X-linked intellectual disability and early-onset Parkinson disease with ÃƒÆ’Ã†â€™Ãƒâ€¦Ã‚Â½ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â±-synuclein pathology.	Am J Hum Genet. 95: 729-735, 2014.
+24838	25434005	Mutations in RAB39B cause X-linked intellectual disability and early-onset Parkinson disease with ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â½ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â±-synuclein pathology.	Am J Hum Genet. 95: 729-735, 2014.
 24839	25466283	Loss-of-function mutations in WDR73 are responsible for microcephaly and steroid-resistant nephrotic syndrome: Galloway-Mowat syndrome.	Am J Hum Genet. 95: 637-648, 2014.
 24840	16007086	TACI is mutant in common variable immunodeficiency and IgA deficiency.	Nat Genet. 37: 829-834, 2005.
 24841	24651605	Mutations in NGLY1 cause an inherited disorder of the endoplasmic reticulum-associated degradation pathway.	Genet Med. 16: 751-758, 2014.
@@ -3797,7 +3797,7 @@
 24855	24531329	A SWI/SNF-related autism syndrome caused by de novo mutations in ADNP.	Nat Genet. 46: 380-384, 2014.
 24856	25500261	Recessive mutations in COL25A1 are a cause of congenital cranial dysinnervation disorder.	Am J Hum Genet. 96: 147-152, 2015.
 24857	25420144	Mutations in the voltage-gated potassium channel gene KCNH1 cause Temple-Baraitser syndrome and epilepsy.	Nat Genet. 47: 73-77, 2015.
-24858	24995871	Aicardi-GoutiÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¨res syndrome is caused by IFIH1 mutations.	Am J Hum Genet. 95: 121-125, 2014.
+24858	24995871	Aicardi-GoutiÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¨res syndrome is caused by IFIH1 mutations.	Am J Hum Genet. 95: 121-125, 2014.
 24859	7647781	Localization of a gene for autosomal dominant nocturnal frontal lobe epilepsy to chromosome 20q 13.2.	Nat Genet. 10: 117-118, 1995.
 24860	24747639	Mutations in CCNO result in congenital mucociliary clearance disorder with reduced generation of multiple motile cilia.	Nat Genet. 46: 646-651, 2014.
 24861	18179903	Mutation analysis of CHRNA1, CHRNB1, CHRND, and RAPSN genes in multiple pterygium syndrome/fetal akinesia patients.	Am J Hum Genet. 82: 222-227, 2008.
@@ -3806,7 +3806,7 @@
 24864	24906948	Novel compound heterozygous PIGT mutations caused multiple congenital anomalies-hypotonia-seizures syndrome 3.	Neurogenetics. 15: 193-200, 2014.
 24865	21996275	Mutation altering the miR-184 seed region causes familial keratoconus with cataract.	Am J Hum Genet. 89: 628-633, 2011.
 24866	24556213	A mutation in PAK3 with a dual molecular effect deregulates the RAS/MAPK pathway and drives an X-linked syndromic phenotype.	Hum Mol Genet. 23: 3607-3617, 2014.
-24867	20829227	Mutations in the neuronal ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â¸-tubulin subunit TUBB3 result in malformation of cortical development and neuronal migration defects.	Hum Mol Genet. 19: 4462-4473, 2010.
+24867	20829227	Mutations in the neuronal ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¦ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¸-tubulin subunit TUBB3 result in malformation of cortical development and neuronal migration defects.	Hum Mol Genet. 19: 4462-4473, 2010.
 24868	24530203	Mitochondrial carbonic anhydrase VA deficiency resulting from CA5A alterations presents with hyperammonemia in early childhood.	Am J Hum Genet. 94: 453-461, 2014.
 24869	25574826	CODAS syndrome is associated with mutations of LONP1, encoding mitochondrial AAA+ Lon protease.	Am J Hum Genet. 96: 121-135, 2015.
 24870	25262651	De novo mutations in synaptic transmission genes including DNM1 cause epileptic encephalopathies.	Am J Hum Genet. 95: 360-370, 2014.
@@ -3851,7 +3851,7 @@
 24909	8923010	Mutation of the pancreatic islet inward rectifier Kir6.2 also leads to familial persistent hyperinsulinemic hypoglycemia of infancy.	Hum Mol Genet. 5: 1809-1812, 1996.
 24910	25612912	A novel X-linked trichothiodystrophy associated with a nonsense mutation in RNF113A.	J Med Genet. 52: 269-274, 2015.
 24911	24812067	Involvement of the kinesin family members KIF4A and KIF5C in intellectual disability and synaptic function.	J Med Genet. 51: 487-494, 2014.
-24912	24169519	20 ans aprÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¨s: a second mutation in MAOA identified by targeted high-throughput sequencing in a family with altered behavior and cognition.	Eur J Hum Genet. 22: 776-783, 2014.
+24912	24169519	20 ans aprÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¨s: a second mutation in MAOA identified by targeted high-throughput sequencing in a family with altered behavior and cognition.	Eur J Hum Genet. 22: 776-783, 2014.
 24913	25730767	Germline gain-of-function mutations in AFF4 cause a developmental syndrome functionally linking the super elongation complex and cohesin.	Nat Genet. 47: 338-344, 2015.
 24914	24906020	Monoallelic and biallelic mutations in MAB21L2 cause a spectrum of major eye malformations.	Am J Hum Genet. 94: 915-923, 2014.
 24915	11326274	First genetic evidence of GABA(A) receptor dysfunction in epilepsy: a mutation in the gamma2-subunit gene.	Nat Genet. 28: 46-48, 2001.
@@ -3899,7 +3899,7 @@
 24959	26637975	Mutations in Either TUBB or MAPRE2 Cause Circumferential Skin Creases Kunze Type.	Am J Hum Genet. 97: 790-800, 2015.
 24960	26581901	Mutations in MECOM, Encoding Oncoprotein EVI1, Cause Radioulnar Synostosis with Amegakaryocytic Thrombocytopenia.	Am J Hum Genet. 97: 848-854, 2015.
 24961	26581903	Disruptive SCYL1 Mutations Underlie a Syndrome Characterized by Recurrent Episodes of Liver Failure, Peripheral Neuropathy, Cerebellar Atrophy, and Ataxia.	Am J Hum Genet. 97: 855-861, 2015.
-24962	26626625	Congenital Myasthenic Syndrome Type 19 Is Caused by Mutations in COL13A1, Encoding the Atypical Non-fibrillar Collagen Type XIII ÃƒÆ’Ã†â€™Ãƒâ€¦Ã‚Â½ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â±1 Chain.	Am J Hum Genet. 97: 878-885, 2015.
+24962	26626625	Congenital Myasthenic Syndrome Type 19 Is Caused by Mutations in COL13A1, Encoding the Atypical Non-fibrillar Collagen Type XIII ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â½ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â±1 Chain.	Am J Hum Genet. 97: 878-885, 2015.
 24963	26637979	SLC39A8 Deficiency: A Disorder of Manganese Transport and Glycosylation.	Am J Hum Genet. 97: 894-903, 2015.
 24964	26637978	Autosomal-Recessive Intellectual Disability with Cerebellar Atrophy Syndrome Caused by Mutation of the Manganese and Zinc Transporter Gene SLC39A8.	Am J Hum Genet. 97: 886-893, 2015.
 24965	26637980	De Novo GMNN Mutations Cause Autosomal-Dominant Primordial Dwarfism Associated with Meier-Gorlin Syndrome.	Am J Hum Genet. 97: 904-913, 2015.
@@ -3997,7 +3997,7 @@
 25058	27329731	Intellectual disability and non-compaction cardiomyopathy with a de novo NONO mutation identified by exome sequencing.	Eur J Hum Genet. 24: 1635-1638, 2016.
 25059	18997784	Gerodermia osteodysplastica is caused by mutations in SCYL1BP1, a Rab-6 interacting golgin.	Nat Genet. 40: 1410-1412, 2008.
 25060	27394135	Mutational Spectrum of CYP24A1 Gene in a Cohort of Italian Patients with Idiopathic Infantile Hypercalcemia.	Nephron. 133: 193-204, 2016.
-25061	27545674	Biallelic Variants in UBA5 Link Dysfunctional UFM1ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â Ubiquitin-like Modifier Pathway to Severe Infantile-Onset Encephalopathy.	Am J Hum Genet. 99: 683-694, 2016.
+25061	27545674	Biallelic Variants in UBA5 Link Dysfunctional UFM1ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â Ubiquitin-like Modifier Pathway to Severe Infantile-Onset Encephalopathy.	Am J Hum Genet. 99: 683-694, 2016.
 25062	27545681	Biallelic Variants in UBA5 Reveal that Disruption of the UFM1 Cascade Can Result in Early-Onset Encephalopathy.	Am J Hum Genet. 99: 695-703, 2016.
 25063	19068278	TBX15 mutations cause craniofacial dysmorphism, hypoplasia of scapula and pelvis, and short stature in Cousin syndrome.	Am J Hum Genet. 83: 649-655, 2008.
 25064	24039145	Homozygosity for a novel truncating mutation confirms TBX15 deficiency as the cause of Cousin syndrome.	Am J Med Genet A. 161A: 3161-3165, 2013.
@@ -4016,12 +4016,12 @@
 25077	27523597	Sudden Cardiac Death Due to Deficiency of the Mitochondrial Inorganic Pyrophosphatase PPA2.	Am J Hum Genet. 99: 674-682, 2016.
 25078	27358179	Mutations in MYT1, encoding the myelin transcription factor 1, are a rare cause of OAVS.	J Med Genet. 2016.
 25080	27062503	Mutations in the IRBIT domain of ITPR1 are a frequent cause of autosomal dominant nonprogressive congenital ataxia.	Clin Genet. 2016.
-25081	27426734	Heterozygous Mutations in MAP3K7, Encoding TGF-ÃƒÆ’Ã†â€™Ãƒâ€¦Ã‚Â½ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â²-Activated Kinase 1, Cause Cardiospondylocarpofacial Syndrome.	Am J Hum Genet. 99: 407-413, 2016.
+25081	27426734	Heterozygous Mutations in MAP3K7, Encoding TGF-ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â½ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â²-Activated Kinase 1, Cause Cardiospondylocarpofacial Syndrome.	Am J Hum Genet. 99: 407-413, 2016.
 25082	27426733	Mutations in MAP3K7 that Alter the Activity of the TAK1 Signaling Complex Cause Frontometaphyseal Dysplasia.	Am J Hum Genet. 99: 392-406, 2016.
 25083	26429889	A human laterality disorder caused by a homozygous deleterious mutation in MMP21.	J Med Genet. 52: 840-847, 2015.
 25084	24498618	Mutations in the interleukin receptor IL11RA cause autosomal recessive Crouzon-like craniosynostosis.	Mol Genet Genomic Med. 1: 223-237, 2013.
 25085	27333055	Two novel EIF2S3 mutations associated with syndromic intellectual disability with severe microcephaly, growth retardation, and epilepsy.	Am J Med Genet A. 170: 2927-2933, 2016.
-25086	23063529	eIF2ÃƒÆ’Ã†â€™Ãƒâ€¦Ã‚Â½ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³ mutation that disrupts eIF2 complex integrity links intellectual disability to impaired translation initiation.	Mol Cell. 48: 641-646, 2012.
+25086	23063529	eIF2ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â½ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³ mutation that disrupts eIF2 complex integrity links intellectual disability to impaired translation initiation.	Mol Cell. 48: 641-646, 2012.
 25087	26307080	Homozygous mutation in the eukaryotic translation initiation factor 2alpha phosphatase gene, PPP1R15B, is associated with severe microcephaly, short stature and intellectual disability.	Hum Mol Genet. 24: 6293-6300, 2015.
 25088	27040691	Mutations in TBCK, Encoding TBC1-Domain-Containing Kinase, Lead to a Recognizable Syndrome of Intellectual Disability and Hypotonia.	Am J Hum Genet. 98: 782-788, 2016.
 25089	27748029	TBCK-related intellectual disability syndrome: Case study of two patients.	Am J Med Genet A. 2016.
@@ -4110,21 +4110,21 @@
 25215	11865300	Germline mutations in FH predispose to dominantly inherited uterine fibroids, skin leiomyomata and papillary renal cell cancer.	Nat Genet. 30: 406-410, 2002.
 25216	8200987	Mutation of the fumarase gene in two siblings with progressive encephalopathy and fumarase deficiency.	J Clin Invest. 93: 2514-2518, 1994.
 25217	22069215	Detection of a novel FH whole gene deletion in the propositus leading to subsequent prenatal diagnosis in a sibship with fumarase deficiency.	Am J Med Genet A. 158A: 155-158, 2012.
-25218	18234728	BHD mutations, clinical and molecular genetic investigations of Birt-Hogg-DubÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â© syndrome: a new series of 50 families and a review of published reports.	J Med Genet. 45: 321-331, 2008.
-25219	19320655	Early onset of renal cancer in a family with Birt-Hogg-DubÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â© syndrome.	Clin Genet. 75: 537-543, 2009.
+25218	18234728	BHD mutations, clinical and molecular genetic investigations of Birt-Hogg-DubÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â© syndrome: a new series of 50 families and a review of published reports.	J Med Genet. 45: 321-331, 2008.
+25219	19320655	Early onset of renal cancer in a family with Birt-Hogg-DubÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â© syndrome.	Clin Genet. 75: 537-543, 2009.
 25220	20522427	Investigation of the Birt-Hogg-Dube tumour suppressor gene (FLCN) in familial and sporadic colorectal cancer.	J Med Genet. 47: 385-390, 2010.
-25221	19562744	The folliculin mutation database: an online database of mutations associated with Birt-Hogg-DubÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â© syndrome.	Hum Mutat. 30: e880-90, 2009.
-25222	12204536	Mutations in a novel gene lead to kidney tumors, lung wall defects, and benign tumors of the hair follicle in patients with the Birt-Hogg-DubÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â© syndrome.	Cancer Cell. 2: 157-164, 2002.
+25221	19562744	The folliculin mutation database: an online database of mutations associated with Birt-Hogg-DubÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â© syndrome.	Hum Mutat. 30: e880-90, 2009.
+25222	12204536	Mutations in a novel gene lead to kidney tumors, lung wall defects, and benign tumors of the hair follicle in patients with the Birt-Hogg-DubÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â© syndrome.	Cancer Cell. 2: 157-164, 2002.
 25223	20413710	Clinical and genetic spectrum of Birt-Hogg-Dube syndrome patients in whom pneumothorax and/or multiple lung cysts are the presenting feature.	J Med Genet. 47: 281-287, 2010.
 25224	17496196	Mutations of the Birt Hogg Dube gene in patients with multiple lung cysts and recurrent pneumothorax.	J Med Genet. 44: 588-593, 2007.
-25225	15657874	A 4-bp deletion in the Birt-Hogg-DubÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â© gene (FLCN) causes dominantly inherited spontaneous pneumothorax.	Am J Hum Genet. 76: 522-527, 2005.
+25225	15657874	A 4-bp deletion in the Birt-Hogg-DubÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â© gene (FLCN) causes dominantly inherited spontaneous pneumothorax.	Am J Hum Genet. 76: 522-527, 2005.
 25226	12050235	Frequent occurrence of an intron 4 mutation in multiple endocrine neoplasia type 1.	J Clin Endocrinol Metab. 87: 2688-2693, 2002.
 25227	11134142	Pituitary macroadenoma in a 5-year-old: an early expression of multiple endocrine neoplasia type 1.	J Clin Endocrinol Metab. 85: 4776-4780, 2000.
 25228	10647896	MEN I gene mutations in sporadic adrenal adenomas.	Hum Genet. 105: 603-610, 1999.
 25229	12417605	A novel six-nucleotide insertion in exon 4 of the MEN1 gene, 878insCTGCAG, in three patients with familial insulinoma and primary hyperparathyroidism.	Jpn J Clin Oncol. 32: 368-370, 2002.
 25230	9498491	Multiple endocrine neoplasia 1 gene alterations in MEN1-associated and sporadic lipomas.	J Natl Cancer Inst. 90: 398-399, 1998.
 25231	15205994	Unusual presentation of multiple endocrine neoplasia type 1 in a young woman with a novel mutation of the MEN1 gene.	J Hum Genet. 49: 380-386, 2004.
-25232	22275377	Impaired transforming growth factor-ÃƒÆ’Ã†â€™Ãƒâ€¦Ã‚Â½ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â² (TGF-ÃƒÆ’Ã†â€™Ãƒâ€¦Ã‚Â½ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â²) transcriptional activity and cell proliferation control of a menin in-frame deletion mutant associated with multiple endocrine neoplasia type 1 (MEN1).	J Biol Chem. 287: 8584-8597, 2012.
+25232	22275377	Impaired transforming growth factor-ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â½ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â² (TGF-ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â½ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â²) transcriptional activity and cell proliferation control of a menin in-frame deletion mutant associated with multiple endocrine neoplasia type 1 (MEN1).	J Biol Chem. 287: 8584-8597, 2012.
 25233	9709921	Mutation analysis of the MEN1 gene in multiple endocrine neoplasia type 1, familial acromegaly and familial isolated hyperparathyroidism.	J Clin Endocrinol Metab. 83: 2621-2626, 1998.
 25234	15240620	Effect of multiple endocrine neoplasia type 1 (MEN1) gene mutations on premature mortality in familial MEN1 syndrome with founder mutations.	J Clin Endocrinol Metab. 89: 3392-3396, 2004.
 25235	15870131	Coincidence of multiple endocrine neoplasia types 1 and 2: mutations in the RET protooncogene and MEN1 tumor suppressor gene in a family presenting with recurrent primary hyperparathyroidism.	J Clin Endocrinol Metab. 90: 4063-4067, 2005.
@@ -4373,7 +4373,7 @@
 25550	24777706	Mutations in ALDH1A3 represent a frequent cause of microphthalmia/anophthalmia in consanguineous families.	Hum Mutat 35: 949-953, 2014
 25551	24024553	A homozygous mutation in a consanguineous family consolidates the role of ALDH1A3 in autosomal recessive microphthalmia.	Clin Genet 86: 276-281, 2014
 25552	24568872	Novel splice-site and missense mutations in the ALDH1A3 gene underlying autosomal recessive anophthalmia/microphthalmia.	Br J Ophthalmol 98: 832-840, 2014
-25553	22043170	AlstrÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¶m syndrome: genetics and clinical overview.	Curr Genomics 12: 225-235, 2011
+25553	22043170	AlstrÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¶m syndrome: genetics and clinical overview.	Curr Genomics 12: 225-235, 2011
 25554	20797688	A mutation in ZNF513, a putative regulator of photoreceptor development, causes autosomal-recessive retinitis pigmentosa.	Am J Hum Genet 87: 400-409, 2010
 25556	23818446	The syndrome of microcornea, myopic chorioretinal atrophy, and telecanthus (MMCAT) is caused by mutations in ADAMTS18.	Hum Mutat 34: 1195-1199, 2013
 25557	24874986	Expansion of ocular phenotypic features associated with mutations in ADAMTS18.	JAMA Ophthalmol 132: 996-1001, 2014
@@ -4409,7 +4409,7 @@
 25587	8136834	Three autosomal dominant corneal dystrophies map to chromosome 5q.	Nat Genet 6: 47-51, 1994
 25588	8044658	Assignment of granular corneal dystrophy Groenouw type I (CDGG1) to chromosome 5q.	Eur J Hum Genet 2: 132-138, 1994
 25589	9054935	Kerato-epithelin mutations in four 5q31-linked corneal dystrophies.	Nat Genet 15: 247-251, 1997
-25590	9780098	Two distinct kerato-epithelin mutations in Reis-BÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¼cklers corneal dystrophy.	Am J Ophthalmol 126: 535-542, 1998
+25590	9780098	Two distinct kerato-epithelin mutations in Reis-BÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¼cklers corneal dystrophy.	Am J Ophthalmol 126: 535-542, 1998
 25591	26464103	A novel phenotype-genotype correlation with an Arg555Trp mutation of TGFBI gene in Thiel-Behnke corneal dystrophy in a Chinese pedigree.	BMC Ophthalmol 15: 131, 2015
 25592	11923233	BIGH3 mutation spectrum in corneal dystrophies.	Invest Ophthalmol Vis Sci 43: 949-954, 2002
 25593	28151491	Clinical and molecular consequences of disease-associated de novo mutations in SATB2.	Genet Med : , 2017
@@ -4421,8 +4421,8 @@
 25599	10802664	Mutations in KERA, encoding keratocan, cause cornea plana.	Nat Genet 25: 91-95, 2000
 25600	10828599	Assignment of keratocan gene (KERA) to human chromosome band 12q22 by in situ hybridization.	Cytogenet Cell Genet 88: 244-245, 2000
 25601	11726611	A novel keratocan mutation causing autosomal recessive cornea plana.	Invest Ophthalmol Vis Sci 42: 3118-3122, 2001
-25602	12607114	Genetic linkage of Francois-Neetens fleck (mouchetÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â©e) corneal dystrophy to chromosome 2q35.	Hum Genet 112: 593-599, 2003
-25603	15902656	Mutations in PIP5K3 are associated with FranÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â§ois-Neetens mouchetÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â©e fleck corneal dystrophy.	Am J Hum Genet 77: 54-63, 2005
+25602	12607114	Genetic linkage of Francois-Neetens fleck (mouchetÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â©e) corneal dystrophy to chromosome 2q35.	Hum Genet 112: 593-599, 2003
+25603	15902656	Mutations in PIP5K3 are associated with FranÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â§ois-Neetens mouchetÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â©e fleck corneal dystrophy.	Am J Hum Genet 77: 54-63, 2005
 25604	26396486	Identification of novel PIKFYVE gene mutations associated with Fleck corneal dystrophy.	Mol Vis 21: 1093-1100, 2015
 25605	27382485	Identification of the First De Novo UBIAD1 Gene Mutation Associated with Schnyder Corneal Dystrophy.	J Ophthalmol 2016: 1968493, 2016
 25606	17962451	Mutations in the UBIAD1 gene on chromosome short arm 1, region 36, cause Schnyder crystalline corneal dystrophy.	Invest Ophthalmol Vis Sci 48: 5007-5012, 2007
@@ -4497,7 +4497,7 @@
 25679	26662040	ADIPOR1 Is Mutated in Syndromic Retinitis Pigmentosa.	Hum Mutat 37: 246-249, 2016
 25680	26720455	Exome Sequencing Reveals AGBL5 as Novel Candidate Gene and Additional Variants for Retinitis Pigmentosa in Five Turkish Families.	Invest Ophthalmol Vis Sci 56: 8045-8053, 2015
 25681	27764769	Establishing the involvement of the novel gene AGBL5 in retinitis pigmentosa by whole genome sequencing.	Physiol Genomics 48: 922-927, 2016
-25682	27842159	Mutations in AGBL5, Encoding ÃƒÆ’Ã†â€™Ãƒâ€¦Ã‚Â½ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â±-Tubulin Deglutamylase, Are Associated With Autosomal Recessive Retinitis Pigmentosa.	Invest Ophthalmol Vis Sci 57: 6180-6187, 2016
+25682	27842159	Mutations in AGBL5, Encoding ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â½ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â±-Tubulin Deglutamylase, Are Associated With Autosomal Recessive Retinitis Pigmentosa.	Invest Ophthalmol Vis Sci 57: 6180-6187, 2016
 25683	25208612	Sengers syndrome: six novel AGK mutations in seven new families and review of the phenotypic and mutational spectrum of 29 patients.	Orphanet J Rare Dis 9: 119, 2014
 25684	23266196	Mitochondrial citrate synthase crystals: novel finding in Sengers syndrome caused by acylglycerol kinase (AGK) mutations.	Mol Genet Metab 108: 40-50, 2013
 25685	16909395	Peters Plus syndrome is caused by mutations in B3GALTL, a putative glycosyltransferase.	Am J Hum Genet 79: 562-566, 2006
@@ -4543,7 +4543,7 @@
 25726	25558065	Accelerating novel candidate gene discovery in neurogenetic disorders via whole-exome sequencing of prescreened multiplex consanguineous families.	Cell Rep 10: 148-161, 2015
 25727	27878435	Novel phenotypes and loci identified through clinical genomics approaches to pediatric cataract.	Hum Genet 136: 205-225, 2017
 25728	25148791	Personalized diagnosis and management of congenital cataract by next-generation sequencing.	Ophthalmology 121: 2124-37.e1-2, 2014
-25729	28190459	Mutations in INPP5K Cause a Form of Congenital Muscular Dystrophy Overlapping Marinesco-SjÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¶gren Syndrome and Dystroglycanopathy.	Am J Hum Genet 100: 537-545, 2017
+25729	28190459	Mutations in INPP5K Cause a Form of Congenital Muscular Dystrophy Overlapping Marinesco-SjÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¶gren Syndrome and Dystroglycanopathy.	Am J Hum Genet 100: 537-545, 2017
 25730	28190456	Mutations in INPP5K, Encoding a Phosphoinositide 5-Phosphatase, Cause Congenital Muscular Dystrophy with Cataracts and Mild Cognitive Impairment.	Am J Hum Genet 100: 523-536, 2017
 25731	16110300	CRYBB1 mutation associated with congenital cataract and microcornea.	Mol Vis 11: 587-593, 2005
 25732	28272538	Partial duplication of the CRYBB1-CRYBA4 locus is associated with autosomal dominant congenital cataract.	Eur J Hum Genet 25: 711-718, 2017
@@ -4553,7 +4553,7 @@
 25736	19306328	Mutations of the EPHA2 receptor tyrosine kinase gene cause autosomal dominant congenital cataract.	Hum Mutat 30: E603-11, 2009
 25737	20361013	Autosomal recessive congenital cataract linked to EPHA2 in a consanguineous Pakistani family.	Mol Vis 16: 511-517, 2010
 25738	26402864	Missense Mutations in CRYAB Are Liable for Recessive Congenital Cataracts.	PLoS One 10: e0137973, 2015
-25739	23590293	Congenital posterior pole cataract and adult onset dilating cardiomyopathy: expanding the phenotype of ÃƒÆ’Ã†â€™Ãƒâ€¦Ã‚Â½ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â±B-crystallinopathies.	Clin Genet 85: 381-385, 2014
+25739	23590293	Congenital posterior pole cataract and adult onset dilating cardiomyopathy: expanding the phenotype of ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â½ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â±B-crystallinopathies.	Clin Genet 85: 381-385, 2014
 25740	21920752	A novel CRYAB mutation resulting in multisystemic disease.	Neuromuscul Disord 22: 66-72, 2012
 25741	9731540	A missense mutation in the alphaB-crystallin chaperone gene causes a desmin-related myopathy.	Nat Genet 20: 92-95, 1998
 25742	14681890	Myofibrillar myopathy caused by novel dominant negative alpha B-crystallin mutations.	Ann Neurol 54: 804-810, 2003
@@ -4565,12 +4565,12 @@
 25748	20142846	A splice site mutation in CRYBA1/A3 causing autosomal dominant posterior polar cataract in a Chinese pedigree.	Mol Vis 16: 154-160, 2010
 25749	17653060	Two Chinese families with pulverulent congenital cataracts and deltaG91 CRYBA1 mutations.	Mol Vis 13: 1154-1160, 2007
 25750	21139983	A Chinese family with progressive childhood cataracts and IVS3+1G>A CRYBA3/A1 mutations.	Mol Vis 16: 2347-2353, 2010
-25751	21850182	A GÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢T splice site mutation of CRYBA1/A3 associated with autosomal dominant suture cataracts in a Chinese family.	Mol Vis 17: 2065-2071, 2011
-25752	22665976	A novel TÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢G splice site mutation of CRYBA1/A3 associated with autosomal dominant nuclear cataracts in a Chinese family.	Mol Vis 18: 1283-1288, 2012
+25751	21850182	A GÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¾Ãƒâ€šÃ‚Â¢T splice site mutation of CRYBA1/A3 associated with autosomal dominant suture cataracts in a Chinese family.	Mol Vis 17: 2065-2071, 2011
+25752	22665976	A novel TÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¾Ãƒâ€šÃ‚Â¢G splice site mutation of CRYBA1/A3 associated with autosomal dominant nuclear cataracts in a Chinese family.	Mol Vis 18: 1283-1288, 2012
 25753	20577656	A missense mutation in CRYBA4 associated with congenital cataract and microcornea.	Mol Vis 16: 1019-1024, 2010
 25754	16179907	Progressive polymorphic congenital cataract caused by a CRYBB2 mutation in a Chinese family.	Mol Vis 11: 758-763, 2005
 25755	27385965	Whole Exome Sequencing Reveals a Mutation in CRYBB2 in a Large Mexican Family with Autosomal Dominant Pulverulent Cataract.	Mol Syndromol 7: 87-92, 2016
-25756	24312286	A missense mutation in CRYBB2 leads to progressive congenital membranous cataract by impacting the solubility and function of ÃƒÆ’Ã†â€™Ãƒâ€¦Ã‚Â½ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â²B2-crystallin.	PLoS One 8: e81290, 2013
+25756	24312286	A missense mutation in CRYBB2 leads to progressive congenital membranous cataract by impacting the solubility and function of ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â½ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â²B2-crystallin.	PLoS One 8: e81290, 2013
 25757	21245961	Characterization of a novel mutation in the CRYBB2 gene associated with autosomal dominant congenital posterior subcapsular cataract in a Chinese family.	Mol Vis 17: 144-152, 2011
 25758	18449377	Nonsense mutation in the CRYBB2 gene causing autosomal dominant progressive polymorphic congenital coronary cataracts.	Mol Vis 14: 750-755, 2008
 25759	27326458	A Common Ancestral Mutation in CRYBB3 Identified in Multiple Consanguineous Families with Congenital Cataracts.	PLoS One 11: e0157005, 2016
@@ -4644,10 +4644,10 @@
 25828	15591106	Recessive NRL mutations in patients with clumped pigmentary retinal degeneration and relative preservation of blue cone function.	Proc Natl Acad Sci U S A 101: 17819-17824, 2004
 25829	22341973	Mutations in LOXHD1, a recessive-deafness locus, cause dominant late-onset Fuchs corneal dystrophy.	Am J Hum Genet 90: 533-539, 2012
 25830	28285769	Mutations in the Spliceosome Component CWC27 Cause Retinal Degeneration with or without Additional Developmental Anomalies.	Am J Hum Genet 100: 592-604, 2017
-25831	28575650	Defects in the Cell Signaling Mediator ÃƒÆ’Ã†â€™Ãƒâ€¦Ã‚Â½ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â²-Catenin Cause the Retinal Vascular Condition FEVR.	Am J Hum Genet 100: 960-968, 2017
+25831	28575650	Defects in the Cell Signaling Mediator ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â½ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â²-Catenin Cause the Retinal Vascular Condition FEVR.	Am J Hum Genet 100: 960-968, 2017
 25832	28514307	Exome sequencing identifies a de novo mutation of CTNNB1 gene in a patient mainly presented with retinal detachment, lens and vitreous opacities, microcephaly, and developmental delay: Case report and literature review.	Medicine (Baltimore) 96: e6914, 2017
 25833	26967979	CTNNB1 mutation associated with familial exudative vitreoretinopathy (FEVR) phenotype.	Ophthalmic Genet 37: 468-470, 2016
-25834	24614104	Dominant ÃƒÆ’Ã†â€™Ãƒâ€¦Ã‚Â½ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â²-catenin mutations cause intellectual disability with recognizable syndromic features.	J Clin Invest 124: 1468-1482, 2014
+25834	24614104	Dominant ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â½ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â²-catenin mutations cause intellectual disability with recognizable syndromic features.	J Clin Invest 124: 1468-1482, 2014
 25835	25326669	De novo mutations in beta-catenin (CTNNB1) appear to be a frequent cause of intellectual disability: expanding the mutational and clinical spectrum.	Hum Genet 134: 97-109, 2015
 25837	26968164	A de novo CTNNB1 nonsense mutation associated with syndromic atypical hyperekplexia, microcephaly and intellectual disability: a case report.	BMC Neurol 16: 35, 2016
 25838	28031252	Compound heterozygosity for severe and hypomorphic NDUFS2 mutations cause non-syndromic LHON-like optic neuropathy.	J Med Genet 54: 346-356, 2017
@@ -4732,8 +4732,8 @@
 25925	17033974	Mutation in the auxiliary calcium-channel subunit CACNA2D4 causes autosomal recessive cone dystrophy.	Am J Hum Genet 79: 973-977, 2006
 25926	26560832	Mutations in CACNA2D4 Cause Distinctive Retinal Dysfunction in Humans.	Ophthalmology 123: 668-71.e2, 2016
 25927	17525176	A novel CACNA1F gene mutation causes Aland Island eye disease.	Invest Ophthalmol Vis Sci 48: 2498-2502, 2007
-25928	28002560	Clinical Characteristics, Mutation Spectrum, and Prevalence of ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â¦land Eye Disease/Incomplete Congenital Stationary Night Blindness in Denmark.	Invest Ophthalmol Vis Sci 57: 6861-6869, 2016
-25929	22194652	A novel p.Gly603Arg mutation in CACNA1F causes ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â¦land island eye disease and incomplete congenital stationary night blindness phenotypes in a family.	Mol Vis 17: 3262-3270, 2011
+25928	28002560	Clinical Characteristics, Mutation Spectrum, and Prevalence of ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¦land Eye Disease/Incomplete Congenital Stationary Night Blindness in Denmark.	Invest Ophthalmol Vis Sci 57: 6861-6869, 2016
+25929	22194652	A novel p.Gly603Arg mutation in CACNA1F causes ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¦land island eye disease and incomplete congenital stationary night blindness phenotypes in a family.	Mol Vis 17: 3262-3270, 2011
 25930	16505158	X linked cone-rod dystrophy, CORDX3, is caused by a mutation in the CACNA1F gene.	J Med Genet 43: 699-704, 2006
 25931	23776498	Exome sequencing of 47 chinese families with cone-rod dystrophy: mutations in 25 known causative genes.	PLoS One 8: e65546, 2013
 25932	24124559	A novel large in-frame deletion within the CACNA1F gene associates with a cone-rod dystrophy 3-like phenotype.	PLoS One 8: e76414, 2013
@@ -4760,7 +4760,7 @@
 25953	27029556	Putative digenic inheritance of heterozygous RP1L1 and C2orf71 null mutations in syndromic retinal dystrophy.	Ophthalmic Genet 38: 127-132, 2017
 25954	27548899	Identification of Novel Mutations in the LRR-Cap Domain of C21orf2 in Japanese Patients With Retinitis Pigmentosa and Cone-Rod Dystrophy.	Invest Ophthalmol Vis Sci 57: 4255-4263, 2016
 25955	28422394	Homozygous variant in C21orf2 in a case of Jeune syndrome with severe thoracic involvement: Extending the phenotypic spectrum.	Am J Med Genet A 173: 1698-1704, 2017
-25956	26167768	An siRNA-based functional genomics screen for theÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â identification of regulators of ciliogenesis and ciliopathyÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â genes.	Nat Cell Biol 17: 1074-1087, 2015
+25956	26167768	An siRNA-based functional genomics screen for theÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â identification of regulators of ciliogenesis and ciliopathyÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â genes.	Nat Cell Biol 17: 1074-1087, 2015
 25957	12944416	Mutation in a short-chain collagen gene, CTRP5, results in extracellular deposit formation in late-onset retinal degeneration: a genetic model for age-related macular degeneration.	Hum Mol Genet 12: 2657-2667, 2003
 25958	21981780	Absence of an orphan mitochondrial protein, c19orf12, causes a distinct clinical subtype of neurodegeneration with brain iron accumulation.	Am J Hum Genet 89: 543-550, 2011
 25959	28542792	On the complexity of clinical and molecular bases of neurodegeneration with brain iron accumulation.	Clin Genet : , 2017
@@ -5016,10 +5016,10 @@
 26224	27428514	Mutation screening of the LRIT3, CABP4, and GPR179 genes in Chinese patients with Schubert-Bornschein congenital stationary night blindness.	Ophthalmic Genet 38: 206-210, 2017
 26225	27474146	Martinique Crinkled Retinal Pigment Epitheliopathy: Clinical Stages and Pathophysiologic Insights.	Ophthalmology 123: 2196-2204, 2016
 26226	26744326	A dominant mutation in MAPKAPK3, an actor of p38 signaling pathway, causes a new retinal dystrophy involving Bruch's membrane and retinal pigment epithelium.	Hum Mol Genet 25: 916-926, 2016
-26227	20577004	Neuroblastoma amplified sequence gene is associated with a novel short stature syndrome characterised by optic nerve atrophy and Pelger-HuÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â«t anomaly.	J Med Genet 47: 538-548, 2010
-26228	28115293	Foveal hypoplasia in short stature with optic atrophy and Pelger-HuÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â«t anomaly syndrome with neuroblastoma-amplified sequence (NBAS) gene mutation.	J AAPOS : , 2017
+26227	20577004	Neuroblastoma amplified sequence gene is associated with a novel short stature syndrome characterised by optic nerve atrophy and Pelger-HuÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â«t anomaly.	J Med Genet 47: 538-548, 2010
+26228	28115293	Foveal hypoplasia in short stature with optic atrophy and Pelger-HuÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â«t anomaly syndrome with neuroblastoma-amplified sequence (NBAS) gene mutation.	J AAPOS : , 2017
 26229	28272537	Mutations in the PCYT1A gene are responsible for isolated forms of retinal dystrophy.	Eur J Hum Genet 25: 651-655, 2017
-26230	24760071	A truncated form of rod photoreceptor PDE6 ÃƒÆ’Ã†â€™Ãƒâ€¦Ã‚Â½ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â²-subunit causes autosomal dominant congenital stationary night blindness by interfering with the inhibitory activity of the ÃƒÆ’Ã†â€™Ãƒâ€¦Ã‚Â½ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³-subunit.	PLoS One 9: e95768, 2014
+26230	24760071	A truncated form of rod photoreceptor PDE6 ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â½ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â²-subunit causes autosomal dominant congenital stationary night blindness by interfering with the inhibitory activity of the ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â½ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³-subunit.	PLoS One 9: e95768, 2014
 26231	8075643	Heterozygous missense mutation in the rod cGMP phosphodiesterase beta-subunit gene in autosomal dominant stationary night blindness.	Nat Genet 7: 64-68, 1994
 26232	28397860	Whole-Exome Sequencing of Congenital Glaucoma Patients Reveals Hypermorphic Variants in GPATCH3, a New Gene Involved in Ocular and Craniofacial Development.	Sci Rep 7: 46175, 2017
 26233	28454448	GNAQ mutation R183Q as a potential cause of familial Sturge-Weber syndrome: A case report.	Oncol Lett 13: 2665-2669, 2017
@@ -5034,7 +5034,7 @@
 26242	27032025	Identification of Mutations in the PRDM5 Gene in Brittle Cornea Syndrome.	Cornea 35: 853-859, 2016
 26243	26489929	Whole exome sequencing identifies a heterozygous missense variant in the PRDM5 gene in a family with Axenfeld-Rieger syndrome.	Neurogenetics 17: 17-23, 2016
 26244	28129423	Novel PEX11B Mutations Extend the Peroxisome Biogenesis Disorder 14B Phenotypic Spectrum and Underscore Congenital Cataract as an Early Feature.	Invest Ophthalmol Vis Sci 58: 594-603, 2017
-26245	22581968	A novel defect of peroxisome division due to a homozygous non-sense mutation in the PEX11ÃƒÆ’Ã†â€™Ãƒâ€¦Ã‚Â½ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â² gene.	J Med Genet 49: 307-313, 2012
+26245	22581968	A novel defect of peroxisome division due to a homozygous non-sense mutation in the PEX11ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â½ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â² gene.	J Med Genet 49: 307-313, 2012
 26246	27557811	Novel PEX3 Gene Mutations Resulting in a Moderate Zellweger Spectrum Disorder.	JIMD Rep 34: 71-75, 2017
 26247	26220973	A novel type of rhizomelic chondrodysplasia punctata, RCDP5, is caused by loss of the PEX5 long isoform.	Hum Mol Genet 24: 5845-5854, 2015
 26248	26387595	Heimler Syndrome Is Caused by Hypomorphic Mutations in the Peroxisome-Biogenesis Genes PEX1 and PEX6.	Am J Hum Genet 97: 535-545, 2015
@@ -5045,7 +5045,7 @@
 26253	28777933	Heterozygous De Novo UBTF Gain-of-Function Variant Is Associated with Neurodegeneration in Childhood.	Am J Hum Genet 101: 267-273, 2017
 26254	28757203	Biallelic Mutations in LIPT2 Cause a Mitochondrial Lipoylation Defect Associated with Severe Neonatal Encephalopathy.	Am J Hum Genet 101: 283-290, 2017
 26255	28777934	Mutations in TRAPPC12 Manifest in Progressive Childhood Encephalopathy and Golgi Dysfunction.	Am J Hum Genet 101: 291-299, 2017
-26256	26068067	De novo mutations in PLXND1 and REV3L cause MÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¶bius syndrome.	Nat Commun 6: 7199, 2015
+26256	26068067	De novo mutations in PLXND1 and REV3L cause MÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¶bius syndrome.	Nat Commun 6: 7199, 2015
 26257	28777935	De Novo Mutations in YWHAG Cause Early-Onset Epilepsy.	Am J Hum Genet 101: 300-310, 2017
 26258	22152680	Lipoic acid synthetase deficiency causes neonatal-onset epilepsy, defective mitochondrial energy metabolism, and glycine elevation.	Am J Hum Genet. 89: 792-797, 2011.
 26259	25480986	Neuropathy target esterase impairments cause Oliver-McFarlane and Laurence-Moon syndromes.	J Med Genet 52: 85-94, 2015
@@ -5155,7 +5155,7 @@
 26364	24253200	Treatable childhood neuronopathy caused by mutations in riboflavin transporter RFVT2.	Brain 137: 44-56, 2014
 26365	24351571	Congenital hereditary endothelial dystrophy caused by SLC4A11 mutations progresses to Harboyan syndrome.	Cornea 33: 247-251, 2014
 26366	17220209	Borate transporter SLC4A11 mutations cause both Harboyan syndrome and non-syndromic corneal endothelial dystrophy.	J Med Genet 44: 322-326, 2007
-26367	24891338	SLC39A5 mutations interfering with the BMP/TGF-ÃƒÆ’Ã†â€™Ãƒâ€¦Ã‚Â½ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â² pathway in non-syndromic high myopia.	J Med Genet 51: 518-525, 2014
+26367	24891338	SLC39A5 mutations interfering with the BMP/TGF-ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â½ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â² pathway in non-syndromic high myopia.	J Med Genet 51: 518-525, 2014
 26368	28442722	Mutational screening of SLC39A5, LEPREL1 and LRPAP1 in a cohort of 187 high myopia patients.	Sci Rep 7: 1120, 2017
 26369	26822852	Next-generation sequencing confirms the implication of SLC24A1 in autosomal-recessive congenital stationary night blindness.	Clin Genet 89: 690-699, 2016
 26370	18304496	Mutation of solute carrier SLC16A12 associates with a syndrome combining juvenile cataract with microcornea and renal glucosuria.	Am J Hum Genet 82: 772-779, 2008
@@ -5352,7 +5352,7 @@
 26564	1474765	Deletions of the COL4A5 gene in patients with Alport syndrome.	Kidney Int 42: 1336-1344, 1992
 26565	29337005	Walker-Warburg syndrome and tectocerebellar dysraphia: A novel association caused by a homozygous DAG1 mutation.	Eur J Paediatr Neurol 22: 525-531, 2018
 26566	24052401	Homozygous dystroglycan mutation associated with a novel muscle-eye-brain disease-like phenotype with multicystic leucodystrophy.	Neurogenetics 14: 205-213, 2013
-26567	25934851	Absence of ÃƒÆ’Ã†â€™Ãƒâ€¦Ã‚Â½ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â±- and ÃƒÆ’Ã†â€™Ãƒâ€¦Ã‚Â½ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â²-dystroglycan is associated with Walker-Warburg syndrome.	Neurology 84: 2177-2182, 2015
+26567	25934851	Absence of ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â½ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â±- and ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â½ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â²-dystroglycan is associated with Walker-Warburg syndrome.	Neurology 84: 2177-2182, 2015
 26568	17701904	Lethal congenital contractural syndrome type 2 (LCCS2) is caused by a mutation in ERBB3 (Her3), a modulator of the phosphatidylinositol-3-kinase/Akt pathway.	Am J Hum Genet 81: 589-595, 2007
 26569	24784135	Null mutation in PGAP1 impairing Gpi-anchor maturation in patients with intellectual disability and encephalopathy.	PLoS Genet 10: e1004320, 2014
 26570	25804403	Cerebral visual impairment and intellectual disability caused by PGAP1 variants.	Eur J Hum Genet 23: 1689-1693, 2015
@@ -5489,9 +5489,9 @@
 26701	7795648	X-linked thrombocytopenia and Wiskott-Aldrich syndrome are allelic diseases with mutations in the WASP gene.	Nat Genet. 9: 414-417, 1995.
 26702	10385124	The XPV (xeroderma pigmentosum variant) gene encodes human DNA polymerase eta.	Nature. 399: 700-704, 1999.
 26703	10398605	hRAD30 mutations in the variant form of xeroderma pigmentosum.	Science. 285: 263-265, 1999.
-26704	11809679	A homozygous germ-line mutation in the human MSH2 gene predisposes to hematological malignancy and multiple cafÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©-au-lait spots.	Cancer Res. 62: 359-362, 2002.
+26704	11809679	A homozygous germ-line mutation in the human MSH2 gene predisposes to hematological malignancy and multiple cafÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â©-au-lait spots.	Cancer Res. 62: 359-362, 2002.
 26705	14982873	Spectrum of hemojuvelin gene mutations in 1q-linked juvenile hemochromatosis.	Blood. 103: 4317-4321, 2004.
-26720	30013181	Biallelic loss of human CTNNA2, encoding ÃƒÆ’Ã†â€™Ãƒâ€¦Ã‚Â½ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â±N-catenin, leads to ARP2/3 complex overactivity and disordered cortical neuronal migration.	Nat Genet 2018
+26720	30013181	Biallelic loss of human CTNNA2, encoding ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â½ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â±N-catenin, leads to ARP2/3 complex overactivity and disordered cortical neuronal migration.	Nat Genet 2018
 26721	30157172	Mutation in the intracellular chloride channel CLCC1 associated with autosomal recessive retinitis pigmentosa.	PLoS Genet 14: e1007504, 2018
 26722	30120214	Homozygous variants in KIAA1549, encoding a ciliary protein, are associated with autosomal recessive retinitis pigmentosa.	J Med Genet 2018
 26723	29978320	IFT88 mutations identified in individuals with non-syndromic recessive retinal degeneration result in abnormal ciliogenesis.	Hum Genet 137: 447-458, 2018
@@ -5536,8 +5536,8 @@
 26762	25407000	A homozygous loss-of-function variant in MYH11 in a case with megacystis-microcolon-intestinal hypoperistalsis syndrome.	Eur J Hum Genet 23: 1266-1268, 2015
 26763	28407396	A further family of Stromme syndrome carrying CENPF mutation.	Am J Med Genet A 173: 1668-1672, 2017
 26764	29753921	De novo loss-of-function variants of ASH1L are associated with an emergent neurodevelopmental disorder.	Eur J Med Genet 2018
-26765	27300082	StrÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¸mme Syndrome Is a Ciliary Disorder Caused by Mutations in CENPF.	Hum Mutat 37: 711, 2016
-26766	26820108	StrÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¸mme Syndrome Is a Ciliary Disorder Caused by Mutations in CENPF.	Hum Mutat 37: 359-363, 2016
+26765	27300082	StrÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¸mme Syndrome Is a Ciliary Disorder Caused by Mutations in CENPF.	Hum Mutat 37: 711, 2016
+26766	26820108	StrÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¸mme Syndrome Is a Ciliary Disorder Caused by Mutations in CENPF.	Hum Mutat 37: 359-363, 2016
 26767	28394464	Novel MCA/ID syndrome with ASH1L mutation.	Am J Med Genet A 173: 1644-1648, 2017
 26768	29575632	Newly described recessive MYH11 disorder with clinical overlap of Multisystemic smooth muscle dysfunction and Megacystis microcolon hypoperistalsis syndromes.	Am J Med Genet A 176: 1011-1014, 2018
 26770	23815551	Coffin-Siris syndrome is a SWI/SNF complex disorder.	Clin Genet 85: 548-554, 2014
@@ -5584,9 +5584,9 @@
 26813	28043061	FARS2 mutation and epilepsy: Possible link with early-onset epileptic encephalopathy.	Epilepsy Res 129: 118-124, 2017
 26814	27549011	Clinical findings in a patient with FARS2 mutations and early-infantile-encephalopathy with epilepsy.	Am J Med Genet A 170: 3004-3007, 2016
 26815	27095821	Novel Compound Heterozygous Mutations Expand the Recognized Phenotypes of FARS2-Linked Disease.	J Child Neurol 31: 1127-1137, 2016
-26816	25275207	CantÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Âº Syndrome and Related Disorders	1993
-26817	24700710	CantÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Âº syndrome resulting from activating mutation in the KCNJ8 gene.	Hum Mutat 35: 809-813, 2014
-26818	24176758	Mutation of KCNJ8 in a patient with CantÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Âº syndrome with unique vascular abnormalities - support for the role of K(ATP) channels in this condition.	Eur J Med Genet 56: 678-682, 2013
+26816	25275207	CantÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Âº Syndrome and Related Disorders	1993
+26817	24700710	CantÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Âº syndrome resulting from activating mutation in the KCNJ8 gene.	Hum Mutat 35: 809-813, 2014
+26818	24176758	Mutation of KCNJ8 in a patient with CantÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Âº syndrome with unique vascular abnormalities - support for the role of K(ATP) channels in this condition.	Eur J Med Genet 56: 678-682, 2013
 26819	30666632	Deep phenotyping of fourteen new patients with IQSEC2 variants, including monozygotic twins of discordant phenotype.	Clin Genet 2019
 26820	29276004	Missense Variants in RHOBTB2 Cause a Developmental and Epileptic Encephalopathy in Humans, and Altered Levels Cause Neurological Defects in Drosophila.	Am J Hum Genet 102: 44-57, 2018
 26821	29290337	KIAA1109 Variants Are Associated with a Severe Disorder of Brain Development and Arthrogryposis.	Am J Hum Genet 102: 116-132, 2018
@@ -5651,7 +5651,7 @@
 26882	30580808	Expanding the Spectrum of BAF-Related Disorders: De Novo Variants in SMARCC2 Cause a Syndrome with Intellectual Disability and Developmental Delay.	Am J Hum Genet. 104: 164-178, 2019.
 26883	30609410	Mutations in NCAPG2 Cause a Severe Neurodevelopmental Syndrome that Expands the Phenotypic Spectrum of Condensinopathies.	Am J Hum Genet. 104: 94-111, 2019.
 26884	30595371	Heterozygous RNF13 Gain-of-Function Variants Are Associated with Congenital Microcephaly, Epileptic Encephalopathy, Blindness, and Failure to Thrive.	Am J Hum Genet. 104: 179-185, 2019.
-26885	30595372	De Novo Mutations Affecting the Catalytic CÃƒÆ’Ã…Â½Ãƒâ€šÃ‚Â± Subunit of PP2A, PPP2CA, Cause Syndromic Intellectual Disability Resembling Other PP2A-Related Neurodevelopmental Disorders.	Am J Hum Genet. 104: 139-156, 2019.
+26885	30595372	De Novo Mutations Affecting the Catalytic CÃƒÆ’Ã†â€™Ãƒâ€¦Ã‚Â½ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â± Subunit of PP2A, PPP2CA, Cause Syndromic Intellectual Disability Resembling Other PP2A-Related Neurodevelopmental Disorders.	Am J Hum Genet. 104: 139-156, 2019.
 26886	30639322	ZMIZ1 Variants Cause a Syndromic Neurodevelopmental Disorder.	Am J Hum Genet. 104: 319-330, 2019.
 26887	30612693	De Novo Variants in MAPK8IP3 Cause Intellectual Disability with Variable Brain Anomalies.	Am J Hum Genet. 104: 203-212, 2019.
 26888	30665704	Lack of GAS2L2 Causes PCD by Impairing Cilia Orientation and Mucociliary Clearance.	Am J Hum Genet. 104: 229-245, 2019.
@@ -5701,7 +5701,7 @@
 26935	16098032	Epidermolysis bullosa simplex: recurrent and de novo mutations in the KRT5 and KRT14 genes, phenotype/genotype correlations, and implications for genetic counseling and prenatal diagnosis.	J Invest Dermatol. 125: 239-243, 2005.
 26936	7506606	A novel three-nucleotide deletion in the helix 2B region of keratin 14 in epidermolysis bullosa simplex: delta E375.	Hum Mol Genet. 2: 1971-1972, 1993.
 26937	12485428	Deletion of a cytoplasmic domain of integrin beta4 causes epidermolysis bullosa simplex.	J Invest Dermatol. 119: 1275-1281, 2002.
-26938	7686424	Identification of a leucine-to-proline mutation in the keratin 5 gene in a family with the generalized KÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¶bner type of epidermolysis bullosa simplex.	Hum Mutat. 2: 94-102, 1993.
+26938	7686424	Identification of a leucine-to-proline mutation in the keratin 5 gene in a family with the generalized KÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¶bner type of epidermolysis bullosa simplex.	Hum Mutat. 2: 94-102, 1993.
 26939	7682883	A mutation (Met-->Arg) in the type I keratin (K14) gene responsible for autosomal dominant epidermolysis bullosa simplex.	Hum Mutat. 2: 37-42, 1993.
 26940	1372711	A mutation in the conserved helix termination peptide of keratin 5 in hereditary skin blistering.	Nature. 356: 244-246, 1992.
 26941	1717157	Point mutations in human keratin 14 genes of epidermolysis bullosa simplex patients: genetic and functional analyses.	Cell. 66: 1301-1311, 1991.
@@ -5714,7 +5714,7 @@
 26948	9205497	A recurrent laminin 5 mutation in British patients with lethal (Herlitz) junctional epidermolysis bullosa: evidence for a mutational hotspot rather than propagation of an ancestral allele.	Br J Dermatol. 136: 674-677, 1997.
 26949	11810295	Laminin 5 mutations in junctional epidermolysis bullosa: molecular basis of Herlitz vs. non-Herlitz phenotypes.	Hum Genet. 110: 41-51, 2002.
 26950	16175511	Loss of desmoplakin tail causes lethal acantholytic epidermolysis bullosa.	Am J Hum Genet. 77: 653-660, 2005.
-26951	10662807	Haim-Munk syndrome and Papillon-LefÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¨vre syndrome are allelic mutations in cathepsin C.	J Med Genet. 37: 88-94, 2000.
+26951	10662807	Haim-Munk syndrome and Papillon-LefÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¨vre syndrome are allelic mutations in cathepsin C.	J Med Genet. 37: 88-94, 2000.
 26952	15286787	Mutations in SLC6A19, encoding B0AT1, cause Hartnup disorder.	Nat Genet. 36: 999-1002, 2004.
 26953	11836498	Hermansky-Pudlak syndrome is caused by mutations in HPS4, the human homolog of the mouse light-ear gene.	Nat Genet. 30: 321-324, 2002.
 26954	12548288	Ru2 and Ru encode mouse orthologs of the genes mutated in human Hermansky-Pudlak syndrome types 5 and 6.	Nat Genet. 33: 145-153, 2003.
@@ -5823,7 +5823,7 @@
 27057	30982609	Bi-allelic CSF1R Mutations Cause Skeletal Dysplasia of Dysosteosclerosis-Pyle Disease Spectrum and Degenerative Encephalopathy with Brain Malformation.	Am J Hum Genet. 104: 925-935, 2019.
 27058	30982611	Pathogenic Variants in GPC4 Cause Keipert Syndrome.	Am J Hum Genet. 104: 914-924, 2019.
 27059	30982612	Bi-allelic Loss-of-Function CACNA1B Mutations in Progressive Epilepsy-Dyskinesia.	Am J Hum Genet. 104: 948-956, 2019.
-27060	31006512	Defective DNA Polymerase ÃƒÆ’Ã…Â½Ãƒâ€šÃ‚Â±-Primase Leads to X-Linked Intellectual Disability Associated with Severe Growth Retardation, Microcephaly, and Hypogonadism.	Am J Hum Genet. 104: 957-967, 2019.
+27060	31006512	Defective DNA Polymerase ÃƒÆ’Ã†â€™Ãƒâ€¦Ã‚Â½ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â±-Primase Leads to X-Linked Intellectual Disability Associated with Severe Growth Retardation, Microcephaly, and Hypogonadism.	Am J Hum Genet. 104: 957-967, 2019.
 27061	31051115	Rare Variants in BNC2 Are Implicated in Autosomal-Dominant Congenital Lower Urinary-Tract Obstruction.	Am J Hum Genet. 104: 994-1006, 2019.
 27062	30879638	Deleterious Variation in BRSK2 Associates with a Neurodevelopmental Disorder.	Am J Hum Genet. 104: 701-708, 2019.
 27063	30905398	The Discovery of a LEMD2-Associated Nuclear Envelopathy with Early Progeroid Appearance Suggests Advanced Applications for AI-Driven Facial Phenotyping.	Am J Hum Genet. 104: 749-757, 2019.
@@ -5874,10 +5874,10 @@
 27111	30535821	In vivo histology and p.L132V mutation in KRT12 gene in Japanese patients with Meesmann corneal dystrophy.	Jpn J Ophthalmol 63: 46-55, 2019
 27112	26758872	Keratin 12 missense mutation induces the unfolded protein response and apoptosis in Meesmann epithelial corneal dystrophy.	Hum Mol Genet 25: 1176-1191, 2016
 27113	30778388	A Novel Homozygous Truncating Mutation in LAMB2 Gene in a Chinese Uyghur Patient With Severe Phenotype Pierson Syndrome.	Front Med (Lausanne) 6: 12, 2019
-27114	30120985	Ocular findings in a case of Pierson syndrome with a novel mutation in laminin ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â¸2 gene.	J AAPOS 22: 401-403.e1, 2018
+27114	30120985	Ocular findings in a case of Pierson syndrome with a novel mutation in laminin ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¦ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¸2 gene.	J AAPOS 22: 401-403.e1, 2018
 27115	23833072	Mutational analysis of MIR184 in sporadic keratoconus and myopia.	Invest Ophthalmol Vis Sci 54: 5266-5272, 2013
 27116	24138095	C.57 C > T Mutation in MIR 184 is Responsible for Congenital Cataracts and Corneal Abnormalities in a Five-generation Family from Galicia, Spain.	Ophthalmic Genet 36: 244-247, 2015
-27117	25373792	Independent origin of c.57 CÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â°>ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â°T mutation in MIR184 associated with inherited corneal and lens abnormalities.	Ophthalmic Genet 36: 95-97, 2015
+27117	25373792	Independent origin of c.57 CÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â°>ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â°T mutation in MIR184 associated with inherited corneal and lens abnormalities.	Ophthalmic Genet 36: 95-97, 2015
 27118	27195078	Screening for MIR184 Mutations in Iranian Patients with Keratoconus.	J Ophthalmic Vis Res 11: 3-7, 2016
 27119	26749309	Autosomal-Dominant Corneal Endothelial Dystrophies CHED1 and PPCD1 Are Allelic Disorders Caused by Non-coding Mutations in the Promoter of OVOL2.	Am J Hum Genet 98: 75-89, 2016
 27120	28046031	Confirmation of the OVOL2 Promoter Mutation c.-307T>C in Posterior Polymorphous Corneal Dystrophy 1.	PLoS One 12: e0169215, 2017
@@ -6057,7 +6057,7 @@
 27295	15928254	Mutation at cleavage site of insulin-like growth factor receptor in a short-stature child born with intrauterine growth retardation.	J Clin Endocrinol Metab. 90: 4679-4687, 2005.
 27296	17264177	A familial insulin-like growth factor-I receptor mutant leads to short stature: clinical and biochemical characterization.	J Clin Endocrinol Metab. 92: 1542-1548, 2007.
 27297	27120018	Gain-of-Function Mutations in RARB Cause Intellectual Disability with Progressive Motor Impairment.	Hum Mutat. 37: 786-793, 2016.
-27298	31443933	Partial Loss of USP9X Function Leads to a Male Neurodevelopmental and Behavioral Disorder Converging on Transforming Growth Factor ÃƒÆ’Ã…Â½Ãƒâ€šÃ‚Â² Signaling.	Biol Psychiatry. 2019.
+27298	31443933	Partial Loss of USP9X Function Leads to a Male Neurodevelopmental and Behavioral Disorder Converging on Transforming Growth Factor ÃƒÆ’Ã†â€™Ãƒâ€¦Ã‚Â½ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â² Signaling.	Biol Psychiatry. 2019.
 27299	28589176	ARHGEF9 disease: Phenotype clarification and genotype-phenotype correlation.	Neurol Genet 3: e148, 2017
 27300	23422940	Extended spectrum of MBD5 mutations in neurodevelopmental disorders.	Eur J Hum Genet. 21: 1457-1461, 2013.
 27301	30107533	SYT1-associated neurodevelopmental disorder: a case series.	Brain 141: 2576-2591, 2018
@@ -6138,7 +6138,7 @@
 27380	32197073	De Novo Frameshift Variants in the Neuronal Splicing Factor NOVA2 Result in a Common C-Terminal Extension and Cause a Severe Form of Neurodevelopmental Disorder.	Am J Hum Genet 106: 438-452, 2020
 27381	32220291	Bi-allelic ADARB1 Variants Associated with Microcephaly, Intellectual Disability, and Seizures.	Am J Hum Genet 106: 467-483, 2020
 27382	32220290	Bi-allelic Variants in the GPI Transamidase Subunit PIGK Cause a Neurodevelopmental Syndrome with Hypotonia, Cerebellar Atrophy, and Epilepsy.	Am J Hum Genet 106: 484-495, 2020
-27384	32197075	Bi-allelic LoF NRROS Variants Impairing Active TGF-ÃƒÆ’Ã†â€™Ãƒâ€¦Ã‚Â½ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â²1 Delivery Cause a Severe Infantile-Onset Neurodegenerative Condition with Intracranial Calcification.	Am J Hum Genet 106: 559-569, 2020
+27384	32197075	Bi-allelic LoF NRROS Variants Impairing Active TGF-ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â½ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â²1 Delivery Cause a Severe Infantile-Onset Neurodegenerative Condition with Intracranial Calcification.	Am J Hum Genet 106: 559-569, 2020
 27385	32197074	De novo EIF2AK1 and EIF2AK2 Variants Are Associated with Developmental Delay, Leukoencephalopathy, and Neurologic Decompensation.	Am J Hum Genet 106: 570-583, 2020
 27386	32227164	RSRC1 loss-of-function variants cause mild to moderate autosomal recessive intellectual disability.	Brain 2020
 27387	29522154	RSRC1 mutation affects intellect and behaviour through aberrant splicing and transcription, downregulating IGFBP3.	Brain 141: 961-970, 2018
@@ -6454,7 +6454,7 @@
 27700	25138099	Loss-of-function variants of SETD5 cause intellectual disability and the core phenotype of microdeletion 3p25.3 syndrome.	Eur J Hum Genet 23: 753-760, 2015
 27701	31516630	Mild Phenotype Associated with SLC6A1 Gene Mutation: A Case Report with Literature Review.	J Pediatr Neurosci 14: 100-102, 2019
 27702	31176687	A missense mutation in SLC6A1 associated with Lennox-Gastaut syndrome impairs GABA transporter 1 protein trafficking and function.	Exp Neurol 320: 112973, 2019
-27703	30132828	SLC6A1 variants identified in epilepsy patients reduce ÃƒÆ’Ã†â€™Ãƒâ€¦Ã‚Â½ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³-aminobutyric acid transport.	Epilepsia 59: e135-e141, 2018
+27703	30132828	SLC6A1 variants identified in epilepsy patients reduce ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â½ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³-aminobutyric acid transport.	Epilepsia 59: e135-e141, 2018
 27704	29961511	Language Regression in an Atypical SLC6A1 Mutation.	Semin Pediatr Neurol 26: 25-27, 2018
 27705	29315614	Defining the phenotypic spectrum of SLC6A1 mutations.	Epilepsia 59: 389-402, 2018
 27706	27600546	SLC6A1 Mutation and Ketogenic Diet in Epilepsy With Myoclonic-Atonic Seizures.	Pediatr Neurol 64: 77-79, 2016
@@ -6516,7 +6516,7 @@
 27762	29695756	Disease-causing variants in TCF4 are a frequent cause of intellectual disability: lessons from large-scale sequencing approaches in diagnosis.	Eur J Hum Genet 26: 996-1006, 2018
 27763	29604340	A case of Pitt-hopkins Syndrome with de novo mutation in TCF4: Clinical features and treatment for epilepsy.	Int J Dev Neurosci 67: 51-54, 2018
 27764	27132474	Partial deletion of TCF4 in three generation family with non-syndromic intellectual disability, without features of Pitt-Hopkins syndrome.	Eur J Med Genet 59: 310-314, 2016
-27765	23528641	263.4ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â kb deletion within the TCF4 gene consistent with Pitt-Hopkins syndrome, inherited from a mosaic parent with normal phenotype.	Eur J Med Genet 56: 314-318, 2013
+27765	23528641	263.4ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â kb deletion within the TCF4 gene consistent with Pitt-Hopkins syndrome, inherited from a mosaic parent with normal phenotype.	Eur J Med Genet 56: 314-318, 2013
 27766	22670824	Parent-child exome sequencing identifies a de novo truncating mutation in TCF4 in non-syndromic intellectual disability.	Clin Genet 83: 198-200, 2013
 27767	20205897	Pitt-Hopkins syndrome: report of a case with a TCF4 gene mutation.	Ital J Pediatr 36: 12, 2010
 27768	20184619	Two percent of patients suspected of having Angelman syndrome have TCF4 mutations.	Clin Genet 78: 282-288, 2010
@@ -6535,7 +6535,7 @@
 27781	28551038	Clinical features of a female with WDR45 mutation complicated by infantile spasms: a case report and literature review.	Brain Dev 39: 804-807, 2017
 27782	28371320	Intragenic deletion of the WDR45 gene in a male with encephalopathy, severe psychomotor disability, and epilepsy.	Am J Med Genet A 173: 1444-1446, 2017
 27783	28361255	Novel WDR45 mutation causing beta-propeller protein associated neurodegeneration (BPAN) in two monozygotic twins.	J Neurol 264: 1020-1022, 2017
-27784	27957548	A novel WDR45 mutation in a patient with ÃƒÆ’Ã†â€™Ãƒâ€¦Ã‚Â½ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â²-propeller protein-associated neurodegeneration.	Neurol Genet 3: e124, 2017
+27784	27957548	A novel WDR45 mutation in a patient with ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â½ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â²-propeller protein-associated neurodegeneration.	Neurol Genet 3: e124, 2017
 27785	27681470	Severe infantile male encephalopathy is a result of early post-zygotic WDR45 somatic mutation.	Clin Genet 90: 560-562, 2016
 27786	27030146	WDR45 mutations in three male patients with West syndrome.	J Hum Genet 61: 653-661, 2016
 27787	26790960	WDR45 mutations in Rett (-like) syndrome and developmental delay: Case report and an appraisal of the literature.	Mol Cell Probes 30: 44-49, 2016
@@ -6643,7 +6643,7 @@
 27890	20045868	Myosin binding protein C1: a novel gene for autosomal dominant distal arthrogryposis type 1.	Hum Mol Genet. 19: 1165-1173, 2010.
 27891	31264822	Heterozygous variants in MYBPC1 are associated with an expanded neuromuscular phenotype beyond arthrogryposis.	Hum Mutat. 40: 1115-1126, 2019.
 27892	31966463	A mutation of beta-tropomyosin gene in a Chinese family with distal arthrogryposis type I.	Int J Clin Exp Pathol. 10: 11137-11142, 2017.
-27893	27858739	A Premature Stop Codon in MYO18B isÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â Associated with Severe Nemaline Myopathy with Cardiomyopathy.	J Neuromuscul Dis. 2: 219-227, 2015.
+27893	27858739	A Premature Stop Codon in MYO18B isÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â Associated with Severe Nemaline Myopathy with Cardiomyopathy.	J Neuromuscul Dis. 2: 219-227, 2015.
 27894	25748484	A novel syndrome of Klippel-Feil anomaly, myopathy, and characteristic facies is linked to a null mutation in MYO18B.	J Med Genet. 52: 400-404, 2015.
 27895	32637634	Novel truncating mutations of MYO18B causing congenital myopathy in a Swiss patient.	Neurol Genet. 6: e458, 2020.
 27896	32184166	A novel pathogenic variant in MYO18B associating early-onset muscular hypotonia, and characteristic dysmorphic features, delineation of the phenotypic spectrum of MYO18B-related conditions.	Gene. 742: 144542, 2020.
@@ -6674,7 +6674,7 @@
 27922	28540413	A recessive mutation in beta-IV-spectrin (SPTBN4) associates with congenital myopathy, neuropathy, and central deafness.	Hum Genet. 136: 903-910, 2017.
 27923	28940097	Expanding the genetic heterogeneity of intellectual disability.	Hum Genet. 136: 1419-1429, 2017.
 27924	31230720	The Genomics of Arthrogryposis, a Complex Trait: Candidate Genes and Further Evidence for Oligogenic Inheritance.	Am J Hum Genet. 105: 132-150, 2019.
-27925	29861105	ÃƒÆ’Ã…Â½Ãƒâ€šÃ‚Â²IV Spectrinopathies Cause Profound Intellectual Disability, Congenital Hypotonia, and Motor Axonal Neuropathy.	Am J Hum Genet. 102: 1158-1168, 2018.
+27925	29861105	ÃƒÆ’Ã†â€™Ãƒâ€¦Ã‚Â½ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â²IV Spectrinopathies Cause Profound Intellectual Disability, Congenital Hypotonia, and Motor Axonal Neuropathy.	Am J Hum Genet. 102: 1158-1168, 2018.
 27926	31857255	A novel homozygous splice-site mutation in the SPTBN4 gene causes axonal neuropathy without intellectual disability.	Eur J Med Genet. 63: 103826, 2020.
 27927	28868155	Missense-depleted regions in population exomes implicate ras superfamily nucleotide-binding protein alteration in patients with brain malformation.	NPJ Genom Med. 1: 2016.
 27928	29668857	De novo mutations of the ATP6V1A gene cause developmental encephalopathy with epilepsy.	Brain. 141: 1703-1718, 2018.
@@ -6699,7 +6699,7 @@
 27947	21242646	GATA3 abnormalities in six patients with HDR syndrome.	Endocr J. 58: 117-121, 2011.
 27948	29593425	Lung squamous cell carcinoma associated with hypoparathyroidism with sensorineural deafness and renal dysplasia syndrome: a case report.	Onco Targets Ther. 11: 1595-1599, 2018.
 27949	26514990	A novel loss-of-function mutation of GATA3 (p.R299Q) in a Japanese family with Hypoparathyroidism, Deafness, and Renal Dysplasia (HDR) syndrome.	BMC Endocr Disord. 15: 66, 2015.
-27950	21834031	A new case of HDR syndrome with severe female genital tract malformation: comment on "Novel mutation in the gene encoding the GATA3 transcription factor in a Spanish familial case of hypoparathyroidism, deafness, and renal dysplasia (HDR) syndrome with female genital tract malformations" by HernÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡ndez et al.	Am J Med Genet A. 155A: 2329-2330, 2011.
+27950	21834031	A new case of HDR syndrome with severe female genital tract malformation: comment on "Novel mutation in the gene encoding the GATA3 transcription factor in a Spanish familial case of hypoparathyroidism, deafness, and renal dysplasia (HDR) syndrome with female genital tract malformations" by HernÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡ndez et al.	Am J Med Genet A. 155A: 2329-2330, 2011.
 27951	21120445	Novel dominant-negative mutant of GATA3 in HDR syndrome.	J Mol Med (Berl). 89: 43-50, 2011.
 27952	23203342	HDR syndrome: a follow-up genotype-phenotype analysis of a de novo missense Thr272Ile mutation in exon 4 of GATA3.	Klin Padiatr. 224: 452-454, 2012.
 27953	16509533	A novel mutation in the GATA3 gene in a family with HDR syndrome (Hypoparathyroidism, sensorineural Deafness and Renal anomaly syndrome).	J Pediatr Endocrinol Metab. 19: 87-92, 2006.
@@ -6851,7 +6851,7 @@
 28099	24699222	CNNM2 mutations cause impaired brain development and seizures in patients with hypomagnesemia.	PLoS Genet 10: e1004267, 2014
 28100	21397062	CNNM2, encoding a basolateral protein required for renal Mg2+ handling, is mutated in dominant hypomagnesemia.	Am J Hum Genet 88: 333-343, 2011
 28101	30026055	CNNM2 homozygous mutations cause severe refractory hypomagnesemia, epileptic encephalopathy and brain malformations.	Eur J Med Genet 62: 198-203, 2019
-28102	25807484	Loss of ÃƒÆ’Ã†â€™Ãƒâ€¦Ã‚Â½ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â´-catenin function in severe autism.	Nature 520: 51-56, 2015
+28102	25807484	Loss of ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â½ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â´-catenin function in severe autism.	Nature 520: 51-56, 2015
 28103	25839933	CTNND2 deletion and intellectual disability.	Gene 565: 146-149, 2015
 28104	25566820	A novel frameshift mutation in FGF14 causes an autosomal dominant episodic ataxia.	Neurogenetics 16: 233-236, 2015
 28105	30607796	Acetazolamide-Responsive Episodic Ataxia Linked to Novel Splice Site Variant in FGF14 Gene.	Cerebellum 18: 649-653, 2019
@@ -6871,7 +6871,7 @@
 28124	32707086	Bi-allelic HPDL Variants Cause a Neurodegenerative Disease Ranging from Neonatal Encephalopathy to Adolescent-Onset Spastic Paraplegia.	Am J Hum Genet. 107: 364-373, 2020.
 28125	32378186	GREB1L variants in familial and sporadic hereditary urogenital adysplasia and Mayer-Rokitansky-Kuster-Hauser syndrome.	Clin Genet. 98: 126-137, 2020.
 28126	32598191	Clinical Exome Sequencing Identifies a Novel Mutation of the GREB1L Gene in a Chinese Family with Renal Agenesis.	Genet Test Mol Biomarkers. 24: 520-526, 2020.
-28127	31424080	Whole-exome sequencing identifies a GREB1L variant in a three-generation family with MÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¼llerian and renal agenesis: a novel candidate gene in Mayer-Rokitansky-KÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¼ster-Hauser (MRKH) syndrome. A case report.	Hum Reprod. 34: 1838-1846, 2019.
+28127	31424080	Whole-exome sequencing identifies a GREB1L variant in a three-generation family with MÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¼llerian and renal agenesis: a novel candidate gene in Mayer-Rokitansky-KÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¼ster-Hauser (MRKH) syndrome. A case report.	Hum Reprod. 34: 1838-1846, 2019.
 28128	29261186	Genomic study of severe fetal anomalies and discovery of GREB1L mutations in renal agenesis.	Genet Med. 20: 745-753, 2018.
 28129	29220675	Exome-wide Association Study Identifies GREB1L Mutations in Congenital Kidney Malformations.	Am J Hum Genet. 101: 1034, 2017.
 28130	29100091	Mutations in GREB1L Cause Bilateral Kidney Agenesis in Humans and Mice.	Am J Hum Genet. 101: 803-814, 2017.

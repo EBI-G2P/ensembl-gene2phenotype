@@ -1,4 +1,4 @@
-1	1901	Trine showed cases which were strikingly similar with a recurrent de novo missense mutations	2018-11-06 16:08:26	4	2018-11-06 16:10:48	4
-2	4006	Only 2 publications and 2 families but included in GeneReviews as causative for Cantu syndrome	2019-03-08 17:52:56	3	2019-03-08 17:53:44	3
-3	4244	Note incomplete penetrance in the dominant form.	2019-09-17 10:57:19	3	2019-09-17 10:58:08	3
-4	2088	Upgraded based on Science paper (biallelic) and 30K trio analysis (monoallelic)	2019-09-18 15:32:55	5	2019-09-18 15:34:02	5
+1	1901	Trine showed cases which were strikingly similar with a recurrent de novo missense mutations	2018-11-06 16:08:26	4	2018-11-06 16:10:48	4	0
+2	4006	Only 2 publications and 2 families but included in GeneReviews as causative for Cantu syndrome	2019-03-08 17:52:56	3	2019-03-08 17:53:44	3	0
+3	4244	Note incomplete penetrance in the dominant form.	2019-09-17 10:57:19	3	2019-09-17 10:58:08	3	0
+4	2088	Upgraded based on Science paper (biallelic) and 30K trio analysis (monoallelic)	2019-09-18 15:32:55	5	2019-09-18 15:34:02	5	0

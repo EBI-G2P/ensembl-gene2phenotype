@@ -631,7 +631,7 @@
 636	HOLOCARBOXYLASE SYNTHETASE DEFICIENCY	253270
 637	USHER SYNDROME TYPE 1J	614869
 638	LISSENCEPHALY X-LINKED TYPE 1	300067
-639	KOHLSCHÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â¸TTER-TÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â¡NZ SYNDROME	226750
+639	KOHLSCHÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¦ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¸TTER-TÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¦ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¡NZ SYNDROME	226750
 640	DEVELOPMENTAL AND EXPRESSIVE LANGUAGE DELAY	\N
 641	PARKINSONISM-DYSTONIA, INFANTILE	319029
 642	MITOCHONDRIAL COMPLEX IV DEFICIENCY	220110
@@ -1032,7 +1032,7 @@
 1040	CENTRONUCLEAR MYOPATHY 2	255200
 1041	LISSENCEPHALY 2	257320
 1042	HYPERPHENYLALANINEMIA, BH4-DEFICIENT, D	264070
-1043	MICROCEPHALYÃƒÆ’Ã†â€™Ãƒâ€šÃ‚ÂCAPILLARY MALFORMATION (MIC-CAP) SYNDROME	614261
+1043	MICROCEPHALYÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚ÂCAPILLARY MALFORMATION (MIC-CAP) SYNDROME	614261
 1044	ECTODERMAL DYSPLASIA RAPP-HODGKIN TYPE	129400
 1045	SPASTIC ATAXIA, CHARLEVOIX-SAGUENAY TYPE	270550
 1046	NEUROFIBROMATOSIS-NOONAN SYNDROME	601321
@@ -3138,7 +3138,7 @@
 3297	Leber congenital amaurosis 2	204100
 3298	Corneal dystrophy, Avellino type	\N
 3299	Granular corneal dystrophy, type I	121900
-3300	ReisÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã¢â‚¬Å“BÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¼cklers corneal dystrophy	608470
+3300	ReisÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¦ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œBÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™Ã	608470
 3301	Thiel-Behnke corneal dystrophy	602082
 3302	Granular corneal dystrophy, type II	607541
 3303	MYH10-related Multiple congenital anomalies	\N
@@ -3173,7 +3173,7 @@
 3332	Wolfram syndrome	\N
 3333	Night blindness, congenital stationary, autosomal dominant 1	610445
 3334	Retinitis pigmentosa 4, autosomal dominant or recessive	\N
-3335	CRX ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã¢â‚¬Å“ RELATED CONE-ROD DYSTROPHY 2	\N
+3335	CRX ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¦ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ RELATED CONE-ROD DYSTROPHY 2	\N
 3336	CRX - RELATED CONE-ROD RETINAL DYSTROPHY 2	\N
 3337	Microphthalmia, coloboma	\N
 3338	Syndromic congenital cataract	\N
@@ -3327,7 +3327,7 @@
 3487	Retinitis pigmentosa and hypogammaglobulinemia	\N
 3488	Cone-rod dystrophy 21	616502
 3489	Hermansky-Pudlak syndrome 7	614076
-3490	Retinitis pigmentosa with intellectualÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â disability	\N
+3490	Retinitis pigmentosa with intellectualÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â disability	\N
 3491	Retinitis pigmentosa with intellectual disability	\N
 3492	Congenital cataract and nonobstructive azoospermia	\N
 3493	Cataract with or without azoospermia	\N
@@ -3451,7 +3451,7 @@
 3611	Corneal intraepithelial dyskeratosis	\N
 3612	Autoinflammation with arthritis and dyskeratosis	617388
 3613	Brittle cornea syndrome 2	614170
-3614	AxenfeldÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã¢â‚¬Å“Rieger syndrome	\N
+3614	AxenfeldÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¦ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œRieger syndrome	\N
 3615	Axenfeld-Rieger syndrome	\N
 3616	Peroxisome biogenesis disorder 1A	214100
 3617	Peroxisome biogenesis disorder 1B	601539
@@ -3648,7 +3648,7 @@
 3808	Neurodevelopmental Disorder	\N
 3809	Craniosynostosis Syndrome with Hypertrichosis, Progeroid Appearance, and Mitochondrial Dysfunction	\N
 3810	Gorlin-Chaudhry-Moss syndrome (GCMS);  Syndrome with Hypertrichosis, Progeroid Appearance, and Mitochondrial Dysfunction	\N
-3811	Spondylometaphyseal Dysplasia with ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¦ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œCorner FracturesÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â	\N
+3811	Spondylometaphyseal Dysplasia with ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¦ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã¢â‚¬Å“Corner FracturesÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡	\N
 3812	Spondylometaphyseal Dysplasia with Corner Fractures	184255
 3813	Developmental Delay, Epilepsy, Cerebellar Atrophy, and Osteopenia	617810
 3814	Nephrotic syndrome with primary microcephaly	\N
@@ -3670,7 +3670,7 @@
 3830	Warburg micro syndrome 4	615663
 3831	Lattice corneal dystrophy type 1	122200
 3832	Uridine-responsive epileptic encephalopathy	\N
-3833	Syndromic neutropenia with ShwachmanDiamondÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã¢â‚¬Å“like features	\N
+3833	Syndromic neutropenia with ShwachmanDiamondÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¦ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œlike features	\N
 3834	Syndromic neutropenia with Shwachman-Diamond -like features	\N
 3835	Syndromic neutropenia with Shwachman-Diamond-like features	\N
 3836	Periventricular nodular heterotopia	\N
@@ -3997,7 +3997,7 @@
 4157	Epidermolysis Bullosa Simplex localised (Weber Cockayne)	\N
 4158	Epidermolysis Bullosa Simplex localised(Weber Cockayne)	\N
 4159	Epidermolysis Bullosa Simplex (Weber Cockayne)	\N
-4160	Epidermolysis Bullosa Simplex generalised intermediate (KÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¶bner)	\N
+4160	Epidermolysis Bullosa Simplex generalised intermediate (KÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¶bner)	\N
 4161	Epidermolysis Bullosa Simplex generalised severe (Dowling - Meara)	\N
 4162	Epidermolysis Bullosa Simplex (Mottled pigmentation)	\N
 4163	Epidermolysis Bullosa Simplex (recessive)	\N

@@ -1,216 +1,216 @@
-1	2094	This is one of the genes that achieved genome wide significance for an excess of de novo mutations over the expected number in the DDD 4294 trio paper.  There is no clinical paper available at the moment 	2017-07-18 14:18:22	4
-2	3062	A mouse model with similar metabolic problems was published in 2015 PMID: 25816300	2017-08-30 11:17:57	4
-3	3066	Recurrent de novo c.628G>A in UBTF, encoding p.Glu210Lys in UBF	2017-08-30 11:28:14	4
-4	3071	Could be dominant negative rather than activating	2017-08-30 11:57:51	4
-6	3100	 SLC45A1 is the second cerebral glucose transporter	2017-08-30 14:20:37	4
-7	3103	Duplicated from eye panel, coded originally by Ana	2017-08-30 14:28:04	4
-8	3119	recurrent de novo heterozygous c.892C>T (p.Arg298Trp) variant	2017-08-30 16:13:13	4
-9	3126	recurrent mutations causing p.Tyr245Cys and p.Ala356Thr 	2017-08-30 17:59:52	4
-10	3625	2 additional cases with different rare homozygous missense variants in coding sequence	2017-10-05 14:19:50	3
-11	3648	This entry was originally transferred from the eye panel but prompted by the AJHG paper	2017-11-23 15:32:52	4
-12	3650	De novo mutations, all missense\n	2017-11-23 15:50:26	4
-13	4272	Analysis looking for clustered missense variants	2017-11-23 16:02:03	4
-14	3653	Mostly de novo variants	2017-11-23 16:05:21	4
-15	3654	De novo variants	2017-11-23 16:12:40	4
-16	3656	Hypomorphic alleles	2017-11-23 16:27:51	4
-17	3736	Treatable neurometabolic disorder - responds to therapy with oral uridine	2018-02-06 17:04:29	3
-18	263	This phenotype seems to be caused by a single in-frame deletion (c.1812_1814del, p.S605del) 	2018-03-07 15:52:55	4
-19	3739	Commonly de novo mutations\n	2018-03-08 08:42:40	4
-20	3742	Only maternally inherited gain-of-function mutations are causative	2018-04-10 17:18:23	4
-21	3743	Recurrent de novo p.Glu590Lys variant	2018-04-13 14:20:42	4
-22	3744	De novo het LOF mutations	2018-04-14 09:25:30	4
-23	3745	Single family in Science paper	2018-04-14 09:44:08	4
-24	2088	Downgraded to possible on the basis of the sparse evidence in the literature and the ExAC pLi	2018-04-26 09:56:19	4
-25	1742	One discussion at the GenCC meeting May 2018 we thought that this gene was unlikely	2018-05-23 10:26:51	4
-26	1742	Decision to reduce confidence on basis of population frequency in historic variants	2018-05-23 10:31:39	4
-27	3774	All de novo mutations	2018-06-17 12:05:36	4
-28	3775	Presented at ESHG 2018 clustered missense variants in the helicase domain all de novo	2018-06-17 12:23:17	4
-29	1937	Seems to be a ciliopathy, RTTN localised to the centrosome and the basal body.  Presented at ESHG 2018	2018-06-18 12:27:17	4
-30	3779	Presented at ESHG 2018	2018-06-18 12:38:30	4
-31	3779	Cerebellar hypoplasia may be a dominant negative effect ESHG 2018	2018-06-18 12:42:23	4
-32	3780	Presented at ESHG 2018	2018-06-18 12:49:57	4
-33	3781	Presented at ESHG 2018 involved in RNA metabolism	2018-06-18 12:56:32	4
-34	3782	Presented at ESHG 2018	2018-06-18 13:11:12	4
-36	2096	This was one of the new genes that was identified via enrichment of de novo mutations in the first 4K trios from the DDD study	2018-07-23 18:22:27	4
-42	1251	Most cases are inherited from a normal mother	2018-11-05 17:48:52	4
-43	2096	Shane McKie presented at MDC2018 30 patients 18 from DDD 12 from Baylor	2018-11-05 17:53:20	4
-44	3954	Presented at MDC2018 - different from the LOF homozygous STAT2 mutations - only one family with pro inflammatory phenotype	2018-11-05 18:12:47	4
-45	3956	Presented at MDC2018 by John McDermott	2018-11-05 18:41:07	3
-46	3957	4 affected siblings in one consanguineous Omani family	2018-11-05 18:50:39	3
-47	817	Presented at MDC2018 by Abjihit Dixit	2018-11-05 19:01:48	3
-48	1796	Presented at MDC2018 by Annick Toutain - 79 male patients\nCatch up growth into normal range so stature is eventually mostly in the lower half of the normal range	2018-11-05 19:06:42	3
-49	4032	Missense variants in WD repeats, large series presented by Jeanne Amiel	2018-11-06 09:16:50	4
-50	4032	Case series presented by Jeanne Amiel at MDC2018	2018-11-06 09:16:53	3
-51	4032	Likely dominant negative effect based on functional studies in zebra fish etc.	2018-11-06 09:19:48	3
-53	3963	Presented by Andrew Wilkie at MDC2018, he has found no link to the BMP2 SNP in the original paper	2018-11-06 09:53:05	4
-54	3965	Presented at MDC2018 by Bill Newman	2018-11-06 10:22:16	4
-55	3967	Two new families presented by Fowzan Alkuraya at MDC2018	2018-11-06 12:46:26	4
-56	3969	Presented by Anne O'Donnell-Luria at MDC2018	2018-11-06 15:20:47	4
-57	1901	Presented by Trine Prescott at MDC2018	2018-11-06 16:04:29	4
-58	1901	Trine showed cases which were strikingly similar with a recurrent de novo missense mutations	2018-11-06 16:08:25	4
-60	3778	Presented at MDC2018 by Elizabeth Bohj	2018-11-06 16:36:52	4
-61	3970	Andrew Jackson presented at MDC2018 p.W330R and p.D333N DNM GoF	2018-11-06 16:53:20	4
-62	945	Presented by Steve Robertson at MDG2018	2018-11-07 09:14:08	3
-63	3971	Presented by Valerie Cormier-Daire at MDC2018	2018-11-07 09:26:50	3
-64	4045	Common recurrent mutation. Presented at MDC2018	2018-11-07 09:35:09	3
-65	4045	p.Gly516Arg in COG4	2018-11-07 09:35:40	3
-68	1952	Presented by Eamonn Sheridan at MDC2018	2018-11-07 11:32:57	3
-69	3742	All of the IMAGe Syndrome mutations are in the PCNA binding region\nPresented by Siren Berland at MDC2018	2018-11-07 11:50:38	3
-70	1435	Presented at MDC2018 by Leslie Biesecker	2018-11-07 12:08:25	3
-71	1756	Presented by Karen Gripp at MDC2018	2018-11-07 15:13:24	3
-72	3975	Ruth Newbury Ecob presented at MDC2018 and suggested an overlap with Boring Opitz syndrome	2018-11-08 09:15:34	4
-73	3976	Presented at MDC2018 by Francesca Radio	2018-11-08 09:27:12	4
-74	3977	Presented at MDC2018 by Grazia M. S. Mancini	2018-11-08 09:52:42	3
-75	691	Microdeletions of chromosome 1p32p31 include this gene	2018-11-08 10:19:24	3
-76	2071	presented by Geoff Woods at MDC 2018 - MiTES and bilateral Freys syndrome.  Polyalanine tract expansion most homozygous for 18 repeats	2018-11-08 10:27:56	4
-77	3980	Presented by Tion Tan at MDC2018	2018-11-08 11:12:57	3
-78	1340	Presented by Diana Baralle at MDC2018	2018-11-08 11:23:52	3
-79	1340	Possible different phenotypes between those with mutations in GEF domain (microcephaly) and spectrin domains (macrocephaly)	2018-11-08 11:32:39	3
-80	3981	Presented by Helen Stewart at MDC2018 - 5 dominant and 3 recessive patients in DDD	2018-11-08 11:48:01	3
-82	3987	50% of mutations cluster in a hotspot of codons 982/983\nProgressive loss of chromosome 7 occurs in patients surviving beyond early infancy	2018-12-04 15:18:29	3
-84	4005	Mutations in FARS2 are known to cause dysfunction of mitochondrial translation due to deficient aminoacylation of the mitochondrial phenylalanine tRNA. 	2019-03-08 15:31:44	3
-86	4006	There are two de novo mutations in unrelated patients both with clinically convincing Cantu and a lot of functional data	2019-03-08 17:54:20	3
-87	4007	recurrent missense variants have been observed	2019-03-12 21:56:39	4
-88	4024	p.R480W recurrent substitution but others likely to emerge\n	2019-03-15 22:22:25	4
-89	4073	SUZ12 is a core component of polycomb repressive complex 2 (PRC2) along with EZH2 and EED	2019-03-28 11:40:46	3
-91	485	Mike Weedon at CCG19 states 6 patients in UKBB with no developmental problems, hence unlikely to be a DD Gene -see publication in Assessing the pathogenicity, penetrance ....Wright CF et al. 2019	2019-05-30 16:12:09	3
-93	4244	Note variable penetrance in autosomal dominant form with high (but not complete) penetrance in males and low (perhaps absent) penetrance in females according to the very limited data available	2019-09-17 11:01:20	3
-95	2088	Upgraded to probable based on DDD data - Science paper (biallelic) and Nature 4K trios paper (monoallelic) 	2019-09-18 15:34:51	5
-96	4310	Report on only 2 patients with DNM......	2019-10-14 12:24:39	3
-97	4334	LOF mutations escaping NMD	2019-10-24 13:31:18	21
-98	4352	 resembling choroideremia, all caused by heterozygous c.1430A>G (p.Asp477Gly)	2019-10-30 14:49:21	15
-99	3581	Caused by mutations in exons 1-14	2019-10-30 15:04:37	15
-100	4381	https://doi.org/10.1101/797787	2019-11-22 17:08:21	4
-101	4382	https://doi.org/10.1101/797787	2019-11-22 17:08:21	4
-102	4383	https://doi.org/10.1101/797787	2019-11-22 17:08:21	4
-103	4384	https://doi.org/10.1101/797787	2019-11-22 17:08:21	4
-104	4385	https://doi.org/10.1101/797787	2019-11-22 17:08:21	4
-105	4386	https://doi.org/10.1101/797787	2019-11-22 17:08:21	4
-106	4387	https://doi.org/10.1101/797787	2019-11-22 17:08:21	4
-107	4388	https://doi.org/10.1101/797787	2019-11-22 17:08:21	4
-108	4389	https://doi.org/10.1101/797787	2019-11-22 17:08:21	4
-109	4390	https://doi.org/10.1101/797787	2019-11-22 17:08:21	4
-110	4391	https://doi.org/10.1101/797787	2019-11-22 17:08:21	4
-111	4392	https://doi.org/10.1101/797787	2019-11-22 17:08:21	4
-112	4393	https://doi.org/10.1101/797787	2019-11-22 17:08:21	4
-113	4394	https://doi.org/10.1101/797787	2019-11-22 17:08:21	4
-114	4395	https://doi.org/10.1101/797787	2019-11-22 17:08:21	4
-115	4396	https://doi.org/10.1101/797787	2019-11-22 17:08:21	4
-116	4397	https://doi.org/10.1101/797787	2019-11-22 17:08:21	4
-117	4398	https://doi.org/10.1101/797787	2019-11-22 17:08:21	4
-118	4399	https://doi.org/10.1101/797787	2019-11-22 17:08:21	4
-119	4400	https://doi.org/10.1101/797787	2019-11-22 17:08:21	4
-121	4402	https://doi.org/10.1101/797787	2019-11-22 17:08:21	4
-122	4403	https://doi.org/10.1101/797787	2019-11-22 17:08:21	4
-123	4404	https://doi.org/10.1101/797787	2019-11-22 17:08:21	4
-124	4405	https://doi.org/10.1101/797787	2019-11-22 17:08:21	4
-125	4406	https://doi.org/10.1101/797787	2019-11-22 17:08:21	4
-126	4407	https://doi.org/10.1101/797787	2019-11-22 17:08:21	4
-128	4409	https://doi.org/10.1101/797787	2019-11-22 17:08:21	4
-129	4410	https://doi.org/10.1101/797787	2019-11-22 17:08:21	4
-130	4411	https://doi.org/10.1101/797787	2019-11-22 17:08:21	4
-131	4412	https://doi.org/10.1101/797787	2019-11-22 17:08:21	4
-132	4413	https://doi.org/10.1101/797787	2019-11-22 17:08:21	4
-133	4414	https://doi.org/10.1101/797787	2019-11-22 17:08:21	4
-134	4415	https://doi.org/10.1101/797787	2019-11-22 17:08:21	4
-135	4416	https://doi.org/10.1101/797787	2019-11-22 17:08:21	4
-136	4417	https://doi.org/10.1101/797787	2019-11-22 17:08:21	4
-137	4418	https://doi.org/10.1101/797787	2019-11-22 17:08:21	4
-138	4419	https://doi.org/10.1101/797787	2019-11-22 17:08:21	4
-139	4420	https://doi.org/10.1101/797787	2019-11-22 17:08:21	4
-141	4422	https://doi.org/10.1101/797787	2019-11-22 17:08:21	4
-142	4423	https://doi.org/10.1101/797787	2019-11-22 17:08:21	4
-143	4424	https://doi.org/10.1101/797787	2019-11-22 17:08:21	4
-144	4425	https://doi.org/10.1101/797787	2019-11-22 17:08:21	4
-145	4426	https://doi.org/10.1101/797787	2019-11-22 17:08:21	4
-146	4427	https://doi.org/10.1101/797787	2019-11-22 17:08:21	4
-147	4428	https://doi.org/10.1101/797787	2019-11-22 17:08:21	4
-148	4429	https://doi.org/10.1101/797787	2019-11-22 17:08:21	4
-149	4430	https://doi.org/10.1101/797787	2019-11-22 17:08:22	4
-150	4431	https://doi.org/10.1101/797787	2019-11-22 17:08:22	4
-151	4432	https://doi.org/10.1101/797787	2019-11-22 17:08:22	4
-152	4433	https://doi.org/10.1101/797787	2019-11-22 17:08:22	4
-153	4434	https://doi.org/10.1101/797787	2019-11-22 17:08:22	4
-154	4435	https://doi.org/10.1101/797787	2019-11-22 17:08:22	4
-155	4436	https://doi.org/10.1101/797787	2019-11-22 17:08:22	4
-156	4437	https://doi.org/10.1101/797787	2019-11-22 17:08:22	4
-157	4438	https://doi.org/10.1101/797787	2019-11-22 17:08:22	4
-158	4439	https://doi.org/10.1101/797787	2019-11-22 17:08:22	4
-159	4440	https://doi.org/10.1101/797787	2019-11-22 17:08:22	4
-160	1327	https://doi.org/10.1101/797787	2019-11-25 13:56:18	21
-161	4092	https://doi.org/10.1101/797787	2019-11-25 14:21:25	21
-162	366	https://doi.org/10.1101/797787	2019-11-25 14:27:39	21
-163	2157	https://doi.org/10.1101/797787	2019-11-25 14:37:58	21
-164	4037	https://doi.org/10.1101/797787	2019-11-25 16:42:00	21
-165	3969	https://doi.org/10.1101/797787	2019-11-25 16:43:20	21
-166	2090	https://doi.org/10.1101/797787	2019-11-25 16:52:46	21
-167	2092	https://doi.org/10.1101/797787	2019-11-25 16:57:46	21
-168	4454	Discussion with DRF - not enough evidence for probable at present	2020-01-09 14:41:50	21
-169	4454	Missense variants associated with cardiac arrhythmia, not DD	2020-01-09 14:45:19	21
-170	4090	MN1 has two exons: disease associated variants in second exon and escape NMD. LoF variants in first exon common in gnomAD. 	2020-01-09 14:49:45	21
-171	4459	only recurrent biallelic missense chr2:64083454AÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â°>ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€šÃ‚Â°G	2020-02-12 13:56:49	21
-172	4461	borderline call for disease confidence - discussion with DRF	2020-02-13 12:09:29	21
-173	4462	borderline call for disease confidence - discussion with DRF	2020-02-13 12:12:48	21
-174	4474	should also be in paed neuro g2p	2020-03-13 10:20:13	21
-175	4475	only c.754G>A p.(Asp252Asn)	2020-03-13 10:22:06	21
-176	4476	should also be in paed neuro g2p	2020-03-13 10:30:46	21
-177	3781	Variants all in last exon	2020-04-14 09:20:30	21
-178	4478	possible for now as all biallelic missense	2020-04-14 14:05:28	21
-179	4489	All homozygous variants, many missense	2020-05-24 12:29:47	4
-180	4494	All mutations in exons 38/39	2020-06-17 13:22:02	21
-181	4268	p.Arg535Cys in all reported individuals	2020-07-15 10:01:03	21
-182	4530	https://doi.org/10.1101/797787	2020-07-16 18:52:23	21
-183	4531	https://doi.org/10.1101/797787	2020-07-16 18:52:23	21
-184	4532	Both individuals reported have p.Arg292Pro mutation. https://doi.org/10.1101/797787	2020-07-16 18:52:23	21
-185	4533	https://doi.org/10.1101/797787	2020-07-16 18:52:23	21
-186	4534	https://doi.org/10.1101/797787	2020-07-16 18:52:23	21
-187	4535	https://doi.org/10.1101/797787	2020-07-16 18:52:23	21
-188	4563	clustered missense variants	2020-07-16 18:52:25	21
-189	4403	https://doi.org/10.1101/797787. PMID 28641477 would not usually be included if not for statistical evidence for this gene - describes individual with two additional de novo variants; phenotype may not be related to ARHGAP35.	2020-07-22 13:33:05	21
-190	3778	https://doi.org/10.1101/797787	2020-07-22 13:33:05	21
-191	4570	https://doi.org/10.1101/797787	2020-07-22 13:41:13	21
-192	4571	https://doi.org/10.1101/797787. currently in skin G2P, erythroderma can occur in infancy	2020-07-22 13:41:13	21
-193	4572	https://doi.org/10.1101/797787	2020-07-22 13:41:13	21
-194	4573	https://doi.org/10.1101/797787	2020-07-22 13:41:13	21
-195	4574	https://doi.org/10.1101/797787	2020-07-22 13:41:13	21
-196	4091	https://doi.org/10.1101/797787	2020-07-22 14:43:52	21
-197	4576	Very limited evidence for disease association as of Aug 2020	2020-08-02 10:38:21	4
-198	4577	One paper as of Aug 2020, multigene deletions and inherited variants with non-specific phenotypes	2020-08-02 10:44:55	4
-199	2380	Note recurrent de novo missense variants	2020-08-27 14:32:01	21
-200	1033	Mutations clustered in exons 8,9 and 19.	2020-09-07 11:25:40	21
-201	4586	Four families reported but phenotype not consistent - borderline for DDG2P at present.	2020-09-07 11:25:40	21
-202	4590	p.Arg534* escapes NMD	2020-09-07 11:25:40	21
-203	4596	Presented at DDD Colaborators meeting September 9th 2020	2020-09-09 14:19:29	4
-204	2005	Mutations in exons 30 and 31	2020-09-22 10:32:48	21
-205	310	mutations in exons 30-34	2020-09-22 12:23:30	21
-206	1951	Individuals who survive GACI can then develop hypophosphataemic rickets	2020-09-22 12:38:43	21
-207	728	Mostly variants affecting amino acid 482	2020-10-05 16:33:08	21
-208	1477	p.R612H 	2020-10-07 10:15:37	21
-209	1842	fs variants reported in last exon	2020-10-07 11:55:30	21
-211	4426	Changed from genome-wide significance to non-significant on reanalysis of data in biorxiv link	2020-10-23 09:19:10	4
-212	4432	Changed from genome-wide significance to non-significant on reanalysis of data in biorxiv link	2020-10-23 09:19:37	4
-213	4434	Changed from genome-wide significance to non-significant on reanalysis of data in biorxiv link	2020-10-23 09:20:11	4
-214	4438	Changed from genome-wide significance to non-significant on reanalysis of data in biorxiv link	2020-10-23 09:20:54	4
-215	4420	Changed from genome-wide significance to non-significant on reanalysis of data in biorxiv link	2020-10-23 09:21:22	4
-216	4407	Changed from genome-wide significance to non-significant on reanalysis of data in biorxiv link	2020-10-23 09:22:33	4
-217	4404	Changed from genome-wide significance to non-significant on reanalysis of data in biorxiv link	2020-10-23 09:23:09	4
-218	4428	Changed from genome-wide significance to non-significant on reanalysis of data in biorxiv link	2020-10-23 09:24:02	4
-219	4413	Changed from genome-wide significance to non-significant on reanalysis of data in biorxiv link	2020-10-23 09:24:43	4
-220	4397	Changed from genome-wide significance to non-significant on reanalysis of data in biorxiv link	2020-10-23 09:26:44	4
-221	4399	Changed from genome-wide significance to non-significant on reanalysis of data in biorxiv link	2020-10-23 09:27:10	4
-222	4432	Note discrepant phenotype in PMID 32502225;30809043	2020-11-26 13:17:27	21
-223	2367	Includes distal variants escaping nonsense mediated decay	2020-11-26 13:22:17	21
-224	4622	Borderline probable: 3 sources of evidence with at least DECIPHER patient with similar phenotype	2020-11-27 15:39:43	21
-225	4624	Note inconsistent phenotype in PMID 33157009	2020-11-27 15:39:43	21
-226	975	Includes distal variants escaping nonsense mediated decay	2020-12-03 11:38:11	21
-227	1599	mutations in middle third of gene	2020-12-03 14:07:31	21
-228	196	Very limited evidence for pathogenesis on review	2020-12-15 09:02:22	4
-229	4633	Includes distal variants escaping nonsense mediated decay	2021-01-04 09:52:19	21
-230	4635	Needs variant restricted repertoire	2021-01-04 09:52:19	21
-231	4637	Includes distal variants escaping nonsense mediated decay	2021-01-04 09:52:20	21
-232	4642	Includes distal variants escaping nonsense mediated decay	2021-01-04 09:52:20	21
-233	1434	restricted variant repertoire	2021-01-05 11:30:13	21
-234	4674	Includes distal variants escaping nonsense mediated decay	2021-01-28 16:46:55	21
-235	4675	Includes distal variants escaping nonsense mediated decay	2021-01-28 16:46:55	21
-236	3662	Includes distal variants escaping nonsense mediated decay	2021-02-23 12:27:12	21
-237	4677	Includes distal variants escaping nonsense mediated decay	2021-02-25 15:41:37	21
+1	2094	This is one of the genes that achieved genome wide significance for an excess of de novo mutations over the expected number in the DDD 4294 trio paper.  There is no clinical paper available at the moment 	2017-07-18 14:18:22	4	0
+2	3062	A mouse model with similar metabolic problems was published in 2015 PMID: 25816300	2017-08-30 11:17:57	4	0
+3	3066	Recurrent de novo c.628G>A in UBTF, encoding p.Glu210Lys in UBF	2017-08-30 11:28:14	4	0
+4	3071	Could be dominant negative rather than activating	2017-08-30 11:57:51	4	0
+6	3100	 SLC45A1 is the second cerebral glucose transporter	2017-08-30 14:20:37	4	0
+7	3103	Duplicated from eye panel, coded originally by Ana	2017-08-30 14:28:04	4	0
+8	3119	recurrent de novo heterozygous c.892C>T (p.Arg298Trp) variant	2017-08-30 16:13:13	4	0
+9	3126	recurrent mutations causing p.Tyr245Cys and p.Ala356Thr 	2017-08-30 17:59:52	4	0
+10	3625	2 additional cases with different rare homozygous missense variants in coding sequence	2017-10-05 14:19:50	3	0
+11	3648	This entry was originally transferred from the eye panel but prompted by the AJHG paper	2017-11-23 15:32:52	4	0
+12	3650	De novo mutations, all missense\n	2017-11-23 15:50:26	4	0
+13	4272	Analysis looking for clustered missense variants	2017-11-23 16:02:03	4	0
+14	3653	Mostly de novo variants	2017-11-23 16:05:21	4	0
+15	3654	De novo variants	2017-11-23 16:12:40	4	0
+16	3656	Hypomorphic alleles	2017-11-23 16:27:51	4	0
+17	3736	Treatable neurometabolic disorder - responds to therapy with oral uridine	2018-02-06 17:04:29	3	0
+18	263	This phenotype seems to be caused by a single in-frame deletion (c.1812_1814del, p.S605del) 	2018-03-07 15:52:55	4	0
+19	3739	Commonly de novo mutations\n	2018-03-08 08:42:40	4	0
+20	3742	Only maternally inherited gain-of-function mutations are causative	2018-04-10 17:18:23	4	0
+21	3743	Recurrent de novo p.Glu590Lys variant	2018-04-13 14:20:42	4	0
+22	3744	De novo het LOF mutations	2018-04-14 09:25:30	4	0
+23	3745	Single family in Science paper	2018-04-14 09:44:08	4	0
+24	2088	Downgraded to possible on the basis of the sparse evidence in the literature and the ExAC pLi	2018-04-26 09:56:19	4	0
+25	1742	One discussion at the GenCC meeting May 2018 we thought that this gene was unlikely	2018-05-23 10:26:51	4	0
+26	1742	Decision to reduce confidence on basis of population frequency in historic variants	2018-05-23 10:31:39	4	0
+27	3774	All de novo mutations	2018-06-17 12:05:36	4	0
+28	3775	Presented at ESHG 2018 clustered missense variants in the helicase domain all de novo	2018-06-17 12:23:17	4	0
+29	1937	Seems to be a ciliopathy, RTTN localised to the centrosome and the basal body.  Presented at ESHG 2018	2018-06-18 12:27:17	4	0
+30	3779	Presented at ESHG 2018	2018-06-18 12:38:30	4	0
+31	3779	Cerebellar hypoplasia may be a dominant negative effect ESHG 2018	2018-06-18 12:42:23	4	0
+32	3780	Presented at ESHG 2018	2018-06-18 12:49:57	4	0
+33	3781	Presented at ESHG 2018 involved in RNA metabolism	2018-06-18 12:56:32	4	0
+34	3782	Presented at ESHG 2018	2018-06-18 13:11:12	4	0
+36	2096	This was one of the new genes that was identified via enrichment of de novo mutations in the first 4K trios from the DDD study	2018-07-23 18:22:27	4	0
+42	1251	Most cases are inherited from a normal mother	2018-11-05 17:48:52	4	0
+43	2096	Shane McKie presented at MDC2018 30 patients 18 from DDD 12 from Baylor	2018-11-05 17:53:20	4	0
+44	3954	Presented at MDC2018 - different from the LOF homozygous STAT2 mutations - only one family with pro inflammatory phenotype	2018-11-05 18:12:47	4	0
+45	3956	Presented at MDC2018 by John McDermott	2018-11-05 18:41:07	3	0
+46	3957	4 affected siblings in one consanguineous Omani family	2018-11-05 18:50:39	3	0
+47	817	Presented at MDC2018 by Abjihit Dixit	2018-11-05 19:01:48	3	0
+48	1796	Presented at MDC2018 by Annick Toutain - 79 male patients\nCatch up growth into normal range so stature is eventually mostly in the lower half of the normal range	2018-11-05 19:06:42	3	0
+49	4032	Missense variants in WD repeats, large series presented by Jeanne Amiel	2018-11-06 09:16:50	4	0
+50	4032	Case series presented by Jeanne Amiel at MDC2018	2018-11-06 09:16:53	3	0
+51	4032	Likely dominant negative effect based on functional studies in zebra fish etc.	2018-11-06 09:19:48	3	0
+53	3963	Presented by Andrew Wilkie at MDC2018, he has found no link to the BMP2 SNP in the original paper	2018-11-06 09:53:05	4	0
+54	3965	Presented at MDC2018 by Bill Newman	2018-11-06 10:22:16	4	0
+55	3967	Two new families presented by Fowzan Alkuraya at MDC2018	2018-11-06 12:46:26	4	0
+56	3969	Presented by Anne O'Donnell-Luria at MDC2018	2018-11-06 15:20:47	4	0
+57	1901	Presented by Trine Prescott at MDC2018	2018-11-06 16:04:29	4	0
+58	1901	Trine showed cases which were strikingly similar with a recurrent de novo missense mutations	2018-11-06 16:08:25	4	0
+60	3778	Presented at MDC2018 by Elizabeth Bohj	2018-11-06 16:36:52	4	0
+61	3970	Andrew Jackson presented at MDC2018 p.W330R and p.D333N DNM GoF	2018-11-06 16:53:20	4	0
+62	945	Presented by Steve Robertson at MDG2018	2018-11-07 09:14:08	3	0
+63	3971	Presented by Valerie Cormier-Daire at MDC2018	2018-11-07 09:26:50	3	0
+64	4045	Common recurrent mutation. Presented at MDC2018	2018-11-07 09:35:09	3	0
+65	4045	p.Gly516Arg in COG4	2018-11-07 09:35:40	3	0
+68	1952	Presented by Eamonn Sheridan at MDC2018	2018-11-07 11:32:57	3	0
+69	3742	All of the IMAGe Syndrome mutations are in the PCNA binding region\nPresented by Siren Berland at MDC2018	2018-11-07 11:50:38	3	0
+70	1435	Presented at MDC2018 by Leslie Biesecker	2018-11-07 12:08:25	3	0
+71	1756	Presented by Karen Gripp at MDC2018	2018-11-07 15:13:24	3	0
+72	3975	Ruth Newbury Ecob presented at MDC2018 and suggested an overlap with Boring Opitz syndrome	2018-11-08 09:15:34	4	0
+73	3976	Presented at MDC2018 by Francesca Radio	2018-11-08 09:27:12	4	0
+74	3977	Presented at MDC2018 by Grazia M. S. Mancini	2018-11-08 09:52:42	3	0
+75	691	Microdeletions of chromosome 1p32p31 include this gene	2018-11-08 10:19:24	3	0
+76	2071	presented by Geoff Woods at MDC 2018 - MiTES and bilateral Freys syndrome.  Polyalanine tract expansion most homozygous for 18 repeats	2018-11-08 10:27:56	4	0
+77	3980	Presented by Tion Tan at MDC2018	2018-11-08 11:12:57	3	0
+78	1340	Presented by Diana Baralle at MDC2018	2018-11-08 11:23:52	3	0
+79	1340	Possible different phenotypes between those with mutations in GEF domain (microcephaly) and spectrin domains (macrocephaly)	2018-11-08 11:32:39	3	0
+80	3981	Presented by Helen Stewart at MDC2018 - 5 dominant and 3 recessive patients in DDD	2018-11-08 11:48:01	3	0
+82	3987	50% of mutations cluster in a hotspot of codons 982/983\nProgressive loss of chromosome 7 occurs in patients surviving beyond early infancy	2018-12-04 15:18:29	3	0
+84	4005	Mutations in FARS2 are known to cause dysfunction of mitochondrial translation due to deficient aminoacylation of the mitochondrial phenylalanine tRNA. 	2019-03-08 15:31:44	3	0
+86	4006	There are two de novo mutations in unrelated patients both with clinically convincing Cantu and a lot of functional data	2019-03-08 17:54:20	3	0
+87	4007	recurrent missense variants have been observed	2019-03-12 21:56:39	4	0
+88	4024	p.R480W recurrent substitution but others likely to emerge\n	2019-03-15 22:22:25	4	0
+89	4073	SUZ12 is a core component of polycomb repressive complex 2 (PRC2) along with EZH2 and EED	2019-03-28 11:40:46	3	0
+91	485	Mike Weedon at CCG19 states 6 patients in UKBB with no developmental problems, hence unlikely to be a DD Gene -see publication in Assessing the pathogenicity, penetrance ....Wright CF et al. 2019	2019-05-30 16:12:09	3	0
+93	4244	Note variable penetrance in autosomal dominant form with high (but not complete) penetrance in males and low (perhaps absent) penetrance in females according to the very limited data available	2019-09-17 11:01:20	3	0
+95	2088	Upgraded to probable based on DDD data - Science paper (biallelic) and Nature 4K trios paper (monoallelic) 	2019-09-18 15:34:51	5	0
+96	4310	Report on only 2 patients with DNM......	2019-10-14 12:24:39	3	0
+97	4334	LOF mutations escaping NMD	2019-10-24 13:31:18	21	0
+98	4352	 resembling choroideremia, all caused by heterozygous c.1430A>G (p.Asp477Gly)	2019-10-30 14:49:21	15	0
+99	3581	Caused by mutations in exons 1-14	2019-10-30 15:04:37	15	0
+100	4381	https://doi.org/10.1101/797787	2019-11-22 17:08:21	4	0
+101	4382	https://doi.org/10.1101/797787	2019-11-22 17:08:21	4	0
+102	4383	https://doi.org/10.1101/797787	2019-11-22 17:08:21	4	0
+103	4384	https://doi.org/10.1101/797787	2019-11-22 17:08:21	4	0
+104	4385	https://doi.org/10.1101/797787	2019-11-22 17:08:21	4	0
+105	4386	https://doi.org/10.1101/797787	2019-11-22 17:08:21	4	0
+106	4387	https://doi.org/10.1101/797787	2019-11-22 17:08:21	4	0
+107	4388	https://doi.org/10.1101/797787	2019-11-22 17:08:21	4	0
+108	4389	https://doi.org/10.1101/797787	2019-11-22 17:08:21	4	0
+109	4390	https://doi.org/10.1101/797787	2019-11-22 17:08:21	4	0
+110	4391	https://doi.org/10.1101/797787	2019-11-22 17:08:21	4	0
+111	4392	https://doi.org/10.1101/797787	2019-11-22 17:08:21	4	0
+112	4393	https://doi.org/10.1101/797787	2019-11-22 17:08:21	4	0
+113	4394	https://doi.org/10.1101/797787	2019-11-22 17:08:21	4	0
+114	4395	https://doi.org/10.1101/797787	2019-11-22 17:08:21	4	0
+115	4396	https://doi.org/10.1101/797787	2019-11-22 17:08:21	4	0
+116	4397	https://doi.org/10.1101/797787	2019-11-22 17:08:21	4	0
+117	4398	https://doi.org/10.1101/797787	2019-11-22 17:08:21	4	0
+118	4399	https://doi.org/10.1101/797787	2019-11-22 17:08:21	4	0
+119	4400	https://doi.org/10.1101/797787	2019-11-22 17:08:21	4	0
+121	4402	https://doi.org/10.1101/797787	2019-11-22 17:08:21	4	0
+122	4403	https://doi.org/10.1101/797787	2019-11-22 17:08:21	4	0
+123	4404	https://doi.org/10.1101/797787	2019-11-22 17:08:21	4	0
+124	4405	https://doi.org/10.1101/797787	2019-11-22 17:08:21	4	0
+125	4406	https://doi.org/10.1101/797787	2019-11-22 17:08:21	4	0
+126	4407	https://doi.org/10.1101/797787	2019-11-22 17:08:21	4	0
+128	4409	https://doi.org/10.1101/797787	2019-11-22 17:08:21	4	0
+129	4410	https://doi.org/10.1101/797787	2019-11-22 17:08:21	4	0
+130	4411	https://doi.org/10.1101/797787	2019-11-22 17:08:21	4	0
+131	4412	https://doi.org/10.1101/797787	2019-11-22 17:08:21	4	0
+132	4413	https://doi.org/10.1101/797787	2019-11-22 17:08:21	4	0
+133	4414	https://doi.org/10.1101/797787	2019-11-22 17:08:21	4	0
+134	4415	https://doi.org/10.1101/797787	2019-11-22 17:08:21	4	0
+135	4416	https://doi.org/10.1101/797787	2019-11-22 17:08:21	4	0
+136	4417	https://doi.org/10.1101/797787	2019-11-22 17:08:21	4	0
+137	4418	https://doi.org/10.1101/797787	2019-11-22 17:08:21	4	0
+138	4419	https://doi.org/10.1101/797787	2019-11-22 17:08:21	4	0
+139	4420	https://doi.org/10.1101/797787	2019-11-22 17:08:21	4	0
+141	4422	https://doi.org/10.1101/797787	2019-11-22 17:08:21	4	0
+142	4423	https://doi.org/10.1101/797787	2019-11-22 17:08:21	4	0
+143	4424	https://doi.org/10.1101/797787	2019-11-22 17:08:21	4	0
+144	4425	https://doi.org/10.1101/797787	2019-11-22 17:08:21	4	0
+145	4426	https://doi.org/10.1101/797787	2019-11-22 17:08:21	4	0
+146	4427	https://doi.org/10.1101/797787	2019-11-22 17:08:21	4	0
+147	4428	https://doi.org/10.1101/797787	2019-11-22 17:08:21	4	0
+148	4429	https://doi.org/10.1101/797787	2019-11-22 17:08:21	4	0
+149	4430	https://doi.org/10.1101/797787	2019-11-22 17:08:22	4	0
+150	4431	https://doi.org/10.1101/797787	2019-11-22 17:08:22	4	0
+151	4432	https://doi.org/10.1101/797787	2019-11-22 17:08:22	4	0
+152	4433	https://doi.org/10.1101/797787	2019-11-22 17:08:22	4	0
+153	4434	https://doi.org/10.1101/797787	2019-11-22 17:08:22	4	0
+154	4435	https://doi.org/10.1101/797787	2019-11-22 17:08:22	4	0
+155	4436	https://doi.org/10.1101/797787	2019-11-22 17:08:22	4	0
+156	4437	https://doi.org/10.1101/797787	2019-11-22 17:08:22	4	0
+157	4438	https://doi.org/10.1101/797787	2019-11-22 17:08:22	4	0
+158	4439	https://doi.org/10.1101/797787	2019-11-22 17:08:22	4	0
+159	4440	https://doi.org/10.1101/797787	2019-11-22 17:08:22	4	0
+160	1327	https://doi.org/10.1101/797787	2019-11-25 13:56:18	21	0
+161	4092	https://doi.org/10.1101/797787	2019-11-25 14:21:25	21	0
+162	366	https://doi.org/10.1101/797787	2019-11-25 14:27:39	21	0
+163	2157	https://doi.org/10.1101/797787	2019-11-25 14:37:58	21	0
+164	4037	https://doi.org/10.1101/797787	2019-11-25 16:42:00	21	0
+165	3969	https://doi.org/10.1101/797787	2019-11-25 16:43:20	21	0
+166	2090	https://doi.org/10.1101/797787	2019-11-25 16:52:46	21	0
+167	2092	https://doi.org/10.1101/797787	2019-11-25 16:57:46	21	0
+168	4454	Discussion with DRF - not enough evidence for probable at present	2020-01-09 14:41:50	21	0
+169	4454	Missense variants associated with cardiac arrhythmia, not DD	2020-01-09 14:45:19	21	0
+170	4090	MN1 has two exons: disease associated variants in second exon and escape NMD. LoF variants in first exon common in gnomAD. 	2020-01-09 14:49:45	21	0
+171	4459	only recurrent biallelic missense chr2:64083454AÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â°>ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â°G	2020-02-12 13:56:49	21	0
+172	4461	borderline call for disease confidence - discussion with DRF	2020-02-13 12:09:29	21	0
+173	4462	borderline call for disease confidence - discussion with DRF	2020-02-13 12:12:48	21	0
+174	4474	should also be in paed neuro g2p	2020-03-13 10:20:13	21	0
+175	4475	only c.754G>A p.(Asp252Asn)	2020-03-13 10:22:06	21	0
+176	4476	should also be in paed neuro g2p	2020-03-13 10:30:46	21	0
+177	3781	Variants all in last exon	2020-04-14 09:20:30	21	0
+178	4478	possible for now as all biallelic missense	2020-04-14 14:05:28	21	0
+179	4489	All homozygous variants, many missense	2020-05-24 12:29:47	4	0
+180	4494	All mutations in exons 38/39	2020-06-17 13:22:02	21	0
+181	4268	p.Arg535Cys in all reported individuals	2020-07-15 10:01:03	21	0
+182	4530	https://doi.org/10.1101/797787	2020-07-16 18:52:23	21	0
+183	4531	https://doi.org/10.1101/797787	2020-07-16 18:52:23	21	0
+184	4532	Both individuals reported have p.Arg292Pro mutation. https://doi.org/10.1101/797787	2020-07-16 18:52:23	21	0
+185	4533	https://doi.org/10.1101/797787	2020-07-16 18:52:23	21	0
+186	4534	https://doi.org/10.1101/797787	2020-07-16 18:52:23	21	0
+187	4535	https://doi.org/10.1101/797787	2020-07-16 18:52:23	21	0
+188	4563	clustered missense variants	2020-07-16 18:52:25	21	0
+189	4403	https://doi.org/10.1101/797787. PMID 28641477 would not usually be included if not for statistical evidence for this gene - describes individual with two additional de novo variants; phenotype may not be related to ARHGAP35.	2020-07-22 13:33:05	21	0
+190	3778	https://doi.org/10.1101/797787	2020-07-22 13:33:05	21	0
+191	4570	https://doi.org/10.1101/797787	2020-07-22 13:41:13	21	0
+192	4571	https://doi.org/10.1101/797787. currently in skin G2P, erythroderma can occur in infancy	2020-07-22 13:41:13	21	0
+193	4572	https://doi.org/10.1101/797787	2020-07-22 13:41:13	21	0
+194	4573	https://doi.org/10.1101/797787	2020-07-22 13:41:13	21	0
+195	4574	https://doi.org/10.1101/797787	2020-07-22 13:41:13	21	0
+196	4091	https://doi.org/10.1101/797787	2020-07-22 14:43:52	21	0
+197	4576	Very limited evidence for disease association as of Aug 2020	2020-08-02 10:38:21	4	0
+198	4577	One paper as of Aug 2020, multigene deletions and inherited variants with non-specific phenotypes	2020-08-02 10:44:55	4	0
+199	2380	Note recurrent de novo missense variants	2020-08-27 14:32:01	21	0
+200	1033	Mutations clustered in exons 8,9 and 19.	2020-09-07 11:25:40	21	0
+201	4586	Four families reported but phenotype not consistent - borderline for DDG2P at present.	2020-09-07 11:25:40	21	0
+202	4590	p.Arg534* escapes NMD	2020-09-07 11:25:40	21	0
+203	4596	Presented at DDD Colaborators meeting September 9th 2020	2020-09-09 14:19:29	4	0
+204	2005	Mutations in exons 30 and 31	2020-09-22 10:32:48	21	0
+205	310	mutations in exons 30-34	2020-09-22 12:23:30	21	0
+206	1951	Individuals who survive GACI can then develop hypophosphataemic rickets	2020-09-22 12:38:43	21	0
+207	728	Mostly variants affecting amino acid 482	2020-10-05 16:33:08	21	0
+208	1477	p.R612H 	2020-10-07 10:15:37	21	0
+209	1842	fs variants reported in last exon	2020-10-07 11:55:30	21	0
+211	4426	Changed from genome-wide significance to non-significant on reanalysis of data in biorxiv link	2020-10-23 09:19:10	4	0
+212	4432	Changed from genome-wide significance to non-significant on reanalysis of data in biorxiv link	2020-10-23 09:19:37	4	0
+213	4434	Changed from genome-wide significance to non-significant on reanalysis of data in biorxiv link	2020-10-23 09:20:11	4	0
+214	4438	Changed from genome-wide significance to non-significant on reanalysis of data in biorxiv link	2020-10-23 09:20:54	4	0
+215	4420	Changed from genome-wide significance to non-significant on reanalysis of data in biorxiv link	2020-10-23 09:21:22	4	0
+216	4407	Changed from genome-wide significance to non-significant on reanalysis of data in biorxiv link	2020-10-23 09:22:33	4	0
+217	4404	Changed from genome-wide significance to non-significant on reanalysis of data in biorxiv link	2020-10-23 09:23:09	4	0
+218	4428	Changed from genome-wide significance to non-significant on reanalysis of data in biorxiv link	2020-10-23 09:24:02	4	0
+219	4413	Changed from genome-wide significance to non-significant on reanalysis of data in biorxiv link	2020-10-23 09:24:43	4	0
+220	4397	Changed from genome-wide significance to non-significant on reanalysis of data in biorxiv link	2020-10-23 09:26:44	4	0
+221	4399	Changed from genome-wide significance to non-significant on reanalysis of data in biorxiv link	2020-10-23 09:27:10	4	0
+222	4432	Note discrepant phenotype in PMID 32502225;30809043	2020-11-26 13:17:27	21	0
+223	2367	Includes distal variants escaping nonsense mediated decay	2020-11-26 13:22:17	21	0
+224	4622	Borderline probable: 3 sources of evidence with at least DECIPHER patient with similar phenotype	2020-11-27 15:39:43	21	0
+225	4624	Note inconsistent phenotype in PMID 33157009	2020-11-27 15:39:43	21	0
+226	975	Includes distal variants escaping nonsense mediated decay	2020-12-03 11:38:11	21	0
+227	1599	mutations in middle third of gene	2020-12-03 14:07:31	21	0
+228	196	Very limited evidence for pathogenesis on review	2020-12-15 09:02:22	4	0
+229	4633	Includes distal variants escaping nonsense mediated decay	2021-01-04 09:52:19	21	0
+230	4635	Needs variant restricted repertoire	2021-01-04 09:52:19	21	0
+231	4637	Includes distal variants escaping nonsense mediated decay	2021-01-04 09:52:20	21	0
+232	4642	Includes distal variants escaping nonsense mediated decay	2021-01-04 09:52:20	21	0
+233	1434	restricted variant repertoire	2021-01-05 11:30:13	21	0
+234	4674	Includes distal variants escaping nonsense mediated decay	2021-01-28 16:46:55	21	0
+235	4675	Includes distal variants escaping nonsense mediated decay	2021-01-28 16:46:55	21	0
+236	3662	Includes distal variants escaping nonsense mediated decay	2021-02-23 12:27:12	21	0
+237	4677	Includes distal variants escaping nonsense mediated decay	2021-02-25 15:41:37	21	0

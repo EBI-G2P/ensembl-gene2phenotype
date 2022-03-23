@@ -44,7 +44,8 @@ my $g2p_panel_attribs =  {
   'Rapid_PICU_NICU' => 47,
   'Demo' => 46,
   'NeonatalRespiratory' => 45,
-  'Ear' => 39
+  'Ear' => 39,
+  'Skeletal' => 83,
 };
 
 my $attribs = $aa->get_values_by_type('g2p_panel');

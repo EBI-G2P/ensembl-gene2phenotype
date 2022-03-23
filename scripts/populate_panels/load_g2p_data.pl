@@ -190,12 +190,19 @@ foreach my $row (@rows) {
   my $gene_mim = $data{'gene mim'};
   my $disease_name = $data{'disease name'};
   my $disease_mim = $data{'disease mim'};
+<<<<<<< HEAD
   my $disease_mondo = $data{'disease mondo'};
+=======
+>>>>>>> 7316d2b4928837da83233e5811178ed85b26e2c8
   my $confidence_category = $data{'confidence category'};
   my $allelic_requirement = $data{'allelic requirement'};
   my $cross_cutting_modifier = $data{'cross cutting modifier'};
   my $mutation_consequence = $data{'mutation consequence'};
+<<<<<<< HEAD
   my $mutation_consequence_flag = $data{'mutation consequences flags'};
+=======
+  my $mutation_consequence_flag = $data{'mutation consequences flag'};
+>>>>>>> 7316d2b4928837da83233e5811178ed85b26e2c8
   my $panel = $data{'panel'};
   my $prev_symbols = $data{'prev symbols'};
   my $hgnc_id = $data{'hgnc id'};
@@ -216,7 +223,11 @@ foreach my $row (@rows) {
   }
  
   next if (!add_new_entry_to_panel($panel));
+<<<<<<< HEAD
   $entry = "Gene symbol: $gene_symbol; Disease name: $disease_name; Confidence category: $confidence_category; Allelic requirement: $allelic_requirement; Mutation consequence: $mutation_consequence; Target panel: $g2p_panel ";
+=======
+  $entry = "Gene symbol: $gene_symbol; Disease name: $disease_name; Confidence category: $confidence_category; Allelic requirement: $allelic_requirement; Mutation consequence: $mutation_consequence; Target panel: $g2p_panel; ";
+>>>>>>> 7316d2b4928837da83233e5811178ed85b26e2c8
   $entry = $entry . "Cross cutting modifier: $cross_cutting_modifier; " if $cross_cutting_modifier;
   $entry = $entry . "Mutation consequence flags: $mutation_consequence_flag; " if $mutation_consequence_flag;
   
@@ -250,8 +261,11 @@ foreach my $row (@rows) {
   my $cross_cutting_modifier_attrib;
   my $mutation_consequence_attrib; 
   my $mutation_consequence_flag_attrib;
+<<<<<<< HEAD
    
 
+=======
+>>>>>>> 7316d2b4928837da83233e5811178ed85b26e2c8
 
   eval { $confidence_attrib = get_confidence_attrib($confidence_category) };
   if ($@) {
@@ -421,7 +435,11 @@ sub add_annotations {
   print $fh_report "    Added $count comments\n" if ($count > 0);
 
   $count = add_public_comments($gfd, $public_comments, $user);
+<<<<<<< HEAD
   print $fh_report "    Added $count comments\n" if ($count > 0);
+=======
+  print $fh_report "    Added $count public comments\n" if ($count > 0);
+>>>>>>> 7316d2b4928837da83233e5811178ed85b26e2c8
 
 }
 
@@ -512,7 +530,11 @@ sub create_gfd {
       -genomic_feature_id => $gf->dbID,
       -disease_id => $disease->dbID,
       -allelic_requirement_attrib => $allelic_requirement_attrib,
+<<<<<<< HEAD
       -cross_cutting_modifier_atrrib => $cross_cutting_modifier_attrib,
+=======
+      -cross_cutting_modifier_attrib => $cross_cutting_modifier_attrib,
+>>>>>>> 7316d2b4928837da83233e5811178ed85b26e2c8
       -mutation_consequence_attrib => $mutation_consequence_attrib,
       -mutation_consequence_flag_attrib => $mutation_consequence_flag_attrib,
       -adaptor => $gfd_adaptor,
@@ -523,7 +545,11 @@ sub create_gfd {
       -genomic_feature_id => $gf->dbID,
       -disease_id => $disease->dbID,
       -allelic_requirement_attrib => $allelic_requirement_attrib,
+<<<<<<< HEAD
       -cross_cutting_modifier_atrrib => $cross_cutting_modifier_attrib,
+=======
+      -cross_cutting_modifier_attrib => $cross_cutting_modifier_attrib,
+>>>>>>> 7316d2b4928837da83233e5811178ed85b26e2c8
       -mutation_consequence_attrib => $mutation_consequence_attrib,
       -adaptor => $gfd_adaptor,
     );

@@ -48,7 +48,7 @@
 67	5608	Meckel-Gruber like phenotype	2017-08-10 09:05:57	10
 68	5628	Supplementary Table 3: Reported C19orf12 mutations	2017-08-11 11:31:19	10
 69	5767	 Oligocone trichromacy: compound heterozygous missense mutations. 	2017-08-16 21:47:00	10
-70	5794	In Marshall syndrome, the majority of themutations in COL11A1 affect the splicing of 54 bp exons in a regionspanning exons 38ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã¢â‚¬Å“54 of the gene. 	2017-08-17 15:47:23	10
+70	5794	In Marshall syndrome, the majority of themutations in COL11A1 affect the splicing of 54 bp exons in a regionspanning exons 38ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¦ÃƒÂ¢Ã¢â€šÂ¬Ã…â€œ54 of the gene. 	2017-08-17 15:47:23	10
 71	5839	More severe phenotypes in the children who are homozygous for the R345W mutation.	2017-08-18 20:23:54	10
 73	5861	One case (DD, cerebellar atrophy, scoliosis): variant c.1411G>C, p.G471R. 	2017-08-20 16:09:38	10
 74	5860	One family with non-syndromic RP: variant c.G430A, p.Ala144Thr, homozygous.	2017-08-20 16:10:18	10

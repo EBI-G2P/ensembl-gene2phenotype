@@ -13,6 +13,7 @@
 -- See the License for the specific language governing permissions and
 -- limitations under the License.
 
+<<<<<<< HEAD
 CREATE TABLE ontology_term (
   ontology_accession_id int(10) NOT NULL,
   ontology_accession VARCHAR(255) DEFAULT NULL,
@@ -34,3 +35,9 @@ CREATE TABLE disease_ontology_mapping (
 
 # patch identifier
 INSERT INTO meta (species_id, meta_key, meta_value) VALUES (NULL, 'patch', 'patch_104_105_d.sql|creating ontology_term and ontology_accession table'); 
+=======
+INSERT into panel(name, is_visible) VALUES("Skeletal", 0);
+
+# patch identifier
+INSERT INTO meta (species_id, meta_key, meta_value) VALUES (NULL, 'patch', 'patch_104_105_d.sql|adding skeletal column to the panel table'); 
+>>>>>>> 7316d2b4928837da83233e5811178ed85b26e2c8

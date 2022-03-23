@@ -29,13 +29,20 @@ sub new {
   my $caller = shift;
   my $class = ref($caller) || $caller;
 
-  my ($genomic_feature_disease_comment_id, $genomic_feature_disease_id, $comment_text, $created, $user_id, $adaptor) =
-    rearrange(['genomic_feature_disease_comment_id', 'genomic_feature_disease_id', 'comment_text', 'created', 'user_id', 'adaptor'], @_);
+  my ($genomic_feature_disease_comment_id, $genomic_feature_disease_id, $comment_text, $is_public, $created, $user_id, $adaptor) =
+    rearrange(['genomic_feature_disease_comment_id', 
+      'genomic_feature_disease_id', 
+      'comment_text',
+      'is_public', 
+      'created', 
+      'user_id', 
+      'adaptor'], @_);
 
   my $self = bless {
     'genomic_feature_disease_comment_id' => $genomic_feature_disease_comment_id,
     'genomic_feature_disease_id' => $genomic_feature_disease_id,
     'comment_text' => $comment_text,
+    'is_public' => $is_public,
     'created' => $created,
     'user_id' => $user_id,
     'adaptor' => $adaptor,
@@ -59,6 +66,12 @@ sub comment_text {
   my $self = shift;
   $self->{'comment_text'} = shift if ( @_ );
   return $self->{'comment_text'};
+}
+
+sub is_public {
+  my $self = shift;
+  $self->{is_public} = shift if ( @_ );
+  return $self->{is_public};
 }
 
 sub created {
