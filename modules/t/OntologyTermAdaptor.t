@@ -38,7 +38,7 @@ my $ontology_accession = $ot->fetch_by_dbID($dbID);
 ok($ontology_accession->ontology_accession eq $$ontology_accession_name, 'fetch_by_dbID');
 
 $ontology_accession = $ot->fetch_by_accession($ontology_accession_name);
-ok($ontology_accession->dbID == $dbID 'fetched by accession');
+ok($ontology_accession->dbID == $dbID, 'fetched by accession');
 
 $ontology_accession = $ot->fetch_by_description($description);
 ok($ontology_accession->ontology_accession eq $ontology_accession_name, 'fetched by description');
