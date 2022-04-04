@@ -24,7 +24,7 @@ use Bio::EnsEMBL::Test::TestUtils;
 
 my $multi = Bio::EnsEMBL::Test::MultiTestDB->new('homo_sapiens');
 
-my $g2pdb = $multi->getDBAadaptor('gene2phenotype');
+my $g2pdb = $multi->get_DBAadaptor('gene2phenotype');
 
 my $ot = $g2pdb->get_OntologyTermAdaptor;
 
