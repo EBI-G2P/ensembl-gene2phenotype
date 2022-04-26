@@ -13,4 +13,3 @@
 13	allelic_requirement	Allelic requirement	Allelic requirement
 14	mutation_consequence_flag	Mutation consequence flag	Mutation consequence flag
 15	mutation_consequence	Mutation consequence	Mutation consequence
-16	variant_consequence	Variant consequence	Variant consequence using certain SO terms

@@ -6,7 +6,6 @@ CREATE TABLE `GFD_comment_deleted` (
   `user_id` int(10) unsigned NOT NULL,
   `deleted` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `deleted_by_user_id` int(10) unsigned NOT NULL,
-  `is_public` tinyint(1) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`GFD_comment_deleted_id`),
   KEY `GFD_idx` (`genomic_feature_disease_id`)
 ) ENGINE=InnoDB  ;
@@ -125,11 +124,10 @@ CREATE TABLE `genomic_feature_disease` (
   `disease_id` int(10) unsigned NOT NULL,
   `original_allelic_requirement_attrib` set('1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20') DEFAULT NULL,
   `allelic_requirement_attrib` set('59','60','61','62','63','64','65','66','67','68','69','70') DEFAULT NULL,
-  `cross_cutting_modifier_attrib` set('54','55','56','57','58','70','82') DEFAULT NULL,
+  `cross_cutting_modifier_attrib` set('54','55','56','57','58') DEFAULT NULL,
   `original_mutation_consequence_attrib` set('21','22','23','24','25','26','27','28','29','30','44') DEFAULT NULL,
-  `mutation_consequence_attrib`  set('75','76','77','78','79','80','84') DEFAULT NULL,
+  `mutation_consequence_attrib` int(10) unsigned DEFAULT '0',
   `mutation_consequence_flag_attrib` set('71','72','73','74') DEFAULT NULL,
-  `variant_consequence_attrib` set('100','101','102','103','104','105','106','107','108','109','110','111','112','113','114','115','116','117','118','119','120','121','122','123','124','125') DEFAULT NULL,
   `restricted_mutation_set` tinyint(1) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`genomic_feature_disease_id`),
   UNIQUE KEY `genomic_feature_disease` (`genomic_feature_id`,`original_allelic_requirement_attrib`,`original_mutation_consequence_attrib`,`disease_id`),
@@ -143,7 +141,6 @@ CREATE TABLE `genomic_feature_disease_comment` (
   `comment_text` text,
   `created` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `user_id` int(10) unsigned NOT NULL,
-  `is_public` tinyint(1) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`genomic_feature_disease_comment_id`),
   KEY `GFD_idx` (`genomic_feature_disease_id`)
 ) ENGINE=InnoDB  ;
@@ -154,11 +151,10 @@ CREATE TABLE `genomic_feature_disease_deleted` (
   `disease_id` int(10) unsigned NOT NULL,
   `original_allelic_requirement_attrib` set('1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20') DEFAULT NULL,
   `allelic_requirement_attrib` set('59','60','61','62','63','64','65','66','67','68','69','70') DEFAULT NULL,
-  `cross_cutting_modifier_attrib` set('54','55','56','57','58','70','82') DEFAULT NULL,
+  `cross_cutting_modifier_attrib` set('54','55','56','57','58') DEFAULT NULL,
   `original_mutation_consequence_attrib` set('21','22','23','24','25','26','27','28','29','30','44') DEFAULT NULL,
-  `mutation_consequence_attrib`  set('75','76','77','78','79','80','84') DEFAULT NULL,
+  `mutation_consequence_attrib` int(10) unsigned DEFAULT '0',
   `mutation_consequence_flag_attrib` set('71','72','73','74') DEFAULT NULL,
-  `variant_consequence_attrib` set('100','101','102','103','104','105','106','107','108','109','110','111','112','113','114','115','116','117','118','119','120','121','122','123','124','125') DEFAULT NULL,
   `deleted` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `deleted_by_user_id` int(10) unsigned NOT NULL,
   PRIMARY KEY (`genomic_feature_disease_id`),
@@ -173,11 +169,10 @@ CREATE TABLE `genomic_feature_disease_log` (
   `disease_id` int(10) unsigned NOT NULL,
   `original_allelic_requirement_attrib` set('1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20') DEFAULT NULL,
   `allelic_requirement_attrib` set('59','60','61','62','63','64','65','66','67','68','69','70') DEFAULT NULL,
-  `cross_cutting_modifier_attrib` set('54','55','56','57','58','70','82') DEFAULT NULL,
+  `cross_cutting_modifier_attrib` set('54','55','56','57','58') DEFAULT NULL,
   `original_mutation_consequence_attrib` set('21','22','23','24','25','26','27','28','29','30','44') DEFAULT NULL,
-  `mutation_consequence_attrib`  set('75','76','77','78','79','80','84') DEFAULT NULL,
+  `mutation_consequence_attrib` int(10) unsigned DEFAULT '0',
   `mutation_consequence_flag_attrib` set('71','72','73','74') DEFAULT NULL,
-  `variant_consequence_attrib` set('100','101','102','103','104','105','106','107','108','109','110','111','112','113','114','115','116','117','118','119','120','121','122','123','124','125') DEFAULT NULL,
   `created` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `user_id` int(10) unsigned NOT NULL,
   `action` varchar(128) NOT NULL,
@@ -361,25 +356,9 @@ CREATE TABLE `user` (
   `user_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `username` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
-  `panel_attrib` set('36','37','38','39','40','41','42','43','45','46','47','48','83') DEFAULT NULL,
+  `panel_attrib` set('36','37','38','39','40','41','42','43','45','46','47','48') DEFAULT NULL,
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `user_idx` (`username`),
   UNIQUE KEY `email_idx` (`email`)
 ) ENGINE=InnoDB  ;
 
-CREATE TABLE `ontology_term`  (
-  `ontology_term_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `ontology_accession` VARCHAR(255) NOT NULL,
-  `description` VARCHAR(255) DEFAULT NULL,
-  PRIMARY KEY (`ontology_term_id`)
-) ENGINE=InnoDB ;
-
-CREATE TABLE `disease_ontology_mapping` (
-  `disease_ontology_mapping_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `disease_id` int(10) unsigned NOT NULL,
-  `ontology_term_id` int(10) unsigned NOT NULL,
-  `mapped_by_attrib` set('437','438','439','440','441','442','443','444') DEFAULT NULL,
-  PRIMARY KEY (`disease_ontology_mapping_id`),
-  KEY `ontology_term_id` (`ontology_term_id`),
-  KEY `disease_id` (`disease_id`)
-) ENGINE=InnoDB ;
