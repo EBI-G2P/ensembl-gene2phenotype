@@ -94,12 +94,11 @@ INSERT IGNORE INTO attrib (attrib_id, attrib_type_id, value) VALUES (445, 7, 'p_
 INSERT IGNORE INTO attrib (attrib_id, attrib_type_id, value) VALUES (446, 7, 'data_set');
 INSERT IGNORE INTO attrib (attrib_id, attrib_type_id, value) VALUES (447, 7, 'clustering');
 
-INSERT IGNORE INTO attrib (attrib_id, attrib_type_id, value) VALUES (49, 11, 'both RD and IF');
+
 INSERT IGNORE INTO attrib (attrib_id, attrib_type_id, value) VALUES (50, 11, 'definitive');
 INSERT IGNORE INTO attrib (attrib_id, attrib_type_id, value) VALUES (51, 11, 'limited');
 INSERT IGNORE INTO attrib (attrib_id, attrib_type_id, value) VALUES (52, 11, 'strong');
 INSERT IGNORE INTO attrib (atrrib_id, attrib_type_id, value) VALUES (81, 11, 'moderate');
-INSERT IGNORE INTO attrib (attrib_id, attrib_type_id, value) VALUES (53, 11, 'child IF');
 
 INSERT IGNORE INTO attrib (attrib_id, attrib_type_id, value) VALUES (54, 12, 'requires heterozygosity');
 INSERT IGNORE INTO attrib (attrib_id, attrib_type_id, value) VALUES (55, 12, 'typically de novo');
