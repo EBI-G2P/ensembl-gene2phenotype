@@ -242,7 +242,6 @@ sub get_statistics {
     my $confidence_category_value = $confidence_category_attribs->{$confidence_category_attrib_id};
     $hash->{$panel}->{$confidence_category_value} = $count;
   }
-  
   my @results = ();
   my @header = ('Panel', 'definitive', 'strong', 'moderate', 'limited' );
   push @results, \@header;
