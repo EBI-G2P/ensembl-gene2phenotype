@@ -46,7 +46,6 @@
 46	4	Demo
 47	4	Rapid_PICU_NICU
 48	4	PaedNeuro
-49	11	both RD and IF
 50	11	definitive
 51	11	limited
 52	11	strong
@@ -77,10 +76,10 @@
 77	15	altered gene product structure
 78	15	cis-regulatory or promotor mutation
 79	15	increased gene product level
-84      15      decreased gene product level 
 80	15	uncertain
 82	12	potential IF
 83	4	Skeletal
+84	0	
 100	16	splice_region_variant
 101	16	splice_acceptor_variant
 102	16	splice_donor_variant
@@ -96,17 +95,6 @@
 112	16	intron_variant
 113	16	regulatory_region_variant
 114	16	intergenic_variant
-115     16      inframe_insertion
-116     16      NMD_triggering
-117     16      NMD_escaping
-118     16      stop_gained_NMD_triggering
-119     16      stop_gained_NMD_escaping
-120     16      splice_donor_variant_NMD_triggering
-121     16      frameshift_variant_NMD_triggering
-122     16      splice_acceptor_variant_NMD_escaping
-123     16      splice_acceptor_variant_NMD_triggering
-124     16      splice_donor_variant_NMD_escaping
-125     16      frameshift_variant_NMD_escaping
 437	6	Data source
 438	6	OLS exact
 439	6	OLS partial
