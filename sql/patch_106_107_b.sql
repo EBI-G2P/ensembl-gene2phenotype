@@ -17,6 +17,6 @@
 DELETE from attrib where value = "both RD and IF" and attrib_type_id = 11;
 
 #patch identifier
-INSERT INTO meta (species_id, meta_key, meta_value) VALUES (NULL, 'patch', 'patch_106_107_b.sql|drop RD and IF con');
+INSERT INTO meta (species_id, meta_key, meta_value) VALUES (NULL, 'patch', 'patch_106_107_b.sql|drop RD and IF confidence');
 
 
