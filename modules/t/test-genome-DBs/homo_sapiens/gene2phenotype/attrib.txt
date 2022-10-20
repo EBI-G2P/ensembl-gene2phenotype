@@ -79,7 +79,6 @@
 80	15	uncertain
 82	12	potential IF
 83	4	Skeletal
-84	0	
 100	16	splice_region_variant
 101	16	splice_acceptor_variant
 102	16	splice_donor_variant
@@ -95,6 +94,17 @@
 112	16	intron_variant
 113	16	regulatory_region_variant
 114	16	intergenic_variant
+115 16  inframe_insertion
+116 16  NMD_triggering
+117 16  NMD_escaping
+118 16  stop_gained_NMD_triggering
+119 16  stop_gained_NMD_escaping
+120 16  splice_donor_variant_NMD_triggering
+121 16  frameshift_variant_NMD_triggering
+122 16  splice_acceptor_variant_NMD_escaping
+123 16  splice_acceptor_variant_NMD_triggering
+124 16  splice_donor_variant_NMD_escaping
+125 16  frameshift_variant_NMD_escaping
 437	6	Data source
 438	6	OLS exact
 439	6	OLS partial
