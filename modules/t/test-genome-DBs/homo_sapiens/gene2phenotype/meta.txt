@@ -18,5 +18,6 @@
 15	\N	patch	patch_105_106_a.sql|schema version
 21	\N	patch	patch_106_107_a.sql|schema version
 22	\N	patch	patch_106_107_b.sql|drop RD and IF confidence
+23	\N	patch	patch_107_108_a.sql|schema version
 1	\N	schema_type	gene2phenotype
-2	\N	schema_version	107
+2	\N	schema_version	108
