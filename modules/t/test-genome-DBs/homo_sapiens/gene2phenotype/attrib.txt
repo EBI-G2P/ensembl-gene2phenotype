@@ -76,6 +76,7 @@
 77	15	altered gene product structure
 78	15	cis-regulatory or promotor mutation
 79	15	increased gene product level
+84      15      decreased gene product level 
 80	15	uncertain
 82	12	potential IF
 83	4	Skeletal
