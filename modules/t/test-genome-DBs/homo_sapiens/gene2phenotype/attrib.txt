@@ -109,7 +109,7 @@
 124 16  splice_donor_variant_NMD_escaping
 125 16  frameshift_variant_NMD_escaping
 126	16	gain_of_function_variant
-127	16	loss_of_function_variant
+127 16  loss_of_function_variant
 437	6	Data source
 438	6	OLS exact
 439	6	OLS partial
