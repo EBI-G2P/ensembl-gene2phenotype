@@ -79,7 +79,7 @@
 80	15	uncertain
 82	12	potential IF
 83	4	Skeletal
-84     15  decreased gene product level 
+84      15  decreased gene product level 
 85	14	activating
 86	14	dominant negative
 100	16	splice_region_variant
