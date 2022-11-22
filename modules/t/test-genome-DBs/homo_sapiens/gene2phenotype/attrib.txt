@@ -97,6 +97,7 @@
 112	16	intron_variant
 113	16	regulatory_region_variant
 84      15      decreased gene product level 
+114     16	    intergenic_variant
 115     16      inframe_insertion
 116     16      NMD_triggering
 117     16      NMD_escaping
@@ -108,7 +109,7 @@
 123     16      splice_acceptor_variant_NMD_triggering
 124     16      splice_donor_variant_NMD_escaping
 125     16      frameshift_variant_NMD_escaping
-126     16	    gain_of_function_variant
+126     16	  gain_of_function_variant
 127     16      loss_of_function_variant
 437	6	Data source
 438	6	OLS exact
