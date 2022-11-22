@@ -97,7 +97,7 @@
 112	16	intron_variant
 113	16	regulatory_region_variant
 84      15      decreased gene product level 
-114     16	  intergenic_variant
+114     16	intergenic_variant
 115     16      inframe_insertion
 116     16      NMD_triggering
 117     16      NMD_escaping
