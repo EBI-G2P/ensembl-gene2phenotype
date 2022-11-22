@@ -23,6 +23,7 @@ CREATE TABLE meta (
 ) ENGINE=INNODB;
 INSERT INTO meta (species_id, meta_key, meta_value) VALUES (NULL, 'schema_type', 'gene2phenotype'), (NULL, 'schema_version', '108');
 INSERT INTO meta (species_id, meta_key, meta_value) VALUES (NULL, 'patch', 'patch_107_108_a.sql|schema version');
+INSERT INTO meta (species_id, meta_key, meta_value) VALUES (NULL, 'patch', 'patch_107_108_b.sql|adding new attribs support new changes');
 
 
 CREATE TABLE attrib_type (
@@ -83,8 +84,8 @@ CREATE TABLE genomic_feature_disease (
   cross_cutting_modifier_attrib set('54','55','56','57','58','70','82') DEFAULT NULL,
   original_mutation_consequence_attrib set('21','22','23','24','25','26','27','28','29','30','44') DEFAULT NULL,
   mutation_consequence_attrib set('75','76','77','78','79','80','84') DEFAULT NULL,
-  mutation_consequence_flag_attrib set('71','72','73','74') DEFAULT NULL,
-  variant_consequence_attrib set('100','101','102','103','104','105','106','107','108','109','110','111','112','113','114','115','116','117','118','119','120','121','122','123','124','125') DEFAULT NULL,
+  mutation_consequence_flag_attrib set('71','72','73','74','85','86') DEFAULT NULL,
+  variant_consequence_attrib set('100','101','102','103','104','105','106','107','108','109','110','111','112','113','114','115','116','117','118','119','120','121','122','123','124','125','126','127') DEFAULT NULL,
   restricted_mutation_set tinyint(1) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (genomic_feature_disease_id),
   UNIQUE KEY genomic_feature_disease (genomic_feature_id, allelic_requirement_attrib, mutation_consequence_attrib, disease_id),
@@ -111,8 +112,8 @@ CREATE TABLE genomic_feature_disease_deleted (
   cross_cutting_modifier_attrib set('54','55','56','57','58','70','82') DEFAULT NULL,
   original_mutation_consequence_attrib set('21','22','23','24','25','26','27','28','29','30','44') DEFAULT NULL,
   mutation_consequence_attrib set('75','76','77','78','79','80','84') DEFAULT NULL,
-  mutation_consequence_flag_attrib set('71','72','73','74') DEFAULT NULL,
-  variant_consequence_attrib set('100','101','102','103','104','105','106','107','108','109','110','111','112','113','114','115','116','117','118','119','120','121','122','123','124','125') DEFAULT NULL,
+  mutation_consequence_flag_attrib set('71','72','73','74','85','86') DEFAULT NULL,
+  variant_consequence_attrib set('100','101','102','103','104','105','106','107','108','109','110','111','112','113','114','115','116','117','118','119','120','121','122','123','124','125','126','127') DEFAULT NULL,
   deleted timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   deleted_by_user_id int(10) unsigned NOT NULL,
   PRIMARY KEY (genomic_feature_disease_id),
@@ -130,8 +131,8 @@ CREATE TABLE `genomic_feature_disease_log` (
   cross_cutting_modifier_attrib set('54','55','56','57','58','70','82') DEFAULT NULL,
   original_mutation_consequence_attrib set('21','22','23','24','25','26','27','28','29','30','44') DEFAULT NULL,
   mutation_consequence_attrib set('75','76','77','78','79','80','84') DEFAULT NULL,
-  mutation_consequence_flag_attrib set('71','72','73','74') DEFAULT NULL,
-  variant_consequence_attrib set('100','101','102','103','104','105','106','107','108','109','110','111','112','113','114','115','116','117','118','119','120','121','122','123','124','125') DEFAULT NULL,
+  mutation_consequence_flag_attrib set('71','72','73','74','85','86') DEFAULT NULL,
+  variant_consequence_attrib set('100','101','102','103','104','105','106','107','108','109','110','111','112','113','114','115','116','117','118','119','120','121','122','123','124','125','126','127') DEFAULT NULL,
   created timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   user_id int(10) unsigned NOT NULL,
   action varchar(128) NOT NULL,
