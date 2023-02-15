@@ -20,5 +20,6 @@
 22	\N	patch	patch_106_107_b.sql|drop RD and IF confidence
 23	\N	patch	patch_107_108_a.sql|schema version
 24	\N	patch	patch_107_108_b.sql|adding new attribs support new changes
+25	\N	patch	patch_108_109_a.sql|schema version
 1	\N	schema_type	gene2phenotype
-2	\N	schema_version	108
+2	\N	schema_version	109
