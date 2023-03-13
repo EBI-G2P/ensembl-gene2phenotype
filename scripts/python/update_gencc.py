@@ -1,0 +1,87 @@
+import subprocess 
+import argparse
+import pandas as pd
+import os
+import random 
+import datetime
+
+allelic_requirement = {
+    "biallelic_autosomal" : "HP:0000007",
+    "monoallelic_autosomal" : "HP:0000006",
+    "monoallelic_X_hem"  : "HP:0001417",
+    "monallelic_Y_hem" : "HP:0001450",
+    "monoallelic_X_het" : "HP:0001417",
+    "mitochondrial" : "HP:0001427",
+    "monoallelic_PAR" : "HP:0000006",
+    "biallelic_PAR" : "HP:0000007"
+}
+
+con_category = {
+    "definitive" : "GENCC:100001",
+    "strong" : "GENCC:100002",
+    "moderate" : "GENCC:100003",
+    "limited" : "GENCC:100004"
+}
+
+subprocess.run(['bash', 'download_file.sh' ])
+
+ap = argparse.ArgumentParser()
+
+ap.add_argument("-p", "--path", help="path of where the downloaded files are, usually would be /hps/software/users/ensembl/repositories/olaaustine/GenCC/date[YYYY-MM-DD]")
+args = ap.parse_args()
+
+
+files = [f for f in os.listdir(args.path) if os.path.isfile(os.path.join(args.path, f))]
+
+new_data = pd.DataFrame()
+temp_df = []
+
+outfile = args.path + "/final_file.txt"
+final_file = args.path + "/gencc.txt"
+for file in files:
+    file_path = args.path + "/" + file
+    df = pd.read_csv(file_path)
+    if "Cardiac" in file_path: # because Cardiac only has disease ontology 
+        df["disease mim"] = df["disease ontology"]
+    else :
+        df["disease mim"] =   "OMIM:" + df['disease mim'].astype(str)
+    
+    temp_df.append(df)
+
+merged_df = pd.concat(temp_df, axis=0, ignore_index=True) #concat different dataframe with different lengths
+merged_df.to_csv(outfile, index=False)
+
+
+new_pd = pd.read_csv(outfile) # reading the already created entries of all our entroes 
+confidence = new_pd['confidence category']
+moi = new_pd['allelic requirement']
+
+start_num =  1000112000 # the start num is our gencc number + 1 at the beginning and three zeros
+
+size_g2p = len(new_pd) # length of the existing dataframe
+
+#for the date column we always use the same date
+date = datetime.date.today()
+formatted_date = date.strftime("%Y/%m/%d")
+
+
+file_df = pd.DataFrame()
+
+file_df["submission_id"] = range(start_num, start_num+size_g2p) # Generating the sequence of numbers using the created start num and the end  being the start num + end 
+file_df['hgnc id'] = "HGNC:" + new_pd['hgnc id'].astype(str)
+file_df['hgnc_symbol'] = new_pd['gene symbol']
+file_df['disease_id'] = new_pd['disease mim']
+file_df['disease_name'] = new_pd['disease name']
+file_df['submitter_id'] = "GENCC:000112"
+# replace confidence catrgory and allelic_requirement using the GenCC submission criteria
+file_df["classification_id"] = confidence.replace(con_category)
+file_df['moi_id'] = moi.replace(allelic_requirement)
+file_df['submitter_name'] = "TGMI G2P"
+file_df['classification_id'] = new_pd['confidence category']
+file_df['pmid'] = new_pd['pmids']
+file_df["date"] = formatted_date
+file_df['assertion_criteria_url'] = "https://www.ebi.ac.uk/gene2phenotype/terminology"
+    
+
+file_df.to_csv(final_file, mode='w', index=False)
+
