@@ -3,6 +3,7 @@ import argparse
 import pandas as pd
 import os
 import random 
+import sys
 import datetime
 import requests
 import json
@@ -20,7 +21,11 @@ def get_ols(disease_name):
         documents = response["docs"]
 
         mondo_id = [i["obo_id"] for i in documents if "obo_id" in i ]
-    
+    else:
+        print("Connecting to the " + endpoint + " failed")
+        sys.exit()
+        pass
+        
     if len(mondo_id) > 0:
         return mondo_id[0]
     else:
