@@ -4,6 +4,29 @@ import pandas as pd
 import os
 import random 
 import datetime
+import requests
+import json
+
+def get_ols(disease_name):
+    statement = "No disease mim"
+    endpoint = 'http://www.ebi.ac.uk/ols/api/search?q='
+    ontology = '&ontology=mondo'
+    url = endpoint + disease_name + ontology
+    result = requests.get(url)
+    if result.status_code == 200:
+        final_result = json.loads(result.content)
+        response = final_result["response"]
+        documents = response["docs"]
+
+
+
+        mondo_id = [i["obo_id"] for i in documents if "obo_id" in i ]
+    
+    if len(mondo_id) > 0:
+        return mondo_id[0]
+    else:
+        return statement
+
 
 allelic_requirement = {
     "biallelic_autosomal" : "HP:0000007",
@@ -64,6 +87,14 @@ size_g2p = len(new_pd) # length of the existing dataframe
 date = datetime.date.today()
 formatted_date = date.strftime("%Y/%m/%d")
 
+# adding disease mim using ols
+
+
+for index,row in new_pd.iterrows():
+    if row["disease mim"] == "OMIM:No disease mim":
+        disease_mondo = get_ols(row["disease name"])
+        new_pd.replace(row["disease mim"], disease_mondo, inplace=True)
+        #print(row["disease name"] + " " + row["disease mim"] )
 
 file_df = pd.DataFrame()
 
@@ -84,4 +115,6 @@ file_df['assertion_criteria_url'] = "https://www.ebi.ac.uk/gene2phenotype/termin
     
 
 file_df.to_csv(final_file, mode='w', index=False)
+
+
 
