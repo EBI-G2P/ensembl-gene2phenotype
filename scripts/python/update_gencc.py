@@ -87,9 +87,8 @@ size_g2p = len(new_pd) # length of the existing dataframe
 date = datetime.date.today()
 formatted_date = date.strftime("%Y/%m/%d")
 
-# adding disease mim using ols
 
-
+# adding disease mim using ols for entries with no existing disease mim or disease ontology (non cardiac)
 for index,row in new_pd.iterrows():
     if row["disease mim"] == "OMIM:No disease mim":
         disease_mondo = get_ols(row["disease name"])
@@ -104,11 +103,10 @@ file_df['hgnc_symbol'] = new_pd['gene symbol']
 file_df['disease_id'] = new_pd['disease mim']
 file_df['disease_name'] = new_pd['disease name']
 file_df['submitter_id'] = "GENCC:000112"
-# replace confidence catrgory and allelic_requirement using the GenCC submission criteria
+#replace confidence catrgory and allelic_requirement using the GenCC submission criteria
 file_df["classification_id"] = confidence.replace(con_category)
 file_df['moi_id'] = moi.replace(allelic_requirement)
 file_df['submitter_name'] = "TGMI G2P"
-file_df['classification_id'] = new_pd['confidence category']
 file_df['pmid'] = new_pd['pmids']
 file_df["date"] = formatted_date
 file_df['assertion_criteria_url'] = "https://www.ebi.ac.uk/gene2phenotype/terminology"
