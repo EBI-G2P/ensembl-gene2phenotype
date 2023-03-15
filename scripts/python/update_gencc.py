@@ -19,15 +19,12 @@ def get_ols(disease_name):
         response = final_result["response"]
         documents = response["docs"]
 
-
-
         mondo_id = [i["obo_id"] for i in documents if "obo_id" in i ]
     
     if len(mondo_id) > 0:
         return mondo_id[0]
     else:
         return statement
-
 
 allelic_requirement = {
     "biallelic_autosomal" : "HP:0000007",
@@ -39,7 +36,6 @@ allelic_requirement = {
     "monoallelic_PAR" : "HP:0000006",
     "biallelic_PAR" : "HP:0000007"
 }
-
 con_category = {
     "definitive" : "GENCC:100001",
     "strong" : "GENCC:100002",
@@ -53,7 +49,6 @@ ap = argparse.ArgumentParser()
 
 ap.add_argument("-p", "--path", help="path of where the downloaded files are, usually would be /hps/software/users/ensembl/repositories/olaaustine/GenCC/date[YYYY-MM-DD]")
 args = ap.parse_args()
-
 
 files = [f for f in os.listdir(args.path) if os.path.isfile(os.path.join(args.path, f))]
 
@@ -75,19 +70,16 @@ for file in files:
 merged_df = pd.concat(temp_df, axis=0, ignore_index=True) #concat different dataframe with different lengths
 merged_df.to_csv(outfile, index=False)
 
-
 new_pd = pd.read_csv(outfile) # reading the already created entries of all our entroes 
 confidence = new_pd['confidence category']
 moi = new_pd['allelic requirement']
 
 start_num =  1000112000 # the start num is our gencc number + 1 at the beginning and three zeros
-
 size_g2p = len(new_pd) # length of the existing dataframe
 
 #for the date column we always use the same date
 date = datetime.date.today()
 formatted_date = date.strftime("%Y/%m/%d")
-
 
 # adding disease mim using ols for entries with no existing disease mim or disease ontology (non cardiac)
 for index,row in new_pd.iterrows():
@@ -99,7 +91,6 @@ for index,row in new_pd.iterrows():
         #print(row["disease name"] + " " + row["disease mim"] )
 
 file_df = pd.DataFrame()
-
 file_df["submission_id"] = range(start_num, start_num+size_g2p) # Generating the sequence of numbers using the created start num and the end  being the start num + end 
 file_df['hgnc id'] = "HGNC:" + new_pd['hgnc id'].astype(str)
 file_df['hgnc_symbol'] = new_pd['gene symbol']
