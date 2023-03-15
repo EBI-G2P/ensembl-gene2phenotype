@@ -8,6 +8,7 @@ import requests
 import json
 
 def get_ols(disease_name):
+    # only using mondo because mondo gives a close enough match with how we name diseases in G2P
     statement = "No disease mim"
     endpoint = 'http://www.ebi.ac.uk/ols/api/search?q='
     ontology = '&ontology=mondo'
@@ -91,7 +92,9 @@ formatted_date = date.strftime("%Y/%m/%d")
 # adding disease mim using ols for entries with no existing disease mim or disease ontology (non cardiac)
 for index,row in new_pd.iterrows():
     if row["disease mim"] == "OMIM:No disease mim":
+        # get the disease mondo name 
         disease_mondo = get_ols(row["disease name"])
+        # using it to replace the No disease mim as we need the disease mim to submit and do not want to lose the data
         new_pd.replace(row["disease mim"], disease_mondo, inplace=True)
         #print(row["disease name"] + " " + row["disease mim"] )
 
