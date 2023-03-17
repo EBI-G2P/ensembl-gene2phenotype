@@ -83,8 +83,8 @@ start_num =  1000112000 # the start num is our gencc number + 1 at the beginning
 size_g2p = len(new_pd) # length of the existing dataframe
 
 #for the date column we always use the same date
-date = datetime.date.today()
-formatted_date = date.strftime("%Y/%m/%d")
+#date = datetime.date.today()
+#formatted_date = date.strftime("%Y/%m/%d")
 
 # adding disease mim using ols for entries with no existing disease mim or disease ontology (non cardiac)
 for index,row in new_pd.iterrows():
@@ -107,7 +107,7 @@ file_df["classification_id"] = confidence.replace(con_category)
 file_df['moi_id'] = moi.replace(allelic_requirement)
 file_df['submitter_name'] = "TGMI G2P"
 file_df['pmid'] = new_pd['pmids']
-file_df["date"] = formatted_date
+file_df["date"] = new_pd['gene disease pair entry date']
 file_df['assertion_criteria_url'] = "https://www.ebi.ac.uk/gene2phenotype/terminology"
     
 
