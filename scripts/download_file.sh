@@ -1,5 +1,5 @@
 current_date=$(date +'%Y-%m-%d')
-root_directory="/hps/software/users/ensembl/repositories/olaaustine/GenCC"
+root_directory="/nfs/production/flicek/ensembl/variation/G2P/GenCC_create"
 
 final_directory="$root_directory/$current_date"
 if [ ! -d "$final_directory" ];

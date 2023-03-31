@@ -48,11 +48,11 @@ con_category = {
     "limited" : "GENCC:100004"
 }
 
-subprocess.run(['bash', 'download_file.sh' ])
+subprocess.run(['bash', '../download_file.sh' ])
 
 ap = argparse.ArgumentParser()
 
-ap.add_argument("-p", "--path", help="path of where the downloaded files are, usually would be /hps/software/users/ensembl/repositories/olaaustine/GenCC/date[YYYY-MM-DD]")
+ap.add_argument("-p", "--path", help="path of where the downloaded files are, usually would be /nfs/production/flicek/ensembl/variation/G2P/GenCC_create/date[YYYY-MM-DD]")
 args = ap.parse_args()
 
 files = [f for f in os.listdir(args.path) if os.path.isfile(os.path.join(args.path, f))]
@@ -61,7 +61,7 @@ new_data = pd.DataFrame()
 temp_df = []
 
 outfile = args.path + "/final_file.txt"
-final_file = args.path + "/gencc.txt"
+final_file = args.path + "/G2P_Gencc.xlsx"
 for file in files:
     file_path = args.path + "/" + file
     df = pd.read_csv(file_path)
@@ -82,10 +82,6 @@ moi = new_pd['allelic requirement']
 start_num =  1000112000 # the start num is our gencc number + 1 at the beginning and three zeros
 size_g2p = len(new_pd) # length of the existing dataframe
 
-#for the date column we always use the same date
-#date = datetime.date.today()
-#formatted_date = date.strftime("%Y/%m/%d")
-
 # adding disease mim using ols for entries with no existing disease mim or disease ontology (non cardiac)
 for index,row in new_pd.iterrows():
     if row["disease mim"] == "OMIM:No disease mim":
@@ -93,7 +89,6 @@ for index,row in new_pd.iterrows():
         disease_mondo = get_ols(row["disease name"])
         # using it to replace the No disease mim as we need the disease mim to submit and do not want to lose the data
         new_pd.replace(row["disease mim"], disease_mondo, inplace=True)
-        #print(row["disease name"] + " " + row["disease mim"] )
 
 file_df = pd.DataFrame()
 file_df["submission_id"] = range(start_num, start_num+size_g2p) # Generating the sequence of numbers using the created start num and the end  being the start num + end 
@@ -111,7 +106,7 @@ file_df["date"] = new_pd['gene disease pair entry date']
 file_df['assertion_criteria_url'] = "https://www.ebi.ac.uk/gene2phenotype/terminology"
     
 
-file_df.to_csv(final_file, mode='w', index=False)
+file_df.to_excel(final_file, index=False)
 
 
 
