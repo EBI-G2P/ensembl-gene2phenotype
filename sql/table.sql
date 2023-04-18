@@ -23,6 +23,7 @@ CREATE TABLE meta (
 ) ENGINE=INNODB;
 INSERT INTO meta (species_id, meta_key, meta_value) VALUES (NULL, 'schema_type', 'gene2phenotype'), (NULL, 'schema_version', '109');
 INSERT INTO meta (species_id, meta_key, meta_value) VALUES (NULL, 'patch', 'patch_108_109_a.sql|schema version');
+INSERT INTO meta (species_id, meta_key, meta_value) VALUES (NULL, 'patch', 'patch_108_109_b.sql|inserting new cross cutting modifier');
 
 
 CREATE TABLE attrib_type (
