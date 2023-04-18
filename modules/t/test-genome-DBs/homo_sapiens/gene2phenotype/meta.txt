@@ -21,5 +21,6 @@
 23	\N	patch	patch_107_108_a.sql|schema version
 24	\N	patch	patch_107_108_b.sql|adding new attribs support new changes
 25	\N	patch	patch_108_109_a.sql|schema version
+26	\N	patch	patch_108_109_b.sql|inserting new cross cutting modifier
 1	\N	schema_type	gene2phenotype
 2	\N	schema_version	109
