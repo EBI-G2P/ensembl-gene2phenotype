@@ -25,6 +25,7 @@ use Bio::EnsEMBL::Utils::Argument qw(rearrange);
 
 our @ISA = ('Bio::EnsEMBL::Storable');
 
+# the problem is this 
 sub new {
   my $caller = shift;
   my $class = ref($caller) || $caller;
@@ -68,7 +69,14 @@ sub new {
     'variant_consequence_attrib',
     'restricted_mutation_set',
     'adaptor'], @_);
-
+  
+  defined($variant_consequence)  ? $variant_consequence = $variant_consequence : $variant_consequence = undef;
+  defined($variant_consequence_attrib) ? $variant_consequence_attrib = $variant_consequence_attrib : $variant_consequence_attrib = undef;
+  defined($cross_cutting_modifier) ? $cross_cutting_modifier = $cross_cutting_modifier : $cross_cutting_modifier = undef;
+  defined($cross_cutting_modifier_attrib) ? $cross_cutting_modifier_attrib = $cross_cutting_modifier_attrib : $cross_cutting_modifier_attrib = undef;
+  defined($mutation_consequence_flag) ? $mutation_consequence_flag = $mutation_consequence_flag : $mutation_consequence_flag = undef;
+  defined($mutation_consequence_flag_attrib) ? $mutation_consequence_flag_attrib = $mutation_consequence_flag_attrib : $mutation_consequence_flag_attrib = undef;
+  
   my $self = bless {
     'dbID' => $genomic_feature_disease_id,
     'adaptor' => $adaptor,
