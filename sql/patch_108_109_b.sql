@@ -13,7 +13,7 @@
 -- See the License for the specific language governing permissions and
 -- limitations under the License.
 
-INSERT IGNORE INTO attrib (attrib_id, attrib_type_id, value) VALUES (87, 12 'incomplete penetrance');
+INSERT IGNORE INTO attrib (attrib_id, attrib_type_id, value) VALUES (87, 12, 'incomplete penetrance');
 
 ALTER TABLE genomic_feature_disease MODIFY COLUMN cross_cutting_modifier_attrib set('54','55','56','57','58','70','82','87') DEFAULT NULL;
 ALTER TABLE genomic_feature_disease_deleted MODIFY COLUMN cross_cutting_modifier_attrib set('54','55','56','57','58','70','82','87') DEFAULT NULL;
