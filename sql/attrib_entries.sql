@@ -98,7 +98,7 @@ INSERT IGNORE INTO attrib (attrib_id, attrib_type_id, value) VALUES (447, 7, 'cl
 INSERT IGNORE INTO attrib (attrib_id, attrib_type_id, value) VALUES (50, 11, 'definitive');
 INSERT IGNORE INTO attrib (attrib_id, attrib_type_id, value) VALUES (51, 11, 'limited');
 INSERT IGNORE INTO attrib (attrib_id, attrib_type_id, value) VALUES (52, 11, 'strong');
-INSERT IGNORE INTO attrib (atrrib_id, attrib_type_id, value) VALUES (81, 11, 'moderate');
+INSERT IGNORE INTO attrib (attrib_id, attrib_type_id, value) VALUES (81, 11, 'moderate');
 
 INSERT IGNORE INTO attrib (attrib_id, attrib_type_id, value) VALUES (54, 12, 'requires heterozygosity');
 INSERT IGNORE INTO attrib (attrib_id, attrib_type_id, value) VALUES (55, 12, 'typically de novo');
@@ -107,6 +107,7 @@ INSERT IGNORE INTO attrib (attrib_id, attrib_type_id, value) VALUES (57, 12, 'ty
 INSERT IGNORE INTO attrib (attrib_id, attrib_type_id, value) VALUES (58, 12, 'typified by reduced penetrance');
 INSERT IGNORE INTO attrib (attrib_id, attrib_type_id, value) VALUES (70, 12, 'imprinted');
 INSERT IGNORE INTO attrib (attrib_id, attrib_type_id, value) VALUES (82, 12, 'potential IF');
+INSERT IGNORE INTO attrib (attrib_id, attrib_type_id, value) VALUES (87, 12, 'incomplete penetrance');
 
 INSERT IGNORE INTO attrib (attrib_id, attrib_type_id, value) VALUES (59, 13, 'biallelic_autosomal');
 INSERT IGNORE INTO attrib (attrib_id, attrib_type_id, value) VALUES (60, 13, 'biallelic_PAR');
@@ -122,6 +123,8 @@ INSERT IGNORE INTO attrib (attrib_id, attrib_type_id, value) VALUES (71, 14, 'li
 INSERT IGNORE INTO attrib (attrib_id, attrib_type_id, value) VALUES (72, 14, 'part of contiguous gene duplication');
 INSERT IGNORE INTO attrib (attrib_id, attrib_type_id, value) VALUES (73, 14, 'part of contiguous genomic interval deletion');
 INSERT IGNORE INTO attrib (attrib_id, attrib_type_id, value) VALUES (74, 14, 'restricted mutation set');
+INSERT IGNORE INTO attrib (attrib_id, attrib_type_id, value) VALUES (85, 14, 'activating');
+INSERT IGNORE INTO attrib (attrib_id, attrib_type_id, value) VALUES (86, 14, 'dominant negative');
 
 INSERT IGNORE INTO attrib (attrib_id, attrib_type_id, value) VALUES (75, 15, '5_prime or 3_prime UTR mutation');
 INSERT IGNORE INTO attrib (attrib_id, attrib_type_id, value) VALUES (76, 15, 'absent gene product');
@@ -132,7 +135,7 @@ INSERT IGNORE INTO attrib (attrib_id, attrib_type_id, value) VALUES (80, 15, 'un
 INSERT IGNORE INTO attrib (attrib_id, attrib_type_id, value) VALUES (84, 15, 'decreased gene product level');
 
 INSERT IGNORE INTO attrib (attrib_id, attrib_type_id, value) VALUES (100, 16, 'splice_region_variant');
-INSERT IGNORE INTO attrib (atrrib_id, attrib_type_id, value) VALUES (101, 16, 'splice_acceptor_variant');
+INSERT IGNORE INTO attrib (attrib_id, attrib_type_id, value) VALUES (101, 16, 'splice_acceptor_variant');
 INSERT IGNORE INTO attrib (attrib_id, attrib_type_id, value) VALUES (102, 16, 'splice_donor_variant');
 INSERT IGNORE INTO attrib (attrib_id, attrib_type_id, value) VALUES (103, 16, 'start_lost');
 INSERT IGNORE INTO attrib (attrib_id, attrib_type_id, value) VALUES (104, 16, 'frameshift_variant');
@@ -157,3 +160,5 @@ INSERT IGNORE INTO attrib (attrib_id, attrib_type_id, value) VALUES (122, 16, 's
 INSERT IGNORE INTO attrib (attrib_id, attrib_type_id, value) VALUES (123, 16, 'splice_acceptor_variant_NMD_triggering');
 INSERT IGNORE INTO attrib (attrib_id, attrib_type_id, value) VALUES (124, 16, 'splice_donor_variant_NMD_escaping');
 INSERT IGNORE INTO attrib (attrib_id, attrib_type_id, value) VALUES (125, 16, 'frameshift_variant_NMD_escaping');
+INSERT IGNORE INTO attrib (attrib_id, attrib_type_id, value) VALUES (126, 16, 'gain_of_function_variant');
+INSERT IGNORE INTO attrib (attrib_id, attrib_type_id, value) VALUES (127, 16, 'loss_of_function_variant');
