@@ -405,7 +405,7 @@ sub fetch_all_by_GenomicFeature_panels {
 
   Arg [1]    : Bio::EnsEMBL::G2P::GenomicFeature $genomic_feature
   Arg [2]    : Hashref of constraints
-  Example    : # get all GFDs with the same gene, allelic requirement and mutation consequence
+  Example    : # get all GFDs with the same gene, allelic requirement and mutation consequence
                my $constraints = {
                 'allelic_requirement' => 'biallelic',
                 'mutation_consequence' => 'loss of function',
@@ -503,6 +503,7 @@ sub _columns {
     'gfd.variant_consequence_attrib',
     'gfd.restricted_mutation_set',
     'gfdp.panel_attrib',
+    'gfdpub.genomic_feature_disease_publication_id AS gfd_pub_id',
   );
   return @cols;
 }
@@ -513,6 +514,7 @@ sub _tables {
     ['genomic_feature_disease', 'gfd'],
     ['genomic_feature_disease_panel', 'gfdp'],
     ['GFD_disease_synonym', 'gfdds'],
+    ['genomic_feature_disease_publication', 'gfdpub']
   );
   return @tables;
 }
@@ -523,6 +525,7 @@ sub _left_join {
   my @left_join = (
     ['GFD_disease_synonym', 'gfd.genomic_feature_disease_id = gfdds.genomic_feature_disease_id'],
     ['genomic_feature_disease_panel', 'gfd.genomic_feature_disease_id = gfdp.genomic_feature_disease_id'],
+    ['genomic_feature_disease_publication', 'gfd.genomic_feature_disease_id = gfdpub.genomic_feature_disease_id'],
   );
 
   return @left_join;
@@ -628,6 +631,9 @@ sub _obj_from_row {
       my $panel = $attribute_adaptor->get_value('g2p_panel', $row->{panel_attrib});
       $obj->add_panel($panel);
     }
+    if (defined $row->{gfd_pub_id}) {
+      $obj->add_gfd_pub_id($row->{gfd_pub_id});
+    }
   } else {
     if (defined $row->{gfd_disease_synonym_id}) {
       $obj->add_gfd_disease_synonym_id($row->{gfd_disease_synonym_id});
@@ -635,6 +641,9 @@ sub _obj_from_row {
     if (defined $row->{panel_attrib}) {
       my $panel = $attribute_adaptor->get_value('g2p_panel', $row->{panel_attrib});
       $obj->add_panel($panel);
+    }
+    if (defined $row->{gfd_pub_id}) {
+      $obj->add_gfd_pub_id($row->{gfd_pub_id});
     }
   }
 }

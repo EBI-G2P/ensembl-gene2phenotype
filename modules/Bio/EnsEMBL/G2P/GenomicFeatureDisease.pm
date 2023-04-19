@@ -126,6 +126,7 @@ sub disease_id {
   return $self->{disease_id};
 }
 
+
 sub original_allelic_requirement {
   my $self = shift;
   my $original_allelic_requirement = shift;
@@ -314,6 +315,7 @@ sub restricted_mutation_set {
   return $self->{restricted_mutation_set};
 }
 
+
 sub add_gfd_disease_synonym_id {
   my $self = shift;
   my $gfd_disease_synonym_id = shift;
@@ -329,6 +331,15 @@ sub add_panel {
   throw("panel is required") if(!$panel);
   if (! grep { $panel eq $_ } @{$self->{panels}}) {
     push @{$self->{panels}}, $panel;
+  }
+}
+
+sub add_gfd_pub_id {
+  my $self = shift;
+  my $gfd_pub_id = shift;
+  throw('id is required') if (!$gfd_pub_id);
+  if (! grep {$gfd_pub_id == $_} @{$self->{gfd_pub_id}}) {
+    push @{$self->{gfd_pub_id}}, $gfd_pub_id;
   }
 }
 
