@@ -1,3 +1,5 @@
+#!/usr/bin/bash
+
 current_date=$(date +'%Y-%m-%d')
 root_directory="/nfs/production/flicek/ensembl/variation/G2P/GenCC_create"
 
