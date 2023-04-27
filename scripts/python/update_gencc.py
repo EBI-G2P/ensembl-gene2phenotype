@@ -1,13 +1,15 @@
 #!/usr/bin/env python3
+
 import subprocess 
 import argparse
 import pandas as pd
 import os
 import random 
 import sys
-import datetime
+from datetime import date
 import requests
 import json
+
 
 def get_ols(disease_name):
     # only using mondo because mondo gives a close enough match with how we name diseases in G2P
@@ -49,12 +51,18 @@ con_category = {
     "limited" : "GENCC:100004"
 }
 
-subprocess.run(['bash', '../download_file.sh' ])
+ensembl_dir = os.environ.get('ENSEMBL_ROOT_DIR')
+subprocess.run(['bash', f"{ensembl_dir}/ensembl-gene2phenotype/scripts/download_file.sh" ] )
 
 ap = argparse.ArgumentParser()
 
 ap.add_argument("-p", "--path", help="path of where the downloaded files are, usually would be /nfs/production/flicek/ensembl/variation/G2P/GenCC_create/date[YYYY-MM-DD]")
 args = ap.parse_args()
+
+if args.path is None :
+    present_day = date.today()
+    args.path = "/nfs/production/flicek/ensembl/variation/G2P/GenCC_create/" + str(present_day)
+
 
 files = [f for f in os.listdir(args.path) if os.path.isfile(os.path.join(args.path, f))]
 
