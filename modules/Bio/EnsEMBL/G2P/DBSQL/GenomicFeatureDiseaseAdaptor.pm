@@ -628,6 +628,15 @@ sub _obj_from_row {
       my $panel = $attribute_adaptor->get_value('g2p_panel', $row->{panel_attrib});
       $obj->add_panel($panel);
     }
- }
+  } else {
+    if (defined $row->{gfd_disease_synonym_id}) {
+      $obj->add_gfd_disease_synonym_id($row->{gfd_disease_synonym_id});
+    }
+    if (defined $row->{panel_attrib}) {
+      my $panel = $attribute_adaptor->get_value('g2p_panel', $row->{panel_attrib});
+      $obj->add_panel($panel);
+    }
+  }
+}
 
 1;
