@@ -334,15 +334,6 @@ sub add_panel {
   }
 }
 
-sub add_gfd_pub_id {
-  my $self = shift;
-  my $gfd_pub_id = shift;
-  throw('id is required') if (!$gfd_pub_id);
-  if (! grep {$gfd_pub_id == $_} @{$self->{gfd_pub_id}}) {
-    push @{$self->{gfd_pub_id}}, $gfd_pub_id;
-  }
-}
-
 sub panels {
   my $self = shift;
   if (defined $self->{panels}) {
