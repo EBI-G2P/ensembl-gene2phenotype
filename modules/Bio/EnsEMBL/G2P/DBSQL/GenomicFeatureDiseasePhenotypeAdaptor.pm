@@ -143,9 +143,18 @@ sub fetch_by_GFD_id_phenotype_id {
 sub fetch_all_by_phenotype_ids {
   my $self = shift;
   my $phenotype_ids = shift;
-  my $ids = join(',', @$phenotype_ids);
+  my $ids = join(',', @{$phenotype_ids});
   my $constraint = "gfdp.phenotype_id IN ($ids)";
   my $result = $self->generic_fetch($constraint);
+  return $result;
+}
+
+sub fetch_all_by_phenotype_id {
+  my $self = shift;
+  my $phenotype_id = shift;
+  my $constraint = "gfdp.phenotype_id=$phenotype_id";
+  my $result = $self->generic_fetch($constraint);
+
   return $result;
 }
 
