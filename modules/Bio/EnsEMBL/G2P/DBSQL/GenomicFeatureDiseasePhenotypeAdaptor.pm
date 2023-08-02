@@ -152,7 +152,7 @@ sub fetch_all_by_phenotype_ids {
 sub fetch_all_by_phenotype_id {
   my $self = shift;
   my $phenotype_id = shift;
-  my $constraint = "gfdp.phenotype_id LIKE '%$phenotype_id%'";
+  my $constraint = "gfdp.phenotype_id=$phenotype_id";
   my $result = $self->generic_fetch($constraint);
 
   return $result;
