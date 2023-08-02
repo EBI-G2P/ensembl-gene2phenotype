@@ -149,15 +149,6 @@ sub fetch_all_by_phenotype_ids {
   return $result;
 }
 
-sub fetch_all_by_phenotype_id {
-  my $self = shift;
-  my $phenotype_id = shift;
-  my $constraint = "gfdp.phenotype_id=$phenotype_id";
-  my $result = $self->generic_fetch($constraint);
-
-  return $result;
-}
-
 sub fetch_all_by_GenomicFeatureDisease {
   my $self = shift;
   my $GFD = shift;
