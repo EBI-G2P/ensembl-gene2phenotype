@@ -136,6 +136,14 @@ sub fetch_by_name {
   return $result->[0]; 
 }
 
+sub fetch_by_name_substring {
+  my $self = shift;
+  my $name = shift;
+  my $constraint = "p.name LIKE '%$name%'";
+  my $result = $self->generic_fetch($constraint);
+  return $result;
+}
+
 sub fetch_all_by_name_list_source {
   my $self = shift;
   my $names = shift;
@@ -157,6 +165,13 @@ sub fetch_all_by_stable_ids_source {
 sub fetch_all {
   my $self = shift;
   return $self->generic_fetch();
+}
+
+sub fetch_all_by_substring {
+  my $self = shift;
+  my $substring = shift;
+  my $constraint = "d.name LIKE '%$substring%' LIMIT 20";
+  return $self->generic_fetch($constraint);
 }
 
 sub _columns {
