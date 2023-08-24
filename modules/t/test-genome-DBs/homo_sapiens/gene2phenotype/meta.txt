@@ -23,5 +23,6 @@
 25	\N	patch	patch_108_109_a.sql|schema version
 26	\N	patch	patch_108_109_b.sql|inserting new cross cutting modifier
 27	\N	patch	patch_109_110_a.sql|schema version
+28	\N	patch	patch_109_110_b.sql|update_Neonatalrespiratory
 1	\N	schema_type	gene2phenotype
 2	\N	schema_version	110

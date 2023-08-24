@@ -42,7 +42,7 @@
 42	4	Cancer
 43	4	Prenatal
 44	2	gain of function
-45	4	NeonatalRespiratory
+45	4	Neonatal
 46	4	Demo
 47	4	Rapid_PICU_NICU
 48	4	PaedNeuro
