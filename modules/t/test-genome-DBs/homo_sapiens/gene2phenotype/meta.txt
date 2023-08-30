@@ -25,5 +25,6 @@
 27	\N	patch	patch_109_110_a.sql|schema version
 28	\N	patch	patch_109_110_b.sql|update_Neonatalrespiratory
 29	\N	patch	patch_109_110_b.sql|update_Neonatalrespiratory
+30	\N	patch	patch_109_110_c.sql|update_Neonatalrespiratory
 1	\N	schema_type	gene2phenotype
 2	\N	schema_version	110
