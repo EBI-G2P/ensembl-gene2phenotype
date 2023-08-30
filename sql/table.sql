@@ -23,6 +23,7 @@ CREATE TABLE meta (
 ) ENGINE=INNODB;
 INSERT INTO meta (species_id, meta_key, meta_value) VALUES (NULL, 'schema_type', 'gene2phenotype'), (NULL, 'schema_version', '110');
 INSERT INTO meta (species_id, meta_key, meta_value) VALUES (NULL, 'patch', 'patch_109_110_a.sql|schema version');
+INSERT INTO meta (species_id, meta_key, meta_value) VALUES (NULL, 'patch', 'patch_109_110_b.sql|add constraint to genomic_feature_disease_phenotype');
 
 
 CREATE TABLE attrib_type (
@@ -247,6 +248,7 @@ CREATE TABLE genomic_feature_disease_phenotype (
   genomic_feature_disease_id int(10) unsigned NOT NULL,
   phenotype_id int(10) unsigned NOT NULL,
   PRIMARY KEY (genomic_feature_disease_phenotype_id),
+  UNIQUE KEY gfdp_idx (genomic_feature_disease_id, phenotype_id),
   KEY genomic_feature_disease_idx (genomic_feature_disease_id)
 ) ENGINE=INNODB;
 
