@@ -4,7 +4,7 @@
 4	Skin	1
 5	Cancer	1
 6	Prenatal	0
-7	NeonatalRespiratory	0
+7	Neonatal	0
 8	Demo	0
 9	Rapid_PICU_NICU	0
 10	PaedNeuro	0
