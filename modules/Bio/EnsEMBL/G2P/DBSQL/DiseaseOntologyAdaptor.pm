@@ -120,6 +120,15 @@ sub fetch_by_ontology {
   return $result->[0];
 }
 
+sub fetch_by_disease_id_ot_id {
+  my $self = shift;
+  my $disease_id = shift;
+  my $ot_id = shift;
+  my $constraint = "DO.disease_id=$disease_id AND DO.ontology_term_id=$ot_id";
+  my $result = $self->generic_fetch($constraint);
+  return $result->[0];
+}
+
 sub _columns {
   my $self = shift;
   my @cols = (
