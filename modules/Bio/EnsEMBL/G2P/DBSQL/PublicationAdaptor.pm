@@ -88,6 +88,14 @@ sub fetch_by_PMID {
   return $result->[0];
 }
 
+sub fetch_by_title {
+  my $self = shift;
+  my $title = shift;
+  my $constraint = "p.title=$title";
+  my $result = $self->generic_fetch($constraint);
+  return $result->[0];
+}
+
 sub _columns {
   my $self = shift;
   my @cols = (
