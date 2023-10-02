@@ -147,14 +147,14 @@ sub check_gfd_other {
   my $gfd_1 = shift;
   my $gfd_2 = shift;
 
-  my $ccm_1 = $gfd_1->cross_cutting_modifier();
-  my $ccm_2 = $gfd_2->cross_cutting_modifier();
+  my $ccm_1 = $gfd_1->cross_cutting_modifier_attrib();
+  my $ccm_2 = $gfd_2->cross_cutting_modifier_attrib();
   
-  my $mcf_1 = $gfd_1->mutation_consequence_flag();
-  my $mcf_2 = $gfd_2->mutation_consequence_flag();
+  my $mcf_1 = $gfd_1->mutation_consequence_flag_attrib();
+  my $mcf_2 = $gfd_2->mutation_consequence_flag_attrib();
   
-  my $vc_1 = $gfd_1->variant_consequence();
-  my $vc_2 = $gfd_2->variant_consequence();
+  my $vc_1 = $gfd_1->variant_consequence_attrib();
+  my $vc_2 = $gfd_2->variant_consequence_attrib();
   
   # restricted_mutation_set is not used anymore
   my $rms_1 = $gfd_1->restricted_mutation_set();
@@ -212,6 +212,7 @@ sub merge_entries {
   my $type = shift;
 
   my $gfd_to_keep;
+  my $gfd_to_del;
   my $partial_merged_gfd;
 
   # we are going to choose one entry to keep
@@ -233,6 +234,7 @@ sub merge_entries {
   if(defined $partial_merged_gfd) {
     my @gfd_ids = keys %{$partial_merged_gfd};
     $gfd_to_keep = $gfd_ids[0];
+    $gfd_to_del = $gfd_to_keep == $gfd_1->dbID() ? $gfd_2->dbID() : $gfd_1->dbID();
   }
   
   if(defined $gfd_to_keep) {
@@ -261,9 +263,9 @@ sub merge_entries {
     print "Merged organs: ", Dumper($merged_organs);
     
     # genomic_feature_disease_panel - important
-    my $gfd_1_panels = $gfd_1->panels();
-    my $gfd_2_panels = $gfd_2->panels();
-    my $merged_panels = merge_values(join(",", @{$gfd_1_panels}), join(",", @{$gfd_2_panels}));
+    my $gfd_1_panels = $gfd_1->get_all_GFDPanels();
+    my $gfd_2_panels = $gfd_2->get_all_GFDPanels();
+    my $merged_panels = merge_objects($gfd_1_panels, $gfd_2_panels);
     # print "Panels: ", Dumper($gfd_1_panels);
     # print "Panels: ", Dumper($gfd_2_panels);
     print "Merged panels: ", Dumper($merged_panels);
@@ -297,6 +299,26 @@ sub merge_entries {
     # print "GFD synonyms: ", Dumper($gfd_1_synonyms);
     # print "GFD synonyms: ", Dumper($gfd_2_synonyms);
     print "Merged synonyms: ", Dumper($merged_synonyms);
+    
+    print "...Done!\n";
+    print "Going to update genomic_feature_disease for GFD_id = $gfd_to_keep with merged data\n";
+    if(defined $partial_merged_gfd) {
+      print Dumper($partial_merged_gfd);
+    }
+    # Update the GFD
+    my $update_gfd_vc = "UPDATE genomic_feature_disease SET variant_consequence_attrib = ? WHERE genomic_feature_disease_id = ?";
+    my $update_gfd_mc = "UPDATE genomic_feature_disease SET mutation_consequence_flag_attrib = ? WHERE genomic_feature_disease_id = ?";
+    my $update_gfd_ccm = "UPDATE genomic_feature_disease SET cross_cutting_modifier_attrib = ? WHERE genomic_feature_disease_id = ?";
+    # Remove the GFD
+    print "Going to delete GFD_id = $gfd_to_del from genomic_feature_disease\n";
+    my $del_gfd = "DELETE FROM genomic_feature_disease WHERE genomic_feature_disease_id = ?";
+    
+    print "  Update comments\n";
+    print "  Update organs\n";
+    print "  Update phenotypes\n";
+    print "  Update publications\n";
+    print "  Update synonyms\n";
+    print "  Update panels\n";
   }
   else {
     print "Cannot proceed. No GFD_id to keep was found.\n";
@@ -369,6 +391,9 @@ sub merge_objects {
       elsif(ref($element) eq "Bio::EnsEMBL::G2P::GFDDiseaseSynonym") {
         $final_list{$element->disease_id."-".$element->genomic_feature_disease_id} = $element if(!$final_list{$element->disease_id."-".$element->genomic_feature_disease_id});
       }
+      elsif(ref($element) eq "Bio::EnsEMBL::G2P::GenomicFeatureDiseasePanel") {
+        $final_list{$element->panel_attrib} = $element if(!$final_list{$element->panel_attrib});
+      }
     }
   }
   if(scalar(@{$list_2}) > 0) {
@@ -387,6 +412,9 @@ sub merge_objects {
       }
       elsif(ref($element) eq "Bio::EnsEMBL::G2P::GFDDiseaseSynonym") {
         $final_list{$element->disease_id} = $element if(!$final_list{$element->disease_id});
+      }
+      elsif(ref($element) eq "Bio::EnsEMBL::G2P::GenomicFeatureDiseasePanel") {
+        $final_list{$element->panel_attrib} = $element if(!$final_list{$element->panel_attrib});
       }
     }
   }
