@@ -244,8 +244,8 @@ sub merge_entries {
     my $gfd_1_comments = $gfd_1->get_all_GFDComments();
     my $gfd_2_comments = $gfd_2->get_all_GFDComments();
     my $merged_comments = merge_objects($gfd_1_comments, $gfd_2_comments);
-    print "Comments: ", Dumper($gfd_1_comments); # returns a list of GenomicFeatureDiseaseComment
-    print "Comments: ", Dumper($gfd_2_comments); # returns a list of GenomicFeatureDiseaseComment
+    # print "Comments: ", Dumper($gfd_1_comments); # returns a list of GenomicFeatureDiseaseComment
+    # print "Comments: ", Dumper($gfd_2_comments); # returns a list of GenomicFeatureDiseaseComment
     print "Merged comments: ", Dumper($merged_comments);
     
     # merge comments
@@ -282,8 +282,8 @@ sub merge_entries {
     my $gfd_1_publications = $gfd_1->get_all_GFDPublications();
     my $gfd_2_publications = $gfd_2->get_all_GFDPublications();
     my $merged_publications = merge_objects($gfd_1_publications, $gfd_2_publications);
-    print "Publications: ", Dumper($gfd_1_publications);
-    print "Publications: ", Dumper($gfd_2_publications);
+    # print "Publications: ", Dumper($gfd_1_publications);
+    # print "Publications: ", Dumper($gfd_2_publications);
     print "Merged publications: ", Dumper($merged_publications);
     # GFD_publication_comment - this is part of the object publication
     
@@ -293,8 +293,10 @@ sub merge_entries {
     # GFD_disease_synonym - important
     my $gfd_1_synonyms = $gfd_1->get_all_GFDDiseaseSynonyms();
     my $gfd_2_synonyms = $gfd_2->get_all_GFDDiseaseSynonyms();
-    print "GFD synonyms: ", Dumper($gfd_1_synonyms);
-    print "GFD synonyms: ", Dumper($gfd_2_synonyms);
+    my $merged_synonyms = merge_objects($gfd_1_synonyms, $gfd_2_synonyms);
+    # print "GFD synonyms: ", Dumper($gfd_1_synonyms);
+    # print "GFD synonyms: ", Dumper($gfd_2_synonyms);
+    print "Merged synonyms: ", Dumper($merged_synonyms);
   }
   else {
     print "Cannot proceed. No GFD_id to keep was found.\n";
@@ -364,6 +366,9 @@ sub merge_objects {
       elsif(ref($element) eq "Bio::EnsEMBL::G2P::GenomicFeatureDiseasePublication") {
         $final_list{$element->get_Publication->dbID()} = $element if(!$final_list{$element->get_Publication->dbID()});
       }
+      elsif(ref($element) eq "Bio::EnsEMBL::G2P::GFDDiseaseSynonym") {
+        $final_list{$element->disease_id."-".$element->genomic_feature_disease_id} = $element if(!$final_list{$element->disease_id."-".$element->genomic_feature_disease_id});
+      }
     }
   }
   if(scalar(@{$list_2}) > 0) {
@@ -379,6 +384,9 @@ sub merge_objects {
       }
       elsif(ref($element) eq "Bio::EnsEMBL::G2P::GenomicFeatureDiseasePublication") {
         $final_list{$element->get_Publication->dbID()} = $element if(!$final_list{$element->get_Publication->dbID()});
+      }
+      elsif(ref($element) eq "Bio::EnsEMBL::G2P::GFDDiseaseSynonym") {
+        $final_list{$element->disease_id} = $element if(!$final_list{$element->disease_id});
       }
     }
   }
