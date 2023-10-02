@@ -243,36 +243,48 @@ sub merge_entries {
     # genomic_feature_disease_comment
     my $gfd_1_comments = $gfd_1->get_all_GFDComments();
     my $gfd_2_comments = $gfd_2->get_all_GFDComments();
+    my $merged_comments = merge_objects($gfd_1_comments, $gfd_2_comments);
     print "Comments: ", Dumper($gfd_1_comments); # returns a list of GenomicFeatureDiseaseComment
     print "Comments: ", Dumper($gfd_2_comments); # returns a list of GenomicFeatureDiseaseComment
+    print "Merged comments: ", Dumper($merged_comments);
+    
+    # merge comments
+    # different GFDComments could be from the same user and have the same text
+    
     
     # genomic_feature_disease_organ
     my $gfd_1_organs = $gfd_1->get_all_GFDOrgans(); # returns a list of GenomicFeatureDiseaseOrgan
     my $gfd_2_organs = $gfd_2->get_all_GFDOrgans(); # returns a list of GenomicFeatureDiseaseOrgan
-    print "Organs: ", Dumper($gfd_1_organs);
-    print "Organs: ", Dumper($gfd_2_organs);
+    my $merged_organs = merge_objects($gfd_1_organs, $gfd_2_organs);
+    # print "Organs: ", Dumper($gfd_1_organs);
+    # print "Organs: ", Dumper($gfd_2_organs);
+    print "Merged organs: ", Dumper($merged_organs);
     
     # genomic_feature_disease_panel - important
     my $gfd_1_panels = $gfd_1->panels();
     my $gfd_2_panels = $gfd_2->panels();
     my $merged_panels = merge_values(join(",", @{$gfd_1_panels}), join(",", @{$gfd_2_panels}));
-    print "Panels: ", Dumper($gfd_1_panels);
-    print "Panels: ", Dumper($gfd_2_panels);
+    # print "Panels: ", Dumper($gfd_1_panels);
+    # print "Panels: ", Dumper($gfd_2_panels);
     print "Merged panels: ", Dumper($merged_panels);
     
     # genomic_feature_disease_phenotype
     my $gfd_1_phenotypes = $gfd_1->get_all_GFDPhenotypes();
     my $gfd_2_phenotypes = $gfd_2->get_all_GFDPhenotypes();
-    print "Phenotypes: ", Dumper($gfd_1_phenotypes);
-    print "Phenotypes: ", Dumper($gfd_2_phenotypes);
+    my $merged_phenotypes = merge_objects($gfd_1_phenotypes, $gfd_2_phenotypes);
+    # print "Phenotypes: ", Dumper($gfd_1_phenotypes);
+    # print "Phenotypes: ", Dumper($gfd_2_phenotypes);
+    print "Merged phenotypes: ", Dumper($merged_phenotypes);
     # GFD_phenotype_comment - this is part of the object comment
     
     
     # genomic_feature_disease_publication
     my $gfd_1_publications = $gfd_1->get_all_GFDPublications();
     my $gfd_2_publications = $gfd_2->get_all_GFDPublications();
+    my $merged_publications = merge_objects($gfd_1_publications, $gfd_2_publications);
     print "Publications: ", Dumper($gfd_1_publications);
     print "Publications: ", Dumper($gfd_2_publications);
+    print "Merged publications: ", Dumper($merged_publications);
     # GFD_publication_comment - this is part of the object publication
     
     # genomic_feature_statistic - not sure about this data
@@ -289,6 +301,9 @@ sub merge_entries {
   }
 }
 
+# Input 1: string
+# Input 2: string
+# Return: string of merged strings without duplicates
 sub merge_values {
   my $value_1 = shift;
   my $value_2 = shift;
@@ -324,4 +339,51 @@ sub merge_values {
   }
   
   return $new_value;
+}
+
+# Input 1: array of objects
+# Input 2: array of objects
+# Return: array of merged objects without duplicates
+sub merge_objects {
+  my $list_1 = shift;
+  my $list_2 = shift;
+  
+  my %final_list;
+  
+  if(scalar(@{$list_1}) > 0) {
+    foreach my $element (@{$list_1}) {
+      if(ref($element) eq "Bio::EnsEMBL::G2P::GenomicFeatureDiseaseOrgan") {
+        $final_list{$element->organ_id} = $element if(!$final_list{$element->organ_id});
+      }
+      elsif(ref($element) eq "Bio::EnsEMBL::G2P::GenomicFeatureDiseasePhenotype") {
+        $final_list{$element->phenotype_id} = $element if(!$final_list{$element->phenotype_id});
+      }
+      elsif(ref($element) eq "Bio::EnsEMBL::G2P::GenomicFeatureDiseaseComment") {
+        $final_list{$element->comment_text} = $element if(!$final_list{$element->comment_text});
+      }
+      elsif(ref($element) eq "Bio::EnsEMBL::G2P::GenomicFeatureDiseasePublication") {
+        $final_list{$element->get_Publication->dbID()} = $element if(!$final_list{$element->get_Publication->dbID()});
+      }
+    }
+  }
+  if(scalar(@{$list_2}) > 0) {
+    foreach my $element (@{$list_2}) {
+      if(ref($element) eq "Bio::EnsEMBL::G2P::GenomicFeatureDiseaseOrgan") {
+        $final_list{$element->organ_id} = $element if(!$final_list{$element->organ_id});
+      }
+      elsif(ref($element) eq "Bio::EnsEMBL::G2P::GenomicFeatureDiseasePhenotype") {
+        $final_list{$element->phenotype_id} = $element if(!$final_list{$element->phenotype_id});
+      }
+      elsif(ref($element) eq "Bio::EnsEMBL::G2P::GenomicFeatureDiseaseComment") {
+        $final_list{$element->comment_text} = $element if(!$final_list{$element->comment_text});
+      }
+      elsif(ref($element) eq "Bio::EnsEMBL::G2P::GenomicFeatureDiseasePublication") {
+        $final_list{$element->get_Publication->dbID()} = $element if(!$final_list{$element->get_Publication->dbID()});
+      }
+    }
+  }
+
+  my @result = values %final_list;
+  
+  return \@result;
 }
