@@ -201,8 +201,6 @@ sub check_gfd_other {
   $merged_gfd{$gfd_id_to_keep}{"mutation_consequence_flag"} = merge_values($mcf_1, $mcf_2);
   $merged_gfd{$gfd_id_to_keep}{"variant_consequence"} = merge_values($vc_1, $vc_2);
 
-  print "New GFD values: ", Dumper(\%merged_gfd);
-
   return \%merged_gfd;
 }
 
@@ -238,7 +236,7 @@ sub merge_entries {
   }
   
   if(defined $gfd_to_keep) {
-    print "Going to keep GFD_id = $gfd_to_keep\nAnalysing other tables...\n";
+    print "Going to keep GFD_id = $gfd_to_keep\n\nAnalysing other tables...";
     # check where GFD_id is used in other tables
     # we are going to keep only one gfd_id
     
@@ -246,9 +244,6 @@ sub merge_entries {
     my $gfd_1_comments = $gfd_1->get_all_GFDComments();
     my $gfd_2_comments = $gfd_2->get_all_GFDComments();
     my $merged_comments = merge_objects($gfd_1_comments, $gfd_2_comments);
-    # print "Comments: ", Dumper($gfd_1_comments); # returns a list of GenomicFeatureDiseaseComment
-    # print "Comments: ", Dumper($gfd_2_comments); # returns a list of GenomicFeatureDiseaseComment
-    print "Merged comments: ", Dumper($merged_comments);
     
     # merge comments
     # different GFDComments could be from the same user and have the same text
@@ -258,25 +253,17 @@ sub merge_entries {
     my $gfd_1_organs = $gfd_1->get_all_GFDOrgans(); # returns a list of GenomicFeatureDiseaseOrgan
     my $gfd_2_organs = $gfd_2->get_all_GFDOrgans(); # returns a list of GenomicFeatureDiseaseOrgan
     my $merged_organs = merge_objects($gfd_1_organs, $gfd_2_organs);
-    # print "Organs: ", Dumper($gfd_1_organs);
-    # print "Organs: ", Dumper($gfd_2_organs);
-    print "Merged organs: ", Dumper($merged_organs);
     
     # genomic_feature_disease_panel - important
     my $gfd_1_panels = $gfd_1->get_all_GFDPanels();
     my $gfd_2_panels = $gfd_2->get_all_GFDPanels();
     my $merged_panels = merge_objects($gfd_1_panels, $gfd_2_panels);
-    # print "Panels: ", Dumper($gfd_1_panels);
-    # print "Panels: ", Dumper($gfd_2_panels);
-    print "Merged panels: ", Dumper($merged_panels);
     
     # genomic_feature_disease_phenotype
     my $gfd_1_phenotypes = $gfd_1->get_all_GFDPhenotypes();
     my $gfd_2_phenotypes = $gfd_2->get_all_GFDPhenotypes();
     my $merged_phenotypes = merge_objects($gfd_1_phenotypes, $gfd_2_phenotypes);
-    # print "Phenotypes: ", Dumper($gfd_1_phenotypes);
-    # print "Phenotypes: ", Dumper($gfd_2_phenotypes);
-    print "Merged phenotypes: ", Dumper($merged_phenotypes);
+
     # GFD_phenotype_comment - this is part of the object comment
     
     
@@ -284,9 +271,7 @@ sub merge_entries {
     my $gfd_1_publications = $gfd_1->get_all_GFDPublications();
     my $gfd_2_publications = $gfd_2->get_all_GFDPublications();
     my $merged_publications = merge_objects($gfd_1_publications, $gfd_2_publications);
-    # print "Publications: ", Dumper($gfd_1_publications);
-    # print "Publications: ", Dumper($gfd_2_publications);
-    print "Merged publications: ", Dumper($merged_publications);
+
     # GFD_publication_comment - this is part of the object publication
     
     # genomic_feature_statistic - not sure about this data
@@ -296,12 +281,9 @@ sub merge_entries {
     my $gfd_1_synonyms = $gfd_1->get_all_GFDDiseaseSynonyms();
     my $gfd_2_synonyms = $gfd_2->get_all_GFDDiseaseSynonyms();
     my $merged_synonyms = merge_objects($gfd_1_synonyms, $gfd_2_synonyms);
-    # print "GFD synonyms: ", Dumper($gfd_1_synonyms);
-    # print "GFD synonyms: ", Dumper($gfd_2_synonyms);
-    print "Merged synonyms: ", Dumper($merged_synonyms);
     
-    print "...Done!\n";
-    print "Going to update genomic_feature_disease for GFD_id = $gfd_to_keep with merged data\n";
+    print "\ndone!\n";
+    print "\nGoing to update genomic_feature_disease for GFD_id = $gfd_to_keep with merged data\n";
     if(defined $partial_merged_gfd) {
       print Dumper($partial_merged_gfd);
     }
@@ -309,16 +291,78 @@ sub merge_entries {
     my $update_gfd_vc = "UPDATE genomic_feature_disease SET variant_consequence_attrib = ? WHERE genomic_feature_disease_id = ?";
     my $update_gfd_mc = "UPDATE genomic_feature_disease SET mutation_consequence_flag_attrib = ? WHERE genomic_feature_disease_id = ?";
     my $update_gfd_ccm = "UPDATE genomic_feature_disease SET cross_cutting_modifier_attrib = ? WHERE genomic_feature_disease_id = ?";
-    # Remove the GFD
-    print "Going to delete GFD_id = $gfd_to_del from genomic_feature_disease\n";
-    my $del_gfd = "DELETE FROM genomic_feature_disease WHERE genomic_feature_disease_id = ?";
     
-    print "  Update comments\n";
-    print "  Update organs\n";
-    print "  Update phenotypes\n";
-    print "  Update publications\n";
-    print "  Update synonyms\n";
-    print "  Update panels\n";
+    if(scalar @{$merged_comments} > 0) {
+      print "  Update comments for GFD_id = $gfd_to_keep\n";
+      my $update_gfdcomments = "UPDATE genomic_feature_disease_comment SET genomic_feature_disease_id = ? WHERE genomic_feature_disease_comment_id = ?";
+      foreach my $comments (@{$merged_comments}) {
+        if($comments->get_GenomicFeatureDisease->dbID() == $gfd_to_del) {
+          my $id = $comments->dbID();
+          print "  -> Run: UPDATE genomic_feature_disease_comment SET genomic_feature_disease_id = $gfd_to_keep WHERE genomic_feature_disease_comment_id = $id\n";
+        }
+      }
+    }
+    
+    if(scalar @{$merged_organs} > 0) {
+      print "  Update organs for GFD_id = $gfd_to_keep\n";
+      my $update_gfdorgan = "UPDATE genomic_feature_disease_organ SET genomic_feature_disease_id = ? WHERE genomic_feature_disease_organ_id = ?";
+      foreach my $organ (@{$merged_organs}) {
+        if($organ->get_GenomicFeatureDisease->dbID() == $gfd_to_del) {
+          my $id = $organ->dbID();
+          print "  -> Run: UPDATE genomic_feature_disease_organ SET genomic_feature_disease_id = $gfd_to_keep WHERE genomic_feature_disease_organ_id = $id\n";
+        }
+      }
+    }
+    
+    if(scalar @{$merged_phenotypes} > 0) {
+      print "  Update phenotypes for GFD_id = $gfd_to_keep\n";
+      my $update_gfdpheno = "UPDATE genomic_feature_disease_phenotype SET genomic_feature_disease_id = ? WHERE genomic_feature_disease_phenotype_id = ?";
+      foreach my $phenotype (@{$merged_phenotypes}) {
+        if($phenotype->get_GenomicFeatureDisease->dbID() == $gfd_to_del) {
+          my $id = $phenotype->dbID();
+          print "  -> Run: UPDATE genomic_feature_disease_phenotype SET genomic_feature_disease_id = $gfd_to_keep WHERE genomic_feature_disease_phenotype_id = $id\n";
+        }
+      }
+    }
+    
+    if(scalar @{$merged_publications} > 0) {
+      print "  Update publications for GFD_id = $gfd_to_keep\n";
+      my $update_gfdpublication = "UPDATE genomic_feature_disease_publication SET genomic_feature_disease_id = ? WHERE genomic_feature_disease_publication_id = ?";
+      foreach my $publication (@{$merged_publications}) {
+        if($publication->get_GenomicFeatureDisease->dbID() == $gfd_to_del) {
+          my $id = $publication->dbID();
+          print "  -> Run: UPDATE genomic_feature_disease_publication SET genomic_feature_disease_id = $gfd_to_keep WHERE genomic_feature_disease_publication_id = $id\n";
+        }
+      }
+    }
+    
+    if(scalar @{$merged_synonyms} > 0) {
+      print "  Update synonyms for GFD_id = $gfd_to_keep\n";
+      my $update_gfd_synonyms = "UPDATE GFD_disease_synonym SET genomic_feature_disease_id = ? WHERE GFD_disease_synonym_id = ?";
+      foreach my $synonyms (@{$merged_synonyms}) {
+        if($synonyms->genomic_feature_disease_id == $gfd_to_del) {
+          my $id = $synonyms->dbID();
+          print "  -> Run: UPDATE GFD_disease_synonym SET genomic_feature_disease_id = $gfd_to_keep WHERE GFD_disease_synonym_id = $id\n";
+        }
+      }
+    }
+    
+    if(scalar @{$merged_panels} > 0) {
+      print "  Update panels for GFD_id = $gfd_to_keep\n";
+      my $update_gfd_panels = "UPDATE genomic_feature_disease_panel SET genomic_feature_disease_id = ? WHERE genomic_feature_disease_panel_id = ?";
+      foreach my $panels (@{$merged_panels}) {
+        if($panels->genomic_feature_disease_id == $gfd_to_del) {
+          my $id = $panels->dbID();
+          print "  -> Run: UPDATE genomic_feature_disease_panel SET genomic_feature_disease_id = $gfd_to_keep WHERE genomic_feature_disease_panel_id = $id\n";
+        }
+      }
+    }
+    
+    # Remove the GFD
+    print "\nGoing to delete GFD_id = $gfd_to_del from genomic_feature_disease\n";
+    my $del_gfd = "DELETE FROM genomic_feature_disease WHERE genomic_feature_disease_id = ?";
+    print "  -> Run: DELETE FROM genomic_feature_disease WHERE genomic_feature_disease_id = $gfd_to_del\n";
+    
   }
   else {
     print "Cannot proceed. No GFD_id to keep was found.\n";
