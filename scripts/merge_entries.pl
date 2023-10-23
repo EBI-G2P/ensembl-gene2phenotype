@@ -239,33 +239,37 @@ sub merge_entries {
   }
   
   if(defined $gfd_to_keep) {
-    print "Going to keep GFD_id = $gfd_to_keep\n\nAnalysing other tables...";
+    print "Going to keep GFD_id = $gfd_to_keep\n";
     # check where GFD_id is used in other tables
     # we are going to keep only one gfd_id
     
+    my $gfd_1_id = $gfd_1->dbID();
+    my $gfd_2_id = $gfd_2->dbID();
+    my $start = $gfd_1_id == $gfd_to_keep ? 1 : 2;
     # genomic_feature_disease_comment
     my $gfd_1_comments = $gfd_1->get_all_GFDComments();
     my $gfd_2_comments = $gfd_2->get_all_GFDComments();
-    my $merged_comments = merge_objects($gfd_1_comments, $gfd_2_comments);
+    my $merged_comments = merge_objects($gfd_1_comments, $gfd_2_comments, $start);
     
     # merge comments
     # different GFDComments could be from the same user and have the same text
     
-    
     # genomic_feature_disease_organ
     my $gfd_1_organs = $gfd_1->get_all_GFDOrgans(); # returns a list of GenomicFeatureDiseaseOrgan
     my $gfd_2_organs = $gfd_2->get_all_GFDOrgans(); # returns a list of GenomicFeatureDiseaseOrgan
-    my $merged_organs = merge_objects($gfd_1_organs, $gfd_2_organs);
+    my $merged_organs = merge_objects($gfd_1_organs, $gfd_2_organs, $start);
     
     # genomic_feature_disease_panel - important
     my $gfd_1_panels = $gfd_1->get_all_GFDPanels();
     my $gfd_2_panels = $gfd_2->get_all_GFDPanels();
-    my $merged_panels = merge_objects($gfd_1_panels, $gfd_2_panels);
+    my $merged_panels = merge_objects($gfd_1_panels, $gfd_2_panels, $start);
     
     # genomic_feature_disease_phenotype
     my $gfd_1_phenotypes = $gfd_1->get_all_GFDPhenotypes();
     my $gfd_2_phenotypes = $gfd_2->get_all_GFDPhenotypes();
-    my $merged_phenotypes = merge_objects($gfd_1_phenotypes, $gfd_2_phenotypes);
+    my $merged_phenotypes = merge_objects($gfd_1_phenotypes, $gfd_2_phenotypes, $start);
+
+    # print Dumper($merged_phenotypes);
 
     # GFD_phenotype_comment - this is part of the object comment
     
@@ -273,7 +277,7 @@ sub merge_entries {
     # genomic_feature_disease_publication
     my $gfd_1_publications = $gfd_1->get_all_GFDPublications();
     my $gfd_2_publications = $gfd_2->get_all_GFDPublications();
-    my $merged_publications = merge_objects($gfd_1_publications, $gfd_2_publications);
+    my $merged_publications = merge_objects($gfd_1_publications, $gfd_2_publications, $start);
 
     # GFD_publication_comment - this is part of the object publication
     
@@ -283,10 +287,9 @@ sub merge_entries {
     # GFD_disease_synonym - important
     my $gfd_1_synonyms = $gfd_1->get_all_GFDDiseaseSynonyms();
     my $gfd_2_synonyms = $gfd_2->get_all_GFDDiseaseSynonyms();
-    my $merged_synonyms = merge_objects($gfd_1_synonyms, $gfd_2_synonyms);
+    my $merged_synonyms = merge_objects($gfd_1_synonyms, $gfd_2_synonyms, $start);
     
-    print "\ndone!\n";
-    print "\nGoing to update genomic_feature_disease for GFD_id = $gfd_to_keep with merged data\n";
+    print "\n***UPDATES: merge data***\nGoing to update genomic_feature_disease for GFD_id = $gfd_to_keep\n";
     # Update the GFD
     my $update_gfd_vc = "UPDATE genomic_feature_disease SET variant_consequence_attrib = ? WHERE genomic_feature_disease_id = ?";
     my $update_gfd_mc = "UPDATE genomic_feature_disease SET mutation_consequence_flag_attrib = ? WHERE genomic_feature_disease_id = ?";
@@ -295,18 +298,18 @@ sub merge_entries {
     if(defined $partial_merged_gfd) {
       if(defined $partial_merged_gfd->{$gfd_to_keep}->{variant_consequence}) {
         print "  Run: ", $update_gfd_vc . "; variant_consequence = ", $partial_merged_gfd->{$gfd_to_keep}->{variant_consequence}, "; gfd_id = $gfd_to_keep\n";
-        # my $update_vc = $dbh->prepare($update_gfd_vc);
-        # $update_vc->execute($partial_merged_gfd->{$gfd_to_keep}->{variant_consequence}, $gfd_to_keep) or die $dbh->errstr;
+        my $update_vc = $dbh->prepare($update_gfd_vc);
+        $update_vc->execute($partial_merged_gfd->{$gfd_to_keep}->{variant_consequence}, $gfd_to_keep) or die $dbh->errstr;
       }
       if(defined $partial_merged_gfd->{$gfd_to_keep}->{mutation_consequence_flag}) {
         print "  Run: ", $update_gfd_mc . "; mutation_consequence_flag = ", $partial_merged_gfd->{$gfd_to_keep}->{mutation_consequence_flag}, "; gfd_id = $gfd_to_keep\n";
-        # my $update_mc = $dbh->prepare($update_gfd_mc);
-        # $update_mc->execute($partial_merged_gfd->{$gfd_to_keep}->{mutation_consequence_flag}, $gfd_to_keep) or die $dbh->errstr;
+        my $update_mc = $dbh->prepare($update_gfd_mc);
+        $update_mc->execute($partial_merged_gfd->{$gfd_to_keep}->{mutation_consequence_flag}, $gfd_to_keep) or die $dbh->errstr;
       }
       if(defined $partial_merged_gfd->{$gfd_to_keep}->{cross_cutting_modifier}) {
         print "  Run: ", $update_gfd_ccm . "; cross_cutting_modifier = ", $partial_merged_gfd->{$gfd_to_keep}->{cross_cutting_modifier}, "; gfd_id = $gfd_to_keep\n";
-        # my $update_ccm = $dbh->prepare($update_gfd_ccm);
-        # $update_ccm->execute($partial_merged_gfd->{$gfd_to_keep}->{cross_cutting_modifier}, $gfd_to_keep) or die $dbh->errstr;
+        my $update_ccm = $dbh->prepare($update_gfd_ccm);
+        $update_ccm->execute($partial_merged_gfd->{$gfd_to_keep}->{cross_cutting_modifier}, $gfd_to_keep) or die $dbh->errstr;
       }
     }
     
@@ -317,8 +320,8 @@ sub merge_entries {
         if($comments->get_GenomicFeatureDisease->dbID() == $gfd_to_del) {
           my $id = $comments->dbID();
           print "  Run: UPDATE genomic_feature_disease_comment SET genomic_feature_disease_id = $gfd_to_keep WHERE genomic_feature_disease_comment_id = $id\n";
-          # my $sth_comments = $dbh->prepare($update_gfdcomments);
-          # $sth_comments->execute($gfd_to_keep, $id) or die $dbh->errstr;
+          my $sth_comments = $dbh->prepare($update_gfdcomments);
+          $sth_comments->execute($gfd_to_keep, $id) or die $dbh->errstr;
         }
       }
     }
@@ -330,8 +333,8 @@ sub merge_entries {
         if($organ->get_GenomicFeatureDisease->dbID() == $gfd_to_del) {
           my $id = $organ->dbID();
           print "  Run: UPDATE genomic_feature_disease_organ SET genomic_feature_disease_id = $gfd_to_keep WHERE genomic_feature_disease_organ_id = $id\n";
-          # my $sth_organs = $dbh->prepare($update_gfdorgan);
-          # $sth_organs->execute($gfd_to_keep, $id) or die $dbh->errstr;
+          my $sth_organs = $dbh->prepare($update_gfdorgan);
+          $sth_organs->execute($gfd_to_keep, $id) or die $dbh->errstr;
         }
       }
     }
@@ -343,8 +346,8 @@ sub merge_entries {
         if($phenotype->get_GenomicFeatureDisease->dbID() == $gfd_to_del) {
           my $id = $phenotype->dbID();
           print "  Run: UPDATE genomic_feature_disease_phenotype SET genomic_feature_disease_id = $gfd_to_keep WHERE genomic_feature_disease_phenotype_id = $id\n";
-          # my $sth_pheno = $dbh->prepare($update_gfdpheno);
-          # $sth_pheno->execute($gfd_to_keep, $id) or die $dbh->errstr;
+          my $sth_pheno = $dbh->prepare($update_gfdpheno);
+          $sth_pheno->execute($gfd_to_keep, $id) or die $dbh->errstr;
         }
       }
     }
@@ -356,8 +359,8 @@ sub merge_entries {
         if($publication->get_GenomicFeatureDisease->dbID() == $gfd_to_del) {
           my $id = $publication->dbID();
           print "  Run: UPDATE genomic_feature_disease_publication SET genomic_feature_disease_id = $gfd_to_keep WHERE genomic_feature_disease_publication_id = $id\n";
-          # my $sth_publication = $dbh->prepare($update_gfdpublication);
-          # $sth_publication->execute($gfd_to_keep, $id) or die $dbh->errstr;
+          my $sth_publication = $dbh->prepare($update_gfdpublication);
+          $sth_publication->execute($gfd_to_keep, $id) or die $dbh->errstr;
         }
       }
     }
@@ -369,8 +372,8 @@ sub merge_entries {
         if($synonyms->genomic_feature_disease_id == $gfd_to_del) {
           my $id = $synonyms->dbID();
           print "  Run: UPDATE GFD_disease_synonym SET genomic_feature_disease_id = $gfd_to_keep WHERE GFD_disease_synonym_id = $id\n";
-          # my $sth_synonym = $dbh->prepare($update_gfd_synonyms);
-          # $sth_synonym->execute($gfd_to_keep, $id) or die $dbh->errstr;
+          my $sth_synonym = $dbh->prepare($update_gfd_synonyms);
+          $sth_synonym->execute($gfd_to_keep, $id) or die $dbh->errstr;
         }
       }
     }
@@ -382,24 +385,53 @@ sub merge_entries {
         if($panels->genomic_feature_disease_id == $gfd_to_del) {
           my $id = $panels->dbID();
           print "  Run: UPDATE genomic_feature_disease_panel SET genomic_feature_disease_id = $gfd_to_keep WHERE genomic_feature_disease_panel_id = $id\n";
-          # my $sth_panels = $dbh->prepare($update_gfd_panels);
-          # $sth_panels->execute($gfd_to_keep, $id) or die $dbh->errstr;
+          my $sth_panels = $dbh->prepare($update_gfd_panels);
+          $sth_panels->execute($gfd_to_keep, $id) or die $dbh->errstr;
         }
       }
     }
     
     # Remove the GFD
+    print "\n***UPDATES: delete data***";
     print "\nGoing to delete GFD_id = $gfd_to_del from genomic_feature_disease\n";
     my $del_gfd = "DELETE FROM genomic_feature_disease WHERE genomic_feature_disease_id = ?";
     print "  Run: DELETE FROM genomic_feature_disease WHERE genomic_feature_disease_id = $gfd_to_del\n";
+    my $sth_del = $dbh->prepare($del_gfd);
+    $sth_del->execute($gfd_to_del) or die $dbh->errstr;
     
     # Check if there are entries still using the deleted GFD_id
-    
+    find_in_tables($gfd_to_del, $dbh);
     
   }
   else {
     print "Cannot proceed. No GFD_id to keep was found.\n";
   }
+}
+
+# Checks if the GFD_ID is in any of the tables
+# If found, deletes the entries from the table
+sub find_in_tables {
+  my $gfd_id = shift;
+  my $dbh = shift;
+  
+  my @tables = qw { genomic_feature_disease_comment genomic_feature_disease_organ genomic_feature_disease_panel
+                   genomic_feature_disease_phenotype genomic_feature_disease_publication GFD_disease_synonym };
+
+  foreach my $table (@tables) {
+    my $select = "SELECT genomic_feature_disease_id FROM $table WHERE genomic_feature_disease_id = $gfd_id";
+    my $sth_sel = $dbh->prepare($select);
+    $sth_sel->execute() or die $dbh->errstr;
+    my $results = $sth_sel->fetchall_arrayref();
+    
+    if(defined $results->[0]->[0]) {
+      print "Going to delete GFD_id = $gfd_id from $table\n";
+      my $del = "DELETE FROM $table WHERE genomic_feature_disease_id = $gfd_id";
+      print "  Run: $del\n";
+      my $sth_del = $dbh->prepare($del);
+      $sth_del->execute() or die $dbh->errstr;
+    }
+  }
+  
 }
 
 # Input 1: string
@@ -448,55 +480,72 @@ sub merge_values {
 sub merge_objects {
   my $list_1 = shift;
   my $list_2 = shift;
+  my $start = shift;
   
-  my %final_list;
+  my $final_list;
+  
+  if($start == 1) {
+    $final_list = append_data($list_1, $list_2);
+  }
+  else {
+    $final_list = append_data($list_2, $list_1);
+  }
+
+  my @result = values %{$final_list};
+  
+  return \@result;
+}
+
+sub append_data {
+  my $list_1 = shift;
+  my $list_2 = shift;
+  
+  my $final_list;
   
   if(scalar(@{$list_1}) > 0) {
     foreach my $element (@{$list_1}) {
       if(ref($element) eq "Bio::EnsEMBL::G2P::GenomicFeatureDiseaseOrgan") {
-        $final_list{$element->organ_id} = $element if(!$final_list{$element->organ_id});
+        $final_list->{$element->organ_id} = $element if(!$final_list->{$element->organ_id});
       }
       elsif(ref($element) eq "Bio::EnsEMBL::G2P::GenomicFeatureDiseasePhenotype") {
-        $final_list{$element->phenotype_id} = $element if(!$final_list{$element->phenotype_id});
+        $final_list->{$element->phenotype_id} = $element if(!$final_list->{$element->phenotype_id});
       }
       elsif(ref($element) eq "Bio::EnsEMBL::G2P::GenomicFeatureDiseaseComment") {
-        $final_list{$element->comment_text} = $element if(!$final_list{$element->comment_text});
+        $final_list->{$element->comment_text} = $element if(!$final_list->{$element->comment_text});
       }
       elsif(ref($element) eq "Bio::EnsEMBL::G2P::GenomicFeatureDiseasePublication") {
-        $final_list{$element->get_Publication->dbID()} = $element if(!$final_list{$element->get_Publication->dbID()});
+        $final_list->{$element->get_Publication->dbID()} = $element if(!$final_list->{$element->get_Publication->dbID()});
       }
       elsif(ref($element) eq "Bio::EnsEMBL::G2P::GFDDiseaseSynonym") {
-        $final_list{$element->disease_id."-".$element->genomic_feature_disease_id} = $element if(!$final_list{$element->disease_id."-".$element->genomic_feature_disease_id});
+        $final_list->{$element->disease_id."-".$element->genomic_feature_disease_id} = $element if(!$final_list->{$element->disease_id."-".$element->genomic_feature_disease_id});
       }
       elsif(ref($element) eq "Bio::EnsEMBL::G2P::GenomicFeatureDiseasePanel") {
-        $final_list{$element->panel_attrib} = $element if(!$final_list{$element->panel_attrib});
+        $final_list->{$element->panel_attrib} = $element if(!$final_list->{$element->panel_attrib});
       }
     }
   }
   if(scalar(@{$list_2}) > 0) {
     foreach my $element (@{$list_2}) {
       if(ref($element) eq "Bio::EnsEMBL::G2P::GenomicFeatureDiseaseOrgan") {
-        $final_list{$element->organ_id} = $element if(!$final_list{$element->organ_id});
+        $final_list->{$element->organ_id} = $element if(!$final_list->{$element->organ_id});
       }
       elsif(ref($element) eq "Bio::EnsEMBL::G2P::GenomicFeatureDiseasePhenotype") {
-        $final_list{$element->phenotype_id} = $element if(!$final_list{$element->phenotype_id});
+        $final_list->{$element->phenotype_id} = $element if(!$final_list->{$element->phenotype_id});
       }
       elsif(ref($element) eq "Bio::EnsEMBL::G2P::GenomicFeatureDiseaseComment") {
-        $final_list{$element->comment_text} = $element if(!$final_list{$element->comment_text});
+        $final_list->{$element->comment_text} = $element if(!$final_list->{$element->comment_text});
       }
       elsif(ref($element) eq "Bio::EnsEMBL::G2P::GenomicFeatureDiseasePublication") {
-        $final_list{$element->get_Publication->dbID()} = $element if(!$final_list{$element->get_Publication->dbID()});
+        $final_list->{$element->get_Publication->dbID()} = $element if(!$final_list->{$element->get_Publication->dbID()});
       }
       elsif(ref($element) eq "Bio::EnsEMBL::G2P::GFDDiseaseSynonym") {
-        $final_list{$element->disease_id} = $element if(!$final_list{$element->disease_id});
+        $final_list->{$element->disease_id} = $element if(!$final_list->{$element->disease_id});
       }
       elsif(ref($element) eq "Bio::EnsEMBL::G2P::GenomicFeatureDiseasePanel") {
-        $final_list{$element->panel_attrib} = $element if(!$final_list{$element->panel_attrib});
+        $final_list->{$element->panel_attrib} = $element if(!$final_list->{$element->panel_attrib});
       }
     }
   }
-
-  my @result = values %final_list;
   
-  return \@result;
+  return $final_list;
 }
