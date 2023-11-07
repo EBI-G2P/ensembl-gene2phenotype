@@ -31,6 +31,7 @@ GetOptions(
   'registry_file=s',
   'entry_1=s',
   'entry_2=s',
+  'disease_id=s',
   'dryrun',
 ) or die "Error: Failed to parse command line arguments\n";
 
@@ -38,6 +39,13 @@ pod2usage(1) if ($config->{'help'} || !$args);
 
 foreach my $param (qw/registry_file entry_1 entry_2/) {
   die ("Argument --$param is required. The entry IDs are the GDF dbID.") unless (defined($config->{$param}));
+}
+
+my $disease_id_keep;
+if(defined($config->{disease_id})) {
+  $disease_id_keep = $config->{disease_id};
+  print "Argument --disease_id is defined. Going to merge entries ".$config->{entry_1}." and ".$config->{entry_2}.
+        "and keep disease_id $disease_id_keep\n";
 }
 
 my $registry = 'Bio::EnsEMBL::Registry';
@@ -56,7 +64,7 @@ my $gfd_1 = get_genomic_feature_disease($config->{entry_1});
 my $gfd_2 = get_genomic_feature_disease($config->{entry_2});
 
 # Check if they are the same entry
-my $type = check_entries($gfd_1, $gfd_2);
+my $type = check_entries($gfd_1, $gfd_2, $disease_id_keep);
 
 print "Entry type: $type\n";
 
@@ -80,6 +88,7 @@ sub get_genomic_feature_disease {
 sub check_entries {
   my $gfd_1 = shift;
   my $gfd_2 = shift;
+  my $disease_id_keep = shift;
 
   my $type;
 
@@ -96,7 +105,7 @@ sub check_entries {
   my $mutation_consequence_2 = $gfd_2->mutation_consequence();
   
   if($gf_1 eq $gf_2 && $disease_1 eq $disease_2 && $allele_requirement_1 eq $allele_requirement_2 && $mutation_consequence_1 eq $mutation_consequence_2) {
-    print "Match: entries are the same. Going to check the original allelic requirement and mutation consequence\n";
+    print "(Checking entries) match: entries are the same. Going to check the original allelic requirement and mutation consequence\n";
     
     my $o_allele_requirement_1 = $gfd_1->original_allelic_requirement();
     my $o_allele_requirement_2 = $gfd_2->original_allelic_requirement();
@@ -133,7 +142,14 @@ sub check_entries {
       $type = "same_entry_dif_original";
     }
   }
-  
+  # this happens when we want to delete the disease but there are entries using this disease
+  # if the only difference between two entries is the disease_id then we need to merge these entries
+  elsif(defined $disease_id_keep && $allele_requirement_1 eq $allele_requirement_2 && $mutation_consequence_1 eq $mutation_consequence_2 && 
+        $gf_1 eq $gf_2 && $disease_1 ne $disease_2 && ($disease_1 eq $disease_id_keep || $disease_2 eq $disease_id_keep)) {
+    print "(Checking entries) going to merge entries based on disease_id\n";
+    $type = "merge_by_disease";
+  }
+
   return $type;
 }
 
