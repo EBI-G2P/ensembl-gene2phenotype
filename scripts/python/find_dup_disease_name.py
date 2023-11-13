@@ -29,25 +29,84 @@ python find_dup_disease_name.py --database dlemos_G2P_2023_08_02 --user ensro
 import os
 import sys
 import argparse
+import re
 import mysql.connector
 from mysql.connector import Error
 
 
-""" get_exact_matches
+def clean_up_string(disease_name):
+    new_disease_name = disease_name
 
+    new_disease_name = re.sub(r'^\s+|\s+$', '', new_disease_name)
+    new_disease_name = re.sub(r'^\?', '', new_disease_name)
+    new_disease_name = re.sub(r'\n', '', new_disease_name)
+    new_disease_name = re.sub(r', ', ' ', new_disease_name)
+    new_disease_name = re.sub(r'\.$', '', new_disease_name)
+    new_disease_name = re.sub(r'\“', '', new_disease_name)
+    new_disease_name = re.sub(r'\”', '', new_disease_name)
+    new_disease_name = re.sub(r'-', ' ', new_disease_name)
+    new_disease_name = re.sub(r'\t', '', new_disease_name)
+    new_disease_name = re.sub(r'\[$', '', new_disease_name)
+
+    # Example: 'cancer related (CAR)' becomes 'cancer related'
+    new_disease_name = re.sub(r'\([A-Z]+\)$', '', new_disease_name)
+
+    new_disease_name = new_disease_name.lower()
+    
+    # remove 'biallelic' and 'autosomal'
+    new_disease_name = re.sub(r'biallelic$', '', new_disease_name)
+    new_disease_name = re.sub(r'autosomal$', '', new_disease_name)
+    new_disease_name = re.sub(r'\(biallelic\)$', '', new_disease_name)
+    new_disease_name = re.sub(r'\(autosomal\)$', '', new_disease_name)
+
+    new_disease_name = re.sub(r'type xvii$', 'type 17', new_disease_name)
+    new_disease_name = re.sub(r'type ix$', 'type 9', new_disease_name)
+    new_disease_name = re.sub(r'type viii$', 'type 8', new_disease_name)
+    new_disease_name = re.sub(r'type vii$', 'type 7', new_disease_name)
+    new_disease_name = re.sub(r'type vi$', 'type 6', new_disease_name)
+    new_disease_name = re.sub(r'type v$', 'type 5', new_disease_name)
+    new_disease_name = re.sub(r'type iv$', 'type 4', new_disease_name)
+    new_disease_name = re.sub(r'type iii$', 'type 3', new_disease_name)
+    new_disease_name = re.sub(r'type ii$', 'type 2', new_disease_name)
+    new_disease_name = re.sub(r'type i$', 'type 1', new_disease_name)
+
+    # remove 'type'
+    if re.search(r'\s+type\s+[0-9]+[a-z]?$', new_disease_name):
+        new_disease_name = re.sub(r'\s+type\s+', ' ', new_disease_name)
+
+    # specific cases
+    new_disease_name = re.sub(r'\s+syndrom$', ' syndrome', new_disease_name)
+    new_disease_name = re.sub(r'\(yndrome', 'syndrome', new_disease_name)
+    new_disease_name = re.sub('sjoegren larsson syndrom', 'sjogren larsson syndrome', new_disease_name)
+    new_disease_name = re.sub('sjorgren larrson syndrome', 'sjogren larsson syndrome', new_disease_name)
+    new_disease_name = re.sub('marinesco sjoegren syndrome', 'marinesco sjogren syndrome', new_disease_name)
+    new_disease_name = re.sub('complementation group 0', 'complementation group o', new_disease_name)
+    new_disease_name = re.sub('\s+\([a-z]+$', '', new_disease_name)
+
+    new_disease_name = re.sub(r'\(|\)', ' ', new_disease_name)
+    new_disease_name = re.sub(r'\s+', ' ', new_disease_name)
+    new_disease_name = re.sub(r'\s+$', '', new_disease_name)
+
+    # tokenise string
+    disease_tokens = sorted(new_disease_name.split())
+
+    return " ".join(disease_tokens)
+
+
+""" 
+get_matches
 Finds duplicated disease names in table disease
 
 Returns:
-{ '20-34' : { 'genomic_feature_disease_id' : 20, 'phenotype_id' : 34, 'count' : 2 } }
+Returns a list of disease ids with the same disease name
+{ 'disease_name' : [disease_id, disease_id, disease_id] }
 """
-def get_exact_matches(host, port, db, user, password):
-    
-    dup_diseases = {}
-    
-    sql_query = """ SELECT name, GROUP_CONCAT(disease_id) disease_ids
-                    FROM disease
-                    GROUP BY name 
-                    HAVING COUNT(*) > 1 """
+def get_matches(host, port, db, user, password):
+
+    diseases = {}
+
+    sql_query = """ SELECT disease_id,name,mim
+                    FROM disease """
 
     connection = mysql.connector.connect(host=host,
                                          database=db,
@@ -60,10 +119,16 @@ def get_exact_matches(host, port, db, user, password):
             cursor = connection.cursor()
             cursor.execute(sql_query)
             data = cursor.fetchall()
-            print (f"Selecting duplicated entries from {db}.disease ...")
+            print (f"Selecting diseases from {db}.disease ...")
             for row in data:
-                dup_diseases[row[0]] = row[1].split(",")
-            print (f"Selecting duplicated entries from {db}.disease ... done")
+                new_disease_name = clean_up_string(row[1])
+                # print (f"Before: {row[1]}; After: {new_disease_name};\n")
+                if new_disease_name not in diseases:
+                    diseases[new_disease_name] = [row[0]]
+                else:
+                    diseases[new_disease_name].append(row[0])
+                # diseases[row[1]] = { 'id':row[0], 'mim':row[2] }
+            print (f"Selecting diseases from {db}.disease ... done")
 
     except Error as e:
         print("Error while connecting to MySQL", e)
@@ -71,9 +136,10 @@ def get_exact_matches(host, port, db, user, password):
         if connection.is_connected():
             cursor.close()
             connection.close()
-            print("MySQL connection is closed (get_exact_matches)")
+            print("MySQL connection is closed (get_matches)")
 
-    return dup_diseases
+    return diseases
+
 
 def check_other_tables(host, port, db, user, password, list_of_duplicates, disease_name):
     result = {}
@@ -284,7 +350,7 @@ def main():
     parser.add_argument("--sql_file", default="sql_to_run.txt", help="File output containing sql queries to run")
 
     args = parser.parse_args()
-    
+
     host = args.host
     port = args.port
     db = args.database
@@ -294,22 +360,16 @@ def main():
     sql_file = args.sql_file
 
     deleted_diseases = {}
-    list_of_duplicates = get_exact_matches(host, port, db, user, password)
-    
-    if len(list_of_duplicates) != 0:
-        for disease in list_of_duplicates:
+    list_of_duplicates = get_matches(host, port, db, user, password)
+
+    for disease in list_of_duplicates:
+        if len(list_of_duplicates[disease]) > 1:
+            print (f"{disease}: {list_of_duplicates[disease]}")
             found, list_of_ids = check_other_tables(host, port, db, user, password, list_of_duplicates, disease)
-            print (f"\n{disease}")
-            # for result in found:
-            #     print (f"{result}: {found[result]}")
-            # print (f"ids")
-            # for ids in list_of_ids:
-            #     print (f"{ids}: {list_of_ids[ids]}")
-            # try to decide which one should be deleted
             deleted_diseases = delete_ids(host, port, db, user, password, found, list_of_ids, error_file, sql_file, deleted_diseases)
 
-    # Delete diseases from disease table
-    print(deleted_diseases)
+    # # Delete diseases from disease table
+    # print(deleted_diseases)
 
 if __name__ == '__main__':
     main()
