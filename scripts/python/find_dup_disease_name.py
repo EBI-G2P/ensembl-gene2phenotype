@@ -103,7 +103,8 @@ Returns a list of disease ids with the same disease name
 def get_matches(host, port, db, user, password):
 
     diseases = {}
-    disease_mim = {}
+    disease_mim = {} # disease_id: mim id
+    disease_names = {} # disease_id: disease name
 
     sql_query = """ SELECT disease_id,name,mim
                     FROM disease """
@@ -122,7 +123,7 @@ def get_matches(host, port, db, user, password):
             print (f"Selecting diseases from {db}.disease ...")
             for row in data:
                 new_disease_name = clean_up_string(row[1])
-                # print (f"Before: {row[1]}; After: {new_disease_name};\n")
+                disease_names[row[0]] = row[1]
                 if new_disease_name not in diseases:
                     diseases[new_disease_name] = [row[0]]
                 else:
@@ -140,7 +141,7 @@ def get_matches(host, port, db, user, password):
             connection.close()
             print("MySQL connection is closed (get_matches)")
 
-    return diseases, disease_mim
+    return diseases, disease_mim, disease_names
 
 
 def check_other_tables(host, port, db, user, password, list_of_duplicates, disease_name):
@@ -352,13 +353,18 @@ def check_gfd_entries(host, port, db, user, password, id_to_keep, row_info, file
 
     return update
 
+"""
+Write sql queries to delete diseases from tables:
+  - 'disease'
+  - 'search'
+These diseases are not used by any table anymore.
+"""
 def delete_diseases(host, port, db, user, password, diseases_to_delete, error_file, sql_file):
     file = open(error_file, "a")
     file_sql = open(sql_file, "a")
     file.write("\n### Delete diseases ###\n")
     file_sql.write("\n### Delete diseases ###\n")
 
-    sql_query_gfd = """ SELECT genomic_feature_disease_id FROM genomic_feature_disease WHERE disease_id = %s """
     sql_query = """ SELECT name FROM disease WHERE disease_id = %s """
 
     connection = mysql.connector.connect(host=host,
@@ -375,7 +381,7 @@ def delete_diseases(host, port, db, user, password, diseases_to_delete, error_fi
                 data = cursor.fetchall()
                 if len(data) != 0:
                     query_to_run = f"delete from disease where disease_id = {disease_id}"
-                    query_to_run_search = f"delete from search where search_term = '{data[0][0]}'"
+                    query_to_run_search = f"delete from search where binary search_term = '{data[0][0]}'" # case-sensitive
                     print(f"ACTION (sql_file): {query_to_run}")
                     print(f"ACTION (sql_file): {query_to_run_search}\n")
                     file_sql.write(f"ACTION (sql_file): {query_to_run}\n")
@@ -414,17 +420,18 @@ def main():
     sql_file = args.sql_file
 
     diseases_to_delete = {}
-    list_of_duplicates, disease_mim = get_matches(host, port, db, user, password)
+    list_of_duplicates, disease_mim, disease_names = get_matches(host, port, db, user, password)
 
     for disease in list_of_duplicates:
         if len(list_of_duplicates[disease]) > 1:
             print (f"\n{disease}: {list_of_duplicates[disease]}")
+            for id in list_of_duplicates[disease]:
+                print (f"  {id}: {disease_names[id]}")
+
             found, list_of_ids = check_other_tables(host, port, db, user, password, list_of_duplicates, disease)
             diseases_to_delete = delete_ids(host, port, db, user, password, found, list_of_ids, error_file, sql_file, diseases_to_delete, disease_mim)
 
-    # Delete diseases from tables:
-    #   - disease
-    #   - search
+    # Delete diseases that are not used anymore
     print("\nGoing to delete diseases that are not being used anymore ...")
     delete_diseases(host, port, db, user, password, diseases_to_delete, error_file, sql_file)
     print("Going to delete diseases that are not being used anymore ... done")
