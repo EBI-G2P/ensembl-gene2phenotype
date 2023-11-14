@@ -222,6 +222,8 @@ def delete_ids(host, port, db, user, password, found, list_of_ids, error_file, s
             if id in disease_mim:
                 found_mim[id] = 1
 
+    # select a disease_ti to keep
+    # first chooses the id that is being used more times
     int = 0
     id_to_keep = 0
     for count in count_ids:
@@ -231,6 +233,7 @@ def delete_ids(host, port, db, user, password, found, list_of_ids, error_file, s
             id_to_keep = count
 
     # check if id_to_keep has MIM
+    # if the selected id_to_keep has no MIM ID then try to select one that has an id
     if id_to_keep not in found_mim:
         for disease_id_key in found_mim:
             id_to_keep = disease_id_key
@@ -264,7 +267,7 @@ def delete_ids(host, port, db, user, password, found, list_of_ids, error_file, s
                         query_to_run = f"update {table} set disease_id = {id_to_keep} where {map[table]} = {row}"
                         file_sql.write(f"{query_to_run}\n")
                         print (f" ACTION (sql_file): {query_to_run}")
-                        deleted_diseases[row] = 1
+                        deleted_diseases[disease_id] = 1
                     elif update_gfd == 0:
                         print (f" {table} cannot be updated")
                     else:
@@ -349,8 +352,45 @@ def check_gfd_entries(host, port, db, user, password, id_to_keep, row_info, file
 
     return update
 
-def delete_diseases(deleted_diseases):
-    print(deleted_diseases)
+def delete_diseases(host, port, db, user, password, diseases_to_delete, error_file, sql_file):
+    file = open(error_file, "a")
+    file_sql = open(sql_file, "a")
+    file.write("\n### Delete diseases ###\n")
+    file_sql.write("\n### Delete diseases ###\n")
+
+    sql_query_gfd = """ SELECT genomic_feature_disease_id FROM genomic_feature_disease WHERE disease_id = %s """
+    sql_query = """ SELECT name FROM disease WHERE disease_id = %s """
+
+    connection = mysql.connector.connect(host=host,
+                                         database=db,
+                                         user=user,
+                                         port=port,
+                                         password=password)
+
+    try:
+        if connection.is_connected():
+            cursor = connection.cursor()
+            for disease_id in diseases_to_delete:
+                cursor.execute(sql_query, [disease_id])
+                data = cursor.fetchall()
+                if len(data) != 0:
+                    query_to_run = f"delete from disease where disease_id = {disease_id}"
+                    query_to_run_search = f"delete from search where search_term = '{data[0][0]}'"
+                    print(f"ACTION (sql_file): {query_to_run}")
+                    print(f"ACTION (sql_file): {query_to_run_search}\n")
+                    file_sql.write(f"ACTION (sql_file): {query_to_run}\n")
+                    file_sql.write(f"ACTION (sql_file): {query_to_run_search}\n\n")
+                else:
+                    print(f"disease_id {disease_id} cannot be deleted: not found in disease table\n")
+                    file.write(f"disease_id {disease_id} cannot be deleted: not found in disease table\n")
+
+    except Error as e:
+        print("Error while connecting to MySQL", e)
+    finally:
+        if connection.is_connected():
+            cursor.close()
+            connection.close()
+            print("MySQL connection is closed (delete_diseases)")
 
 
 def main():
@@ -380,13 +420,13 @@ def main():
         if len(list_of_duplicates[disease]) > 1:
             print (f"\n{disease}: {list_of_duplicates[disease]}")
             found, list_of_ids = check_other_tables(host, port, db, user, password, list_of_duplicates, disease)
-            deleted_diseases = delete_ids(host, port, db, user, password, found, list_of_ids, error_file, sql_file, deleted_diseases, disease_mim)
+            diseases_to_delete = delete_ids(host, port, db, user, password, found, list_of_ids, error_file, sql_file, deleted_diseases, disease_mim)
 
     # Delete diseases from tables:
     #   - disease
     #   - search
-    print("Going to delete diseases that are not being used anymore ...")
-    delete_diseases(deleted_diseases)
+    print("\nGoing to delete diseases that are not being used anymore ...")
+    delete_diseases(host, port, db, user, password, diseases_to_delete, error_file, sql_file)
     print("Going to delete diseases that are not being used anymore ... done")
 
 if __name__ == '__main__':
