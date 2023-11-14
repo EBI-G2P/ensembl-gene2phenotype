@@ -200,7 +200,7 @@ def check_other_tables(host, port, db, user, password, list_of_duplicates, disea
 
     return result, list_of_ids
 
-def delete_ids(host, port, db, user, password, found, list_of_ids, error_file, sql_file, deleted_diseases, disease_mim):
+def delete_ids(host, port, db, user, password, found, list_of_ids, error_file, sql_file, diseases_to_delete, disease_mim):
     map = { "genomic_feature_disease" : "genomic_feature_disease_id",
             "genomic_feature_disease_deleted" : "genomic_feature_disease_id",
             "genomic_feature_disease_log" : "genomic_feature_disease_id",
@@ -267,7 +267,7 @@ def delete_ids(host, port, db, user, password, found, list_of_ids, error_file, s
                         query_to_run = f"update {table} set disease_id = {id_to_keep} where {map[table]} = {row}"
                         file_sql.write(f"{query_to_run}\n")
                         print (f" ACTION (sql_file): {query_to_run}")
-                        deleted_diseases[disease_id] = 1
+                        diseases_to_delete[disease_id] = 1
                     elif update_gfd == 0:
                         print (f" {table} cannot be updated")
                     else:
@@ -275,7 +275,7 @@ def delete_ids(host, port, db, user, password, found, list_of_ids, error_file, s
     file.close()
     file_sql.close()
 
-    return deleted_diseases
+    return diseases_to_delete
 
 
 def get_gfd_entries(host, port, db, user, password, id_to_keep, rows_ids):
@@ -413,14 +413,14 @@ def main():
     error_file = args.error_file
     sql_file = args.sql_file
 
-    deleted_diseases = {}
+    diseases_to_delete = {}
     list_of_duplicates, disease_mim = get_matches(host, port, db, user, password)
 
     for disease in list_of_duplicates:
         if len(list_of_duplicates[disease]) > 1:
             print (f"\n{disease}: {list_of_duplicates[disease]}")
             found, list_of_ids = check_other_tables(host, port, db, user, password, list_of_duplicates, disease)
-            diseases_to_delete = delete_ids(host, port, db, user, password, found, list_of_ids, error_file, sql_file, deleted_diseases, disease_mim)
+            diseases_to_delete = delete_ids(host, port, db, user, password, found, list_of_ids, error_file, sql_file, diseases_to_delete, disease_mim)
 
     # Delete diseases from tables:
     #   - disease
