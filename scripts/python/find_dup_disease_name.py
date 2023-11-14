@@ -23,7 +23,7 @@ This script finds duplicated disease names in the table disease
  - 'error_file' has all the gfd_ids that cannot be updated because same entry already exists in the db
 
 pyenv local variation-production
-python find_dup_disease_name.py --database dlemos_G2P_2023_08_02 --user ensro
+python find_dup_disease_name.py --database dlemos_G2P_2023_08_02 --user xxxx --password xxxx --host xxxx --port xxxx
 """
 
 import os
@@ -104,6 +104,7 @@ Returns a list of disease ids with the same disease name
 def get_matches(host, port, db, user, password):
 
     diseases = {}
+    disease_mim = {}
 
     sql_query = """ SELECT disease_id,name,mim
                     FROM disease """
@@ -127,6 +128,8 @@ def get_matches(host, port, db, user, password):
                     diseases[new_disease_name] = [row[0]]
                 else:
                     diseases[new_disease_name].append(row[0])
+                if row[2] is not None:
+                    disease_mim[row[0]] = row[2]
                 # diseases[row[1]] = { 'id':row[0], 'mim':row[2] }
             print (f"Selecting diseases from {db}.disease ... done")
 
@@ -138,7 +141,7 @@ def get_matches(host, port, db, user, password):
             connection.close()
             print("MySQL connection is closed (get_matches)")
 
-    return diseases
+    return diseases, disease_mim
 
 
 def check_other_tables(host, port, db, user, password, list_of_duplicates, disease_name):
@@ -198,13 +201,14 @@ def check_other_tables(host, port, db, user, password, list_of_duplicates, disea
 
     return result, list_of_ids
 
-def delete_ids(host, port, db, user, password, found, list_of_ids, error_file, sql_file, deleted_diseases):
+def delete_ids(host, port, db, user, password, found, list_of_ids, error_file, sql_file, deleted_diseases, disease_mim):
     map = { "genomic_feature_disease" : "genomic_feature_disease_id",
             "genomic_feature_disease_deleted" : "genomic_feature_disease_id",
             "genomic_feature_disease_log" : "genomic_feature_disease_id",
             "GFD_disease_synonym" : "GFD_disease_synonym_id",
             "disease_ontology_mapping" : "disease_id" }
 
+    found_mim = {}
     count_ids = {}
     for table in found:
         for id in found[table]:
@@ -215,6 +219,9 @@ def delete_ids(host, port, db, user, password, found, list_of_ids, error_file, s
                     count_ids[id] = 1
                 else:
                     count_ids[id] += 1
+            
+            if id in disease_mim:
+                found_mim[id] = 1
 
     int = 0
     id_to_keep = 0
@@ -223,8 +230,13 @@ def delete_ids(host, port, db, user, password, found, list_of_ids, error_file, s
         if n > int:
             int = n
             id_to_keep = count
-    
-    # print (f"disease_id to keep: {id_to_keep}")
+
+    # check if id_to_keep has MIM
+    if id_to_keep not in found_mim:
+        for disease_id_key in found_mim:
+            id_to_keep = disease_id_key
+
+    print (f"Going to keep disease_id: {id_to_keep}")
 
     file = open(error_file, "a")
     file_sql = open(sql_file, "a")
@@ -360,13 +372,13 @@ def main():
     sql_file = args.sql_file
 
     deleted_diseases = {}
-    list_of_duplicates = get_matches(host, port, db, user, password)
+    list_of_duplicates, disease_mim = get_matches(host, port, db, user, password)
 
     for disease in list_of_duplicates:
         if len(list_of_duplicates[disease]) > 1:
-            print (f"{disease}: {list_of_duplicates[disease]}")
+            print (f"\n{disease}: {list_of_duplicates[disease]}")
             found, list_of_ids = check_other_tables(host, port, db, user, password, list_of_duplicates, disease)
-            deleted_diseases = delete_ids(host, port, db, user, password, found, list_of_ids, error_file, sql_file, deleted_diseases)
+            deleted_diseases = delete_ids(host, port, db, user, password, found, list_of_ids, error_file, sql_file, deleted_diseases, disease_mim)
 
     # # Delete diseases from disease table
     # print(deleted_diseases)
