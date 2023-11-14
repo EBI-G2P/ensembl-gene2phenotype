@@ -47,9 +47,6 @@ def clean_up_string(disease_name):
     new_disease_name = re.sub('-', ' ', new_disease_name)
     new_disease_name = re.sub(r'\t', '', new_disease_name)
 
-    # Example: 'cancer related (CAR)' becomes 'cancer related'
-    new_disease_name = re.sub(r'\([A-Z]+\)$', '', new_disease_name)
-
     new_disease_name = new_disease_name.lower()
 
     # remove 'biallelic' and 'autosomal'
@@ -122,14 +119,24 @@ def get_matches(host, port, db, user, password):
             data = cursor.fetchall()
             print (f"Selecting diseases from {db}.disease ...")
             for row in data:
+                if row[2] is not None:
+                    disease_mim[row[0]] = row[2]
+
                 new_disease_name = clean_up_string(row[1])
                 disease_names[row[0]] = row[1]
                 if new_disease_name not in diseases:
                     diseases[new_disease_name] = [row[0]]
                 else:
-                    diseases[new_disease_name].append(row[0])
-                if row[2] is not None:
-                    disease_mim[row[0]] = row[2]
+                    other_mim = ""
+                    # Check if mim id is the same - we don't want to merge diseases with different mim ids
+                    for id in diseases[new_disease_name]:
+                        if id in disease_mim:
+                            other_mim = disease_mim[id]
+                    if row[0] in disease_mim and row[2] is not None and other_mim != row[2]:
+                        # Print to file - to be reviewed
+                        print(f"Same diseases have different MIM id, name {row[0]} {row[1]} {row[2]}")
+                    else:
+                        diseases[new_disease_name].append(row[0])
                 # diseases[row[1]] = { 'id':row[0], 'mim':row[2] }
             print (f"Selecting diseases from {db}.disease ... done")
 
@@ -246,7 +253,7 @@ def delete_ids(host, port, db, user, password, found, list_of_ids, error_file, s
 
     # Check how to update/delete rows for each table
     # Before updating disease ids we have to check if the entries have the same allelic_requirement and mutation_consequence
-    update_gfd = 1
+    update_gfd = {}
     for table in list_of_ids:
         print (f"Checking {table}...")
         for disease_id in list_of_ids[table]:
@@ -258,18 +265,17 @@ def delete_ids(host, port, db, user, password, found, list_of_ids, error_file, s
                 if table == "genomic_feature_disease":
                     row_info = get_gfd_entries(host, port, db, user, password, id_to_keep, rows_ids)
                     update_gfd = check_gfd_entries(host, port, db, user, password, id_to_keep, row_info, file)
-                    if update_gfd == 0:
-                        file.write(f"; disease_id = {disease_id} cannot be replaced by disease_id = {id_to_keep} in gfd_id {rows_ids}\n")
 
                 for row in rows_ids:
-                    if table == "genomic_feature_disease" and update_gfd == 0:
-                        print (f" *** entry printed to error_file ***")
-                    elif update_gfd == 1:
+                    if table == "genomic_feature_disease" and row not in update_gfd:
+                        print (f" *** entry printed to error_file (gfd_id : {row}) ***")
+                        file.write(f"; disease_id = {disease_id} cannot be replaced by disease_id = {id_to_keep} in gfd_id {rows_ids}\n")
+                    elif row in update_gfd:
                         query_to_run = f"update {table} set disease_id = {id_to_keep} where {map[table]} = {row}"
                         file_sql.write(f"{query_to_run}\n")
                         print (f" ACTION (sql_file): {query_to_run}")
                         diseases_to_delete[disease_id] = 1
-                    elif update_gfd == 0:
+                    elif row not in update_gfd:
                         print (f" {table} cannot be updated")
                     else:
                         print (f"ERROR")
@@ -315,7 +321,7 @@ def get_gfd_entries(host, port, db, user, password, id_to_keep, rows_ids):
     return result
 
 def check_gfd_entries(host, port, db, user, password, id_to_keep, row_info, file):
-    update = 0
+    update = {}
 
     # genomic_feature_id, disease_id, allelic_requirement_attrib, mutation_consequence_attrib
     sql_query = f""" select genomic_feature_disease_id from genomic_feature_disease 
@@ -338,11 +344,11 @@ def check_gfd_entries(host, port, db, user, password, id_to_keep, row_info, file
                 cursor.execute(sql_query, [gf_id,id_to_keep,list(ar)[0],list(mc)[0]])
                 data = cursor.fetchall()
                 if len(data) != 0:
-                    print(f"   genomic_feature_disease cannot be updated. Found gfd_id: {data[0][0]}")
+                    print(f"   genomic_feature_disease {row} cannot be updated. Found another gfd with same values gfd_id: {data[0][0]}")
                     file.write(f"gfd_id = {data[0][0]} already has disease_id = {id_to_keep}")
                 else:
-                    update = 1
-                    print("   genomic_feature_disease can be updated")
+                    update[row] = 1
+                    print(f"   genomic_feature_disease {row} can be updated")
 
     except Error as e:
         print("Error while connecting to MySQL", e)
