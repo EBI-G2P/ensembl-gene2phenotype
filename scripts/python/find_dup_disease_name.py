@@ -44,15 +44,14 @@ def clean_up_string(disease_name):
     new_disease_name = re.sub(r'\.$', '', new_disease_name)
     new_disease_name = re.sub(r'\“', '', new_disease_name)
     new_disease_name = re.sub(r'\”', '', new_disease_name)
-    new_disease_name = re.sub(r'-', ' ', new_disease_name)
+    new_disease_name = re.sub('-', ' ', new_disease_name)
     new_disease_name = re.sub(r'\t', '', new_disease_name)
-    new_disease_name = re.sub(r'\[$', '', new_disease_name)
 
     # Example: 'cancer related (CAR)' becomes 'cancer related'
     new_disease_name = re.sub(r'\([A-Z]+\)$', '', new_disease_name)
 
     new_disease_name = new_disease_name.lower()
-    
+
     # remove 'biallelic' and 'autosomal'
     new_disease_name = re.sub(r'biallelic$', '', new_disease_name)
     new_disease_name = re.sub(r'autosomal$', '', new_disease_name)
@@ -350,11 +349,14 @@ def check_gfd_entries(host, port, db, user, password, id_to_keep, row_info, file
 
     return update
 
+def delete_diseases(deleted_diseases):
+    print(deleted_diseases)
+
 
 def main():
     parser = argparse.ArgumentParser(description="Find duplicated disease names")
-    parser.add_argument("--host", default="mysql-ens-var-prod-4", help="Database host (default: mysql-ens-var-prod-4)")
-    parser.add_argument("--port", default="4694", help="Host port (default: 4694)")
+    parser.add_argument("--host", required=True, help="Database host")
+    parser.add_argument("--port", required=True, help="Host port")
     parser.add_argument("--database", required=True, help="Database name")
     parser.add_argument("--user", required=True, help="Username")
     parser.add_argument("--password", default='', help="Password (default: '')")
@@ -380,8 +382,12 @@ def main():
             found, list_of_ids = check_other_tables(host, port, db, user, password, list_of_duplicates, disease)
             deleted_diseases = delete_ids(host, port, db, user, password, found, list_of_ids, error_file, sql_file, deleted_diseases, disease_mim)
 
-    # # Delete diseases from disease table
-    # print(deleted_diseases)
+    # Delete diseases from tables:
+    #   - disease
+    #   - search
+    print("Going to delete diseases that are not being used anymore ...")
+    delete_diseases(deleted_diseases)
+    print("Going to delete diseases that are not being used anymore ... done")
 
 if __name__ == '__main__':
     main()
