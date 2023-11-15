@@ -278,7 +278,7 @@ def delete_ids(host, port, db, user, password, found, list_of_ids, error_file, s
                         file.write(f"; disease_id = {disease_id} cannot be replaced by disease_id = {id_to_keep} in gfd_id {rows_ids}\n")
                     elif row in update_gfd:
                         query_to_run = f"update {table} set disease_id = {id_to_keep} where {map[table]} = {row}"
-                        file_sql.write(f"{query_to_run}\n")
+                        file_sql.write(f"{query_to_run};\n")
                         print (f" ACTION (sql_file): {query_to_run}")
                         diseases_to_delete[disease_id] = 1
                     elif row not in update_gfd:
@@ -366,10 +366,8 @@ def check_gfd_entries(host, port, db, user, password, id_to_keep, row_info, file
     return update
 
 """
-Write sql queries to delete diseases from tables:
-  - 'disease'
-  - 'search'
-These diseases are not used by any table anymore.
+Write sql queries to delete diseases from table 'disease'
+These diseases are not used by any other table anymore.
 """
 def delete_diseases(host, port, db, user, password, diseases_to_delete, error_file, sql_file):
     file = open(error_file, "a")
@@ -393,11 +391,8 @@ def delete_diseases(host, port, db, user, password, diseases_to_delete, error_fi
                 data = cursor.fetchall()
                 if len(data) != 0:
                     query_to_run = f"delete from disease where disease_id = {disease_id}"
-                    query_to_run_search = f"delete from search where binary search_term = '{data[0][0]}'" # case-sensitive
                     print(f"ACTION (sql_file): {query_to_run}")
-                    print(f"ACTION (sql_file): {query_to_run_search}\n")
-                    file_sql.write(f"ACTION (sql_file): {query_to_run}\n")
-                    file_sql.write(f"ACTION (sql_file): {query_to_run_search}\n\n")
+                    file_sql.write(f"{query_to_run};\n")
                 else:
                     print(f"disease_id {disease_id} cannot be deleted: not found in disease table\n")
                     file.write(f"disease_id {disease_id} cannot be deleted: not found in disease table\n")
