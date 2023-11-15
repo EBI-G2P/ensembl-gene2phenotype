@@ -156,6 +156,56 @@ def get_matches(host, port, db, user, password, file_to_review):
 
     return diseases, disease_mim, disease_names
 
+"""
+Compare diseases by MIM ID
+"""
+def get_matches_by_mim(host, port, db, user, password, file_to_review):
+
+    diseases = {}
+
+    file = open(file_to_review, "w")
+    file.write(f"mim id\tdisease id (1)\tdisease name (1)\tdisease id (2)\tdisease name (2)\n")
+
+    sql_query = """ SELECT disease_id,name,mim
+                    FROM disease """
+
+    connection = mysql.connector.connect(host=host,
+                                         database=db,
+                                         user=user,
+                                         port=port,
+                                         password=password)
+
+    try:
+        if connection.is_connected():
+            cursor = connection.cursor()
+            cursor.execute(sql_query)
+            data = cursor.fetchall()
+            print (f"Selecting diseases from {db}.disease ...")
+            for row in data:
+                if row[2] is not None:
+                    if row[2] not in diseases:
+                        diseases[row[2]] = [{ 'disease_id':row[0], 'name':row[1] }]
+                    else:
+                        obj = { 'disease_id':row[0], 'name':row[1] }
+                        diseases[row[2]].append(obj)
+            print (f"Selecting diseases from {db}.disease ... done\n")
+
+    except Error as e:
+        print("Error while connecting to MySQL", e)
+    finally:
+        if connection.is_connected():
+            cursor.close()
+            connection.close()
+            print("MySQL connection is closed (get_matches_by_mim)")
+
+    for mim in diseases:
+        if len(diseases[mim]) > 1:
+            file.write(f"\n{mim}")
+            for d in diseases[mim]:
+                file.write(f"\t{d['disease_id']}\t{d['name']}")
+
+    file.close()
+
 
 def check_other_tables(host, port, db, user, password, list_of_duplicates, disease_name):
     result = {}
@@ -413,6 +463,7 @@ def main():
     parser.add_argument("--database", required=True, help="Database name")
     parser.add_argument("--user", required=True, help="Username")
     parser.add_argument("--password", default='', help="Password (default: '')")
+    parser.add_argument("--check_by_mim", default=0, help="Check diseases by MIM ID")
     parser.add_argument("--error_file", default="error_log.txt", help="File output containing entries that could not be updated")
     parser.add_argument("--sql_file", default="sql_to_run.txt", help="File output containing sql queries to run")
     parser.add_argument("--file_to_review", default="mim_to_review.txt", help="File output containing diseases to be reviewed")
@@ -424,26 +475,35 @@ def main():
     db = args.database
     user = args.user
     password = args.password
+    check_by_mim = args.check_by_mim
     error_file = args.error_file
     sql_file = args.sql_file
     file_to_review = args.file_to_review
 
-    diseases_to_delete = {}
-    list_of_duplicates, disease_mim, disease_names = get_matches(host, port, db, user, password, file_to_review)
 
-    for disease in list_of_duplicates:
-        if len(list_of_duplicates[disease]) > 1:
-            print (f"\n{disease}: {list_of_duplicates[disease]}")
-            for id in list_of_duplicates[disease]:
-                print (f"  {id}: {disease_names[id]}")
+    if check_by_mim == 0:
+        print ("Checking duplicated diseases by name")
+        diseases_to_delete = {}
+        list_of_duplicates, disease_mim, disease_names = get_matches(host, port, db, user, password, file_to_review)
 
-            found, list_of_ids = check_other_tables(host, port, db, user, password, list_of_duplicates, disease)
-            diseases_to_delete = delete_ids(host, port, db, user, password, found, list_of_ids, error_file, sql_file, diseases_to_delete, disease_mim)
+        for disease in list_of_duplicates:
+            if len(list_of_duplicates[disease]) > 1:
+                print (f"\n{disease}: {list_of_duplicates[disease]}")
+                for id in list_of_duplicates[disease]:
+                    print (f"  {id}: {disease_names[id]}")
 
-    # Delete diseases that are not used anymore
-    print("\nGoing to delete diseases that are not being used anymore ...")
-    delete_diseases(host, port, db, user, password, diseases_to_delete, error_file, sql_file)
-    print("Going to delete diseases that are not being used anymore ... done")
+                found, list_of_ids = check_other_tables(host, port, db, user, password, list_of_duplicates, disease)
+                diseases_to_delete = delete_ids(host, port, db, user, password, found, list_of_ids, error_file, sql_file, diseases_to_delete, disease_mim)
+
+        # Delete diseases that are not used anymore
+        print("\nGoing to delete diseases that are not being used anymore ...")
+        delete_diseases(host, port, db, user, password, diseases_to_delete, error_file, sql_file)
+        print("Going to delete diseases that are not being used anymore ... done")
+
+    else:
+        print ("Checking duplicated diseases by MIM ID")
+        get_matches_by_mim(host, port, db, user, password, file_to_review)
+
 
 if __name__ == '__main__':
     main()
