@@ -463,7 +463,7 @@ def main():
     parser.add_argument("--database", required=True, help="Database name")
     parser.add_argument("--user", required=True, help="Username")
     parser.add_argument("--password", default='', help="Password (default: '')")
-    parser.add_argument("--check_by_mim", default=0, help="Check diseases by MIM ID")
+    parser.add_argument("--check_by_mim", default=0, help="Check diseases by MIM ID. By default, it compares by name")
     parser.add_argument("--error_file", default="error_log.txt", help="File output containing entries that could not be updated")
     parser.add_argument("--sql_file", default="sql_to_run.txt", help="File output containing sql queries to run")
     parser.add_argument("--file_to_review", default="mim_to_review.txt", help="File output containing diseases to be reviewed")
