@@ -50,10 +50,10 @@ def clean_up_string(disease_name):
     new_disease_name = new_disease_name.lower()
 
     # remove 'biallelic' and 'autosomal'
-    new_disease_name = re.sub(r'biallelic$', '', new_disease_name)
-    new_disease_name = re.sub(r'autosomal$', '', new_disease_name)
-    new_disease_name = re.sub(r'\(biallelic\)$', '', new_disease_name)
-    new_disease_name = re.sub(r'\(autosomal\)$', '', new_disease_name)
+    # new_disease_name = re.sub(r'biallelic$', '', new_disease_name)
+    # new_disease_name = re.sub(r'autosomal$', '', new_disease_name)
+    # new_disease_name = re.sub(r'\(biallelic\)$', '', new_disease_name)
+    # new_disease_name = re.sub(r'\(autosomal\)$', '', new_disease_name)
 
     new_disease_name = re.sub(r'type xvii$', 'type 17', new_disease_name)
     new_disease_name = re.sub(r'type ix$', 'type 9', new_disease_name)
@@ -97,11 +97,14 @@ Returns:
 Returns a list of disease ids with the same disease name
 { 'disease_name' : [disease_id, disease_id, disease_id] }
 """
-def get_matches(host, port, db, user, password):
+def get_matches(host, port, db, user, password, file_to_review):
 
     diseases = {}
     disease_mim = {} # disease_id: mim id
     disease_names = {} # disease_id: disease name
+
+    file = open(file_to_review, "w")
+    file.write(f"disease id\tdisease name\tmim id\tdisease id\tdisease name\tmim id\n")
 
     sql_query = """ SELECT disease_id,name,mim
                     FROM disease """
@@ -127,18 +130,19 @@ def get_matches(host, port, db, user, password):
                 if new_disease_name not in diseases:
                     diseases[new_disease_name] = [row[0]]
                 else:
-                    other_mim = ""
+                    other_mim = None
                     # Check if mim id is the same - we don't want to merge diseases with different mim ids
                     for id in diseases[new_disease_name]:
                         if id in disease_mim:
                             other_mim = disease_mim[id]
-                    if row[0] in disease_mim and row[2] is not None and other_mim != row[2]:
+                    if row[0] in disease_mim and row[2] is not None and other_mim is not None and other_mim != row[2]:
                         # Print to file - to be reviewed
-                        print(f"Same diseases have different MIM id, name {row[0]} {row[1]} {row[2]}")
+                        file.write(f"{row[0]}\t{row[1]}\t{row[2]}\t{id}\t{disease_names[id]}\t{other_mim}\n")
+                        print(f"Same diseases have different MIM id: {row[0]} {row[1]} {row[2]}; {id} {disease_names[id]} {other_mim}")
                     else:
                         diseases[new_disease_name].append(row[0])
                 # diseases[row[1]] = { 'id':row[0], 'mim':row[2] }
-            print (f"Selecting diseases from {db}.disease ... done")
+            print (f"Selecting diseases from {db}.disease ... done\n")
 
     except Error as e:
         print("Error while connecting to MySQL", e)
@@ -147,6 +151,8 @@ def get_matches(host, port, db, user, password):
             cursor.close()
             connection.close()
             print("MySQL connection is closed (get_matches)")
+
+    file.close()
 
     return diseases, disease_mim, disease_names
 
@@ -414,6 +420,7 @@ def main():
     parser.add_argument("--password", default='', help="Password (default: '')")
     parser.add_argument("--error_file", default="error_log.txt", help="File output containing entries that could not be updated")
     parser.add_argument("--sql_file", default="sql_to_run.txt", help="File output containing sql queries to run")
+    parser.add_argument("--file_to_review", default="mim_to_review.txt", help="File output containing diseases to be reviewed")
 
     args = parser.parse_args()
 
@@ -424,9 +431,10 @@ def main():
     password = args.password
     error_file = args.error_file
     sql_file = args.sql_file
+    file_to_review = args.file_to_review
 
     diseases_to_delete = {}
-    list_of_duplicates, disease_mim, disease_names = get_matches(host, port, db, user, password)
+    list_of_duplicates, disease_mim, disease_names = get_matches(host, port, db, user, password, file_to_review)
 
     for disease in list_of_duplicates:
         if len(list_of_duplicates[disease]) > 1:
