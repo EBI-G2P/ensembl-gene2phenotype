@@ -34,20 +34,36 @@ import mysql.connector
 from mysql.connector import Error
 
 
-def clean_up_string(disease_name):
-    new_disease_name = disease_name
+def latin2arab(match):
+    latin = match.group(1)
+    
+    return 'type ' + {
+        'i': '1',
+        'ii': '2',
+        'iii': '3',
+        'iv': '4',
+        'v': '5',
+        'vi': '6',
+        'vii': '7',
+        'viii': '8',
+        'ix': '9',
+        'xvii': '17'
+    }[latin]
 
-    new_disease_name = re.sub(r'^\s+|\s+$', '', new_disease_name)
-    new_disease_name = re.sub(r'^\?', '', new_disease_name)
-    new_disease_name = re.sub(r'\n', '', new_disease_name)
-    new_disease_name = re.sub(r', ', ' ', new_disease_name)
-    new_disease_name = re.sub(r'\.$', '', new_disease_name)
-    new_disease_name = re.sub(r'\“', '', new_disease_name)
-    new_disease_name = re.sub(r'\”', '', new_disease_name)
-    new_disease_name = re.sub('-', ' ', new_disease_name)
-    new_disease_name = re.sub(r'\t', '', new_disease_name)
+def clean_up_string(disease_name):
+    new_disease_name = disease_name.strip()
+
+    new_disease_name = new_disease_name.lstrip('?')
+    new_disease_name = new_disease_name.rstrip('.')
+    new_disease_name = re.sub(r',\s+', ' ', new_disease_name)
+    new_disease_name = new_disease_name.replace('“', '').replace('”', '')
+    new_disease_name = new_disease_name.replace('-', ' ')
+    new_disease_name = re.sub(r'\t+', ' ', new_disease_name)
 
     new_disease_name = new_disease_name.lower()
+
+    new_disease_name = re.sub(r'\s+and\s+', ' ', new_disease_name)
+    new_disease_name = re.sub(r'\s+or\s+', ' ', new_disease_name)
 
     # remove 'biallelic' and 'autosomal'
     # new_disease_name = re.sub(r'biallelic$', '', new_disease_name)
@@ -55,16 +71,7 @@ def clean_up_string(disease_name):
     # new_disease_name = re.sub(r'\(biallelic\)$', '', new_disease_name)
     # new_disease_name = re.sub(r'\(autosomal\)$', '', new_disease_name)
 
-    new_disease_name = re.sub(r'type xvii$', 'type 17', new_disease_name)
-    new_disease_name = re.sub(r'type ix$', 'type 9', new_disease_name)
-    new_disease_name = re.sub(r'type viii$', 'type 8', new_disease_name)
-    new_disease_name = re.sub(r'type vii$', 'type 7', new_disease_name)
-    new_disease_name = re.sub(r'type vi$', 'type 6', new_disease_name)
-    new_disease_name = re.sub(r'type v$', 'type 5', new_disease_name)
-    new_disease_name = re.sub(r'type iv$', 'type 4', new_disease_name)
-    new_disease_name = re.sub(r'type iii$', 'type 3', new_disease_name)
-    new_disease_name = re.sub(r'type ii$', 'type 2', new_disease_name)
-    new_disease_name = re.sub(r'type i$', 'type 1', new_disease_name)
+    new_disease_name = re.sub(r'type ([xvi]+)$', latin2arab, new_disease_name)
 
     # remove 'type'
     if re.search(r'\s+type\s+[0-9]+[a-z]?$', new_disease_name):
@@ -73,15 +80,13 @@ def clean_up_string(disease_name):
     # specific cases
     new_disease_name = re.sub(r'\s+syndrom$', ' syndrome', new_disease_name)
     new_disease_name = re.sub(r'\(yndrome', 'syndrome', new_disease_name)
-    new_disease_name = re.sub('sjoegren larsson syndrom', 'sjogren larsson syndrome', new_disease_name)
-    new_disease_name = re.sub('sjorgren larrson syndrome', 'sjogren larsson syndrome', new_disease_name)
-    new_disease_name = re.sub('marinesco sjoegren syndrome', 'marinesco sjogren syndrome', new_disease_name)
-    new_disease_name = re.sub('complementation group 0', 'complementation group o', new_disease_name)
-    new_disease_name = re.sub('\s+\([a-z]+$', '', new_disease_name)
+    new_disease_name = new_disease_name.replace('larrson', 'larsson')
+    new_disease_name = new_disease_name.replace('sjoegren', 'sjogren')
+    new_disease_name = new_disease_name.replace('sjorgren', 'sjogren')
+    new_disease_name = new_disease_name.replace('complementation group 0', 'complementation group o')
 
     new_disease_name = re.sub(r'\(|\)', ' ', new_disease_name)
     new_disease_name = re.sub(r'\s+', ' ', new_disease_name)
-    new_disease_name = re.sub(r'\s+$', '', new_disease_name)
 
     # tokenise string
     disease_tokens = sorted(new_disease_name.split())
