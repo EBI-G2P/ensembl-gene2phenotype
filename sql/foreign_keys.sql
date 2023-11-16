@@ -23,6 +23,8 @@
 
 ALTER TABLE attrib ADD FOREIGN KEY (attrib_type_id) REFERENCES attrib_type(attrib_type_id);
 
+ALTER TABLE disease_name_synonym ADD FOREIGN KEY (disease_id) REFERENCES disease(disease_id);
+
 ALTER TABLE genomic_feature_disease ADD FOREIGN KEY (genomic_feature_id) REFERENCES genomic_feature(genomic_feature_id);
 ALTER TABLE genomic_feature_disease ADD FOREIGN KEY (disease_id) REFERENCES disease(disease_id);
 

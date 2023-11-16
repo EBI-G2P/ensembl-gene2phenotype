@@ -52,6 +52,13 @@ CREATE TABLE disease (
   KEY name_idx (name)
 ) ENGINE=INNODB;
 
+CREATE TABLE disease_name_synonym (
+  disease_id int(10) unsigned NOT NULL AUTO_INCREMENT,
+  name varchar(255) DEFAULT NULL,
+  UNIQUE KEY name (disease_id,name),
+  KEY disease_idx (disease_id)
+) ENGINE=INNODB;
+
 CREATE TABLE genomic_feature (
   genomic_feature_id int(10) unsigned NOT NULL AUTO_INCREMENT,
   gene_symbol varchar(128) DEFAULT NULL,
@@ -257,6 +264,19 @@ CREATE TABLE phenotype (
   UNIQUE KEY desc_idx (description),
   KEY name_idx (name),
   KEY stable_idx (stable_id)
+) ENGINE=INNODB;
+
+CREATE TABLE phenotype_update (
+  old_phenotype_id int(10) unsigned NOT NULL AUTO_INCREMENT,
+  old_stable_id varchar(255) DEFAULT NULL,
+  old_name varchar(255) DEFAULT NULL,
+  old_description varchar(255) DEFAULT NULL,
+  new_phenotype_id int(10) unsigned DEFAULT NULL,
+  new_stable_id varchar(255) DEFAULT NULL,
+  new_name varchar(255) DEFAULT NULL,
+  new_description varchar(255) DEFAULT NULL,
+  PRIMARY KEY (old_phenotype_id),
+  KEY new_phenotype_idx (new_phenotype_id)
 ) ENGINE=INNODB;
 
 CREATE TABLE genomic_feature_disease_phenotype (
