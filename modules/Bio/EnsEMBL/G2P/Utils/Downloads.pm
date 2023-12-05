@@ -242,7 +242,7 @@ sub write_data {
     my $allelic_requirement = ($ar_attrib) ? $allelic_requirement_attribs->{$ar_attrib} : undef;
     my $mutation_consequence = ($mc_attrib) ? join(';', map{$mutation_consequence_attribs->{$_} } split(',', $mc_attrib) ): undef;
     my $cross_cutting_modifier = ($ccm_attrib) ? join(' ; ', map{$cross_cutting_modifier_attribs->{$_} } split(',', $ccm_attrib) ): undef;
-    my $mutation_consequence_flag = ($mcf_attrib) ? join(';' map{$mutation_consequence_flag_attribs->{$_} } split(',', $mcf_attrib) ): undef;
+    my $mutation_consequence_flag = ($mcf_attrib) ? join(';', map{$mutation_consequence_flag_attribs->{$_} } split(',', $mcf_attrib) ): undef;
     my $clinical_review_flag = ($clinical_review && $clinical_review == 1) ? "Requires clinical review" : undef;
     my $variant_consequence = ($vc_attrib) ? join(';', map{$variant_consequence_attribs->{$_} } split(',', $vc_attrib)) : undef;
     # get all annotations for a GenomicFeatureDisease
