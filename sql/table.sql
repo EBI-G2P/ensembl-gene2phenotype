@@ -52,6 +52,13 @@ CREATE TABLE disease (
   KEY name_idx (name)
 ) ENGINE=INNODB;
 
+CREATE TABLE disease_name_synonym (
+  disease_id int(10) unsigned NOT NULL AUTO_INCREMENT,
+  name varchar(255) DEFAULT NULL,
+  UNIQUE KEY name (disease_id,name),
+  KEY disease_idx (disease_id)
+) ENGINE=INNODB;
+
 CREATE TABLE genomic_feature (
   genomic_feature_id int(10) unsigned NOT NULL AUTO_INCREMENT,
   gene_symbol varchar(128) DEFAULT NULL,
@@ -134,6 +141,21 @@ CREATE TABLE `genomic_feature_disease_log` (
   mutation_consequence_attrib set('75','76','77','78','79','80','84') DEFAULT NULL,
   mutation_consequence_flag_attrib set('71','72','73','74','85','86') DEFAULT NULL,
   variant_consequence_attrib set('100','101','102','103','104','105','106','107','108','109','110','111','112','113','114','115','116','117','118','119','120','121','122','123','124','125','126','127') DEFAULT NULL,
+  created timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  user_id int(10) unsigned NOT NULL,
+  action varchar(128) NOT NULL,
+  PRIMARY KEY (genomic_feature_disease_log_id),
+  KEY genomic_feature_disease_idx (genomic_feature_disease_id)
+) ENGINE=INNODB;
+
+CREATE TABLE `genomic_feature_disease_log_deleted` (
+  genomic_feature_disease_log_id int(10) unsigned NOT NULL AUTO_INCREMENT,
+  genomic_feature_disease_id int(10) unsigned NOT NULL,
+  genomic_feature_id int(10) unsigned NOT NULL,
+  disease_id int(10) unsigned NOT NULL,
+  confidence_category_attrib set('31','32','33','34','35') DEFAULT NULL,
+  is_visible tinyint(1) unsigned NOT NULL DEFAULT '1',
+  panel_attrib tinyint(1) DEFAULT NULL,
   created timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   user_id int(10) unsigned NOT NULL,
   action varchar(128) NOT NULL,
