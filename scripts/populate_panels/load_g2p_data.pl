@@ -219,10 +219,10 @@ foreach my $row (@rows) {
   }
  
   next if (!add_new_entry_to_panel($panel));
-  $entry = "Gene symbol: $gene_symbol; Disease name: $disease_name; Confidence category: $confidence_category; Allelic requirement: $allelic_requirement; Mutation consequence: $mutation_consequence; Target panel: $g2p_panel; ";
-  $entry = $entry . "Cross cutting modifier: $cross_cutting_modifier; " if $cross_cutting_modifier;
-  $entry = $entry . "Mutation consequence flags: $mutation_consequence_flag; " if $mutation_consequence_flag;
-  $entry = $entry . "Variant consequences: $variant_consequence; " if $variant_consequence;
+  $entry = "\nGene symbol: $gene_symbol; Disease name: $disease_name; Confidence category: $confidence_category; Allelic requirement: $allelic_requirement; Mutation consequence: $mutation_consequence; Target panel: $g2p_panel; ";
+  $entry = $entry . "Cross cutting modifier: $cross_cutting_modifier; " if ($cross_cutting_modifier && $cross_cutting_modifier ne "NA");
+  $entry = $entry . "Mutation consequence flags: $mutation_consequence_flag; " if ($mutation_consequence_flag && $mutation_consequence_flag ne "NA");
+  $entry = $entry . "Variant consequences: $variant_consequence; " if ($variant_consequence && $variant_consequence ne "NA");
   
   print STDERR "$entry\n" if ($config->{check_input_data});
   my $has_missing_data = 0;
@@ -277,7 +277,7 @@ foreach my $row (@rows) {
       die "There was a problem retrieving the allelic requirement attrib for entry $entry $@";
     }
   }
-  if ($cross_cutting_modifier){
+  if ($cross_cutting_modifier && $cross_cutting_modifier ne "NA"){
     eval { $cross_cutting_modifier_attrib = get_cross_cutting_modifier_attrib($cross_cutting_modifier)};
     if ($@) {
       if ($config->{check_input_data}) {
@@ -300,7 +300,7 @@ foreach my $row (@rows) {
     }
   }
   
-  if ($mutation_consequence_flag){
+  if ($mutation_consequence_flag && $mutation_consequence_flag ne "NA"){
     eval { $mutation_consequence_flag_attrib = get_mutation_consequence_flag_attrib($mutation_consequence_flag)};
     if ($@) {
       if ($config->{check_input_data}) {
@@ -313,7 +313,7 @@ foreach my $row (@rows) {
     }
   }
 
-  if ($variant_consequence){
+  if ($variant_consequence && $variant_consequence ne "NA"){
     eval {$variant_consequence_attrib = get_variant_consequence_attrib($variant_consequence)};
     if ($@) {
       if ($config->{check_input_data}) {
@@ -335,7 +335,7 @@ foreach my $row (@rows) {
     }
   );
 
-  my @gfds_with_matching_disease_name = grep { $_->get_Disease->dbID eq $disease->dbID } @{$gfds};  
+  my @gfds_with_matching_disease_name = grep { $_->get_Disease->dbID eq $disease->dbID } @{$gfds};
  
   if ($config->{check_input_data}) {
     if (scalar @$gfds == 0) {
@@ -421,20 +421,30 @@ sub add_annotations {
   my $count = add_other_disease_names($gfd, $other_disease_names);
   print $fh_report "    Added $count other disease names\n" if ($count > 0);
 
-  $count = add_publications($gfd, $pmids); 
-  print $fh_report "    Added $count publications\n" if ($count > 0);
+  if ($pmids ne "NA") {
+    $count = add_publications($gfd, $pmids); 
+    print $fh_report "    Added $count publications\n" if ($count > 0);
+  }
 
-  $count = add_phenotypes($gfd, $phenotypes, $user);
-  print $fh_report "    Added $count phenotypes\n" if ($count > 0);
+  if ($phenotypes ne "NA") {
+    $count = add_phenotypes($gfd, $phenotypes, $user);
+    print $fh_report "    Added $count phenotypes\n" if ($count > 0);
+  }
 
-  $count = add_organ_specificity($gfd, $organs);
-  print $fh_report "    Added $count organs\n" if ($count > 0);
-  
-  $count = add_comments($gfd, $comments, $user);
-  print $fh_report "    Added $count comments\n" if ($count > 0);
+  if ($organs ne "NA") {
+    $count = add_organ_specificity($gfd, $organs);
+    print $fh_report "    Added $count organs\n" if ($count > 0);
+  }
 
-  $count = add_public_comments($gfd, $public_comments, $user);
-  print $fh_report "    Added $count public comments\n" if ($count > 0);
+  if ($comments ne "NA") {
+    $count = add_comments($gfd, $comments, $user);
+    print $fh_report "    Added $count comments\n" if ($count > 0);
+  }
+
+  if ($public_comments && $public_comments ne "NA") {
+    $count = add_public_comments($gfd, $public_comments, $user);
+    print $fh_report "    Added $count public comments\n" if ($count > 0);
+  }
 
 }
 
@@ -456,10 +466,11 @@ sub check_annotations {
   my $phenotypes = $data{'phenotypes'};
   my $organs = $data{'organ specificity list'};
   my $pmids = $data{'pmids'};
+
   my @phenotype_list = get_list($data{'phenotypes'});
   foreach my $hpo_id (@phenotype_list) {
     my $phenotype = $phenotype_adaptor->fetch_by_stable_id($hpo_id);
-    if (!$phenotype) {
+    if (!$phenotype && $hpo_id ne "NA") {
       print STDERR "    ERROR: Could not map given phenotype id ($hpo_id) to any phenotypes in the database\n";
     } 
   }
@@ -467,7 +478,7 @@ sub check_annotations {
   my @organ_list = get_list($data{'organ specificity list'});
   foreach my $organ_name (@organ_list)  {
     my $organ = $organ_adaptor->fetch_by_name($organ_name);
-    if (!$organ) {
+    if (!$organ && $organ_name ne "NA") {
       print STDERR "    ERROR: Could not match given organ ($organ_name) to any organ in the database\n";
     }
   }
@@ -491,7 +502,7 @@ sub check_annotations {
 sub get_list {
   my $string = shift;
   my @list = ();
-  if (!$string) {
+  if (!$string || $string eq "NA") {
     return @list;
   }
   my @ids = split(/;|,/, $string);
@@ -745,8 +756,20 @@ sub get_disease {
   $disease_name =~ s/"//g;
   $disease_name =~ s/^\s+|\s+$//g;
   my $disease_list = $disease_adaptor->fetch_all_by_name($disease_name);
+  
   my @sorted_disease_list = sort {$a->dbID <=> $b->dbID} @$disease_list;
-  my $disease = $sorted_disease_list[0]; 
+  
+  # Get disease with the same mim id
+  my $disease;
+  if($disease_mim) {
+    foreach my $d (@sorted_disease_list) {
+      $disease = $d if ($d->mim eq $disease_mim);
+    }
+  }
+  else {
+    $disease = $sorted_disease_list[0];
+  }
+
   if (! defined $disease) {
     $disease = Bio::EnsEMBL::G2P::Disease->new(
       -name => $disease_name,
@@ -833,6 +856,10 @@ sub get_mutation_consequence_attrib {
   foreach my $value (split/;|,/, $mutation_consequence){
     my $mc = lc $value;
     $mc =~ s/^\s+|\s+$//g;
+    
+    # '5_prime or 3_prime UTR mutation' -> 'UTR' cannot be in lowercase
+    $mc =~ s/ utr / UTR /;
+    
     push @values, $mc;
   }
   return $attrib_adaptor->get_attrib('mutation_consequence', join(',', @values));
