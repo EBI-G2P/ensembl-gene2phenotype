@@ -19,4 +19,4 @@ INSERT IGNORE INTO attrib (attrib_id, attrib_type_id, value) VALUES (88, 11, 'di
 INSERT IGNORE INTO attrib(attrib_id, attrib_type_id, value) VALUES (89, 11, "refuted");
 
 # patch identifier
-INSERT INTO meta (species_id, meta_key, meta_value) VALUES (NULL, 'patch', 'patch_109_110_d.sql|inserting new cross cutting modifier');
+INSERT INTO meta (species_id, meta_key, meta_value) VALUES (NULL, 'patch', 'patch_109_110_d.sql|inserting new confidence category');
