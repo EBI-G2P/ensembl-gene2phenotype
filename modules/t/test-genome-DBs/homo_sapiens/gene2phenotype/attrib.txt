@@ -83,6 +83,8 @@
 85	14	activating
 86	14	dominant negative
 87	12	incomplete penetrance
+88	11	disputed
+89	11	refuted
 100	16	splice_region_variant
 101	16	splice_acceptor_variant
 102	16	splice_donor_variant
