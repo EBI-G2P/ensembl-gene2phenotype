@@ -99,6 +99,8 @@ INSERT IGNORE INTO attrib (attrib_id, attrib_type_id, value) VALUES (50, 11, 'de
 INSERT IGNORE INTO attrib (attrib_id, attrib_type_id, value) VALUES (51, 11, 'limited');
 INSERT IGNORE INTO attrib (attrib_id, attrib_type_id, value) VALUES (52, 11, 'strong');
 INSERT IGNORE INTO attrib (attrib_id, attrib_type_id, value) VALUES (81, 11, 'moderate');
+INSERT IGNORE INTO attrib (attrib_id, attrib_type_id, value) VALUES (88, 11, 'disputed');
+INSERT IGNORE INTO attrib(attrib_id, attrib_type_id, value) VALUES (89, 11, "refuted");
 
 INSERT IGNORE INTO attrib (attrib_id, attrib_type_id, value) VALUES (54, 12, 'requires heterozygosity');
 INSERT IGNORE INTO attrib (attrib_id, attrib_type_id, value) VALUES (55, 12, 'typically de novo');

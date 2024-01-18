@@ -25,5 +25,6 @@
 27	\N	patch	patch_109_110_a.sql|schema version
 28	\N	patch	patch_109_110_b.sql|add constraint to genomic_feature_disease_phenotype
 29	\N	patch	patch_109_110_c.sql|update_Neonatalrespiratory
+31	\N	patch	patch_109_110_d.sql|inserting new confidence category
 1	\N	schema_type	gene2phenotype
 2	\N	schema_version	110
