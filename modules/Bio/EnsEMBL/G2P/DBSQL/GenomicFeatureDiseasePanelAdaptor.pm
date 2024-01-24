@@ -81,7 +81,9 @@ sub store {
   # to check for the visibility 
   if ($gfd_panel->{confidence_category_attrib} == 88 || $gfd_panel->{confidence_category_attrib} == 89) {
     $gfd_panel->{is_visible} = 0;
-  } 
+  } else {
+     $gfd_panel->{is_visible} = 1;
+  }
   
   my $sth = $dbh->prepare(q{
     INSERT INTO genomic_feature_disease_panel(
