@@ -78,6 +78,12 @@ sub store {
   if (defined $gfd_panel->{confidence_category} && ! defined $gfd_panel->{confidence_category_attrib}) {
     $gfd_panel->{confidence_category_attrib} = $attribute_adaptor->get_attrib('confidence_category', $gfd_panel->{confidence_category});
   }
+  # to check for the visibility 
+  if ($gfd_panel->{confidence_category_attrib} == 88 || $gfd_panel->{confidence_category_attrib} == 89) {
+    $gfd_panel->{is_visible} = 0;
+  } else {
+     $gfd_panel->{is_visible} = 1;
+  }
   
   my $sth = $dbh->prepare(q{
     INSERT INTO genomic_feature_disease_panel(
@@ -93,7 +99,7 @@ sub store {
     $gfd_panel->{genomic_feature_disease_id},
     $gfd_panel->{confidence_category_attrib},
     $gfd_panel->clinical_review,
-    $gfd_panel->is_visible || 1,
+    $gfd_panel->is_visible,
     $gfd_panel->{panel_attrib}
   );
 
@@ -168,6 +174,10 @@ sub update {
 
   if (!ref($user) || !$user->isa('Bio::EnsEMBL::G2P::User')) {
     die('Bio::EnsEMBL::G2P::User arg expected');
+  }
+  # to check for the visibility 
+  if ($gfd_panel->{confidence_category_attrib} == 88 || $gfd_panel->{confidence_category_attrib} == 89) {
+    $gfd_panel->{is_visible} = 0;
   }
 
   my $sth = $dbh->prepare(q{
