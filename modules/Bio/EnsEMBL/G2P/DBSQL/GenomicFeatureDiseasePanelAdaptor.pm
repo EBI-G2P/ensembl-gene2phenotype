@@ -99,7 +99,7 @@ sub store {
     $gfd_panel->{genomic_feature_disease_id},
     $gfd_panel->{confidence_category_attrib},
     $gfd_panel->clinical_review,
-    $gfd_panel->is_visible || 1,
+    $gfd_panel->is_visible,
     $gfd_panel->{panel_attrib}
   );
 
