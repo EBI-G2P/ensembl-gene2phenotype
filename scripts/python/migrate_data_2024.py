@@ -1000,7 +1000,7 @@ def populates_locus(host, port, db, user, password, genomic_feature_data, gene_s
         if connection.is_connected():
             cursor = connection.cursor()
             for gf_id, info in genomic_feature_data.items():
-                print(f"Locus info: {info}")
+                # print(f"Locus info: {info}")
                 stable_id = info['ensembl_stable_id']
                 if info['gene_symbol'] in gene_symbols:
                     url = f"http://rest.ensembl.org/lookup/id/{stable_id}"
@@ -1114,7 +1114,7 @@ def populates_lgd(host, port, db, user, password, gfd_data, inserted_publication
         if connection.is_connected():
             cursor = connection.cursor()
             for gfd, data in gfd_data.items():
-                print(f"\n{gfd}, {data}")
+                # print(f"\n{gfd}, {data}")
                 locus_id = fetch_locus_id(host, port, db, user, password, data['gene_symbol'])
                 # print(f"Locus id: {locus_id}")
                 disease_id = fetch_disease_by_name(host, port, db, user, password, data['disease_name'])
@@ -1128,17 +1128,7 @@ def populates_lgd(host, port, db, user, password, gfd_data, inserted_publication
                     date = last_update_panel[gfd]
                 
                 if date is None:
-                    date = '2010-01-01 00:00:00'
-
-                # multiple mutation_consequence_attrib
-                variant_gencc_consequences = []
-                variant_gencc_consequences_support = fetch_attrib(host, port, db, user, password, 'evidence')
-                variant_type_list = [] # some mutation consequences are now variant type
-                for mc in data['mutation_consequence_attrib']:
-                    if mc == '5_prime or 3_prime UTR mutation' or mc == 'cis-regulatory or promotor mutation':
-                        variant_type_list.append(fetch_ontology(host, port, db, user, password, 'regulatory_region_variant'))
-                    else:
-                        variant_gencc_consequences.append(fetch_ontology(host, port, db, user, password, mc))
+                    date = '2010-01-01 00:00:00' # TODO: which date to use?
                 
                 # cross cutting modifier
                 ccm_id = []
@@ -1147,6 +1137,7 @@ def populates_lgd(host, port, db, user, password, gfd_data, inserted_publication
 
                 # variant consequence ( new: variant type)
                 mechanism = []
+                variant_type_list = []
                 for var_type in data['variant_consequence_attrib']:
                     # This is a molecular mechanism
                     if var_type == 'gain_of_function_variant':
@@ -1155,6 +1146,16 @@ def populates_lgd(host, port, db, user, password, gfd_data, inserted_publication
                         mechanism.append(fetch_attrib(host, port, db, user, password, 'loss of function'))
                     else:
                         variant_type_list.append(fetch_ontology(host, port, db, user, password, var_type))
+
+                # multiple mutation_consequence_attrib
+                # some mutation consequences are now variant type
+                variant_gencc_consequences = []
+                variant_gencc_consequences_support = fetch_attrib(host, port, db, user, password, 'evidence')
+                for mc in data['mutation_consequence_attrib']:
+                    if (mc == '5_prime or 3_prime UTR mutation' or mc == 'cis-regulatory or promotor mutation') and '5_prime_UTR_variant' not in data['variant_consequence_attrib'] and '3_prime_UTR_variant' not in data['variant_consequence_attrib'] and 'regulatory_region_variant' not in data['variant_consequence_attrib']:
+                        variant_type_list.append(fetch_ontology(host, port, db, user, password, 'regulatory_region_variant'))
+                    elif mc != '5_prime or 3_prime UTR mutation' and mc != 'cis-regulatory or promotor mutation':
+                        variant_gencc_consequences.append(fetch_ontology(host, port, db, user, password, mc))
 
                 # fetch panel id
                 panels = []
@@ -1182,7 +1183,7 @@ def populates_lgd(host, port, db, user, password, gfd_data, inserted_publication
                 for pheno_id in data['phenotypes']:
                     phenotypes.append(inserted_phenotypes[pheno_id]['new_id'])
 
-                print(f"locus: {locus_id}, disease: {disease_id}, genotype: {genotype_id}, variant consequence: {variant_gencc_consequences}, panels confidence: {confidence}")
+                # print(f"locus: {locus_id}, disease: {disease_id}, genotype: {genotype_id}, variant consequence: {variant_gencc_consequences}, panels confidence: {confidence}")
                 stable_id += 1
                 key = f"{locus_id}-{disease_id}-{genotype_id}"
 
