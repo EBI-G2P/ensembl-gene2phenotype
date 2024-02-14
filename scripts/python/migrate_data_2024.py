@@ -695,7 +695,8 @@ def populate_new_attribs(host, port, db, user, password):
                        'mechanism_synopsis':'Synopsis of the molecular mechanism',
                        'support': 'The support can be inferred by the curator or taken from evidence in the paper',
                        'locus_type':'Locus type',
-                       'reference':'Assembly reference'
+                       'reference':'Assembly reference',
+                       'gene_synonym':'Gene symbol synonym'
                       }
 
     mechanism_data = { 'loss of function':'mechanism',
@@ -1031,6 +1032,99 @@ def populates_locus(host, port, db, user, password, genomic_feature_data, gene_s
             connection.close()
 
     return genes_ids
+
+def populates_gene_synonyms(host, port, db, user, password, ensembl_host, ensembl_port, ensembl_db, ensembl_user, ensembl_password):
+    sql_get_synonym = """ SELECT ga.value, g.stable_id, g.description, g.biotype, e.synonym
+                          FROM gene g
+                          LEFT JOIN gene_attrib ga ON ga.gene_id = g.gene_id
+                          LEFT JOIN external_synonym e ON e.xref_id = g.display_xref_id
+                          WHERE (g.source = 'ensembl_havana' or g.source = 'havana') AND ga.attrib_type_id = 4 AND e.synonym IS NOT NULL;
+                      """
+
+    sql_get_gene_info = """ SELECT id, name
+                            FROM locus
+                        """
+
+    sql_attrib = """ SELECT id
+                     FROM attrib_type
+                     WHERE code = 'gene_synonym'
+                 """
+
+    sql_insert = f""" INSERT INTO locus_attrib(value, locus_id, attrib_type_id, is_deleted)
+                      VALUES (%s, %s, %s, %s)
+                  """
+
+    gene_synonyms = {}
+    # gene_list_g2p = {}
+    attrib_id = None
+
+    # Connect to Ensembl core db
+    connection = mysql.connector.connect(host=ensembl_host,
+                                         database=ensembl_db,
+                                         user=ensembl_user,
+                                         port=ensembl_port,
+                                         password=ensembl_password)
+
+    try:
+        if connection.is_connected():
+            cursor = connection.cursor()
+            cursor.execute(sql_get_synonym)
+            data = cursor.fetchall()
+            if len(data) != 0:
+                for row in data:
+                    gene_name = row[0]
+                    if gene_name not in gene_synonyms.keys():
+                        synonyms_list = set()
+                        synonyms_list.add(row[4])
+                        gene_synonyms[gene_name] = { 'stable_id':row[1],
+                                                     'synonyms':synonyms_list }
+                    else:
+                        gene_synonyms[gene_name]['synonyms'].add(row[4])
+
+    except Error as e:
+        print("Error while connecting to MySQL", e)
+    finally:
+        if connection.is_connected():
+            cursor.close()
+            connection.close()
+
+    # Connect to G2P db
+    connection_g2p = mysql.connector.connect(host=host,
+                                             database=db,
+                                             user=user,
+                                             port=port,
+                                             password=password)
+
+    try:
+        if connection_g2p.is_connected():
+            cursor = connection_g2p.cursor()
+            cursor.execute(sql_attrib)
+            data_attrib = cursor.fetchall()
+            if len(data_attrib) != 0:
+                attrib_id = data_attrib[0][0]
+
+            cursor.execute(sql_get_gene_info)
+            data = cursor.fetchall()
+            if len(data) != 0:
+                for row in data:
+                    if row[1] in gene_synonyms.keys():
+                        # stable_id = gene_synonyms[row[1]]['stable_id']
+                        synonyms = gene_synonyms[row[1]]['synonyms']
+                        # gene_list_g2p[row[1]] = {'locus_id':row[0],
+                        #                          'stable_id':stable_id,
+                        #                          'synonyms':synonyms}
+                        
+                        # Insert gene synonym into locus_attrib table
+                        for synonym in synonyms:
+                            cursor.execute(sql_insert, [synonym, row[0], attrib_id, 0])
+                            connection_g2p.commit()
+
+    except Error as e:
+        print("Error while connecting to MySQL", e)
+    finally:
+        if connection_g2p.is_connected():
+            cursor.close()
+            connection_g2p.close()
 
 def populates_lgd(host, port, db, user, password, gfd_data, inserted_publications, inserted_phenotypes, last_updates, last_update_panel):
     # url = "https://www.ebi.ac.uk/gene2phenotype/gfd?search_type=gfd&dbID="
@@ -1435,6 +1529,11 @@ def main():
     parser.add_argument("--new_database", default='', help="New Database name")
     parser.add_argument("--new_user", default='', help="New Username")
     parser.add_argument("--new_password", default='', help="New Password (default: '')")
+    parser.add_argument("--ensembl_host", default='', help="Ensembl core Database host")
+    parser.add_argument("--ensembl_port", default='', help="Ensembl core Host port")
+    parser.add_argument("--ensembl_database", default='', help="Ensembl core Database name")
+    parser.add_argument("--ensembl_user", default='', help="Ensembl core Username")
+    parser.add_argument("--ensembl_password", default='', help="Ensembl core Password (default: '')")
 
     args = parser.parse_args()
 
@@ -1448,6 +1547,11 @@ def main():
     new_db = args.new_database
     new_user = args.new_user
     new_password = args.new_password
+    ensembl_host = args.ensembl_host
+    ensembl_port = args.ensembl_port
+    ensembl_db = args.ensembl_database
+    ensembl_user = args.ensembl_user
+    ensembl_password = args.ensembl_password
 
     # Populates: attrib, attrib_type
     attribs = fetch_attribs(host, port, db, user, password)
@@ -1513,6 +1617,7 @@ def main():
 
     # Populates: locus
     inserted_gene_ids = populates_locus(new_host, new_port, new_db, new_user, new_password, genomic_feature_data, gene_symbols)
+    populates_gene_synonyms(new_host, new_port, new_db, new_user, new_password, ensembl_host, ensembl_port, ensembl_db, ensembl_user, ensembl_password)
 
     # Populates: locus_genotype_disease
     populates_lgd(new_host, new_port, new_db, new_user, new_password, gfd_data, inserted_publications, inserted_phenotypes, last_updates, last_update_panel)
