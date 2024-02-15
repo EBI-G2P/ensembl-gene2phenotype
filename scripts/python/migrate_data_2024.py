@@ -658,8 +658,12 @@ def populate_attribs(host, port, db, user, password, attribs):
 
             for type in attrib_types:
                 # print(f"type: {type}, {attrib_types[type]}")
-                if type == 'confidence_category' or type == 'cross_cutting_modifier' or type == 'allelic_requirement' or type == 'ontology_mapping' or type == 'mutation_consequence_flag' or type == 'mutation_consequence':
+                if type == 'confidence_category' or type == 'cross_cutting_modifier' or type == 'ontology_mapping' or type == 'mutation_consequence_flag' or type == 'mutation_consequence':
                     cursor.execute(sql_query, [type, attrib_types[type]['name'], attrib_types[type]['description']])
+                    connection.commit()
+                    inserted_attrib_type[type] = cursor.lastrowid
+                elif type == 'allelic_requirement':
+                    cursor.execute(sql_query, ['genotype', 'genotype', 'Genotype'])
                     connection.commit()
                     inserted_attrib_type[type] = cursor.lastrowid
 
@@ -1326,7 +1330,8 @@ def populates_lgd(host, port, db, user, password, gfd_data, inserted_publication
                     connection.commit()
                     inserted_lgd[key] = { 'id':cursor.lastrowid, 'variant_gencc_consequence':variant_gencc_consequences,
                                           'confidence':confidence, 'ccm':ccm_id, 'publications':publications,
-                                          'variant_types':variant_type_list, 'phenotypes':phenotypes, 'final_confidence':final_confidence }
+                                          'variant_types':variant_type_list, 'phenotypes':phenotypes,
+                                          'final_confidence':final_confidence, 'mechanisms':mechanism }
 
                     # Insert lgd_panel
                     for panel_id in confidence:
@@ -1359,6 +1364,9 @@ def populates_lgd(host, port, db, user, password, gfd_data, inserted_publication
                         connection.commit()
 
                     # Insert mechanisms
+                    for mec in mechanism:
+                        cursor.execute(sql_query_lgd_mechanism, [mec, variant_gencc_consequences_support, inserted_lgd[key]['id'], 0])
+                        connection.commit()
 
                 # Merge entries - disease is the same
                 elif set(variant_gencc_consequences) == set(inserted_lgd[key]['variant_gencc_consequence']) and final_confidence == inserted_lgd[key]['final_confidence']:
@@ -1390,9 +1398,14 @@ def populates_lgd(host, port, db, user, password, gfd_data, inserted_publication
                         if new_pheno_id not in inserted_lgd[key]['phenotypes']:
                             cursor.execute(sql_query_lgd_pheno, [0, lgd_id, new_pheno_id])
                             connection.commit()
+                    # Insert mechanism
+                    for mec in mechanism:
+                        if mec not in inserted_lgd[key]['mechanisms']:
+                            cursor.execute(sql_query_lgd_mechanism, [mec, variant_gencc_consequences_support, lgd_id, 0])
+                            connection.commit()
                     
                     # TODO: update last_updated
-                
+
                 elif final_confidence != inserted_lgd[key]['final_confidence']:
                     # print(f"\nKey already inserted with id: {inserted_lgd[key]}")
                     print(f"(Different confidence) Key already in db: {key}, locus: {locus_id}, disease: {disease_id}, genotype: {genotype_id}, variant consequence: {variant_gencc_consequences}, panels confidence: {confidence}")
