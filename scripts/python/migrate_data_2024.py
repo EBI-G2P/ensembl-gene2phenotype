@@ -1,8 +1,5 @@
 #!/usr/bin/env python3
 
-# Copyright [1999-2015] Wellcome Trust Sanger Institute and the EMBL-European Bioinformatics Institute
-# Copyright [2016-2024] EMBL-European Bioinformatics Institute
-#
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -558,8 +555,9 @@ def get_mondo(url, id):
 
     return description
 
-def get_gene(url):
+def get_publication(url):
     r = requests.get(url, headers={ "Content-Type" : "application/json"})
+    decoded = None
 
     if not r.ok:
         r.raise_for_status()
@@ -817,8 +815,8 @@ def populates_user_panel(host, port, db, user, password, user_panel_data, panels
             connection.close()
 
 def populates_publications(host, port, db, user, password, publication_data):
-    sql_query = f""" INSERT INTO publication (pmid, title, source)
-                     VALUES (%s, %s, %s)
+    sql_query = f""" INSERT INTO publication (pmid, title, source, authors, year)
+                     VALUES (%s, %s, %s, %s, %s)
                  """
     
     inserted_publication = {}
@@ -841,7 +839,23 @@ def populates_publications(host, port, db, user, password, publication_data):
                     source = publication_data[old_id]['source']
                     if (source is not None and source.startswith('1993')) or source == ' ':
                         source = None
-                    cursor.execute(sql_query, [publication_data[old_id]['pmid'], publication_data[old_id]['title'], source])
+
+                    # Get authors and year from EuropePMC
+                    url = f"https://www.ebi.ac.uk/europepmc/webservices/rest/article/MED/{publication_data[old_id]['pmid']}?format=json"
+                    response = get_publication(url)
+                    authors = None
+                    year = None
+                    if response:
+                        if 'authorString' in response['result']:
+                            authors = response['result']['authorString']
+                            if len(authors) > 250:
+                                authors_split = authors.split(',')
+                                authors = f"{authors_split[0]} et al."
+                        if 'pubYear' in response['result']:
+                            year = response['result']['pubYear']
+
+                    # Insert publication
+                    cursor.execute(sql_query, [publication_data[old_id]['pmid'], publication_data[old_id]['title'], source, authors, year])
                     connection.commit()
                     inserted_publication[old_id] = {'new_id':cursor.lastrowid}
                     pmids[publication_data[old_id]['pmid']] = 1
@@ -993,8 +1007,12 @@ def populates_locus(host, port, db, user, password, genomic_feature_data, gene_s
                  """
 
     sql_query_ids = f""" INSERT INTO locus_identifier (locus_id, identifier, source_id)
-                             VALUES (%s, %s, %s)
-                         """
+                         VALUES (%s, %s, %s)
+                     """
+
+    sql_meta = f""" INSERT INTO meta (`key`, date_update, is_public, description, source_id, version)
+                    VALUES (%s, %s, %s, %s, %s, %s)
+                """
 
     genes = {}
 
@@ -1029,6 +1047,8 @@ def populates_locus(host, port, db, user, password, genomic_feature_data, gene_s
     reference_id = fetch_attrib(host, port, db, user, password, 'grch38')
     hgnc_source_id = fetch_source(host, port, db, user, password, 'HGNC')
     ensembl_source_id = fetch_source(host, port, db, user, password, 'Ensembl')
+    version = re.search("[0-9]+", ensembl_db)
+    description = 'Update genes to Ensembl release 111'
 
     genes_ids = {}
     sequence_ids = {}
@@ -1063,6 +1083,9 @@ def populates_locus(host, port, db, user, password, genomic_feature_data, gene_s
                     if stable_id is not None:
                         cursor.execute(sql_query_ids, [genes_ids[gf_id]['new_gf_id'], stable_id, ensembl_source_id])
                         connection.commit()
+            # Insert into meta
+            cursor.execute(sql_meta, ['locus_gene_update', datetime.datetime.now(), 0, description, ensembl_source_id, version.group()])
+            connection.commit()
 
     except Error as e:
         print("Error while connecting to MySQL", e)
