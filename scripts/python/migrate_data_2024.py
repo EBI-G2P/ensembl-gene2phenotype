@@ -570,6 +570,41 @@ def get_publication(url):
 ######
 
 ### Populate new db ###
+def populate_source(host, port, db, user, password):
+    sources_info = {   'SO': {'description':'Sequence Ontology', 'url':'https://www.sequenceontology.org'},
+                       'HPO': {'description':'Human Phenotype Ontology', 'url':'https://hpo.jax.org'},
+                       'Mondo': {'description':'Mondo Disease Ontology', 'url':'https://www.ebi.ac.uk/ols4/ontologies/mondo'},
+                       'OMIM': {'description':'Online Catalog of Human Genes and Genetic Disorders', 'url':'https://www.omim.org'},
+                       'Orphanet': {'description':'The portal for rare diseases and orphan drugs', 'url':'https://www.orpha.net/consor/cgi-bin/index.php'},
+                       'HGNC': {'description':'HUGO Gene Nomenclature Committee', 'url':'https://www.genenames.org'},
+                       'Ensembl': {'description':'Ensembl', 'url':'https://www.ensembl.org'},
+                       'UniProt': {'description':'Gene function imported from UniProt', 'url':'https://www.uniprot.org'}
+                      }
+
+    sql_query = f""" INSERT INTO source (name, description, url)
+                     VALUES (%s, %s, %s)
+                 """
+    
+    connection = mysql.connector.connect(host=host,
+                                         database=db,
+                                         user=user,
+                                         port=port,
+                                         password=password)
+
+    try:
+        if connection.is_connected():
+            cursor = connection.cursor()
+            for name, info in sources_info.items():
+                cursor.execute(sql_query, [name, info['description'], info['url']])
+                connection.commit()
+
+    except Error as e:
+        print("Error while connecting to MySQL", e)
+    finally:
+        if connection.is_connected():
+            cursor.close()
+            connection.close()
+
 def populate_attribs(host, port, db, user, password, attribs):
     attrib_types = {}
 
@@ -599,27 +634,27 @@ def populate_attribs(host, port, db, user, password, attribs):
                    '3_prime_UTR_variant':'SO:0001624',
                    '5_prime_UTR_variant':'SO:0001623',
                    'frameshift_variant':'SO:0001589',
-                   'frameshift_variant_NMD_escaping':'SO:0002324', # CHECK
-                   'frameshift_variant_NMD_triggering':'SO:0002323', # CHECK
+                   'frameshift_variant_NMD_escaping':'SO:0002324',
+                   'frameshift_variant_NMD_triggering':'SO:0002323',
                    'inframe_deletion':'SO:0001822',
                    'inframe_insertion':'SO:0001821',
                     'intergenic_variant':'SO:0001628',
                     'intron_variant':'SO:0001627',
                     'missense_variant':'SO:0001583',
-                    'NMD_escaping':'SO:0002320', # CHECK
-                    'NMD_triggering':'SO:0002319', # CHECK
+                    'NMD_escaping':'SO:0002320',
+                    'NMD_triggering':'SO:0002319',
                     'regulatory_region_variant':'SO:0001566',
                     'splice_acceptor_variant':'SO:0001574',
-                    'splice_acceptor_variant_NMD_escaping':'SO:0002328', # CHECK
-                    'splice_acceptor_variant_NMD_triggering':'SO:0002327', # CHECK
+                    'splice_acceptor_variant_NMD_escaping':'SO:0002328',
+                    'splice_acceptor_variant_NMD_triggering':'SO:0002327',
                     'splice_donor_variant':'SO:0001575',
-                    'splice_donor_variant_NMD_escaping':'SO:0002326', # CHECK
-                    'splice_donor_variant_NMD_triggering':'SO:0002325', # CHECK
+                    'splice_donor_variant_NMD_escaping':'SO:0002326',
+                    'splice_donor_variant_NMD_triggering':'SO:0002325',
                     'splice_region_variant':'SO:0001630',
                     'start_lost':'SO:0002012',
                     'stop_gained':'SO:0001587',
-                    'stop_gained_NMD_escaping':'SO:0002322', # CHECK
-                    'stop_gained_NMD_triggering':'SO:0002321', # CHECK
+                    'stop_gained_NMD_escaping':'SO:0002322',
+                    'stop_gained_NMD_triggering':'SO:0002321',
                     'stop_lost':'SO:0001578',
                     'synonymous_variant':'SO:0001819',
                     }
@@ -656,12 +691,20 @@ def populate_attribs(host, port, db, user, password, attribs):
 
             for type in attrib_types:
                 # print(f"type: {type}, {attrib_types[type]}")
-                if type == 'confidence_category' or type == 'cross_cutting_modifier' or type == 'ontology_mapping' or type == 'mutation_consequence_flag' or type == 'mutation_consequence':
+                if type == 'confidence_category' or type == 'cross_cutting_modifier' or type == 'ontology_mapping':
                     cursor.execute(sql_query, [type, attrib_types[type]['name'], attrib_types[type]['description']])
                     connection.commit()
                     inserted_attrib_type[type] = cursor.lastrowid
                 elif type == 'allelic_requirement':
-                    cursor.execute(sql_query, ['genotype', 'genotype', 'Genotype'])
+                    cursor.execute(sql_query, ['genotype', 'genotype', 'Mendelian inheritance terms (previously: allelic_requirement)'])
+                    connection.commit()
+                    inserted_attrib_type[type] = cursor.lastrowid
+                elif type == 'mutation_consequence':
+                    cursor.execute(sql_query, ['mutation_consequence', 'Mutation consequence', 'Mutation consequence (deprecated)'])
+                    connection.commit()
+                    inserted_attrib_type[type] = cursor.lastrowid
+                elif type == 'mutation_consequence_flag':
+                    cursor.execute(sql_query, ['mutation_consequence_flag', 'Mutation consequence flag', 'Mutation consequence flag (deprecated)'])
                     connection.commit()
                     inserted_attrib_type[type] = cursor.lastrowid
 
@@ -693,15 +736,16 @@ def populate_attribs(host, port, db, user, password, attribs):
     # print(f"Inserted attribs: {inserted_attrib}")
 
 def populate_new_attribs(host, port, db, user, password):
-    mechanism_type = { 'mechanism':'Type of molecular mechanism' ,
+    attrib_types = {   'mechanism':'Type of molecular mechanism' ,
                        'mechanism_synopsis':'Synopsis of the molecular mechanism',
                        'support': 'The support can be inferred by the curator or taken from evidence in the paper',
                        'locus_type':'Locus type',
                        'reference':'Assembly reference',
-                       'gene_synonym':'Gene symbol synonym'
+                       'gene_synonym':'Gene symbol synonym',
+                       'disease_synonym':'Disease synonym'
                       }
 
-    mechanism_data = { 'loss of function':'mechanism',
+    attribs = {        'loss of function':'mechanism',
                        'dominant negative':'mechanism',
                        'gain of function':'mechanism',
                        'undetermined non-loss-of-function':'mechanism',
@@ -721,7 +765,10 @@ def populate_new_attribs(host, port, db, user, password):
                        'gene':'locus_type',
                        'variant':'locus_type',
                        'region':'locus_type',
-                       'grch38':'reference'
+                       'grch38':'reference',
+                       'refuted':'confidence_category',
+                       'disputed':'confidence_category',
+                       'dyadic_name': 'disease_synonym'
                      }
 
     sql_query = f""" INSERT INTO attrib_type (code, name, description)
@@ -743,13 +790,17 @@ def populate_new_attribs(host, port, db, user, password):
     try:
         if connection.is_connected():
             cursor = connection.cursor()
-            for mt, description in mechanism_type.items():
+            for mt, description in attrib_types.items():
                 cursor.execute(sql_query, [mt, mt, description])
                 connection.commit()
                 inserted[mt] = cursor.lastrowid
             
-            for data, t in mechanism_data.items():
-                cursor.execute(sql_query_attrib, [data, inserted[t]])
+            for data, t in attribs.items():
+                if t == 'confidence_category':
+                    attrib_type_id = 1
+                else:
+                    attrib_type_id = inserted[t]
+                cursor.execute(sql_query_attrib, [data, attrib_type_id])
                 connection.commit()
 
     except Error as e:
@@ -795,7 +846,7 @@ def populates_user_panel(host, port, db, user, password, user_panel_data, panels
                 inserted_panel[panel] = cursor.lastrowid
             
             for username in user_panel_data:
-                if username != 'diana_lemos':
+                if username != 'diana_lemos': # TODO: remove 
                     if username == 'anja_thormann' or username == 'fiona_cunningham' or username == 'david_fitzpatrick':
                         is_active = 0
                     else:
@@ -1101,7 +1152,7 @@ def populates_gene_synonyms(host, port, db, user, password, ensembl_host, ensemb
                           FROM gene g
                           LEFT JOIN gene_attrib ga ON ga.gene_id = g.gene_id
                           LEFT JOIN external_synonym e ON e.xref_id = g.display_xref_id
-                          WHERE (g.source = 'ensembl_havana' or g.source = 'havana') AND ga.attrib_type_id = 4 AND e.synonym IS NOT NULL;
+                          WHERE (g.source = 'ensembl_havana' or g.source = 'havana') AND ga.attrib_type_id = 4 AND e.synonym IS NOT NULL
                       """
 
     sql_get_gene_info = """ SELECT id, name
@@ -1113,9 +1164,11 @@ def populates_gene_synonyms(host, port, db, user, password, ensembl_host, ensemb
                      WHERE code = 'gene_synonym'
                  """
 
-    sql_insert = f""" INSERT INTO locus_attrib(value, locus_id, attrib_type_id, is_deleted)
-                      VALUES (%s, %s, %s, %s)
+    sql_insert = f""" INSERT INTO locus_attrib(value, locus_id, attrib_type_id, source_id, is_deleted)
+                      VALUES (%s, %s, %s, %s, %s)
                   """
+
+    source_id = fetch_source(host, port, db, user, password, 'Ensembl')
 
     gene_synonyms = {}
     # gene_list_g2p = {}
@@ -1179,7 +1232,7 @@ def populates_gene_synonyms(host, port, db, user, password, ensembl_host, ensemb
 
                         # Insert gene synonym into locus_attrib table
                         for synonym in synonyms:
-                            cursor.execute(sql_insert, [synonym, row[0], attrib_id, 0])
+                            cursor.execute(sql_insert, [synonym, row[0], attrib_id, source_id, 0])
                             connection_g2p.commit()
 
     except Error as e:
@@ -1309,7 +1362,7 @@ def populates_lgd(host, port, db, user, password, gfd_data, inserted_publication
                 # multiple mutation_consequence_attrib
                 # some mutation consequences are now variant type
                 variant_gencc_consequences = []
-                variant_gencc_consequences_support = fetch_attrib(host, port, db, user, password, 'evidence')
+                variant_gencc_consequences_support = fetch_attrib(host, port, db, user, password, 'inferred')
                 for mc in data['mutation_consequence_attrib']:
                     if (mc == '5_prime or 3_prime UTR mutation' or mc == 'cis-regulatory or promotor mutation') and '5_prime_UTR_variant' not in data['variant_consequence_attrib'] and '3_prime_UTR_variant' not in data['variant_consequence_attrib'] and 'regulatory_region_variant' not in data['variant_consequence_attrib']:
                         variant_type_list.append(fetch_ontology(host, port, db, user, password, 'regulatory_region_variant'))
@@ -1736,6 +1789,10 @@ def main():
             gene_symbols[gfd['gene_symbol']] = 1
 
     ### Store the data in the new database ###
+    # Populates: source
+    populate_source(new_host, new_port, new_db, new_user, new_password)
+    print("INFO: source populated")
+
     # Populates: attrib, attrib_type, ontology_term (variant consequence, variant type)
     populate_attribs(new_host, new_port, new_db, new_user, new_password, attribs)
     populate_new_attribs(new_host, new_port, new_db, new_user, new_password)
