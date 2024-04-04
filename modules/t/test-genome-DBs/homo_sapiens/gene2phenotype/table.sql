@@ -9,7 +9,7 @@ CREATE TABLE `GFD_comment_deleted` (
   `is_public` tinyint(1) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`GFD_comment_deleted_id`),
   KEY `GFD_idx` (`genomic_feature_disease_id`)
-) ENGINE=InnoDB  ;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 CREATE TABLE `GFD_disease_synonym` (
   `GFD_disease_synonym_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -17,7 +17,7 @@ CREATE TABLE `GFD_disease_synonym` (
   `disease_id` int(10) unsigned NOT NULL,
   PRIMARY KEY (`GFD_disease_synonym_id`),
   KEY `genomic_feature_disease_idx` (`genomic_feature_disease_id`)
-) ENGINE=InnoDB  ;
+) ENGINE=InnoDB AUTO_INCREMENT=555 DEFAULT CHARSET=latin1;
 
 CREATE TABLE `GFD_phenotype_comment` (
   `GFD_phenotype_comment_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -27,7 +27,7 @@ CREATE TABLE `GFD_phenotype_comment` (
   `user_id` int(10) unsigned NOT NULL,
   PRIMARY KEY (`GFD_phenotype_comment_id`),
   KEY `GFD_phenotype_idx` (`genomic_feature_disease_phenotype_id`)
-) ENGINE=InnoDB  ;
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=latin1;
 
 CREATE TABLE `GFD_phenotype_comment_deleted` (
   `GFD_phenotype_comment_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -39,7 +39,7 @@ CREATE TABLE `GFD_phenotype_comment_deleted` (
   `deleted_by_user_id` int(10) unsigned NOT NULL,
   PRIMARY KEY (`GFD_phenotype_comment_id`),
   KEY `GFD_phenotype_idx` (`genomic_feature_disease_phenotype_id`)
-) ENGINE=InnoDB  ;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 
 CREATE TABLE `GFD_phenotype_log` (
   `GFD_phenotype_log_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -53,7 +53,7 @@ CREATE TABLE `GFD_phenotype_log` (
   `action` varchar(128) NOT NULL,
   PRIMARY KEY (`GFD_phenotype_log_id`),
   KEY `genomic_feature_disease_idx` (`genomic_feature_disease_id`)
-) ENGINE=InnoDB  ;
+) ENGINE=InnoDB AUTO_INCREMENT=799 DEFAULT CHARSET=latin1;
 
 CREATE TABLE `GFD_publication_comment` (
   `GFD_publication_comment_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -63,7 +63,7 @@ CREATE TABLE `GFD_publication_comment` (
   `user_id` int(10) unsigned NOT NULL,
   PRIMARY KEY (`GFD_publication_comment_id`),
   KEY `GFD_publication_idx` (`genomic_feature_disease_publication_id`)
-) ENGINE=InnoDB  ;
+) ENGINE=InnoDB AUTO_INCREMENT=95 DEFAULT CHARSET=latin1;
 
 CREATE TABLE `GFD_publication_comment_deleted` (
   `GFD_publication_comment_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -75,7 +75,7 @@ CREATE TABLE `GFD_publication_comment_deleted` (
   `deleted_by_user_id` int(10) unsigned NOT NULL,
   PRIMARY KEY (`GFD_publication_comment_id`),
   KEY `GFD_publication_idx` (`genomic_feature_disease_publication_id`)
-) ENGINE=InnoDB  ;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 
 CREATE TABLE `attrib` (
   `attrib_id` int(11) unsigned NOT NULL,
@@ -83,7 +83,7 @@ CREATE TABLE `attrib` (
   `value` text NOT NULL,
   PRIMARY KEY (`attrib_id`),
   UNIQUE KEY `attrib_type_idx` (`attrib_type_id`,`value`(80))
-) ENGINE=InnoDB ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE `attrib_type` (
   `attrib_type_id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
@@ -92,7 +92,7 @@ CREATE TABLE `attrib_type` (
   `description` text,
   PRIMARY KEY (`attrib_type_id`),
   UNIQUE KEY `code_idx` (`code`)
-) ENGINE=InnoDB  ;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
 
 CREATE TABLE `disease` (
   `disease_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -100,14 +100,14 @@ CREATE TABLE `disease` (
   `mim` int(10) unsigned DEFAULT NULL,
   PRIMARY KEY (`disease_id`),
   KEY `name_idx` (`name`)
-) ENGINE=InnoDB  ;
+) ENGINE=InnoDB AUTO_INCREMENT=4658 DEFAULT CHARSET=latin1;
 
 CREATE TABLE `disease_name_synonym` (
   `disease_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) DEFAULT NULL,
   UNIQUE KEY `name` (`disease_id`,`name`),
   KEY `disease_idx` (`disease_id`)
-) ENGINE=InnoDB ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE `disease_ontology_mapping` (
   `disease_ontology_mapping_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -117,7 +117,7 @@ CREATE TABLE `disease_ontology_mapping` (
   PRIMARY KEY (`disease_ontology_mapping_id`),
   KEY `ontology_term_id` (`ontology_term_id`),
   KEY `disease_id` (`disease_id`)
-) ENGINE=InnoDB  ;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 CREATE TABLE `genomic_feature` (
   `genomic_feature_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -134,7 +134,7 @@ CREATE TABLE `genomic_feature` (
   KEY `gene_symbol_idx` (`gene_symbol`),
   KEY `mim_idx` (`mim`),
   KEY `ensembl_stable_id_idx` (`ensembl_stable_id`)
-) ENGINE=InnoDB  ;
+) ENGINE=InnoDB AUTO_INCREMENT=118600 DEFAULT CHARSET=latin1;
 
 CREATE TABLE `genomic_feature_disease` (
   `genomic_feature_disease_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -146,13 +146,13 @@ CREATE TABLE `genomic_feature_disease` (
   `original_mutation_consequence_attrib` set('21','22','23','24','25','26','27','28','29','30','44') DEFAULT NULL,
   `mutation_consequence_attrib` set('75','76','77','78','79','80','84') DEFAULT NULL,
   `mutation_consequence_flag_attrib` set('71','72','73','74','85','86') DEFAULT NULL,
-  `variant_consequence_attrib` set('100','101','102','103','104','105','106','107','108','109','110','111','112','113','114','115','116','117','118','119','120','121','122','123','124','125','126','127') DEFAULT NULL,
+  `variant_consequence_attrib` set('100','101','102','103','104','105','106','107','108','109','110','111','112','113','114','115','116','117','118','119','120','121','122','123','124','125','126','127','128','129','130','131') DEFAULT NULL,
   `restricted_mutation_set` tinyint(1) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`genomic_feature_disease_id`),
   UNIQUE KEY `genomic_feature_disease` (`genomic_feature_id`,`original_allelic_requirement_attrib`,`original_mutation_consequence_attrib`,`disease_id`),
   KEY `genomic_feature_idx` (`genomic_feature_id`),
   KEY `disease_idx` (`disease_id`)
-) ENGINE=InnoDB  ;
+) ENGINE=InnoDB AUTO_INCREMENT=4685 DEFAULT CHARSET=latin1;
 
 CREATE TABLE `genomic_feature_disease_comment` (
   `genomic_feature_disease_comment_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -163,7 +163,7 @@ CREATE TABLE `genomic_feature_disease_comment` (
   `is_public` tinyint(1) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`genomic_feature_disease_comment_id`),
   KEY `GFD_idx` (`genomic_feature_disease_id`)
-) ENGINE=InnoDB  ;
+) ENGINE=InnoDB AUTO_INCREMENT=238 DEFAULT CHARSET=latin1;
 
 CREATE TABLE `genomic_feature_disease_deleted` (
   `genomic_feature_disease_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -175,13 +175,13 @@ CREATE TABLE `genomic_feature_disease_deleted` (
   `original_mutation_consequence_attrib` set('21','22','23','24','25','26','27','28','29','30','44') DEFAULT NULL,
   `mutation_consequence_attrib` set('75','76','77','78','79','80','84') DEFAULT NULL,
   `mutation_consequence_flag_attrib` set('71','72','73','74','85','86') DEFAULT NULL,
-  `variant_consequence_attrib` set('100','101','102','103','104','105','106','107','108','109','110','111','112','113','114','115','116','117','118','119','120','121','122','123','124','125','126','127') DEFAULT NULL,
+  `variant_consequence_attrib` set('100','101','102','103','104','105','106','107','108','109','110','111','112','113','114','115','116','117','118','119','120','121','122','123','124','125','126','127','128','129','130','131') DEFAULT NULL,
   `deleted` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `deleted_by_user_id` int(10) unsigned NOT NULL,
   PRIMARY KEY (`genomic_feature_disease_id`),
   KEY `genomic_feature_idx` (`genomic_feature_id`),
   KEY `disease_idx` (`disease_id`)
-) ENGINE=InnoDB  ;
+) ENGINE=InnoDB AUTO_INCREMENT=4586 DEFAULT CHARSET=latin1;
 
 CREATE TABLE `genomic_feature_disease_log` (
   `genomic_feature_disease_log_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -194,13 +194,13 @@ CREATE TABLE `genomic_feature_disease_log` (
   `original_mutation_consequence_attrib` set('21','22','23','24','25','26','27','28','29','30','44') DEFAULT NULL,
   `mutation_consequence_attrib` set('75','76','77','78','79','80','84') DEFAULT NULL,
   `mutation_consequence_flag_attrib` set('71','72','73','74','85','86') DEFAULT NULL,
-  `variant_consequence_attrib` set('100','101','102','103','104','105','106','107','108','109','110','111','112','113','114','115','116','117','118','119','120','121','122','123','124','125','126','127') DEFAULT NULL,
+  `variant_consequence_attrib` set('100','101','102','103','104','105','106','107','108','109','110','111','112','113','114','115','116','117','118','119','120','121','122','123','124','125','126','127','128','129','130','131') DEFAULT NULL,
   `created` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `user_id` int(10) unsigned NOT NULL,
   `action` varchar(128) NOT NULL,
   PRIMARY KEY (`genomic_feature_disease_log_id`),
   KEY `genomic_feature_disease_idx` (`genomic_feature_disease_id`)
-) ENGINE=InnoDB  ;
+) ENGINE=InnoDB AUTO_INCREMENT=4111 DEFAULT CHARSET=latin1;
 
 CREATE TABLE `genomic_feature_disease_log_deleted` (
   `genomic_feature_disease_log_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -215,7 +215,7 @@ CREATE TABLE `genomic_feature_disease_log_deleted` (
   `action` varchar(128) NOT NULL,
   PRIMARY KEY (`genomic_feature_disease_log_id`),
   KEY `genomic_feature_disease_idx` (`genomic_feature_disease_id`)
-) ENGINE=InnoDB ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE `genomic_feature_disease_organ` (
   `genomic_feature_disease_organ_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -223,7 +223,7 @@ CREATE TABLE `genomic_feature_disease_organ` (
   `organ_id` int(10) unsigned NOT NULL,
   PRIMARY KEY (`genomic_feature_disease_organ_id`),
   KEY `genomic_feature_disease_idx` (`genomic_feature_disease_id`)
-) ENGINE=InnoDB  ;
+) ENGINE=InnoDB AUTO_INCREMENT=9424 DEFAULT CHARSET=latin1;
 
 CREATE TABLE `genomic_feature_disease_organ_deleted` (
   `genomic_feature_disease_organ_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -231,7 +231,7 @@ CREATE TABLE `genomic_feature_disease_organ_deleted` (
   `organ_id` int(10) unsigned NOT NULL,
   PRIMARY KEY (`genomic_feature_disease_organ_id`),
   KEY `genomic_feature_disease_idx` (`genomic_feature_disease_id`)
-) ENGINE=InnoDB  ;
+) ENGINE=InnoDB AUTO_INCREMENT=8987 DEFAULT CHARSET=latin1;
 
 CREATE TABLE `genomic_feature_disease_panel` (
   `genomic_feature_disease_panel_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -244,7 +244,7 @@ CREATE TABLE `genomic_feature_disease_panel` (
   PRIMARY KEY (`genomic_feature_disease_panel_id`),
   UNIQUE KEY `gfd_panel_idx` (`genomic_feature_disease_id`,`panel_attrib`),
   KEY `genomic_feature_disease_idx` (`genomic_feature_disease_id`)
-) ENGINE=InnoDB  ;
+) ENGINE=InnoDB AUTO_INCREMENT=3736 DEFAULT CHARSET=latin1;
 
 CREATE TABLE `genomic_feature_disease_panel_deleted` (
   `genomic_feature_disease_panel_deleted_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -259,7 +259,7 @@ CREATE TABLE `genomic_feature_disease_panel_deleted` (
   `deleted_by_user_id` int(10) unsigned NOT NULL,
   PRIMARY KEY (`genomic_feature_disease_panel_deleted_id`),
   KEY `genomic_feature_disease_idx` (`genomic_feature_disease_id`)
-) ENGINE=InnoDB ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE `genomic_feature_disease_panel_log` (
   `genomic_feature_disease_panel_log_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -276,7 +276,7 @@ CREATE TABLE `genomic_feature_disease_panel_log` (
   PRIMARY KEY (`genomic_feature_disease_panel_log_id`),
   KEY `genomic_feature_disease_panel_idx` (`genomic_feature_disease_panel_id`),
   KEY `genomic_feature_disease_idx` (`genomic_feature_disease_id`)
-) ENGINE=InnoDB  ;
+) ENGINE=InnoDB AUTO_INCREMENT=4208 DEFAULT CHARSET=latin1;
 
 CREATE TABLE `genomic_feature_disease_phenotype` (
   `genomic_feature_disease_phenotype_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -284,7 +284,7 @@ CREATE TABLE `genomic_feature_disease_phenotype` (
   `phenotype_id` int(10) unsigned NOT NULL,
   PRIMARY KEY (`genomic_feature_disease_phenotype_id`),
   KEY `genomic_feature_disease_idx` (`genomic_feature_disease_id`)
-) ENGINE=InnoDB  ;
+) ENGINE=InnoDB AUTO_INCREMENT=44131 DEFAULT CHARSET=latin1;
 
 CREATE TABLE `genomic_feature_disease_phenotype_deleted` (
   `genomic_feature_disease_phenotype_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -292,7 +292,7 @@ CREATE TABLE `genomic_feature_disease_phenotype_deleted` (
   `phenotype_id` int(10) unsigned NOT NULL,
   PRIMARY KEY (`genomic_feature_disease_phenotype_id`),
   KEY `genomic_feature_disease_idx` (`genomic_feature_disease_id`)
-) ENGINE=InnoDB  ;
+) ENGINE=InnoDB AUTO_INCREMENT=51732 DEFAULT CHARSET=latin1;
 
 CREATE TABLE `genomic_feature_disease_publication` (
   `genomic_feature_disease_publication_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -300,7 +300,7 @@ CREATE TABLE `genomic_feature_disease_publication` (
   `publication_id` int(10) unsigned NOT NULL,
   PRIMARY KEY (`genomic_feature_disease_publication_id`),
   KEY `genomic_feature_disease_idx` (`genomic_feature_disease_id`)
-) ENGINE=InnoDB  ;
+) ENGINE=InnoDB AUTO_INCREMENT=10355 DEFAULT CHARSET=latin1;
 
 CREATE TABLE `genomic_feature_disease_publication_deleted` (
   `genomic_feature_disease_publication_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -308,7 +308,7 @@ CREATE TABLE `genomic_feature_disease_publication_deleted` (
   `publication_id` int(10) unsigned NOT NULL,
   PRIMARY KEY (`genomic_feature_disease_publication_id`),
   KEY `genomic_feature_disease_idx` (`genomic_feature_disease_id`)
-) ENGINE=InnoDB  ;
+) ENGINE=InnoDB AUTO_INCREMENT=10054 DEFAULT CHARSET=latin1;
 
 CREATE TABLE `genomic_feature_statistic` (
   `genomic_feature_statistic_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -316,7 +316,7 @@ CREATE TABLE `genomic_feature_statistic` (
   `panel_attrib` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`genomic_feature_statistic_id`),
   KEY `genomic_feature_idx` (`genomic_feature_id`)
-) ENGINE=InnoDB  ;
+) ENGINE=InnoDB AUTO_INCREMENT=94 DEFAULT CHARSET=latin1;
 
 CREATE TABLE `genomic_feature_statistic_attrib` (
   `genomic_feature_statistic_id` int(10) unsigned NOT NULL,
@@ -324,14 +324,14 @@ CREATE TABLE `genomic_feature_statistic_attrib` (
   `value` varchar(255) DEFAULT NULL,
   KEY `genomic_feature_statistic_idx` (`genomic_feature_statistic_id`),
   KEY `type_value_idx` (`attrib_type_id`,`value`)
-) ENGINE=InnoDB ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE `genomic_feature_synonym` (
   `genomic_feature_id` int(10) unsigned NOT NULL,
   `name` varchar(255) NOT NULL,
   UNIQUE KEY `name` (`genomic_feature_id`,`name`),
   KEY `genomic_feature_idx` (`genomic_feature_id`)
-) ENGINE=InnoDB ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE `meta` (
   `meta_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -341,34 +341,34 @@ CREATE TABLE `meta` (
   PRIMARY KEY (`meta_id`),
   UNIQUE KEY `species_key_value_idx` (`species_id`,`meta_key`,`meta_value`),
   KEY `species_value_idx` (`species_id`,`meta_value`)
-) ENGINE=InnoDB  ;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=latin1;
 
 CREATE TABLE `ontology_term` (
   `ontology_term_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `ontology_accession` varchar(255) NOT NULL,
   `description` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`ontology_term_id`)
-) ENGINE=InnoDB  ;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 CREATE TABLE `organ` (
   `organ_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   PRIMARY KEY (`organ_id`)
-) ENGINE=InnoDB  ;
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=latin1;
 
 CREATE TABLE `organ_panel` (
   `organ_id` int(10) unsigned NOT NULL,
   `panel_id` int(10) unsigned NOT NULL,
   PRIMARY KEY (`organ_id`,`panel_id`),
   KEY `organ_panel_idx` (`organ_id`,`panel_id`)
-) ENGINE=InnoDB ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE `panel` (
   `panel_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `is_visible` tinyint(1) unsigned NOT NULL DEFAULT '1',
   PRIMARY KEY (`panel_id`)
-) ENGINE=InnoDB  ;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 
 CREATE TABLE `phenotype` (
   `phenotype_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -380,7 +380,7 @@ CREATE TABLE `phenotype` (
   UNIQUE KEY `desc_idx` (`description`),
   KEY `name_idx` (`name`),
   KEY `stable_idx` (`stable_id`)
-) ENGINE=InnoDB  ;
+) ENGINE=InnoDB AUTO_INCREMENT=15233 DEFAULT CHARSET=latin1;
 
 CREATE TABLE `publication` (
   `publication_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -389,12 +389,12 @@ CREATE TABLE `publication` (
   `source` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`publication_id`),
   KEY `pmid_idx` (`pmid`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=28298 DEFAULT CHARSET=utf8;
 
 CREATE TABLE `search` (
   `search_term` varchar(255) NOT NULL,
   PRIMARY KEY (`search_term`)
-) ENGINE=InnoDB ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE `user` (
   `user_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -404,5 +404,5 @@ CREATE TABLE `user` (
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `user_idx` (`username`),
   UNIQUE KEY `email_idx` (`email`)
-) ENGINE=InnoDB  ;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=latin1;
 
