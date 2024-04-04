@@ -164,3 +164,7 @@ INSERT IGNORE INTO attrib (attrib_id, attrib_type_id, value) VALUES (124, 16, 's
 INSERT IGNORE INTO attrib (attrib_id, attrib_type_id, value) VALUES (125, 16, 'frameshift_variant_NMD_escaping');
 INSERT IGNORE INTO attrib (attrib_id, attrib_type_id, value) VALUES (126, 16, 'gain_of_function_variant');
 INSERT IGNORE INTO attrib (attrib_id, attrib_type_id, value) VALUES (127, 16, 'loss_of_function_variant');
+INSERT IGNORE INTO attrib (attrib_id, attrib_type_id, value) VALUES (128, 16, 'exon_loss_variant');
+INSERT IGNORE INTO attrib (attrib_id, attrib_type_id, value) VALUES (129, 16, 'tandem_duplication');
+INSERT IGNORE INTO attrib(attrib_id, attrib_type_id, value) VALUES(130, 16, 'complex_structural_alteration');
+INSERT IGNORE INTO attrib(attrib_id, attrib_type_id, value) VALUES(131, 16, 'copy_number_variation');
