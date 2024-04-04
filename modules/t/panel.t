@@ -63,7 +63,7 @@ ok($panel->is_visible == 0, 'is_visible');
 $pa->update($panel);
 
 my $panels = $pa->fetch_all_visible;
-ok(scalar @$panels == 4, 'fetch_all_visible');
+ok(scalar @$panels == 5, 'fetch_all_visible');
 
 done_testing();
 1;

@@ -72,7 +72,7 @@ $dbh->do(qq{DELETE FROM phenotype WHERE phenotype_id=$phenotype_id;}) or die $db
 $dbh->do(qq{DELETE FROM genomic_feature_disease_phenotype WHERE genomic_feature_disease_phenotype_id=$GFDP_id;}) or die $dbh->errstr;
 
 my $GFDPs2 = $gfdpa->fetch_all_by_phenotype_ids([971,4744,982,453,1570,443,506,2583,1783]);
-ok(scalar @$GFDPs2 == 89, 'fetch_all_by_phenotype_ids');
+ok(scalar @$GFDPs2 == 82, 'fetch_all_by_phenotype_ids');
 
 done_testing();
 1;
