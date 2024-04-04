@@ -13,7 +13,9 @@
 -- See the License for the specific language governing permissions and
 -- limitations under the License.
 
---28-03-2024
+
+
+#28-03-2024
 
 INSERT IGNORE INTO attrib (attrib_id, attrib_type_id, value) VALUES (128, 16, 'exon_loss_variant');
 INSERT IGNORE INTO attrib (attrib_id, attrib_type_id, value) VALUES (129, 16, 'tandem_duplication');
