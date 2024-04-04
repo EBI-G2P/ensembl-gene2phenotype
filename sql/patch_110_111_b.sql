@@ -14,11 +14,8 @@
 -- limitations under the License.
 
 
-<<<<<<< HEAD
-=======
 
 #28-03-2024
->>>>>>> 33266ecb2ed5e611c70cadd8ed4066a59396726f
 
 INSERT IGNORE INTO attrib (attrib_id, attrib_type_id, value) VALUES (128, 16, 'exon_loss_variant');
 INSERT IGNORE INTO attrib (attrib_id, attrib_type_id, value) VALUES (129, 16, 'tandem_duplication');
