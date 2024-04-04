@@ -27,5 +27,6 @@
 29	\N	patch	patch_109_110_c.sql|update_Neonatalrespiratory
 31	\N	patch	patch_109_110_d.sql|inserting new confidence category
 32	\N	patch	patch_110_111_a.sql|schema version
+33	\N	patch	patch_110_111_b.sql|adding new variant consequence to support cardiac
 1	\N	schema_type	gene2phenotype
 2	\N	schema_version	111
