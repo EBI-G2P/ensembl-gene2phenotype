@@ -42,7 +42,7 @@ ok(scalar @$gfdps == 1, 'fetch_all_by_GenomicFeatureDiseasePhenotype');
 
 my $user = $ua->fetch_by_dbID(1);
 
-my $GFD_phenotype_id = 52063;
+my $GFD_phenotype_id = 44130;
 my $comment_text = 'comment';
 
 $gfdpc = Bio::EnsEMBL::G2P::GFDPhenotypeComment->new(

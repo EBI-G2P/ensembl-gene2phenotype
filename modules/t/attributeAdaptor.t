@@ -43,7 +43,7 @@ my $g2p_panel_attribs =  {
   'Prenatal' => 43,
   'Rapid_PICU_NICU' => 47,
   'Demo' => 46,
-  'NeonatalRespiratory' => 45,
+  'Neonatal' => 45,
   'Ear' => 39,
   'Skeletal' => 83,
 };
