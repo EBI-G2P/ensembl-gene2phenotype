@@ -1,8 +1,5 @@
 #!/usr/bin/env python3
 
-# Copyright [1999-2015] Wellcome Trust Sanger Institute and the EMBL-European Bioinformatics Institute
-# Copyright [2016-2023] EMBL-European Bioinformatics Institute
-#
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -16,8 +13,8 @@
 # limitations under the License.
 
 """
-This script finds duplicated disease names in the table disease
- - flags which disease name are duplicated
+This script finds duplicated disease names in the table 'disease'
+ - flags which disease names are duplicated
  - checks if entries are used in other tables
  - prints sql queries to 'sql_file'
  - 'error_file' has all the gfd_ids that cannot be updated because same entry already exists in the db
