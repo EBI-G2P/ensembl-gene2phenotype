@@ -48,7 +48,7 @@ my $dbname = $dbc->dbname;
 my $user =  $dbc->user;
 my $pwd = $dbc->password;
 
-my $rc = system("mysqldump --single-transaction -h $host -u $user -p'$pwd' -P $port $dbname > $dump_dir/$dump_name.sql");
+my $rc = system("mysqldump --single-transaction --column-statistics=0 -h $host -u $user -p'$pwd' -P $port $dbname > $dump_dir/$dump_name.sql");
 if ($rc != 0) {
   die "Command failed\n";
 }
