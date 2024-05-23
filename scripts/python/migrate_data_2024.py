@@ -588,7 +588,7 @@ def get_mondo(url, id):
     return description
 
 def get_omim_data(id):
-    api_key = "D4s31b0ZQbqIWrPbpcyPtg"
+    api_key = ""
     url = f"https://api.omim.org/api/entry?mimNumber={id}&include=text&apiKey={api_key}&format=json"
 
     r = requests.get(url, headers={ "Content-Type" : "application/json"})    
