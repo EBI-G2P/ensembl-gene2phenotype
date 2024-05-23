@@ -26,6 +26,21 @@ import requests
 import datetime
 
 ### Fetch data from current db ###
+
+"""
+    Fetch the attribs from attrib and attrib_type tables
+
+    Output:
+            result_data (dict): for each attrib id returns the value and the attrib_type data
+                                Structure:
+                                { attrib_id : { 
+                                                attrib_value,
+                                                attrib_type_code,
+                                                attrib_type_name,
+                                                attrib_type_description
+                                              }
+                                }
+"""
 def fetch_attribs(host, port, db, user, password):
     result_data = {}
 
@@ -60,6 +75,9 @@ def fetch_attribs(host, port, db, user, password):
 
     return result_data
 
+"""
+    Return the panel name and the visibility
+"""
 def dump_panels(host, port, db, user, password):
     result_data = {}
 
@@ -90,6 +108,9 @@ def dump_panels(host, port, db, user, password):
 
     return result_data
 
+"""
+    Return the users data and the panels they can curate
+"""
 def dump_users(host, port, db, user, password, attribs):
     users_data = {}
 
@@ -126,6 +147,9 @@ def dump_users(host, port, db, user, password, attribs):
 
     return users_data
 
+"""
+    Return the publications
+"""
 def dump_publications(host, port, db, user, password):
     result = {}
     duplicated_pmids = {}
@@ -184,6 +208,9 @@ def dump_publications(host, port, db, user, password):
 
     return result
 
+"""
+    Returns phenotypes
+"""
 def dump_phenotype(host, port, db, user, password):
     result = {}
 
@@ -217,6 +244,10 @@ def dump_phenotype(host, port, db, user, password):
 
     return result
 
+"""
+    Return organ data
+    This data is going to be stored as historical data
+"""
 def dump_organ(host, port, db, user, password):
     result = {}
 
@@ -298,8 +329,11 @@ def dump_ontology(host, port, db, user, password, attribs):
                     # print(f"{row[3]}")
                     mondo_description = get_mondo(url, row[3])
                     # print(f"Description: {mondo_description}")
+                    attrib = row[2]
+                    if attrib is not None:
+                        attrib = attribs[int(list(row[2])[0])]['attrib_value']
                     result_disease[row[0]] = { 'ontology_term_id':row[1],
-                                               'mapped_by_attrib':attribs[int(list(row[2])[0])]['attrib_value'],
+                                               'mapped_by_attrib':attrib,
                                                'ontology_accession':row[3],
                                                'ontology_description':row[4],
                                                'mondo_description':mondo_description }
@@ -543,17 +577,48 @@ def get_mondo(url, id):
     r = requests.get(url, headers={ "Content-Type" : "application/json"})
 
     if not r.ok:
-        r.raise_for_status()
-        sys.exit()
+        return ''
 
     decoded = r.json()
-    # print(f"{url} : {decoded}")
     if id.startswith("MONDO") and len(decoded['response']['docs'][0]['description']) > 0:
         description = decoded['response']['docs'][0]['description'][0]
     else:
         description = ''
 
     return description
+
+def get_omim_data(id):
+    api_key = "D4s31b0ZQbqIWrPbpcyPtg"
+    url = f"https://api.omim.org/api/entry?mimNumber={id}&include=text&apiKey={api_key}&format=json"
+
+    r = requests.get(url, headers={ "Content-Type" : "application/json"})    
+
+    if not r.ok:
+        return None, None
+
+    decoded = r.json()
+
+    if len(decoded['omim']['entryList']) > 0:
+        disease = decoded['omim']['entryList'][0]['entry']['titles']['preferredTitle']
+        disease = re.sub(";.*", "", disease)
+        if 'alternativeTitles' in decoded['omim']['entryList'][0]['entry']['titles']:
+            description = decoded['omim']['entryList'][0]['entry']['titles']['alternativeTitles']
+            description = re.sub(";.*", "", description)
+            description = re.sub("\n", "; ", description)
+        else:
+            description = None
+        # description_data = decoded['omim']['entryList'][0]['entry']['textSectionList']
+        # for desc in description_data:
+        #     if desc['textSection']['textSectionName'] == 'description':
+        #         description = desc['textSection']['textSectionContent']
+        #         description = re.sub("\n+.*", "", description)
+        #         description = re.sub("\s\(.*?\)", "", description)
+        #         description = re.sub("\'", "", description)
+    else:
+        disease = None
+        description = None
+    
+    return disease, description
 
 def get_publication(url):
     r = requests.get(url, headers={ "Content-Type" : "application/json"})
@@ -626,7 +691,8 @@ def populate_attribs(host, port, db, user, password, attribs):
         'typically de novo':'typically de novo',
         'typically mosaic':'typically mosaic',
         'typified by age related penetrance':'typified by age related penetrance',
-        'typified by reduced penetrance':'typified by incomplete penetrance'
+        'typified by reduced penetrance':'typified by incomplete penetrance',
+        'incomplete penetrance':'incomplete penetrance'
     }
 
     so_mapping = { 'absent gene product':'SO:0002317', 'altered gene product structure':'SO:0002318', 'decreased gene product level':'SO:0002316',
@@ -672,12 +738,13 @@ def populate_attribs(host, port, db, user, password, attribs):
                             VALUES (%s, %s)
                         """
     
-    sql_query_ontology_term = f""" INSERT INTO ontology_term (accession, term, source_id)
-                                   VALUES (%s, %s, %s)
+    sql_query_ontology_term = f""" INSERT INTO ontology_term (accession, term, source_id, group_type_id)
+                                   VALUES (%s, %s, %s, %s)
                                """
     
     inserted_attrib_type = {}
     inserted_attrib = {}
+    group_type_id = 1
 
     connection = mysql.connector.connect(host=host,
                                          database=db,
@@ -722,7 +789,7 @@ def populate_attribs(host, port, db, user, password, attribs):
 
             for old_id in attribs:
                 if (attribs[old_id]['attrib_type_code'] == 'mutation_consequence' or attribs[old_id]['attrib_type_code'] == 'variant_consequence') and attribs[old_id]['attrib_value'] in so_mapping.keys():
-                    cursor.execute(sql_query_ontology_term, [so_mapping[attribs[old_id]['attrib_value']], attribs[old_id]['attrib_value'], 1])
+                    cursor.execute(sql_query_ontology_term, [so_mapping[attribs[old_id]['attrib_value']], attribs[old_id]['attrib_value'], 1, group_type_id])
                     connection.commit()
 
     except Error as e:
@@ -742,7 +809,9 @@ def populate_new_attribs(host, port, db, user, password):
                        'locus_type':'Locus type',
                        'reference':'Assembly reference',
                        'gene_synonym':'Gene symbol synonym',
-                       'disease_synonym':'Disease synonym'
+                       'disease_synonym':'Disease synonym',
+                       'ontology_term_group':'Type of the ontology term. It can be phenotype, disease, variant consequence, etc.',
+                       'consanguinity':'Consanguinity associated with families described in publications'
                       }
 
     attribs = {        'loss of function':'mechanism',
@@ -766,9 +835,13 @@ def populate_new_attribs(host, port, db, user, password):
                        'variant':'locus_type',
                        'region':'locus_type',
                        'grch38':'reference',
-                       'refuted':'confidence_category',
-                       'disputed':'confidence_category',
-                       'dyadic_name': 'disease_synonym'
+                       'dyadic_name': 'disease_synonym',
+                       'disease': 'ontology_term_group',
+                       'phenotype': 'ontology_term_group',
+                       'variant_type': 'ontology_term_group',
+                       'yes': 'consanguinity',
+                       'no': 'consanguinity',
+                       'unknown': 'consanguinity'
                      }
 
     sql_query = f""" INSERT INTO attrib_type (code, name, description)
@@ -812,6 +885,8 @@ def populate_new_attribs(host, port, db, user, password):
 
 def populates_user_panel(host, port, db, user, password, user_panel_data, panels_data):
     attrib_types = {}
+    staff_list = ["ola_austine", "dlemos", "seetaramaraju", "sarah_hunt", "reviewer"]
+    super_user_list = ["ecibrian", "ola_austine", "dlemos", "seetaramaraju", "sarah_hunt", "reviewer"]
 
     sql_query_user = f""" INSERT INTO user (username, email, is_staff, is_active, is_deleted, password, is_superuser)
                           VALUES (%s, %s, %s, %s, %s, %s, %s)
@@ -846,17 +921,25 @@ def populates_user_panel(host, port, db, user, password, user_panel_data, panels
                 inserted_panel[panel] = cursor.lastrowid
             
             for username in user_panel_data:
-                if username != 'diana_lemos': # TODO: remove 
-                    if username == 'anja_thormann' or username == 'fiona_cunningham' or username == 'david_fitzpatrick':
-                        is_active = 0
-                    else:
-                        is_active = 1
-                    cursor.execute(sql_query_user, [username, user_panel_data[username]['email'], 0, is_active, 0, 'g2p_default_2024', 0])
+                if username == 'anja_thormann' or username == 'fiona_cunningham' or username == 'david_fitzpatrick':
+                    is_active = 0
+                else:
+                    is_active = 1
+
+                is_staff = 0
+                if username in staff_list:
+                    is_staff = 1
+                
+                is_super_user = 0
+                if username in super_user_list:
+                    is_super_user = 1
+
+                cursor.execute(sql_query_user, [username, user_panel_data[username]['email'], is_staff, is_active, 0, 'g2p_default_2024', is_super_user])
+                connection.commit()
+                inserted_user[username] = cursor.lastrowid
+                for p in user_panel_data[username]['panels']:
+                    cursor.execute(sql_query_user_panel, [is_deleted, inserted_panel[p], inserted_user[username]])
                     connection.commit()
-                    inserted_user[username] = cursor.lastrowid
-                    for p in user_panel_data[username]['panels']:
-                        cursor.execute(sql_query_user_panel, [is_deleted, inserted_panel[p], inserted_user[username]])
-                        connection.commit()
 
     except Error as e:
         print("Error while connecting to MySQL", e)
@@ -921,12 +1004,13 @@ def populates_publications(host, port, db, user, password, publication_data):
     return inserted_publication
 
 def populates_phenotypes(host, port, db, user, password, phenotype_data):
-    sql_query_ontology_term = f""" INSERT INTO ontology_term (accession, term, description, source_id)
-                                   VALUES (%s, %s, %s, %s)
+    sql_query_ontology_term = f""" INSERT INTO ontology_term (accession, term, description, source_id, group_type_id)
+                                   VALUES (%s, %s, %s, %s, %s)
                                """
 
     inserted_ontology_term = {}
     inserted_phenotypes = {}
+    group_type_id = fetch_attrib(host, port, db, user, password, 'phenotype')
 
     connection = mysql.connector.connect(host=host,
                                          database=db,
@@ -938,7 +1022,7 @@ def populates_phenotypes(host, port, db, user, password, phenotype_data):
         if connection.is_connected():
             cursor = connection.cursor()
             for old_id in phenotype_data:
-                cursor.execute(sql_query_ontology_term, [phenotype_data[old_id]['stable_id'], phenotype_data[old_id]['name'], phenotype_data[old_id]['description'], 2])
+                cursor.execute(sql_query_ontology_term, [phenotype_data[old_id]['stable_id'], phenotype_data[old_id]['name'], phenotype_data[old_id]['description'], 2, group_type_id])
                 connection.commit()
                 inserted_phenotypes[old_id] = {'new_id':cursor.lastrowid}
 
@@ -954,12 +1038,12 @@ def populates_phenotypes(host, port, db, user, password, phenotype_data):
     return inserted_phenotypes
 
 def populates_disease(host, port, db, user, password, disease_data, disease_ontology_data):
-    sql_query_ontology_term = f""" INSERT INTO ontology_term (accession, term, description, source_id)
-                                   VALUES (%s, %s, %s, %s)
+    sql_query_ontology_term = f""" INSERT INTO ontology_term (accession, term, description, source_id, group_type_id)
+                                   VALUES (%s, %s, %s, %s, %s)
                                """
 
-    sql_query = f""" INSERT INTO disease (name, mim)
-                     VALUES (%s, %s)
+    sql_query = f""" INSERT INTO disease (name)
+                     VALUES (%s)
                  """
     
     sql_query_disease_ontology = f""" INSERT INTO disease_ontology (disease_id, mapped_by_attrib_id, ontology_term_id)
@@ -969,16 +1053,21 @@ def populates_disease(host, port, db, user, password, disease_data, disease_onto
     mapping = { 'Data source':fetch_attrib(host, port, db, user, password, 'Data source'), 
                 'OLS exact':fetch_attrib(host, port, db, user, password, 'OLS exact'), 
                 'Manual':fetch_attrib(host, port, db, user, password, 'Manual'), 
-                'OLS partial':fetch_attrib(host, port, db, user, password, 'OLS partial') 
+                'OLS partial':fetch_attrib(host, port, db, user, password, 'OLS partial'),
               }
+    
+    group_type_id = fetch_attrib(host, port, db, user, password, 'disease')
 
     inserted_mondo = {}
     inserted_ontology_term = {} # contains old (from disease) and new ontology_term ids
     inserted_disease = {}
     inserted_disease_by_name = {}
+    inserted_disease_ontology = {}
     source_id = 0
     description = None
     duplicated_ontology = {}
+    omim_ontology_inserted = {}
+    omim_ontology_term_inserted = {}
 
     connection = mysql.connector.connect(host=host,
                                          database=db,
@@ -995,34 +1084,75 @@ def populates_disease(host, port, db, user, password, disease_data, disease_onto
                     if ontology['ontology_accession'] in inserted_mondo:
                         duplicated_ontology[ontology['ontology_accession']] = 1
                     else:
+                        accession = ontology['ontology_accession']
+                        term = ontology['ontology_accession']
                         if ontology['ontology_accession'].startswith('MONDO'):
                             source_id = 3
                             if ontology['mondo_description'] == '':
                                 description = None
                             else:
                                 description = ontology['mondo_description']
-                        elif ontology['ontology_accession'].startswith('OMIM'):
+                        elif (ontology['ontology_accession'].startswith('OMIM') 
+                              or ontology['ontology_accession'].startswith('MIM')):
                             source_id = 4
+                            term = ontology['ontology_description']
                             description = ontology['ontology_description']
+                            accession = re.sub("^OMIM:|^MIM:", "", accession)
+                            if term is None:
+                                term, description = get_omim_data(accession)
                         elif ontology['ontology_accession'].startswith('Orphanet'):
                             source_id = 5
                             description = ontology['ontology_description']
-                        cursor.execute(sql_query_ontology_term, [ontology['ontology_accession'], ontology['ontology_accession'], description, source_id])
+                        cursor.execute(sql_query_ontology_term, [accession, term, description, source_id, group_type_id])
                         connection.commit()
                         inserted_ontology_term[old_id] = { 'new_ontology_term_id':cursor.lastrowid }
                         inserted_mondo[ontology['ontology_accession']] = inserted_ontology_term[old_id]
 
+                        # Save OMIM IDs
+                        if source_id == 4:
+                            omim_ontology_inserted[int(accession)] = inserted_ontology_term[old_id]['new_ontology_term_id']
+
+            # print("OMIM inserted:", omim_ontology_inserted)
+
             # Insert into disease
+            # In the old db the MIM ID was stored in the disease table but in the new schema the MIM IDs are
+            # going to be saved in ontology_term and linked to the disease in disease_ontology
             for old_id in disease_data:
+                omim_id = disease_data[old_id]['disease_mim']
                 name = disease_data[old_id]['disease_name']
                 clean_name = clean_up_disease_name(name)
                 if clean_name not in inserted_disease_by_name:
-                    cursor.execute(sql_query, [name, disease_data[old_id]['disease_mim']])
+                    cursor.execute(sql_query, [name])
                     connection.commit()
                     inserted_disease[old_id] = { 'new_disease_id':cursor.lastrowid }
                     inserted_disease_by_name[clean_name] =  { 'new_disease_id':inserted_disease[old_id]['new_disease_id'] }
                 else:
                     inserted_disease[old_id] = { 'new_disease_id':inserted_disease_by_name[clean_name]['new_disease_id'] }
+                # Insert OMIM ID in ontology
+                if omim_id is not None: #TODO
+                    # print("OMIM:", omim_id)
+                    if omim_id not in omim_ontology_inserted:
+                        # Get OMIM data from API
+                        omim_disease, omim_desc = get_omim_data(omim_id)
+                        if omim_disease is None:
+                            omim_disease = omim_id
+
+                        if omim_disease in omim_ontology_term_inserted:
+                            print(f"WARNING: OMIM term {omim_disease} already in ontology_term associated with OMIM ID {omim_ontology_term_inserted[omim_disease]}\n")
+
+                        else:
+                            # Insert OMIM ID into ontology_term
+                            # print(f"-> {omim_id}, {omim_disease}, {omim_desc}")
+                            cursor.execute(sql_query_ontology_term, [omim_id, omim_disease, omim_desc, 4, group_type_id])
+                            connection.commit()
+                            omim_ontology_inserted[omim_id] = cursor.lastrowid
+                            omim_ontology_term_inserted[omim_disease] = omim_id
+
+                    # Insert into disease_ontology
+                    new_ontology_id = omim_ontology_inserted[omim_id]
+                    cursor.execute(sql_query_disease_ontology, [inserted_disease[old_id]['new_disease_id'],  mapping['Data source'], new_ontology_id])
+                    connection.commit()
+                    inserted_disease_ontology[f"{inserted_disease[old_id]['new_disease_id']}-{new_ontology_id}"] = 1
 
             # Insert into disease_ontology
             for disease_old_id, ontology in disease_ontology_data.items():
@@ -1030,8 +1160,9 @@ def populates_disease(host, port, db, user, password, disease_data, disease_onto
                 new_disease_id = inserted_disease[disease_old_id]['new_disease_id']
                 new_ontology_id = inserted_mondo[ontology['ontology_accession']]['new_ontology_term_id']
                 # print(f"New disease id: {new_disease_id}, new ontology id: {new_ontology_id}")
-                cursor.execute(sql_query_disease_ontology, [new_disease_id,  mapping[ontology['mapped_by_attrib']], new_ontology_id])
-                connection.commit()
+                if f"{new_disease_id}-{new_ontology_id}" not in inserted_disease_ontology:
+                    cursor.execute(sql_query_disease_ontology, [new_disease_id,  mapping[ontology['mapped_by_attrib']], new_ontology_id])
+                    connection.commit()
 
     except Error as e:
         print("Error while connecting to MySQL", e)
