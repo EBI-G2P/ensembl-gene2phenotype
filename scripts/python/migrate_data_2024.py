@@ -587,6 +587,31 @@ def get_mondo(url, id):
 
     return description
 
+
+def get_omim(id):
+    disease = None
+    description = None
+
+    url = f"https://www.ebi.ac.uk/ols4/api/search?q={id}&ontology=cco"
+
+    r = requests.get(url, headers={ "Content-Type" : "application/json"})
+
+    if not r.ok:
+        return disease, description
+
+    decoded = r.json()
+    
+    if len(decoded['response']['docs']) > 0:
+        disease = decoded['response']['docs'][0]['label']
+
+        if len(decoded['response']['docs'][0]['description']) > 0:
+            description = decoded['response']['docs'][0]['description'][0]
+
+    return disease, description
+
+"""
+    Fetch OMIM disease data from the OMIM API
+"""
 def get_omim_data(id):
     api_key = ""
     url = f"https://api.omim.org/api/entry?mimNumber={id}&include=text&apiKey={api_key}&format=json"
@@ -1099,7 +1124,7 @@ def populates_disease(host, port, db, user, password, disease_data, disease_onto
                             description = ontology['ontology_description']
                             accession = re.sub("^OMIM:|^MIM:", "", accession)
                             if term is None:
-                                term, description = get_omim_data(accession)
+                                term, description = get_omim(accession)
                         elif ontology['ontology_accession'].startswith('Orphanet'):
                             source_id = 5
                             description = ontology['ontology_description']
@@ -1133,7 +1158,8 @@ def populates_disease(host, port, db, user, password, disease_data, disease_onto
                     # print("OMIM:", omim_id)
                     if omim_id not in omim_ontology_inserted:
                         # Get OMIM data from API
-                        omim_disease, omim_desc = get_omim_data(omim_id)
+                        omim_disease, omim_desc = get_omim(omim_id)
+                        omim_disease, omim_desc = None, None
                         if omim_disease is None:
                             omim_disease = omim_id
 
@@ -1150,19 +1176,28 @@ def populates_disease(host, port, db, user, password, disease_data, disease_onto
 
                     # Insert into disease_ontology
                     new_ontology_id = omim_ontology_inserted[omim_id]
-                    cursor.execute(sql_query_disease_ontology, [inserted_disease[old_id]['new_disease_id'],  mapping['Data source'], new_ontology_id])
-                    connection.commit()
-                    inserted_disease_ontology[f"{inserted_disease[old_id]['new_disease_id']}-{new_ontology_id}"] = 1
+                    key = f"{int(inserted_disease[old_id]['new_disease_id'])}-{int(new_ontology_id)}"
+                    if key not in inserted_disease_ontology:
+                        cursor.execute(sql_query_disease_ontology, [inserted_disease[old_id]['new_disease_id'],  mapping['Data source'], new_ontology_id])
+                        connection.commit()
+                        inserted_disease_ontology[key] = 1
 
             # Insert into disease_ontology
             for disease_old_id, ontology in disease_ontology_data.items():
                 # print(f"\ndisease old id: {disease_old_id}, ontology data: {ontology}")
                 new_disease_id = inserted_disease[disease_old_id]['new_disease_id']
                 new_ontology_id = inserted_mondo[ontology['ontology_accession']]['new_ontology_term_id']
-                # print(f"New disease id: {new_disease_id}, new ontology id: {new_ontology_id}")
-                if f"{new_disease_id}-{new_ontology_id}" not in inserted_disease_ontology:
-                    cursor.execute(sql_query_disease_ontology, [new_disease_id,  mapping[ontology['mapped_by_attrib']], new_ontology_id])
+                
+                mapping_id = None
+                if ontology['mapped_by_attrib'] is not None:
+                    mapping_id = mapping[ontology['mapped_by_attrib']]
+
+                # print(f"New disease id: {new_disease_id}, new ontology id: {new_ontology_id} -> {ontology['mapped_by_attrib']}")
+                key = f"{int(new_disease_id)}-{int(new_ontology_id)}"
+                if key not in inserted_disease_ontology:
+                    cursor.execute(sql_query_disease_ontology, [new_disease_id, mapping_id, new_ontology_id])
                     connection.commit()
+                    inserted_disease_ontology[key] = 1
 
     except Error as e:
         print("Error while connecting to MySQL", e)
@@ -1406,7 +1441,8 @@ def populates_lgd(host, port, db, user, password, gfd_data, inserted_publication
         'typically de novo':'typically de novo',
         'typically mosaic':'typically mosaic',
         'typified by age related penetrance':'typified by age related penetrance', # CHECK
-        'typified by reduced penetrance':'typified by incomplete penetrance' # CHECK
+        'typified by reduced penetrance':'typified by incomplete penetrance', # CHECK
+        'incomplete penetrance':'incomplete penetrance'
     }
 
     sql_query_lgd = f""" INSERT INTO locus_genotype_disease (stable_id, date_review, is_reviewed, 
@@ -1414,6 +1450,10 @@ def populates_lgd(host, port, db, user, password, gfd_data, inserted_publication
                          VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
                      """
     
+    sql_query_stable_id = f""" INSERT INTO g2p_stableid (stable_id, is_live)
+                               VALUES (%s, %s)
+                           """
+
     sql_query_lgd_panel = f""" INSERT INTO lgd_panel (is_deleted, relevance_id, lgd_id, panel_id)
                                VALUES (%s, %s, %s, %s)
                            """
@@ -1527,13 +1567,18 @@ def populates_lgd(host, port, db, user, password, gfd_data, inserted_publication
                     phenotypes.append(inserted_phenotypes[pheno_id]['new_id'])
 
                 # print(f"locus: {locus_id}, disease: {disease_id}, genotype: {genotype_id}, variant consequence: {variant_gencc_consequences}, panels confidence: {confidence}")
-                stable_id += 1
                 key = f"{locus_id}-{disease_id}-{genotype_id}" # TODO: Change to support disease updates
 
                 # Insert LGD
                 # Skip entries with multiple confidence
                 if key not in inserted_lgd.keys():
-                    cursor.execute(sql_query_lgd, [f"G2P{stable_id}", date, 1, 0, final_confidence, disease_id, genotype_id, locus_id])
+                    # Insert stable ID
+                    stable_id += 1
+                    cursor.execute(sql_query_stable_id, [f"G2P{stable_id:05d}", 1])
+                    connection.commit()
+                    stable_id_pk = cursor.lastrowid
+
+                    cursor.execute(sql_query_lgd, [stable_id_pk, date, 1, 0, final_confidence, disease_id, genotype_id, locus_id])
                     connection.commit()
                     inserted_lgd[key] = { 'id':cursor.lastrowid, 'variant_gencc_consequence':variant_gencc_consequences,
                                           'confidence':confidence, 'ccm':ccm_id, 'publications':publications,
@@ -1544,12 +1589,12 @@ def populates_lgd(host, port, db, user, password, gfd_data, inserted_publication
                     for panel_id in confidence:
                         cursor.execute(sql_query_lgd_panel, [0, confidence[panel_id], inserted_lgd[key]['id'], panel_id])
                         connection.commit()
-                    
+
                     # Insert cross cutting modifier
                     for ccm_data in ccm_id:
                         cursor.execute(sql_query_lgd_ccm, [0, ccm_data, inserted_lgd[key]['id']])
                         connection.commit()
-                    
+
                     # Insert publications
                     for pub in publications:
                         cursor.execute(sql_query_lgd_pub, [0, pub, inserted_lgd[key]['id']])
