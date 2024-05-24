@@ -613,13 +613,16 @@ def get_omim(id):
     Fetch OMIM disease data from the OMIM API
 """
 def get_omim_data(id):
+    disease = None
+    description = None
+
     api_key = ""
     url = f"https://api.omim.org/api/entry?mimNumber={id}&include=text&apiKey={api_key}&format=json"
 
     r = requests.get(url, headers={ "Content-Type" : "application/json"})    
 
     if not r.ok:
-        return None, None
+        return disease, description
 
     decoded = r.json()
 
@@ -638,11 +641,8 @@ def get_omim_data(id):
         #         description = desc['textSection']['textSectionContent']
         #         description = re.sub("\n+.*", "", description)
         #         description = re.sub("\s\(.*?\)", "", description)
-        #         description = re.sub("\'", "", description)
-    else:
-        disease = None
-        description = None
-    
+        #         description = re.sub("\'", "", description)   
+
     return disease, description
 
 def get_publication(url):
@@ -1159,7 +1159,6 @@ def populates_disease(host, port, db, user, password, disease_data, disease_onto
                     if omim_id not in omim_ontology_inserted:
                         # Get OMIM data from API
                         omim_disease, omim_desc = get_omim(omim_id)
-                        omim_disease, omim_desc = None, None
                         if omim_disease is None:
                             omim_disease = omim_id
 
