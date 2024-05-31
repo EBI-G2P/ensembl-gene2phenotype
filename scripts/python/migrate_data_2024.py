@@ -81,6 +81,21 @@ def fetch_attribs(host, port, db, user, password):
 def dump_panels(host, port, db, user, password):
     result_data = {}
 
+    map_name = {
+        "DD": "Developmental disorders",
+        "Ear": "Ear disorders",
+        "Eye": "Eye disorders",
+        "Skin": "Skin disorders",
+        "Cancer": "Cancer disorders",
+        "Prenatal": "Prenatal disorders",
+        "Neonatal": "Neonatal disorders",
+        "Demo": "Demo",
+        "Rapid_PICU_NICU": "Rapid_PICU_NICU disorders",
+        "PaedNeuro": "PaedNeuro disorders",
+        "Skeletal": "Skeletal disorders",
+        "Cardiac": "Cardiac disorders"
+    }
+
     sql_query = f""" SELECT name, is_visible
                      FROM panel """
     
@@ -97,7 +112,7 @@ def dump_panels(host, port, db, user, password):
             data = cursor.fetchall()
             if len(data) != 0:
                 for row in data:
-                    result_data[row[0]] = { 'is_visible':row[1] }
+                    result_data[row[0]] = { 'description': map_name[row[0]], 'is_visible':row[1] }
 
     except Error as e:
         print("Error while connecting to MySQL", e)
@@ -589,6 +604,10 @@ def get_mondo(url, id):
 
 
 def get_omim(id):
+    """
+        Get OMIM data from OLS
+        This is not the best way to get the data, some IDs return data from other sources.
+    """
     disease = None
     description = None
 
@@ -836,7 +855,12 @@ def populate_new_attribs(host, port, db, user, password):
                        'gene_synonym':'Gene symbol synonym',
                        'disease_synonym':'Disease synonym',
                        'ontology_term_group':'Type of the ontology term. It can be phenotype, disease, variant consequence, etc.',
-                       'consanguinity':'Consanguinity associated with families described in publications'
+                       'consanguinity':'Consanguinity associated with families described in publications',
+                       'inheritance_type':'Type of inheritance for variant types',
+                       'mechanism_evidence_function':'Molecular mechanism evidence function',
+                       'mechanism_evidence_functional_alteration':'Molecular mechanism evidence functional alteration',
+                       'mechanism_evidence_models':'Molecular mechanism evidence models',
+                       'mechanism_evidence_rescue':'Molecular mechanism evidence rescue'
                       }
 
     attribs = {        'loss of function':'mechanism',
@@ -866,7 +890,21 @@ def populate_new_attribs(host, port, db, user, password):
                        'variant_type': 'ontology_term_group',
                        'yes': 'consanguinity',
                        'no': 'consanguinity',
-                       'unknown': 'consanguinity'
+                       'unknown': 'consanguinity',
+                       'de_novo': 'inheritance_type',
+                       'inherited': 'inheritance_type',
+                       'unknown': 'inheritance_type',
+                       'biochemical': 'mechanism_evidence_function',
+                       'protein interaction': 'mechanism_evidence_function',
+                       'protein expression': 'mechanism_evidence_function',
+                       'patient cells': 'mechanism_evidence_functional_alteration',
+                       'non patient cells': 'mechanism_evidence_functional_alteration',
+                       'non-human model organism': 'mechanism_evidence_models',
+                       'cell culture model': 'mechanism_evidence_models',
+                       'human': 'mechanism_evidence_rescue',
+                       'non-human model organism': 'mechanism_evidence_rescue',
+                       'cell culture model': 'mechanism_evidence_rescue',
+                       'patient cells': 'mechanism_evidence_rescue'
                      }
 
     sql_query = f""" INSERT INTO attrib_type (code, name, description)
@@ -917,8 +955,8 @@ def populates_user_panel(host, port, db, user, password, user_panel_data, panels
                           VALUES (%s, %s, %s, %s, %s, %s, %s)
                       """
     
-    sql_query_panel = f""" INSERT INTO panel (name, is_visible)
-                            VALUES (%s, %s)
+    sql_query_panel = f""" INSERT INTO panel (name, description, is_visible)
+                            VALUES (%s, %s, %s)
                         """
     
     sql_query_user_panel = f""" INSERT INTO user_panel (is_deleted, panel_id, user_id)
@@ -941,7 +979,7 @@ def populates_user_panel(host, port, db, user, password, user_panel_data, panels
             cursor = connection.cursor()
 
             for panel in panels_data:
-                cursor.execute(sql_query_panel, [panel, panels_data[panel]['is_visible']])
+                cursor.execute(sql_query_panel, [panel, panels_data[panel]['description'], panels_data[panel]['is_visible']])
                 connection.commit()
                 inserted_panel[panel] = cursor.lastrowid
             
@@ -1124,7 +1162,7 @@ def populates_disease(host, port, db, user, password, disease_data, disease_onto
                             description = ontology['ontology_description']
                             accession = re.sub("^OMIM:|^MIM:", "", accession)
                             if term is None:
-                                term, description = get_omim(accession)
+                                term, description = get_omim_data(accession)
                         elif ontology['ontology_accession'].startswith('Orphanet'):
                             source_id = 5
                             description = ontology['ontology_description']
@@ -1158,7 +1196,7 @@ def populates_disease(host, port, db, user, password, disease_data, disease_onto
                     # print("OMIM:", omim_id)
                     if omim_id not in omim_ontology_inserted:
                         # Get OMIM data from API
-                        omim_disease, omim_desc = get_omim(omim_id)
+                        omim_disease, omim_desc = get_omim_data(omim_id)
                         if omim_disease is None:
                             omim_disease = omim_id
 
@@ -1469,8 +1507,8 @@ def populates_lgd(host, port, db, user, password, gfd_data, inserted_publication
                                VALUES (%s, %s, %s, %s)
                            """
 
-    sql_query_lgd_var = f""" INSERT INTO lgd_variant_type (is_deleted, lgd_id, variant_type_ot_id)
-                               VALUES (%s, %s, %s)
+    sql_query_lgd_var = f""" INSERT INTO lgd_variant_type (is_deleted, lgd_id, variant_type_ot_id, inherited, de_novo, unknown_inheritance)
+                               VALUES (%s, %s, %s, %s, %s, %s)
                            """
 
     sql_query_lgd_pheno = f""" INSERT INTO lgd_phenotype (is_deleted, lgd_id, phenotype_id)
@@ -1606,7 +1644,7 @@ def populates_lgd(host, port, db, user, password, gfd_data, inserted_publication
 
                     # Insert variant type
                     for var_id in variant_type_list:
-                        cursor.execute(sql_query_lgd_var, [0, inserted_lgd[key]['id'], var_id])
+                        cursor.execute(sql_query_lgd_var, [0, inserted_lgd[key]['id'], var_id, 0, 0, 0])
                         connection.commit()
                     
                     # Insert phenotypes
@@ -1642,7 +1680,7 @@ def populates_lgd(host, port, db, user, password, gfd_data, inserted_publication
                     # Insert variant type
                     for var_id in variant_type_list:
                         if var_id not in inserted_lgd[key]['variant_types']:
-                            cursor.execute(sql_query_lgd_var, [0, lgd_id, var_id])
+                            cursor.execute(sql_query_lgd_var, [0, lgd_id, var_id, 0, 0, 0])
                             connection.commit()
                     # Insert phenotypes
                     for new_pheno_id in phenotypes:
