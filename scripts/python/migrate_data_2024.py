@@ -847,9 +847,7 @@ def populate_attribs(host, port, db, user, password, attribs):
     # print(f"Inserted attribs: {inserted_attrib}")
 
 def populate_new_attribs(host, port, db, user, password):
-    attrib_types = {   'mechanism':'Type of molecular mechanism' ,
-                       'mechanism_synopsis':'Synopsis of the molecular mechanism',
-                       'support': 'The support can be inferred by the curator or taken from evidence in the paper',
+    attrib_types = {   'support': 'The support can be inferred by the curator or taken from evidence in the paper',
                        'locus_type':'Locus type',
                        'reference':'Assembly reference',
                        'gene_synonym':'Gene symbol synonym',
@@ -857,28 +855,9 @@ def populate_new_attribs(host, port, db, user, password):
                        'ontology_term_group':'Type of the ontology term. It can be phenotype, disease, variant consequence, etc.',
                        'consanguinity':'Consanguinity associated with families described in publications',
                        'inheritance_type':'Type of inheritance for variant types',
-                       'mechanism_evidence_function':'Molecular mechanism evidence function',
-                       'mechanism_evidence_functional_alteration':'Molecular mechanism evidence functional alteration',
-                       'mechanism_evidence_models':'Molecular mechanism evidence models',
-                       'mechanism_evidence_rescue':'Molecular mechanism evidence rescue'
                       }
 
-    attribs = {        'loss of function':'mechanism',
-                       'dominant negative':'mechanism',
-                       'gain of function':'mechanism',
-                       'undetermined non-loss-of-function':'mechanism',
-                       'undetermined':'mechanism',
-                       'destabilising LOF':'mechanism_synopsis',
-                       'interaction-disrupting LOF':'mechanism_synopsis',
-                       'loss of activity LOF':'mechanism_synopsis',
-                       'LOF due to protein mislocalisation':'mechanism_synopsis',
-                       'assembly-mediated dominant negative':'mechanism_synopsis',
-                       'competitive dominant-negative':'mechanism_synopsis',
-                       'assembly-mediated GOF':'mechanism_synopsis',
-                       'protein aggregation':'mechanism_synopsis',
-                       'local LOF leading to overall GOF':'mechanism_synopsis',
-                       'other GOF':'mechanism_synopsis',
-                       'inferred':'support',
+    attribs = {        'inferred':'support',
                        'evidence':'support',
                        'gene':'locus_type',
                        'variant':'locus_type',
@@ -893,27 +872,47 @@ def populate_new_attribs(host, port, db, user, password):
                        'unknown': 'consanguinity',
                        'de_novo': 'inheritance_type',
                        'inherited': 'inheritance_type',
-                       'unknown': 'inheritance_type',
-                       'biochemical': 'mechanism_evidence_function',
-                       'protein interaction': 'mechanism_evidence_function',
-                       'protein expression': 'mechanism_evidence_function',
-                       'patient cells': 'mechanism_evidence_functional_alteration',
-                       'non patient cells': 'mechanism_evidence_functional_alteration',
-                       'non-human model organism': 'mechanism_evidence_models',
-                       'cell culture model': 'mechanism_evidence_models',
-                       'human': 'mechanism_evidence_rescue',
-                       'non-human model organism': 'mechanism_evidence_rescue',
-                       'cell culture model': 'mechanism_evidence_rescue',
-                       'patient cells': 'mechanism_evidence_rescue'
+                       'unknown': 'inheritance_type'
                      }
+
+    mechanisms = {     'loss of function':['mechanism'],
+                       'dominant negative':['mechanism'],
+                       'gain of function':['mechanism'],
+                       'undetermined non-loss-of-function':['mechanism'],
+                       'undetermined':['mechanism'],
+                       'destabilising LOF':['mechanism_synopsis'],
+                       'interaction-disrupting LOF':['mechanism_synopsis'],
+                       'loss of activity LOF':['mechanism_synopsis'],
+                       'LOF due to protein mislocalisation':['mechanism_synopsis'],
+                       'assembly-mediated dominant negative':['mechanism_synopsis'],
+                       'competitive dominant-negative':['mechanism_synopsis'],
+                       'assembly-mediated GOF':['mechanism_synopsis'],
+                       'protein aggregation':['mechanism_synopsis'],
+                       'local LOF leading to overall GOF':['mechanism_synopsis'],
+                       'other GOF':['mechanism_synopsis'],
+                       'inferred':['support'],
+                       'evidence':['support'],
+                       'biochemical': ['evidence_function'],
+                       'protein interaction': ['evidence_function'],
+                       'protein expression': ['evidence_function'],
+                       'patient cells': ['evidence_functional_alteration', 'evidence_rescue'],
+                       'non patient cells': ['evidence_functional_alteration'],
+                       'non-human model organism': ['evidence_models', 'evidence_rescue'],
+                       'cell culture model': ['evidence_models', 'evidence_rescue'],
+                       'human': ['evidence_rescue']
+                 }
 
     sql_query = f""" INSERT INTO attrib_type (code, name, description)
                      VALUES (%s, %s, %s)
                  """
-    
+
     sql_query_attrib = f""" INSERT INTO attrib (value, type_id)
                             VALUES (%s, %s)
                         """
+
+    sql_ins_mechanism = f""" INSERT INTO cv_molecular_mechanism (type, subtype, value)
+                             VALUES (%s, %s, %s)
+                         """
 
     inserted = {}
 
@@ -926,6 +925,7 @@ def populate_new_attribs(host, port, db, user, password):
     try:
         if connection.is_connected():
             cursor = connection.cursor()
+            # Insert into attrib and attrib_type
             for mt, description in attrib_types.items():
                 cursor.execute(sql_query, [mt, mt, description])
                 connection.commit()
@@ -938,6 +938,17 @@ def populate_new_attribs(host, port, db, user, password):
                     attrib_type_id = inserted[t]
                 cursor.execute(sql_query_attrib, [data, attrib_type_id])
                 connection.commit()
+            
+            # Insert into cv_molecular_mechanism
+            for value, mechanism_type in mechanisms.items():
+                mechanism_subtype = None
+                for m_type in mechanism_type:
+                    if m_type.startswith("evidence"):
+                        mechanism_subtype = m_type.replace("evidence_", "")
+                        m_type = m_type.split("_",1)[0]
+
+                    cursor.execute(sql_ins_mechanism, [m_type, mechanism_subtype, value])
+                    connection.commit()
 
     except Error as e:
         print("Error while connecting to MySQL", e)
@@ -1012,8 +1023,8 @@ def populates_user_panel(host, port, db, user, password, user_panel_data, panels
             connection.close()
 
 def populates_publications(host, port, db, user, password, publication_data):
-    sql_query = f""" INSERT INTO publication (pmid, title, source, authors, year)
-                     VALUES (%s, %s, %s, %s, %s)
+    sql_query = f""" INSERT INTO publication (pmid, title, source, authors, year, doi)
+                     VALUES (%s, %s, %s, %s, %s, %s)
                  """
     
     inserted_publication = {}
@@ -1042,6 +1053,7 @@ def populates_publications(host, port, db, user, password, publication_data):
                     response = get_publication(url)
                     authors = None
                     year = None
+                    doi = None
                     if response:
                         if 'authorString' in response['result']:
                             authors = response['result']['authorString']
@@ -1050,9 +1062,11 @@ def populates_publications(host, port, db, user, password, publication_data):
                                 authors = f"{authors_split[0]} et al."
                         if 'pubYear' in response['result']:
                             year = response['result']['pubYear']
+                        if 'doi' in response['result']:
+                            doi = response['result']['doi']
 
                     # Insert publication
-                    cursor.execute(sql_query, [publication_data[old_id]['pmid'], publication_data[old_id]['title'], source, authors, year])
+                    cursor.execute(sql_query, [publication_data[old_id]['pmid'], publication_data[old_id]['title'], source, authors, year, doi])
                     connection.commit()
                     inserted_publication[old_id] = {'new_id':cursor.lastrowid}
                     pmids[publication_data[old_id]['pmid']] = 1
@@ -1109,7 +1123,7 @@ def populates_disease(host, port, db, user, password, disease_data, disease_onto
                      VALUES (%s)
                  """
     
-    sql_query_disease_ontology = f""" INSERT INTO disease_ontology (disease_id, mapped_by_attrib_id, ontology_term_id)
+    sql_query_disease_ontology = f""" INSERT INTO disease_ontology_term (disease_id, mapped_by_attrib_id, ontology_term_id)
                                       VALUES (%s, %s, %s)
                                  """
 
@@ -1228,6 +1242,8 @@ def populates_disease(host, port, db, user, password, disease_data, disease_onto
                 mapping_id = None
                 if ontology['mapped_by_attrib'] is not None:
                     mapping_id = mapping[ontology['mapped_by_attrib']]
+                else:
+                    mapping_id = mapping['Data source']
 
                 # print(f"New disease id: {new_disease_id}, new ontology id: {new_ontology_id} -> {ontology['mapped_by_attrib']}")
                 key = f"{int(new_disease_id)}-{int(new_ontology_id)}"
@@ -1245,7 +1261,7 @@ def populates_disease(host, port, db, user, password, disease_data, disease_onto
 
     return inserted_disease_by_name
 
-def populates_locus(host, port, db, user, password, genomic_feature_data, gene_symbols, ensembl_host, ensembl_port, ensembl_db, ensembl_user, ensembl_password):
+def populates_locus(host, port, db, user, password, genomic_feature_data, ensembl_host, ensembl_port, ensembl_db, ensembl_user, ensembl_password):
     sql_genes = """ SELECT g.stable_id, s.name, g.seq_region_start, g.seq_region_end, g.seq_region_strand
                     FROM gene g
                     LEFT JOIN seq_region s on s.seq_region_id = g.seq_region_id
@@ -1318,25 +1334,24 @@ def populates_locus(host, port, db, user, password, genomic_feature_data, gene_s
             cursor = connection.cursor()
             for gf_id, info in genomic_feature_data.items():
                 stable_id = info['ensembl_stable_id']
-                if info['gene_symbol'] in gene_symbols:
-                    gene_data = genes[stable_id]
-                    # Insert sequence
-                    if gene_data['sequence'] not in sequence_ids.keys():
-                        cursor.execute(sql_sequence, [gene_data['sequence'], reference_id])
-                        connection.commit()
-                        sequence_ids[gene_data['sequence']] = cursor.lastrowid
-
-                    cursor.execute(sql_query, [sequence_ids[gene_data['sequence']], gene_data['start'], gene_data['end'], gene_data['strand'],
-                                            info['gene_symbol'], locus_type_id])
+                gene_data = genes[stable_id]
+                # Insert sequence
+                if gene_data['sequence'] not in sequence_ids.keys():
+                    cursor.execute(sql_sequence, [gene_data['sequence'], reference_id])
                     connection.commit()
-                    genes_ids[gf_id] = { 'new_gf_id':cursor.lastrowid }
+                    sequence_ids[gene_data['sequence']] = cursor.lastrowid
 
-                    if info['hgnc_id'] is not None:
-                        cursor.execute(sql_query_ids, [genes_ids[gf_id]['new_gf_id'], f"HGNC:{info['hgnc_id']}", hgnc_source_id])
-                        connection.commit()
-                    if stable_id is not None:
-                        cursor.execute(sql_query_ids, [genes_ids[gf_id]['new_gf_id'], stable_id, ensembl_source_id])
-                        connection.commit()
+                cursor.execute(sql_query, [sequence_ids[gene_data['sequence']], gene_data['start'], gene_data['end'], gene_data['strand'],
+                               info['gene_symbol'], locus_type_id])
+                connection.commit()
+                genes_ids[gf_id] = { 'new_gf_id':cursor.lastrowid }
+
+                if info['hgnc_id'] is not None:
+                    cursor.execute(sql_query_ids, [genes_ids[gf_id]['new_gf_id'], f"HGNC:{info['hgnc_id']}", hgnc_source_id])
+                    connection.commit()
+                if stable_id is not None:
+                    cursor.execute(sql_query_ids, [genes_ids[gf_id]['new_gf_id'], stable_id, ensembl_source_id])
+                    connection.commit()
             # Insert into meta
             cursor.execute(sql_meta, ['locus_gene_update', datetime.datetime.now(), 0, description, ensembl_source_id, version.group()])
             connection.commit()
@@ -1561,9 +1576,9 @@ def populates_lgd(host, port, db, user, password, gfd_data, inserted_publication
                 for var_type in data['variant_consequence_attrib']:
                     # This is a molecular mechanism
                     if var_type == 'gain_of_function_variant':
-                        mechanism.append(fetch_attrib(host, port, db, user, password, 'gain of function'))
+                        mechanism.append(fetch_mechanism(host, port, db, user, password, 'gain of function', 'mechanism'))
                     elif var_type == 'loss_of_function_variant':
-                        mechanism.append(fetch_attrib(host, port, db, user, password, 'loss of function'))
+                        mechanism.append(fetch_mechanism(host, port, db, user, password, 'loss of function', 'mechanism'))
                     else:
                         variant_type_list.append(fetch_ontology(host, port, db, user, password, var_type))
 
@@ -1653,8 +1668,9 @@ def populates_lgd(host, port, db, user, password, gfd_data, inserted_publication
                         connection.commit()
 
                     # Insert mechanisms
+                    mechanism_support = fetch_mechanism(host, port, db, user, password, 'inferred', "support")
                     for mec in mechanism:
-                        cursor.execute(sql_query_lgd_mechanism, [mec, variant_gencc_consequences_support, inserted_lgd[key]['id'], 0])
+                        cursor.execute(sql_query_lgd_mechanism, [mec, mechanism_support, inserted_lgd[key]['id'], 0])
                         connection.commit()
 
                 # Merge entries - disease is the same
@@ -1688,9 +1704,10 @@ def populates_lgd(host, port, db, user, password, gfd_data, inserted_publication
                             cursor.execute(sql_query_lgd_pheno, [0, lgd_id, new_pheno_id])
                             connection.commit()
                     # Insert mechanism
+                    mechanism_support = fetch_mechanism(host, port, db, user, password, 'inferred', "support")
                     for mec in mechanism:
                         if mec not in inserted_lgd[key]['mechanisms']:
-                            cursor.execute(sql_query_lgd_mechanism, [mec, variant_gencc_consequences_support, lgd_id, 0])
+                            cursor.execute(sql_query_lgd_mechanism, [mec, mechanism_support, lgd_id, 0])
                             connection.commit()
                     
                     # TODO: update last_updated
@@ -1821,6 +1838,37 @@ def fetch_attrib(host, port, db, user, password, value):
         if connection.is_connected():
             cursor = connection.cursor()
             cursor.execute(sql_query, [value])
+            data = cursor.fetchall()
+            if len(data) != 0:
+                id = data[0][0]
+ 
+    except Error as e:
+        print("Error while connecting to MySQL", e)
+    finally:
+        if connection.is_connected():
+            cursor.close()
+            connection.close()
+
+    return id
+
+def fetch_mechanism(host, port, db, user, password, value, type):
+    id = None
+
+    sql_query = f""" SELECT id
+                     FROM cv_molecular_mechanism
+                     WHERE value = %s AND type = %s
+                 """
+
+    connection = mysql.connector.connect(host=host,
+                                         database=db,
+                                         user=user,
+                                         port=port,
+                                         password=password)
+
+    try:
+        if connection.is_connected():
+            cursor = connection.cursor()
+            cursor.execute(sql_query, [value, type])
             data = cursor.fetchall()
             if len(data) != 0:
                 id = data[0][0]
@@ -1996,10 +2044,6 @@ def main():
 
     # Populates: locus_genotype_disease
     gfd_data, last_updates, last_update_panel = dump_gfd(host, port, db, user, password, attribs)
-    gene_symbols = {}
-    for gfd_id, gfd in gfd_data.items():
-        if gfd['gene_symbol'] not in gene_symbols:
-            gene_symbols[gfd['gene_symbol']] = 1
 
     ### Store the data in the new database ###
     # Populates: source
@@ -2030,7 +2074,7 @@ def main():
     print("INFO: diseases populated")
 
     # Populates: locus, locus_attrib, locus_identifier
-    inserted_gene_ids = populates_locus(new_host, new_port, new_db, new_user, new_password, genomic_feature_data, gene_symbols, ensembl_host, ensembl_port, ensembl_db, ensembl_user, ensembl_password)
+    inserted_gene_ids = populates_locus(new_host, new_port, new_db, new_user, new_password, genomic_feature_data, ensembl_host, ensembl_port, ensembl_db, ensembl_user, ensembl_password)
     print("INFO: genes populated")
     populates_gene_synonyms(new_host, new_port, new_db, new_user, new_password, ensembl_host, ensembl_port, ensembl_db, ensembl_user, ensembl_password)
     print("INFO: genes synonyms populated")
