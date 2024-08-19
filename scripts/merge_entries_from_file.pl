@@ -12,6 +12,23 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+"""
+  Options:
+        --registry <file> : registry file pointing to G2P db
+        --file <file>     : input file with variants to merge
+        --dryrun          : test the script without running the commands on the db
+
+  Usage:
+        perl merge_entries_from_file.pl \
+          --registry_file ensembl.registry \
+          --file entries_to_merge.txt
+
+        perl merge_entries_from_file.pl \
+          --registry_file ensembl.registry \
+          --file entries_to_merge.txt \
+          --dryrun
+"""
+
 use strict;
 use warnings;
 
