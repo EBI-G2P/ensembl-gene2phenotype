@@ -297,6 +297,7 @@ def dump_ontology(host, port, db, user, password, attribs):
     so_mapping = {  '5_prime or 3_prime UTR mutation':{'so':'SO:NA', 'description':'NA'},
                     'absent gene product':{'so':'SO:0002317', 'description':'A sequence variant that results in no gene product'},
                     'altered gene product structure':{'so':'SO:0002318', 'description':'A sequence variant that alters the structure of a gene product'},
+                    'altered gene product level':{'so':'SO:0002314', 'description':'NA'},
                     'cis-regulatory or promotor mutation':{'so':'SO:NA', 'description':'NA'},
                     'decreased gene product level':{'so':'SO:0002316', 'description':'A sequence variant that decreases the level or amount of gene product produced'},
                     'increased gene product level':{'so':'SO:0002315', 'description':'A variant that increases the level or amount of gene product produced'},
@@ -740,7 +741,7 @@ def populate_attribs(host, port, db, user, password, attribs):
     }
 
     so_mapping = { 'absent gene product':'SO:0002317', 'altered gene product structure':'SO:0002318', 'decreased gene product level':'SO:0002316',
-                   'increased gene product level': 'SO:0002315', 'uncertain': 'SO:0002220',
+                   'increased gene product level': 'SO:0002315', 'uncertain': 'SO:0002220', 'altered gene product level': 'SO:0002314',
                    '3_prime_UTR_variant':'SO:0001624',
                    '5_prime_UTR_variant':'SO:0001623',
                    'frameshift_variant':'SO:0001589',
@@ -767,6 +768,9 @@ def populate_attribs(host, port, db, user, password, attribs):
                     'stop_gained_NMD_triggering':'SO:0002321',
                     'stop_lost':'SO:0001578',
                     'synonymous_variant':'SO:0001819',
+                    'ncRNA':'SO:0000655',
+                    'short_tandem_repeat_change':'SO:0002161',
+                    'copy_number_variation':'SO:0001019'
                     }
 
     for attrib in attribs:
@@ -1502,8 +1506,8 @@ def populates_lgd(host, port, db, user, password, gfd_data, inserted_publication
                          VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
                      """
     
-    sql_query_stable_id = f""" INSERT INTO g2p_stableid (stable_id, is_live)
-                               VALUES (%s, %s)
+    sql_query_stable_id = f""" INSERT INTO g2p_stableid (stable_id, is_live, is_deleted)
+                               VALUES (%s, %s, %s)
                            """
 
     sql_query_lgd_panel = f""" INSERT INTO lgd_panel (is_deleted, relevance_id, lgd_id, panel_id)
@@ -1626,7 +1630,7 @@ def populates_lgd(host, port, db, user, password, gfd_data, inserted_publication
                 if key not in inserted_lgd.keys():
                     # Insert stable ID
                     stable_id += 1
-                    cursor.execute(sql_query_stable_id, [f"G2P{stable_id:05d}", 1])
+                    cursor.execute(sql_query_stable_id, [f"G2P{stable_id:05d}", 1, 0])
                     connection.commit()
                     stable_id_pk = cursor.lastrowid
 
@@ -1714,11 +1718,11 @@ def populates_lgd(host, port, db, user, password, gfd_data, inserted_publication
 
                 elif final_confidence != inserted_lgd[key]['final_confidence']:
                     # print(f"\nKey already inserted with id: {inserted_lgd[key]}")
-                    print(f"(Different confidence) Key already in db: {key}, locus: {locus_id}, disease: {disease_id}, genotype: {genotype_id}, variant consequence: {variant_gencc_consequences}, panels confidence: {confidence}")
+                    print(f"(Different confidence) Key already in db: {key}, locus: {locus_id}, disease: {disease_id}, genotype: {genotype_id}, mechanism: {mechanism}, panels confidence: {confidence}")
 
                 else:
                     # print(f"\nKey already inserted with id: {inserted_lgd[key]}")
-                    print(f"Key already in db: {key}, locus: {locus_id}, disease: {disease_id}, genotype: {genotype_id}, variant consequence: {variant_gencc_consequences}, panels confidence: {confidence}")
+                    print(f"Key already in db: {key}, locus: {locus_id}, disease: {disease_id}, genotype: {genotype_id}, mechanism: {mechanism}, panels confidence: {confidence}")
 
     except Error as e:
         print("Error while connecting to MySQL", e)
@@ -1911,6 +1915,9 @@ def fetch_ontology(host, port, db, user, password, value):
             cursor.close()
             connection.close()
 
+    if id is None:
+        print(f"ERROR: missing ontology_term for {value}\n")
+
     return id
 
 def fetch_panel(host, port, db, user, password, name):
@@ -2060,11 +2067,12 @@ def main():
     print("INFO: user data populated")
 
     # Populates: publication
-    # inserted_publications = ''
+    # inserted_publications = {}
     inserted_publications = populates_publications(new_host, new_port, new_db, new_user, new_password, publications_data)
     print("INFO: publications populated")
 
     # Populates: phenotype
+    # inserted_phenotypes = {}
     inserted_phenotypes = populates_phenotypes(new_host, new_port, new_db, new_user, new_password, phenotype_data)
     print("INFO: phenotypes populated")
 
@@ -2080,6 +2088,7 @@ def main():
     print("INFO: genes synonyms populated")
 
     # Populates: locus_genotype_disease
+    print("INFO: Populating LGD...")
     populates_lgd(new_host, new_port, new_db, new_user, new_password, gfd_data, inserted_publications, inserted_phenotypes, last_updates, last_update_panel, inserted_disease_by_name)
     print("INFO: LGD populated")
 
