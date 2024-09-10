@@ -1320,9 +1320,10 @@ def populates_locus(host, port, db, user, password, genomic_feature_data, ensemb
     locus_type_id = fetch_attrib(host, port, db, user, password, 'gene')
     reference_id = fetch_attrib(host, port, db, user, password, 'grch38')
     hgnc_source_id = fetch_source(host, port, db, user, password, 'HGNC')
+    omim_source_id = fetch_source(host, port, db, user, password, 'OMIM')
     ensembl_source_id = fetch_source(host, port, db, user, password, 'Ensembl')
     version = re.search("[0-9]+", ensembl_db)
-    description = 'Update genes to Ensembl release 111'
+    description = f"Update genes to Ensembl release {version.group()}"
 
     genes_ids = {}
     sequence_ids = {}
@@ -1356,6 +1357,10 @@ def populates_locus(host, port, db, user, password, genomic_feature_data, ensemb
                 if stable_id is not None:
                     cursor.execute(sql_query_ids, [genes_ids[gf_id]['new_gf_id'], stable_id, ensembl_source_id])
                     connection.commit()
+                if info['mim_id'] is not None:
+                    cursor.execute(sql_query_ids, [genes_ids[gf_id]['new_gf_id'], info['mim_id'], omim_source_id])
+                    connection.commit()
+
             # Insert into meta
             cursor.execute(sql_meta, ['locus_gene_update', datetime.datetime.now(), 0, description, ensembl_source_id, version.group()])
             connection.commit()
