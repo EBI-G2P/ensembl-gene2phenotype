@@ -1357,8 +1357,8 @@ def populates_locus(host, port, db, user, password, genomic_feature_data, ensemb
                 if stable_id is not None:
                     cursor.execute(sql_query_ids, [genes_ids[gf_id]['new_gf_id'], stable_id, ensembl_source_id])
                     connection.commit()
-                if info['mim_id'] is not None:
-                    cursor.execute(sql_query_ids, [genes_ids[gf_id]['new_gf_id'], info['mim_id'], omim_source_id])
+                if info['mim'] is not None:
+                    cursor.execute(sql_query_ids, [genes_ids[gf_id]['new_gf_id'], info['mim'], omim_source_id])
                     connection.commit()
 
             # Insert into meta
