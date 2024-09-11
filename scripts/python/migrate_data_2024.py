@@ -441,6 +441,12 @@ def dump_gfd(host, port, db, user, password, attribs):
                            FROM genomic_feature_disease_panel
                            WHERE genomic_feature_disease_id = %s
                        """
+    
+    sql_query_comment = f""" SELECT c.comment_text, c.created, u.username, c.is_public
+                             FROM genomic_feature_disease_comment c
+                             LEFT JOIN user u ON u.user_id = c.user_id
+                             WHERE c.genomic_feature_disease_id = %s
+                         """
 
     sql_query_organ = f""" SELECT gfd.genomic_feature_disease_id, gfd.organ_id, o.name
                            FROM genomic_feature_disease_organ gfd
@@ -508,6 +514,7 @@ def dump_gfd(host, port, db, user, password, attribs):
                         if row[5] is not None:
                             for ccm in list(row[5]):
                                 cross_cutting_modifier.append(attribs[int(ccm)]['attrib_value'])
+
                         mutation_consequence = []
                         for mc in list(row[6]):
                             mutation_consequence.append(attribs[int(mc)]['attrib_value'])
@@ -515,6 +522,7 @@ def dump_gfd(host, port, db, user, password, attribs):
                         if row[7] is not None:
                             for mc in list(row[7]):
                                 mc_flag.append(attribs[int(mc)]['attrib_value'])
+
                         variant_consequence = []
                         if row[8] is not None:
                             for mc in list(row[8]):
@@ -545,6 +553,15 @@ def dump_gfd(host, port, db, user, password, attribs):
                                                              'date':row_pheno[2],
                                                              'user':row_pheno[3] }
 
+                        comments = []
+                        cursor.execute(sql_query_comment, [gfd_id])
+                        data_lgd_comments = cursor.fetchall()
+                        for row_comment in data_lgd_comments:
+                            comments.append({ 'comment':row_comment[0],
+                                              'created':row_comment[1],
+                                              'username': row_comment[2],
+                                              'is_public':row_comment[3] })
+
                         result[gfd_id] = { 'genomic_feature_id':row[1],
                                            'gene_symbol':row[10],
                                            'disease_id':row[2],
@@ -558,7 +575,8 @@ def dump_gfd(host, port, db, user, password, attribs):
                                            'panels':panels,
                                            'organs':organs,
                                            'publications':publications,
-                                           'phenotypes':phenotypes }
+                                           'phenotypes':phenotypes,
+                                           'comments': comments }
 
             cursor.execute(sql_query_date)
             data_date = cursor.fetchall()
@@ -1519,6 +1537,10 @@ def populates_lgd(host, port, db, user, password, gfd_data, inserted_publication
                                VALUES (%s, %s, %s, %s)
                            """
     
+    sql_query_lgd_comment = f""" INSERT INTO lgd_comment (is_deleted, is_public, lgd_id, user_id, date, comment)
+                                 VALUES (%s, %s, %s, %s, %s, %s)
+                             """
+
     sql_query_lgd_ccm = f""" INSERT INTO lgd_cross_cutting_modifier (is_deleted, ccm_id, lgd_id)
                              VALUES (%s, %s, %s)
                          """
@@ -1670,7 +1692,7 @@ def populates_lgd(host, port, db, user, password, gfd_data, inserted_publication
                     for var_id in variant_type_list:
                         cursor.execute(sql_query_lgd_var, [0, inserted_lgd[key]['id'], var_id, 0, 0, 0])
                         connection.commit()
-                    
+
                     # Insert phenotypes
                     for new_pheno_id in phenotypes:
                         cursor.execute(sql_query_lgd_pheno, [0, inserted_lgd[key]['id'], new_pheno_id])
@@ -1681,6 +1703,11 @@ def populates_lgd(host, port, db, user, password, gfd_data, inserted_publication
                     for mec in mechanism:
                         cursor.execute(sql_query_lgd_mechanism, [mec, mechanism_support, inserted_lgd[key]['id'], 0])
                         connection.commit()
+
+                    # Insert comments
+                    for comment in data['comments']:
+                        user_id = fetch_user(host, port, db, user, password, comment['username'])
+                        cursor.execute(sql_query_lgd_comment, [0, comment['is_public'], inserted_lgd[key]['id'], user_id, comment['created'], comment['comment']])
 
                 # Merge entries - disease is the same
                 elif set(variant_gencc_consequences) == set(inserted_lgd[key]['variant_gencc_consequence']) and final_confidence == inserted_lgd[key]['final_confidence']:
@@ -1974,6 +2001,37 @@ def fetch_source(host, port, db, user, password, value):
         if connection.is_connected():
             cursor = connection.cursor()
             cursor.execute(sql_query, [value])
+            data = cursor.fetchall()
+            if len(data) != 0:
+                id = data[0][0]
+ 
+    except Error as e:
+        print("Error while connecting to MySQL", e)
+    finally:
+        if connection.is_connected():
+            cursor.close()
+            connection.close()
+
+    return id
+
+def fetch_user(host, port, db, user, password, username):
+    id = None
+
+    sql_query = f""" SELECT id
+                     FROM user
+                     WHERE username = %s
+                 """
+
+    connection = mysql.connector.connect(host=host,
+                                         database=db,
+                                         user=user,
+                                         port=port,
+                                         password=password)
+
+    try:
+        if connection.is_connected():
+            cursor = connection.cursor()
+            cursor.execute(sql_query, [username])
             data = cursor.fetchall()
             if len(data) != 0:
                 id = data[0][0]
