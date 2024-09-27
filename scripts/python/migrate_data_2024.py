@@ -364,11 +364,36 @@ def dump_ontology(host, port, db, user, password, attribs):
     return result, result_disease
 
 def dump_diseases(host, port, db, user, password):
-    result = {}
+    """
+        This method dumps the diseases names and IDs (OMIM, Mondo) to be used for the migration
 
-    sql_query_user = f""" SELECT disease_id, name, mim
-                          FROM disease """
-    
+        We don't need to migrate diseases that are not used:
+        Step 1: delete from disease and disease_ontology_mapping diseases that are not used
+        in tables genomic_feature_disease and GFD_disease_synonym
+
+        On a clean disease table:
+        Step 2: select diseases to migrate
+    """
+    result = {}
+    unique_names = {}
+    duplicated_names = {} # saves the disease names that are duplicated but they have different disease_id
+
+    # To correctly migrate diseases first we should delete diseases that are not being used in gfd
+    sql_del_disease = """ delete from disease 
+                          where disease_id not in (select disease_id from genomic_feature_disease)
+                          and disease_id not in (select disease_id from GFD_disease_synonym) """
+
+    sql_del_ontology = """ delete from disease_ontology_mapping 
+                           where disease_id not in (select disease_id from disease) """
+
+    sql_query = """ SELECT d.disease_id, d.name, d.mim, gf.gene_symbol
+                    FROM disease d
+                    left join genomic_feature_disease gfd on gfd.disease_id = d.disease_id
+                    left join genomic_feature_disease_panel gfdp on gfdp.genomic_feature_disease_id = gfd.genomic_feature_disease_id
+                    left join genomic_feature gf on gf.genomic_feature_id = gfd.genomic_feature_id
+                    where gf.gene_symbol is not null and gfdp.panel_attrib is not null
+                    GROUP BY BINARY d.name, gf.gene_symbol order by d.name """
+
     connection = mysql.connector.connect(host=host,
                                          database=db,
                                          user=user,
@@ -378,12 +403,32 @@ def dump_diseases(host, port, db, user, password):
     try:
         if connection.is_connected():
             cursor = connection.cursor()
-            cursor.execute(sql_query_user)
+
+            # Delete diseases that are not used
+            cursor.execute(sql_del_disease)
+            connection.commit()
+            # Delete disease ontologies that are not used
+            cursor.execute(sql_del_ontology)
+            connection.commit()
+
+            # Select diseases to migrate
+            cursor.execute(sql_query)
             data = cursor.fetchall()
             if len(data) != 0:
                 for row in data:
-                    result[row[0]] = { 'disease_name':row[1],
-                                       'disease_mim':row[2] }
+                    if row[0] not in result:
+                        result[row[0]] = { 'disease_name':row[1],
+                                           'disease_mim':row[2],
+                                           'gene':[row[3]] }
+                        
+                        # save unique disease names
+                        if row[1] not in unique_names:
+                            unique_names[row[1]] = row[0]
+                        else:
+                            duplicated_names[row[1]] = 1
+
+                    else:
+                        result[row[0]]['gene'].append(row[3])
 
     except Error as e:
         print("Error while connecting to MySQL", e)
@@ -392,7 +437,7 @@ def dump_diseases(host, port, db, user, password):
             cursor.close()
             connection.close()
 
-    return result
+    return result, duplicated_names
 
 def dump_genes(host, port, db, user, password):
     result = {}
@@ -620,7 +665,6 @@ def get_mondo(url, id):
         description = ''
 
     return description
-
 
 def get_omim(id):
     """
@@ -1136,7 +1180,12 @@ def populates_phenotypes(host, port, db, user, password, phenotype_data):
 
     return inserted_phenotypes
 
-def populates_disease(host, port, db, user, password, disease_data, disease_ontology_data):
+def populates_disease(host, port, db, user, password, disease_data, disease_ontology_data, duplicated_names):
+    """
+        To populate diseases we have to know which gene is the disease linked to.
+        We are going to edit the disease name to include 'gene-related' if not there yet.
+    """
+
     sql_query_ontology_term = f""" INSERT INTO ontology_term (accession, term, description, source_id, group_type_id)
                                    VALUES (%s, %s, %s, %s, %s)
                                """
@@ -1154,13 +1203,14 @@ def populates_disease(host, port, db, user, password, disease_data, disease_onto
                 'Manual':fetch_attrib(host, port, db, user, password, 'Manual'), 
                 'OLS partial':fetch_attrib(host, port, db, user, password, 'OLS partial'),
               }
-    
+
     group_type_id = fetch_attrib(host, port, db, user, password, 'disease')
 
     inserted_mondo = {}
     inserted_ontology_term = {} # contains old (from disease) and new ontology_term ids
     inserted_disease = {}
-    inserted_disease_by_name = {}
+    inserted_disease_by_name = {} # key = clean disease name; values = new disease id
+    disease_genes = {}
     inserted_disease_ontology = {}
     source_id = 0
     description = None
@@ -1219,7 +1269,23 @@ def populates_disease(host, port, db, user, password, disease_data, disease_onto
             for old_id in disease_data:
                 omim_id = disease_data[old_id]['disease_mim']
                 name = disease_data[old_id]['disease_name']
+                genes = disease_data[old_id]['gene']
+
+                # Prepare the dict to return the disease name and its genes
+                disease_genes[name] = genes
+
+                # Add 'gene-related' to the disease name
+                # It's easier to do it if there is only one gene linked to the disease name
+                if len(genes) == 1 and name not in duplicated_names:
+                    name = format_disease_name(name, genes)
+                # else:
+                #     # If the disease is linked to multiple genes then we have to update the MIM ID too
+                #     # If there is no mim then we don't have to update anything
+                #     # If there is mim then we have to check what is the corresponding disease name
+                #     print(f"Old disease id: {old_id}, disease name: {name}, genes: {genes}")
+
                 clean_name = clean_up_disease_name(name)
+
                 if clean_name not in inserted_disease_by_name:
                     cursor.execute(sql_query, [name])
                     connection.commit()
@@ -1227,6 +1293,7 @@ def populates_disease(host, port, db, user, password, disease_data, disease_onto
                     inserted_disease_by_name[clean_name] =  { 'new_disease_id':inserted_disease[old_id]['new_disease_id'] }
                 else:
                     inserted_disease[old_id] = { 'new_disease_id':inserted_disease_by_name[clean_name]['new_disease_id'] }
+
                 # Insert OMIM ID in ontology
                 if omim_id is not None: #TODO
                     # print("OMIM:", omim_id)
@@ -1258,21 +1325,25 @@ def populates_disease(host, port, db, user, password, disease_data, disease_onto
             # Insert into disease_ontology
             for disease_old_id, ontology in disease_ontology_data.items():
                 # print(f"\ndisease old id: {disease_old_id}, ontology data: {ontology}")
-                new_disease_id = inserted_disease[disease_old_id]['new_disease_id']
-                new_ontology_id = inserted_mondo[ontology['ontology_accession']]['new_ontology_term_id']
-                
-                mapping_id = None
-                if ontology['mapped_by_attrib'] is not None:
-                    mapping_id = mapping[ontology['mapped_by_attrib']]
-                else:
-                    mapping_id = mapping['Data source']
 
-                # print(f"New disease id: {new_disease_id}, new ontology id: {new_ontology_id} -> {ontology['mapped_by_attrib']}")
-                key = f"{int(new_disease_id)}-{int(new_ontology_id)}"
-                if key not in inserted_disease_ontology:
-                    cursor.execute(sql_query_disease_ontology, [new_disease_id, mapping_id, new_ontology_id])
-                    connection.commit()
-                    inserted_disease_ontology[key] = 1
+                # We skipped the diseases that are not being used by any record
+                # Here we have to make sure we don't try to access a disease that was not inserted
+                if disease_old_id in inserted_disease:
+                    new_disease_id = inserted_disease[disease_old_id]['new_disease_id']
+                    new_ontology_id = inserted_mondo[ontology['ontology_accession']]['new_ontology_term_id']
+                    
+                    mapping_id = None
+                    if ontology['mapped_by_attrib'] is not None:
+                        mapping_id = mapping[ontology['mapped_by_attrib']]
+                    else:
+                        mapping_id = mapping['Data source']
+
+                    # print(f"New disease id: {new_disease_id}, new ontology id: {new_ontology_id} -> {ontology['mapped_by_attrib']}")
+                    key = f"{int(new_disease_id)}-{int(new_ontology_id)}"
+                    if key not in inserted_disease_ontology:
+                        cursor.execute(sql_query_disease_ontology, [new_disease_id, mapping_id, new_ontology_id])
+                        connection.commit()
+                        inserted_disease_ontology[key] = 1
 
     except Error as e:
         print("Error while connecting to MySQL", e)
@@ -1281,7 +1352,7 @@ def populates_disease(host, port, db, user, password, disease_data, disease_onto
             cursor.close()
             connection.close()
 
-    return inserted_disease_by_name
+    return inserted_disease_by_name, disease_genes
 
 def populates_locus(host, port, db, user, password, genomic_feature_data, ensembl_host, ensembl_port, ensembl_db, ensembl_user, ensembl_password):
     sql_genes = """ SELECT g.stable_id, s.name, g.seq_region_start, g.seq_region_end, g.seq_region_strand
@@ -1487,7 +1558,7 @@ def populates_gene_synonyms(host, port, db, user, password, ensembl_host, ensemb
             cursor.close()
             connection_g2p.close()
 
-def populates_lgd(host, port, db, user, password, gfd_data, inserted_publications, inserted_phenotypes, last_updates, last_update_panel, inserted_disease_by_name):
+def populates_lgd(host, port, db, user, password, gfd_data, inserted_publications, inserted_phenotypes, last_updates, last_update_panel, inserted_disease_by_name, disease_genes, duplicated_names):
     # url = "https://www.ebi.ac.uk/gene2phenotype/gfd?search_type=gfd&dbID="
 
     # # Check panels confidence: if they don't agree print entries to be reviewed
@@ -1568,6 +1639,9 @@ def populates_lgd(host, port, db, user, password, gfd_data, inserted_publication
     stable_id = 0
     inserted_lgd = {}
 
+    # Fetch ID for mechanism 'undetermined' - this is the default mechanism value
+    undetermined_id = fetch_mechanism(host, port, db, user, password, 'undetermined', 'mechanism')
+
     connection = mysql.connector.connect(host=host,
                                          database=db,
                                          user=user,
@@ -1578,11 +1652,25 @@ def populates_lgd(host, port, db, user, password, gfd_data, inserted_publication
         if connection.is_connected():
             cursor = connection.cursor()
             for gfd, data in gfd_data.items():
-                # print(f"\n{gfd}, {data}")
                 locus_id = fetch_locus_id(host, port, db, user, password, data['gene_symbol'])
-                # print(f"Locus id: {locus_id}")
-                new_disease_name = clean_up_disease_name(data['disease_name'])
+
+                # Clean the disease name to be able to match to the new disease id
+                # This process removes a few duplicates
+                disease_name = data['disease_name']
+                print("\nDisease name:", disease_name, "; Gene symbol:", data['gene_symbol'])
+                # Some disease names were updated to include 'gene-related'
+                # We have to add 'gene-related' to 'disease_name' before fetching the new disease id from 'inserted_disease_by_name'
+                genes = disease_genes[disease_name]
+                print("Genes:", genes)
+                # Add 'gene-related' to the disease name
+                # It's easier to do it if there is only one gene linked to the disease name
+                if len(genes) == 1 and disease_name not in duplicated_names:
+                    disease_name = format_disease_name(disease_name, genes)
+
+                new_disease_name = clean_up_disease_name(disease_name)
+                print("Clean disease name:", new_disease_name)
                 disease_id = inserted_disease_by_name[new_disease_name]['new_disease_id']
+                print("New disease id:", disease_id)
 
                 genotype_id = fetch_attrib(host, port, db, user, password, ar_mapping[data['allelic_requirement_attrib']])
 
@@ -1595,13 +1683,13 @@ def populates_lgd(host, port, db, user, password, gfd_data, inserted_publication
                 
                 if date is None:
                     date = '2010-01-01 00:00:00' # TODO: which date to use?
-                
+
                 # cross cutting modifier
                 ccm_id = []
                 for ccm in data['cross_cutting_modifier_attrib']:
                     ccm_id.append(fetch_attrib(host, port, db, user, password, ccm_mapping[ccm]))
 
-                # variant consequence ( new: variant type)
+                # variant consequence (new: variant type)
                 mechanism = []
                 variant_type_list = []
                 for var_type in data['variant_consequence_attrib']:
@@ -1612,6 +1700,10 @@ def populates_lgd(host, port, db, user, password, gfd_data, inserted_publication
                         mechanism.append(fetch_mechanism(host, port, db, user, password, 'loss of function', 'mechanism'))
                     else:
                         variant_type_list.append(fetch_ontology(host, port, db, user, password, var_type))
+
+                # Set empty mechanism to 'undetermined'
+                if len(mechanism) == 0:
+                    mechanism.append(undetermined_id)
 
                 # multiple mutation_consequence_attrib
                 # some mutation consequences are now variant type
@@ -1855,6 +1947,25 @@ def clean_up_disease_name(name):
     disease_tokens = sorted(new_disease_name.split())
 
     return " ".join(disease_tokens)
+
+def format_disease_name(name, genes):
+    """
+        Check if the disease name has the following format:
+            gene-related
+            gene-associated
+        If not, then add the gene to the disease name
+    """
+    name = name.lstrip().rstrip()
+
+    for gene in genes:
+        name_lower = name.lower()
+        gene_lower = gene.lower()
+        match = re.search(f"^{gene_lower}\s*-?\s*(related|associated)", name_lower)
+
+        if match is None:
+            name = f"{gene}-related {name}"
+
+    return name
 
 def fetch_attrib(host, port, db, user, password, value):
     id = None
@@ -2101,7 +2212,7 @@ def main():
     organ_data = dump_organ(host, port, db, user, password)
 
     # Populates: disease
-    disease_data = dump_diseases(host, port, db, user, password)
+    disease_data, duplicated_names = dump_diseases(host, port, db, user, password)
 
     # Populates: ontology_term, ontology
     # variant gencc consequence uses these terms
@@ -2141,7 +2252,7 @@ def main():
 
     # Populates: disease, disease_ontology, ontology_term
     # Update disease names before populating new db: https://www.ebi.ac.uk/panda/jira/browse/G2P-45
-    inserted_disease_by_name = populates_disease(new_host, new_port, new_db, new_user, new_password, disease_data, disease_ontology_data)
+    inserted_disease_by_name, disease_genes = populates_disease(new_host, new_port, new_db, new_user, new_password, disease_data, disease_ontology_data, duplicated_names)
     print("INFO: diseases populated")
 
     # Populates: locus, locus_attrib, locus_identifier
@@ -2152,7 +2263,7 @@ def main():
 
     # Populates: locus_genotype_disease
     print("INFO: Populating LGD...")
-    populates_lgd(new_host, new_port, new_db, new_user, new_password, gfd_data, inserted_publications, inserted_phenotypes, last_updates, last_update_panel, inserted_disease_by_name)
+    populates_lgd(new_host, new_port, new_db, new_user, new_password, gfd_data, inserted_publications, inserted_phenotypes, last_updates, last_update_panel, inserted_disease_by_name, disease_genes, duplicated_names)
     print("INFO: LGD populated")
 
 
