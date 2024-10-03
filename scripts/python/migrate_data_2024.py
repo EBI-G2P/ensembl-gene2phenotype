@@ -750,7 +750,8 @@ def populate_source(host, port, db, user, password):
                        'Orphanet': {'description':'The portal for rare diseases and orphan drugs', 'url':'https://www.orpha.net/consor/cgi-bin/index.php'},
                        'HGNC': {'description':'HUGO Gene Nomenclature Committee', 'url':'https://www.genenames.org'},
                        'Ensembl': {'description':'Ensembl', 'url':'https://www.ensembl.org'},
-                       'UniProt': {'description':'Gene function imported from UniProt', 'url':'https://www.uniprot.org'}
+                       'UniProt': {'description':'Gene function imported from UniProt', 'url':'https://www.uniprot.org'},
+                       'Marsh Mechanism probabilities': {'description':'Marsh Mechanism probabilities', 'url':'https://europepmc.org/article/MED/39172982'}
                       }
 
     sql_query = f""" INSERT INTO source (name, description, url)
@@ -840,12 +841,12 @@ def populate_attribs(host, port, db, user, password, attribs):
             attrib_types[attribs[attrib]['attrib_type_code']] = { 'name':attribs[attrib]['attrib_type_name'],
                                                                   'description':attribs[attrib]['attrib_type_description'] }
 
-    sql_query = f""" INSERT INTO attrib_type (code, name, description)
-                     VALUES (%s, %s, %s)
+    sql_query = f""" INSERT INTO attrib_type (code, name, description, is_deleted)
+                     VALUES (%s, %s, %s, %s)
                  """
     
-    sql_query_attrib = f""" INSERT INTO attrib (value, type_id)
-                            VALUES (%s, %s)
+    sql_query_attrib = f""" INSERT INTO attrib (value, type_id, description, is_deleted)
+                            VALUES (%s, %s, %s, %s)
                         """
     
     sql_query_ontology_term = f""" INSERT INTO ontology_term (accession, term, source_id, group_type_id)
@@ -869,19 +870,19 @@ def populate_attribs(host, port, db, user, password, attribs):
             for type in attrib_types:
                 # print(f"type: {type}, {attrib_types[type]}")
                 if type == 'confidence_category' or type == 'cross_cutting_modifier' or type == 'ontology_mapping':
-                    cursor.execute(sql_query, [type, attrib_types[type]['name'], attrib_types[type]['description']])
+                    cursor.execute(sql_query, [type, attrib_types[type]['name'], attrib_types[type]['description'], 0])
                     connection.commit()
                     inserted_attrib_type[type] = cursor.lastrowid
                 elif type == 'allelic_requirement':
-                    cursor.execute(sql_query, ['genotype', 'genotype', 'Mendelian inheritance terms (previously: allelic_requirement)'])
+                    cursor.execute(sql_query, ['genotype', 'genotype', 'Mendelian inheritance terms (previously: allelic_requirement)', 0])
                     connection.commit()
                     inserted_attrib_type[type] = cursor.lastrowid
                 elif type == 'mutation_consequence':
-                    cursor.execute(sql_query, ['mutation_consequence', 'Mutation consequence', 'Mutation consequence (deprecated)'])
+                    cursor.execute(sql_query, ['mutation_consequence', 'Mutation consequence', 'Mutation consequence (deprecated)', 0])
                     connection.commit()
                     inserted_attrib_type[type] = cursor.lastrowid
                 elif type == 'mutation_consequence_flag':
-                    cursor.execute(sql_query, ['mutation_consequence_flag', 'Mutation consequence flag', 'Mutation consequence flag (deprecated)'])
+                    cursor.execute(sql_query, ['mutation_consequence_flag', 'Mutation consequence flag', 'Mutation consequence flag (deprecated)', 0])
                     connection.commit()
                     inserted_attrib_type[type] = cursor.lastrowid
 
@@ -893,11 +894,13 @@ def populate_attribs(host, port, db, user, password, attribs):
                         mapping = ccm_mapping[attribs[old_id]['attrib_value']]
                     else:
                         mapping = attribs[old_id]['attrib_value']
-                    cursor.execute(sql_query_attrib, [mapping, inserted_attrib_type[attribs[old_id]['attrib_type_code']]])
+                    cursor.execute(sql_query_attrib, [mapping, inserted_attrib_type[attribs[old_id]['attrib_type_code']], None, 0])
                     connection.commit()
                     inserted_attrib[attribs[old_id]['attrib_value']] = { 'old_id':old_id, 'new_id':cursor.lastrowid }
 
             for old_id in attribs:
+                # This only inserts attribs from the old db
+                # New ontology terms are inserted in method populate_new_attribs()
                 if (attribs[old_id]['attrib_type_code'] == 'mutation_consequence' or attribs[old_id]['attrib_type_code'] == 'variant_consequence') and attribs[old_id]['attrib_value'] in so_mapping.keys():
                     cursor.execute(sql_query_ontology_term, [so_mapping[attribs[old_id]['attrib_value']], attribs[old_id]['attrib_value'], 1, group_type_id])
                     connection.commit()
@@ -921,6 +924,7 @@ def populate_new_attribs(host, port, db, user, password):
                        'ontology_term_group':'Type of the ontology term. It can be phenotype, disease, variant consequence, etc.',
                        'consanguinity':'Consanguinity associated with families described in publications',
                        'inheritance_type':'Type of inheritance for variant types',
+                       'mechanism_probabilities':'Predictions for the human UniProt reference proteome whether human protein coding genes are likely to be associated with DN, GOF, or LOF molecular disease mechanisms.'
                       }
 
     attribs = {        'inferred':'support',
@@ -938,7 +942,10 @@ def populate_new_attribs(host, port, db, user, password):
                        'unknown': 'consanguinity',
                        'de_novo': 'inheritance_type',
                        'inherited': 'inheritance_type',
-                       'unknown': 'inheritance_type'
+                       'unknown': 'inheritance_type',
+                       'gain_of_function_mp':'mechanism_probabilities',
+                       'loss_of_function_mp':'mechanism_probabilities',
+                       'dominant_negative_mp':'mechanism_probabilities'
                      }
 
     mechanisms = {     'loss of function':['mechanism'],
@@ -967,17 +974,26 @@ def populate_new_attribs(host, port, db, user, password):
                        'cell culture model': ['evidence_models', 'evidence_rescue'],
                        'human': ['evidence_rescue']
                  }
+    
+    ontology = {   'altered gene product level': 'SO:0002314',
+                    'ncRNA':'SO:0000655',
+                    'short_tandem_repeat_change':'SO:0002161'
+                }
 
-    sql_query = f""" INSERT INTO attrib_type (code, name, description)
-                     VALUES (%s, %s, %s)
+    sql_query = f""" INSERT INTO attrib_type (code, name, description, is_deleted)
+                     VALUES (%s, %s, %s, %s)
                  """
 
-    sql_query_attrib = f""" INSERT INTO attrib (value, type_id)
-                            VALUES (%s, %s)
+    sql_query_attrib = f""" INSERT INTO attrib (value, type_id, description, is_deleted)
+                            VALUES (%s, %s, %s, %s)
                         """
 
-    sql_ins_mechanism = f""" INSERT INTO cv_molecular_mechanism (type, subtype, value)
-                             VALUES (%s, %s, %s)
+    sql_ins_mechanism = f""" INSERT INTO cv_molecular_mechanism (type, subtype, value, description)
+                             VALUES (%s, %s, %s, %s)
+                         """
+    
+    sql_ins_ontology = f""" INSERT INTO ontology_term (accession, term, groupt_type_id, source_id)
+                             VALUES (%s, %s, %s, %s)
                          """
 
     inserted = {}
@@ -993,7 +1009,7 @@ def populate_new_attribs(host, port, db, user, password):
             cursor = connection.cursor()
             # Insert into attrib and attrib_type
             for mt, description in attrib_types.items():
-                cursor.execute(sql_query, [mt, mt, description])
+                cursor.execute(sql_query, [mt, mt, description, 0])
                 connection.commit()
                 inserted[mt] = cursor.lastrowid
             
@@ -1002,7 +1018,7 @@ def populate_new_attribs(host, port, db, user, password):
                     attrib_type_id = 1
                 else:
                     attrib_type_id = inserted[t]
-                cursor.execute(sql_query_attrib, [data, attrib_type_id])
+                cursor.execute(sql_query_attrib, [data, attrib_type_id, None, 0])
                 connection.commit()
             
             # Insert into cv_molecular_mechanism
@@ -1013,8 +1029,13 @@ def populate_new_attribs(host, port, db, user, password):
                         mechanism_subtype = m_type.replace("evidence_", "")
                         m_type = m_type.split("_",1)[0]
 
-                    cursor.execute(sql_ins_mechanism, [m_type, mechanism_subtype, value])
+                    cursor.execute(sql_ins_mechanism, [m_type, mechanism_subtype, value, None])
                     connection.commit()
+            
+            # Insert new ontology terms
+            for ontology_term in ontology:
+                cursor.execute(sql_ins_ontology, [ontology[ontology_term], ontology_term, 53, 1])
+                connection.commit()
 
     except Error as e:
         print("Error while connecting to MySQL", e)
@@ -1237,10 +1258,9 @@ def populates_disease(host, port, db, user, password, disease_data, disease_onto
                         term = ontology['ontology_accession']
                         if ontology['ontology_accession'].startswith('MONDO'):
                             source_id = 3
-                            if ontology['mondo_description'] == '':
-                                description = None
-                            else:
-                                description = ontology['mondo_description']
+                            if ontology['ontology_description']:
+                                term = ontology['ontology_description']
+                            description = ontology['mondo_description']
                         elif (ontology['ontology_accession'].startswith('OMIM') 
                               or ontology['ontology_accession'].startswith('MIM')):
                             source_id = 4
@@ -1248,7 +1268,7 @@ def populates_disease(host, port, db, user, password, disease_data, disease_onto
                             description = ontology['ontology_description']
                             accession = re.sub("^OMIM:|^MIM:", "", accession)
                             if term is None:
-                                term, description = get_omim_data(accession)
+                                term, description = get_omim(accession)
                         elif ontology['ontology_accession'].startswith('Orphanet'):
                             source_id = 5
                             description = ontology['ontology_description']
@@ -1299,7 +1319,7 @@ def populates_disease(host, port, db, user, password, disease_data, disease_onto
                     # print("OMIM:", omim_id)
                     if omim_id not in omim_ontology_inserted:
                         # Get OMIM data from API
-                        omim_disease, omim_desc = get_omim_data(omim_id)
+                        omim_disease, omim_desc = get_omim(omim_id)
                         if omim_disease is None:
                             omim_disease = omim_id
 
@@ -1596,8 +1616,8 @@ def populates_lgd(host, port, db, user, password, gfd_data, inserted_publication
     }
 
     sql_query_lgd = f""" INSERT INTO locus_genotype_disease (stable_id, date_review, is_reviewed, 
-                         is_deleted, confidence_id, disease_id, genotype_id, locus_id)
-                         VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+                         is_deleted, confidence_id, disease_id, genotype_id, locus_id, molecular_mechanism_id)
+                         VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
                      """
     
     sql_query_stable_id = f""" INSERT INTO g2p_stableid (stable_id, is_live, is_deleted)
@@ -1632,8 +1652,8 @@ def populates_lgd(host, port, db, user, password, gfd_data, inserted_publication
                                VALUES (%s, %s, %s)
                            """
 
-    sql_query_lgd_mechanism = f""" INSERT INTO lgd_molecular_mechanism (mechanism_id, mechanism_support_id, lgd_id, is_deleted)
-                                   VALUES (%s, %s, %s, %s)
+    sql_query_lgd_mechanism = f""" INSERT INTO molecular_mechanism (mechanism_id, mechanism_support_id, is_deleted)
+                                   VALUES (%s, %s, %s)
                                """
 
     stable_id = 0
@@ -1657,20 +1677,20 @@ def populates_lgd(host, port, db, user, password, gfd_data, inserted_publication
                 # Clean the disease name to be able to match to the new disease id
                 # This process removes a few duplicates
                 disease_name = data['disease_name']
-                print("\nDisease name:", disease_name, "; Gene symbol:", data['gene_symbol'])
+                # print("\nDisease name:", disease_name, "; Gene symbol:", data['gene_symbol'])
                 # Some disease names were updated to include 'gene-related'
                 # We have to add 'gene-related' to 'disease_name' before fetching the new disease id from 'inserted_disease_by_name'
                 genes = disease_genes[disease_name]
-                print("Genes:", genes)
+                # print("Genes:", genes)
                 # Add 'gene-related' to the disease name
                 # It's easier to do it if there is only one gene linked to the disease name
                 if len(genes) == 1 and disease_name not in duplicated_names:
                     disease_name = format_disease_name(disease_name, genes)
 
                 new_disease_name = clean_up_disease_name(disease_name)
-                print("Clean disease name:", new_disease_name)
+                # print("Clean disease name:", new_disease_name)
                 disease_id = inserted_disease_by_name[new_disease_name]['new_disease_id']
-                print("New disease id:", disease_id)
+                # print("New disease id:", disease_id)
 
                 genotype_id = fetch_attrib(host, port, db, user, password, ar_mapping[data['allelic_requirement_attrib']])
 
@@ -1741,112 +1761,111 @@ def populates_lgd(host, port, db, user, password, gfd_data, inserted_publication
                 for pheno_id in data['phenotypes']:
                     phenotypes.append(inserted_phenotypes[pheno_id]['new_id'])
 
+                # Insert mechanisms
+                mechanism_ids = []
+                mechanism_support = fetch_mechanism(host, port, db, user, password, 'inferred', "support")
+                for mec in mechanism:
+                    cursor.execute(sql_query_lgd_mechanism, [mec, mechanism_support, 0])
+                    connection.commit()
+                    mec_id = cursor.lastrowid
+                    mechanism_ids.append(mec_id)
+
                 # print(f"locus: {locus_id}, disease: {disease_id}, genotype: {genotype_id}, variant consequence: {variant_gencc_consequences}, panels confidence: {confidence}")
-                key = f"{locus_id}-{disease_id}-{genotype_id}" # TODO: Change to support disease updates
 
-                # Insert LGD
-                # Skip entries with multiple confidence
-                if key not in inserted_lgd.keys():
-                    # Insert stable ID
-                    stable_id += 1
-                    cursor.execute(sql_query_stable_id, [f"G2P{stable_id:05d}", 1, 0])
-                    connection.commit()
-                    stable_id_pk = cursor.lastrowid
+                for unique_mechanism in mechanism_ids:
+                    key = f"{locus_id}-{disease_id}-{genotype_id}-{unique_mechanism}" # TODO: Change to support disease updates
 
-                    cursor.execute(sql_query_lgd, [stable_id_pk, date, 1, 0, final_confidence, disease_id, genotype_id, locus_id])
-                    connection.commit()
-                    inserted_lgd[key] = { 'id':cursor.lastrowid, 'variant_gencc_consequence':variant_gencc_consequences,
-                                          'confidence':confidence, 'ccm':ccm_id, 'publications':publications,
-                                          'variant_types':variant_type_list, 'phenotypes':phenotypes,
-                                          'final_confidence':final_confidence, 'mechanisms':mechanism }
-
-                    # Insert lgd_panel
-                    for panel_id in confidence:
-                        cursor.execute(sql_query_lgd_panel, [0, confidence[panel_id], inserted_lgd[key]['id'], panel_id])
+                    # Insert LGD
+                    # Skip entries with multiple confidence
+                    if key not in inserted_lgd.keys():
+                        # Insert stable ID
+                        stable_id += 1
+                        cursor.execute(sql_query_stable_id, [f"G2P{stable_id:05d}", 1, 0])
                         connection.commit()
+                        stable_id_pk = cursor.lastrowid
 
-                    # Insert cross cutting modifier
-                    for ccm_data in ccm_id:
-                        cursor.execute(sql_query_lgd_ccm, [0, ccm_data, inserted_lgd[key]['id']])
+                        cursor.execute(sql_query_lgd, [stable_id_pk, date, 1, 0, final_confidence, disease_id, genotype_id, locus_id, unique_mechanism])
                         connection.commit()
+                        inserted_lgd[key] = { 'id':cursor.lastrowid, 'variant_gencc_consequence':variant_gencc_consequences,
+                                            'confidence':confidence, 'ccm':ccm_id, 'publications':publications,
+                                            'variant_types':variant_type_list, 'phenotypes':phenotypes,
+                                            'final_confidence':final_confidence, 'mechanism':unique_mechanism }
 
-                    # Insert publications
-                    for pub in publications:
-                        cursor.execute(sql_query_lgd_pub, [0, pub, inserted_lgd[key]['id']])
-                        connection.commit()
-
-                    # Insert gencc variant consequence
-                    for var_cons_gencc in variant_gencc_consequences:
-                        cursor.execute(sql_query_lgd_gencc, [0, variant_gencc_consequences_support, inserted_lgd[key]['id'], var_cons_gencc])
-                        connection.commit()
-
-                    # Insert variant type
-                    for var_id in variant_type_list:
-                        cursor.execute(sql_query_lgd_var, [0, inserted_lgd[key]['id'], var_id, 0, 0, 0])
-                        connection.commit()
-
-                    # Insert phenotypes
-                    for new_pheno_id in phenotypes:
-                        cursor.execute(sql_query_lgd_pheno, [0, inserted_lgd[key]['id'], new_pheno_id])
-                        connection.commit()
-
-                    # Insert mechanisms
-                    mechanism_support = fetch_mechanism(host, port, db, user, password, 'inferred', "support")
-                    for mec in mechanism:
-                        cursor.execute(sql_query_lgd_mechanism, [mec, mechanism_support, inserted_lgd[key]['id'], 0])
-                        connection.commit()
-
-                    # Insert comments
-                    for comment in data['comments']:
-                        user_id = fetch_user(host, port, db, user, password, comment['username'])
-                        cursor.execute(sql_query_lgd_comment, [0, comment['is_public'], inserted_lgd[key]['id'], user_id, comment['created'], comment['comment']])
-
-                # Merge entries - disease is the same
-                elif set(variant_gencc_consequences) == set(inserted_lgd[key]['variant_gencc_consequence']) and final_confidence == inserted_lgd[key]['final_confidence']:
-                    lgd_id = inserted_lgd[key]['id']
-                    print(f"Merge entries: {lgd_id}")
-                    # print(f"variant consequences: {variant_gencc_consequences} = {inserted_lgd[key]['variant_gencc_consequence']}")
-                    # Insert lgd_panel
-                    for panel_id in confidence:
-                        if panel_id not in inserted_lgd[key]['confidence']:
-                            cursor.execute(sql_query_lgd_panel, [0, confidence[panel_id], lgd_id, panel_id])
+                        # Insert lgd_panel
+                        for panel_id in confidence:
+                            cursor.execute(sql_query_lgd_panel, [0, confidence[panel_id], inserted_lgd[key]['id'], panel_id])
                             connection.commit()
-                    # Insert cross cutting modifier
-                    for ccm_data in ccm_id:
-                        if ccm_data not in inserted_lgd[key]['ccm']:
-                            cursor.execute(sql_query_lgd_ccm, [0, ccm_data, lgd_id])
-                            connection.commit()
-                    # Insert publications
-                    for pub in publications:
-                        if pub not in inserted_lgd[key]['publications']:
-                            cursor.execute(sql_query_lgd_pub, [0, pub, lgd_id])
-                            connection.commit()
-                    # Insert variant type
-                    for var_id in variant_type_list:
-                        if var_id not in inserted_lgd[key]['variant_types']:
-                            cursor.execute(sql_query_lgd_var, [0, lgd_id, var_id, 0, 0, 0])
-                            connection.commit()
-                    # Insert phenotypes
-                    for new_pheno_id in phenotypes:
-                        if new_pheno_id not in inserted_lgd[key]['phenotypes']:
-                            cursor.execute(sql_query_lgd_pheno, [0, lgd_id, new_pheno_id])
-                            connection.commit()
-                    # Insert mechanism
-                    mechanism_support = fetch_mechanism(host, port, db, user, password, 'inferred', "support")
-                    for mec in mechanism:
-                        if mec not in inserted_lgd[key]['mechanisms']:
-                            cursor.execute(sql_query_lgd_mechanism, [mec, mechanism_support, lgd_id, 0])
-                            connection.commit()
-                    
-                    # TODO: update last_updated
 
-                elif final_confidence != inserted_lgd[key]['final_confidence']:
-                    # print(f"\nKey already inserted with id: {inserted_lgd[key]}")
-                    print(f"(Different confidence) Key already in db: {key}, locus: {locus_id}, disease: {disease_id}, genotype: {genotype_id}, mechanism: {mechanism}, panels confidence: {confidence}")
+                        # Insert cross cutting modifier
+                        for ccm_data in ccm_id:
+                            cursor.execute(sql_query_lgd_ccm, [0, ccm_data, inserted_lgd[key]['id']])
+                            connection.commit()
 
-                else:
-                    # print(f"\nKey already inserted with id: {inserted_lgd[key]}")
-                    print(f"Key already in db: {key}, locus: {locus_id}, disease: {disease_id}, genotype: {genotype_id}, mechanism: {mechanism}, panels confidence: {confidence}")
+                        # Insert publications
+                        for pub in publications:
+                            cursor.execute(sql_query_lgd_pub, [0, pub, inserted_lgd[key]['id']])
+                            connection.commit()
+
+                        # Insert gencc variant consequence
+                        for var_cons_gencc in variant_gencc_consequences:
+                            cursor.execute(sql_query_lgd_gencc, [0, variant_gencc_consequences_support, inserted_lgd[key]['id'], var_cons_gencc])
+                            connection.commit()
+
+                        # Insert variant type
+                        for var_id in variant_type_list:
+                            cursor.execute(sql_query_lgd_var, [0, inserted_lgd[key]['id'], var_id, 0, 0, 0])
+                            connection.commit()
+
+                        # Insert phenotypes
+                        for new_pheno_id in phenotypes:
+                            cursor.execute(sql_query_lgd_pheno, [0, inserted_lgd[key]['id'], new_pheno_id])
+                            connection.commit()
+
+                        # Insert comments
+                        for comment in data['comments']:
+                            user_id = fetch_user(host, port, db, user, password, comment['username'])
+                            cursor.execute(sql_query_lgd_comment, [0, comment['is_public'], inserted_lgd[key]['id'], user_id, comment['created'], comment['comment']])
+
+                    # Merge entries - disease is the same
+                    elif set(variant_gencc_consequences) == set(inserted_lgd[key]['variant_gencc_consequence']) and final_confidence == inserted_lgd[key]['final_confidence']:
+                        lgd_id = inserted_lgd[key]['id']
+                        print(f"Merge entries: {lgd_id}")
+                        # print(f"variant consequences: {variant_gencc_consequences} = {inserted_lgd[key]['variant_gencc_consequence']}")
+                        # Insert lgd_panel
+                        for panel_id in confidence:
+                            if panel_id not in inserted_lgd[key]['confidence']:
+                                cursor.execute(sql_query_lgd_panel, [0, confidence[panel_id], lgd_id, panel_id])
+                                connection.commit()
+                        # Insert cross cutting modifier
+                        for ccm_data in ccm_id:
+                            if ccm_data not in inserted_lgd[key]['ccm']:
+                                cursor.execute(sql_query_lgd_ccm, [0, ccm_data, lgd_id])
+                                connection.commit()
+                        # Insert publications
+                        for pub in publications:
+                            if pub not in inserted_lgd[key]['publications']:
+                                cursor.execute(sql_query_lgd_pub, [0, pub, lgd_id])
+                                connection.commit()
+                        # Insert variant type
+                        for var_id in variant_type_list:
+                            if var_id not in inserted_lgd[key]['variant_types']:
+                                cursor.execute(sql_query_lgd_var, [0, lgd_id, var_id, 0, 0, 0])
+                                connection.commit()
+                        # Insert phenotypes
+                        for new_pheno_id in phenotypes:
+                            if new_pheno_id not in inserted_lgd[key]['phenotypes']:
+                                cursor.execute(sql_query_lgd_pheno, [0, lgd_id, new_pheno_id])
+                                connection.commit()
+
+                        # TODO: update last_updated
+
+                    elif final_confidence != inserted_lgd[key]['final_confidence']:
+                        # print(f"\nKey already inserted with id: {inserted_lgd[key]}")
+                        print(f"(Different confidence) Key already in db: {key}, locus: {locus_id}, disease: {disease_id}, genotype: {genotype_id}, panels confidence: {confidence}")
+
+                    else:
+                        # print(f"\nKey already inserted with id: {inserted_lgd[key]}")
+                        print(f"Key already in db: {key}, locus: {locus_id}, disease: {disease_id}, genotype: {genotype_id}, panels confidence: {confidence}")
 
     except Error as e:
         print("Error while connecting to MySQL", e)
