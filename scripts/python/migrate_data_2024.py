@@ -977,7 +977,9 @@ def populate_new_attribs(host, port, db, user, password):
     
     ontology = {   'altered gene product level': 'SO:0002314',
                     'ncRNA':'SO:0000655',
-                    'short_tandem_repeat_change':'SO:0002161'
+                    'short_tandem_repeat_change':'SO:0002161',
+                    'whole_partial_gene_deletion':'SO:0001893', # CHECK
+                    'whole_partial_gene_duplication':'SO:0001889' # CHECK
                 }
 
     sql_query = f""" INSERT INTO attrib_type (code, name, description, is_deleted)
