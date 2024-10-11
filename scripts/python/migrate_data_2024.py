@@ -942,11 +942,12 @@ def populate_new_attribs(host, port, db, user, password):
                        'unknown': 'consanguinity',
                        'de_novo': 'inheritance_type',
                        'inherited': 'inheritance_type',
-                       'unknown': 'inheritance_type',
                        'gain_of_function_mp':'mechanism_probabilities',
                        'loss_of_function_mp':'mechanism_probabilities',
                        'dominant_negative_mp':'mechanism_probabilities'
                      }
+
+    extra_attribs = { 'unknown': 'inheritance_type' }
 
     mechanisms = {     'loss of function':['mechanism'],
                        'dominant negative':['mechanism'],
@@ -982,21 +983,23 @@ def populate_new_attribs(host, port, db, user, password):
                     'whole_partial_gene_duplication':'SO:0001889' # CHECK
                 }
 
-    sql_query = f""" INSERT INTO attrib_type (code, name, description, is_deleted)
+    sql_query = """ INSERT INTO attrib_type (code, name, description, is_deleted)
                      VALUES (%s, %s, %s, %s)
                  """
 
-    sql_query_attrib = f""" INSERT INTO attrib (value, type_id, description, is_deleted)
+    sql_query_attrib = """ INSERT INTO attrib (value, type_id, description, is_deleted)
                             VALUES (%s, %s, %s, %s)
                         """
 
-    sql_ins_mechanism = f""" INSERT INTO cv_molecular_mechanism (type, subtype, value, description)
+    sql_ins_mechanism = """ INSERT INTO cv_molecular_mechanism (type, subtype, value, description)
                              VALUES (%s, %s, %s, %s)
                          """
     
-    sql_ins_ontology = f""" INSERT INTO ontology_term (accession, term, groupt_type_id, source_id)
+    sql_ins_ontology = """ INSERT INTO ontology_term (accession, term, group_type_id, source_id)
                              VALUES (%s, %s, %s, %s)
                          """
+
+    sql_upt_ontology_var = """ UPDATE ontology_term SET group_type_id = %s WHERE group_type_id = 1 """
 
     inserted = {}
 
@@ -1016,13 +1019,15 @@ def populate_new_attribs(host, port, db, user, password):
                 inserted[mt] = cursor.lastrowid
             
             for data, t in attribs.items():
-                if t == 'confidence_category':
-                    attrib_type_id = 1
-                else:
-                    attrib_type_id = inserted[t]
+                attrib_type_id = inserted[t]
                 cursor.execute(sql_query_attrib, [data, attrib_type_id, None, 0])
                 connection.commit()
-            
+
+            for data, t in extra_attribs.items():
+                attrib_type_id = inserted[t]
+                cursor.execute(sql_query_attrib, [data, attrib_type_id, None, 0])
+                connection.commit()
+
             # Insert into cv_molecular_mechanism
             for value, mechanism_type in mechanisms.items():
                 mechanism_subtype = None
@@ -1035,9 +1040,16 @@ def populate_new_attribs(host, port, db, user, password):
                     connection.commit()
             
             # Insert new ontology terms
+            # Before inserting the new terms, fetch the group_type_id for 'variant_type' ('ontology_term_group')
+            group_type_id = fetch_attrib(host, port, db, user, password, 'variant_type')
+            source_id = fetch_source(host, port, db, user, password, 'SO')
             for ontology_term in ontology:
-                cursor.execute(sql_ins_ontology, [ontology[ontology_term], ontology_term, 53, 1])
+                cursor.execute(sql_ins_ontology, [ontology[ontology_term], ontology_term, group_type_id, source_id])
                 connection.commit()
+
+            # Update the group_type_id to the correct id 'variant_type'
+            cursor.execute(sql_upt_ontology_var, [group_type_id])
+            connection.commit()
 
     except Error as e:
         print("Error while connecting to MySQL", e)
@@ -1047,26 +1059,32 @@ def populate_new_attribs(host, port, db, user, password):
             connection.close()
 
 def populates_user_panel(host, port, db, user, password, user_panel_data, panels_data):
-    attrib_types = {}
-    staff_list = ["ola_austine", "dlemos", "seetaramaraju", "sarah_hunt", "reviewer"]
-    super_user_list = ["ecibrian", "ola_austine", "dlemos", "seetaramaraju", "sarah_hunt", "reviewer"]
+    staff_list = ["ola_austine", "diana_lemos", "seetaramaraju", "sarah_hunt", "reviewer"]
+    super_user_list = ["ecibrian", "ola_austine", "diana_lemos", "seetaramaraju", "sarah_hunt", "reviewer"]
 
-    sql_query_user = f""" INSERT INTO user (username, email, is_staff, is_active, is_deleted, password, is_superuser)
-                          VALUES (%s, %s, %s, %s, %s, %s, %s)
+    names_to_edit = { "ecibrian": {"first": "Elena", "last": "Cibrian"},
+              "panda": {"first": "Panda", "last": "Theotokis"},
+              "seetaramaraju": {"first": "Seeta", "last": "Ramaraju"} }
+
+    sql_query_user = """ INSERT INTO user (username, email, is_staff, is_active, is_deleted, password, is_superuser, first_name, last_name)
+                          VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
+                     """
+    
+    sql_query_panel = """ INSERT INTO panel (name, description, is_visible)
+                            VALUES (%s, %s, %s)
                       """
     
-    sql_query_panel = f""" INSERT INTO panel (name, description, is_visible)
-                            VALUES (%s, %s, %s)
-                        """
-    
-    sql_query_user_panel = f""" INSERT INTO user_panel (is_deleted, panel_id, user_id)
+    sql_query_user_panel = """ INSERT INTO user_panel (is_deleted, panel_id, user_id)
                                 VALUES (%s, %s, %s)
-                            """
-    
+                           """
+
     inserted_user = {}
     inserted_panel = {}
     is_active = 1
     is_deleted = 0
+
+    # set a fake password
+    fake_password = "g2p_default_2024"
 
     connection = mysql.connector.connect(host=host,
                                          database=db,
@@ -1096,8 +1114,19 @@ def populates_user_panel(host, port, db, user, password, user_panel_data, panels
                 is_super_user = 0
                 if username in super_user_list:
                     is_super_user = 1
+                
+                # Check first and last names
+                first_name = None
+                last_name = None
+                if username in names_to_edit:
+                    first_name = names[username]["first"]
+                    last_name = names[username]["last"]
+                elif "_" in username:
+                    names = username.split("_")
+                    first_name = names[0].title()
+                    last_name = names[1].title()
 
-                cursor.execute(sql_query_user, [username, user_panel_data[username]['email'], is_staff, is_active, 0, 'g2p_default_2024', is_super_user])
+                cursor.execute(sql_query_user, [username, user_panel_data[username]['email'], is_staff, is_active, 0, fake_password, is_super_user, first_name, last_name])
                 connection.commit()
                 inserted_user[username] = cursor.lastrowid
                 for p in user_panel_data[username]['panels']:
@@ -1174,9 +1203,9 @@ def populates_phenotypes(host, port, db, user, password, phenotype_data):
                                    VALUES (%s, %s, %s, %s, %s)
                                """
 
-    inserted_ontology_term = {}
     inserted_phenotypes = {}
     group_type_id = fetch_attrib(host, port, db, user, password, 'phenotype')
+    source_id = fetch_source(host, port, db, user, password, 'HPO')
 
     connection = mysql.connector.connect(host=host,
                                          database=db,
@@ -1188,7 +1217,7 @@ def populates_phenotypes(host, port, db, user, password, phenotype_data):
         if connection.is_connected():
             cursor = connection.cursor()
             for old_id in phenotype_data:
-                cursor.execute(sql_query_ontology_term, [phenotype_data[old_id]['stable_id'], phenotype_data[old_id]['name'], phenotype_data[old_id]['description'], 2, group_type_id])
+                cursor.execute(sql_query_ontology_term, [phenotype_data[old_id]['stable_id'], phenotype_data[old_id]['name'], phenotype_data[old_id]['description'], source_id, group_type_id])
                 connection.commit()
                 inserted_phenotypes[old_id] = {'new_id':cursor.lastrowid}
 
@@ -1235,7 +1264,9 @@ def populates_disease(host, port, db, user, password, disease_data, disease_onto
     inserted_disease_by_name = {} # key = clean disease name; values = new disease id
     disease_genes = {}
     inserted_disease_ontology = {}
-    source_id = 0
+    source_id_mondo = fetch_source(host, port, db, user, password, 'Mondo')
+    source_id_omim = fetch_source(host, port, db, user, password, 'OMIM')
+    source_id_orphanet = fetch_source(host, port, db, user, password, 'Orphanet')
     description = None
     duplicated_ontology = {}
     omim_ontology_inserted = {}
@@ -1259,20 +1290,20 @@ def populates_disease(host, port, db, user, password, disease_data, disease_onto
                         accession = ontology['ontology_accession']
                         term = ontology['ontology_accession']
                         if ontology['ontology_accession'].startswith('MONDO'):
-                            source_id = 3
+                            source_id = source_id_mondo
                             if ontology['ontology_description']:
                                 term = ontology['ontology_description']
                             description = ontology['mondo_description']
                         elif (ontology['ontology_accession'].startswith('OMIM') 
                               or ontology['ontology_accession'].startswith('MIM')):
-                            source_id = 4
+                            source_id = source_id_omim
                             term = ontology['ontology_description']
                             description = ontology['ontology_description']
                             accession = re.sub("^OMIM:|^MIM:", "", accession)
                             if term is None:
-                                term, description = get_omim(accession)
+                                term, description = get_omim_data(accession)
                         elif ontology['ontology_accession'].startswith('Orphanet'):
-                            source_id = 5
+                            source_id = source_id_orphanet
                             description = ontology['ontology_description']
                         cursor.execute(sql_query_ontology_term, [accession, term, description, source_id, group_type_id])
                         connection.commit()
@@ -1321,7 +1352,7 @@ def populates_disease(host, port, db, user, password, disease_data, disease_onto
                     # print("OMIM:", omim_id)
                     if omim_id not in omim_ontology_inserted:
                         # Get OMIM data from API
-                        omim_disease, omim_desc = get_omim(omim_id)
+                        omim_disease, omim_desc = get_omim_data(omim_id)
                         if omim_disease is None:
                             omim_disease = omim_id
 
@@ -2214,6 +2245,8 @@ def main():
     ensembl_user = args.ensembl_user
     ensembl_password = args.ensembl_password
 
+    print("INFO: Fetching data from old schema...")
+
     # Populates: attrib, attrib_type
     attribs = fetch_attribs(host, port, db, user, password)
 
@@ -2247,45 +2280,55 @@ def main():
     # Populates: locus_genotype_disease
     gfd_data, last_updates, last_update_panel = dump_gfd(host, port, db, user, password, attribs)
 
+    print("INFO: Fetching data from old schema... done\n")
+
     ### Store the data in the new database ###
     # Populates: source
+    print("INFO: Populating source...")
     populate_source(new_host, new_port, new_db, new_user, new_password)
-    print("INFO: source populated")
+    print("INFO: source populated\n")
 
     # Populates: attrib, attrib_type, ontology_term (variant consequence, variant type)
+    print("INFO: Populating attribs...")
     populate_attribs(new_host, new_port, new_db, new_user, new_password, attribs)
     populate_new_attribs(new_host, new_port, new_db, new_user, new_password)
-    print("INFO: attribs populated")
+    print("INFO: attribs populated\n")
 
+    print("INFO: Populating user data...")
     # Populates: user, panel, user_panel, ontology_term
     populates_user_panel(new_host, new_port, new_db, new_user, new_password, user_panel_data, panels_data)
-    print("INFO: user data populated")
+    print("INFO: user data populated\n")
 
     # Populates: publication
     # inserted_publications = {}
+    print("INFO: Populating publications...")
     inserted_publications = populates_publications(new_host, new_port, new_db, new_user, new_password, publications_data)
-    print("INFO: publications populated")
+    print("INFO: publications populated\n")
 
     # Populates: phenotype
     # inserted_phenotypes = {}
+    print("INFO: Populating phenotypes...")
     inserted_phenotypes = populates_phenotypes(new_host, new_port, new_db, new_user, new_password, phenotype_data)
-    print("INFO: phenotypes populated")
+    print("INFO: phenotypes populated\n")
 
     # Populates: disease, disease_ontology, ontology_term
     # Update disease names before populating new db: https://www.ebi.ac.uk/panda/jira/browse/G2P-45
+    print("INFO: Populating diseases...")
     inserted_disease_by_name, disease_genes = populates_disease(new_host, new_port, new_db, new_user, new_password, disease_data, disease_ontology_data, duplicated_names)
-    print("INFO: diseases populated")
+    print("INFO: diseases populated\n")
 
     # Populates: locus, locus_attrib, locus_identifier
+    print("INFO: Populating genes...")
     inserted_gene_ids = populates_locus(new_host, new_port, new_db, new_user, new_password, genomic_feature_data, ensembl_host, ensembl_port, ensembl_db, ensembl_user, ensembl_password)
-    print("INFO: genes populated")
+    print("INFO: genes populated\n")
+    print("INFO: Populating genes synonyms...")
     populates_gene_synonyms(new_host, new_port, new_db, new_user, new_password, ensembl_host, ensembl_port, ensembl_db, ensembl_user, ensembl_password)
-    print("INFO: genes synonyms populated")
+    print("INFO: genes synonyms populated\n")
 
     # Populates: locus_genotype_disease
     print("INFO: Populating LGD...")
     populates_lgd(new_host, new_port, new_db, new_user, new_password, gfd_data, inserted_publications, inserted_phenotypes, last_updates, last_update_panel, inserted_disease_by_name, disease_genes, duplicated_names)
-    print("INFO: LGD populated")
+    print("INFO: LGD populated\n")
 
 
 if __name__ == '__main__':
