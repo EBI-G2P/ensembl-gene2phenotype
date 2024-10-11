@@ -976,6 +976,12 @@ def populate_new_attribs(host, port, db, user, password):
                        'human': ['evidence_rescue']
                  }
     
+    mechanism_descriptions_list = { "loss of function": "Loss-of-function variants involve a loss of the normal biological function of a protein. Often these are nonsense or frameshift mutations that introduce premature stop codons. Due to nonsense-mediated decay of the resulting mRNAs, most premature stop codons will result in no protein being produced, rather than a truncated protein. However, there are also many examples of loss-of-function variants that change the amino acid sequence and result in non-functional protein products. These mutations can cause a complete loss of function (amorphic), analogous to a protein null mutation, or only a partial loss of function (hypomorphic). May also include variants in regulatory regions.",
+                                    "dominant negative": "Dominant-negative variants involve the mutant protein directly or indirectly blocking the normal biological function of the wild-type protein (antimorphic). They can thus cause a disproportionate (>50%) loss of function, even though only half of the protein is mutated eg. heterozygous variants in COL1A1 that disrupt the triple collagen helix.",
+                                    "gain of function": "Gain-of-function variants have their phenotypic effect because the mutant protein does something different than the wild-type protein. Often, these variants cause disease by increasing protein activity (hypermorphic) or introducing a completely new function (neomorphic), but the specific molecular mechanisms underlying gain-of-function mutations can be complex. May also include variants in regulatory regions.",
+                                    "undetermined non-loss-of-function": "Very often it is difficult to distinguish between dominant negative and gain of function, but it is clearly a non-loss-of-function mechanism (e.g. from co-expression experiments showing a damaging effect from the mutant allele)."
+                                  }
+
     ontology = {   'altered gene product level': 'SO:0002314',
                     'ncRNA':'SO:0000655',
                     'short_tandem_repeat_change':'SO:0002161',
@@ -1017,7 +1023,7 @@ def populate_new_attribs(host, port, db, user, password):
                 cursor.execute(sql_query, [mt, mt, description, 0])
                 connection.commit()
                 inserted[mt] = cursor.lastrowid
-            
+
             for data, t in attribs.items():
                 attrib_type_id = inserted[t]
                 cursor.execute(sql_query_attrib, [data, attrib_type_id, None, 0])
@@ -1030,15 +1036,18 @@ def populate_new_attribs(host, port, db, user, password):
 
             # Insert into cv_molecular_mechanism
             for value, mechanism_type in mechanisms.items():
+                mechanism_description = None
+                if value in mechanism_descriptions_list:
+                    mechanism_description = mechanism_descriptions_list[value]
                 mechanism_subtype = None
                 for m_type in mechanism_type:
                     if m_type.startswith("evidence"):
                         mechanism_subtype = m_type.replace("evidence_", "")
                         m_type = m_type.split("_",1)[0]
 
-                    cursor.execute(sql_ins_mechanism, [m_type, mechanism_subtype, value, None])
+                    cursor.execute(sql_ins_mechanism, [m_type, mechanism_subtype, value, mechanism_description])
                     connection.commit()
-            
+
             # Insert new ontology terms
             # Before inserting the new terms, fetch the group_type_id for 'variant_type' ('ontology_term_group')
             group_type_id = fetch_attrib(host, port, db, user, password, 'variant_type')
@@ -1119,8 +1128,8 @@ def populates_user_panel(host, port, db, user, password, user_panel_data, panels
                 first_name = None
                 last_name = None
                 if username in names_to_edit:
-                    first_name = names[username]["first"]
-                    last_name = names[username]["last"]
+                    first_name = names_to_edit[username]["first"]
+                    last_name = names_to_edit[username]["last"]
                 elif "_" in username:
                     names = username.split("_")
                     first_name = names[0].title()
