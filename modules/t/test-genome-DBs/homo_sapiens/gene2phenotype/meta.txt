@@ -30,5 +30,6 @@
 33	\N	patch	patch_110_111_b.sql|adding new variant consequence to support cardiac
 34	\N	patch	patch_110_111_c.sql|Fix gfd unique constraint
 35	\N	patch	patch_111_112_a.sql|schema version
+36	\N	patch	patch_112_113_a.sql|schema version
 1	\N	schema_type	gene2phenotype
-2	\N	schema_version	112
+2	\N	schema_version	113
