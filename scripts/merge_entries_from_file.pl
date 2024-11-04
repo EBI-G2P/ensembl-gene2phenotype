@@ -12,23 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""
-  Options:
-        --registry <file> : registry file pointing to G2P db
-        --file <file>     : input file with variants to merge
-        --dryrun          : test the script without running the commands on the db
-
-  Usage:
-        perl merge_entries_from_file.pl \
-          --registry_file ensembl.registry \
-          --file entries_to_merge.txt
-
-        perl merge_entries_from_file.pl \
-          --registry_file ensembl.registry \
-          --file entries_to_merge.txt \
-          --dryrun
-"""
-
 use strict;
 use warnings;
 
@@ -43,6 +26,23 @@ use JSON;
 use Encode qw(decode encode);
 
 use Data::Dumper;
+
+=pod
+  Options:
+        --registry <file> : registry file pointing to G2P db
+        --file <file>     : input file with variants to merge
+        --dryrun          : test the script without running the commands on the db
+
+  Usage:
+        perl merge_entries_from_file.pl \
+          --registry_file ensembl.registry \
+          --file entries_to_merge.txt
+
+        perl merge_entries_from_file.pl \
+          --registry_file ensembl.registry \
+          --file entries_to_merge.txt \
+          --dryrun
+=cut
 
 my $args = scalar @ARGV;
 my $config = {};
@@ -201,7 +201,7 @@ sub process_data {
 
   for my $key (keys %{$data_to_merge}) {
     print "\n\n$key\n";
-    print Dumper($data_to_merge->{$key});
+    print "Data to merge: ", Dumper($data_to_merge->{$key});
 
     # Check the rules
     # Some rules have the disease name while others only have the panels
@@ -256,7 +256,7 @@ sub process_data {
       $gfd_to_keep = get_final_gfd($data_to_merge->{$key}->{'entries'}, $data_to_merge->{$key}->{'rules'}->{'to'}, \@rule_from, $data_to_merge->{$key}->{'rules'}->{'keep'});
     }
     else {
-      die("ERROR: cannot merge entry\n");
+      die("ERROR: cannot merge entry '$key'\n");
     }
 
     merge_entries($data_to_merge->{$key}->{'entries'}, $gfd_to_keep, $data_to_merge->{$key}->{'new_data'});
@@ -650,7 +650,6 @@ sub merge_entries {
             # Check publications already linked to GFD
             $gfd_keep_publications = $gfd->get_all_GFDPublications(); # to keep
 
-            %current_publications;
             for my $publication (@{$gfd_keep_publications}) {
               $current_publications{$publication->get_Publication()->publication_id()} = 1;
             }
@@ -778,7 +777,7 @@ sub merge_entries {
               }
             }
           }
-          else {
+          elsif(!$dryrun) {
             die("ERROR: problem with new disease: ", $new_data->{'new_disease'}, "\n");
           }
         }
