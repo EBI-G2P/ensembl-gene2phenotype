@@ -16,7 +16,6 @@
 
 """
 
-import os
 import sys
 import argparse
 import re
@@ -24,6 +23,9 @@ import mysql.connector
 from mysql.connector import Error
 import requests
 import datetime
+import faulthandler
+
+faulthandler.enable()
 
 ### Fetch data from current db ###
 
@@ -698,8 +700,7 @@ def get_omim_data(id):
     disease = None
     description = None
 
-    api_key = ""
-    url = f"https://api.omim.org/api/entry?mimNumber={id}&include=text&apiKey={api_key}&format=json"
+    url = f"https://api.omim.org/api/entry?mimNumber={id}&include=text&apiKey={omim_key_global}&format=json"
 
     r = requests.get(url, headers={ "Content-Type" : "application/json"})    
 
@@ -1334,31 +1335,31 @@ def populates_disease(host, port, db, user, password, disease_data, disease_onto
                 genes = disease_data[old_id]['gene']
 
                 # Prepare the dict to return the disease name and its genes
-                disease_genes[name] = genes
+                # The disease_data key is the old disease id, but different ids can have the 
+                # same name
+                if name in disease_genes:
+                    for gene in genes:
+                        disease_genes[name].append(gene)
+                else:
+                    disease_genes[name] = genes
 
                 # Add 'gene-related' to the disease name
                 # It's easier to do it if there is only one gene linked to the disease name
-                if len(genes) == 1 and name not in duplicated_names:
-                    name = format_disease_name(name, genes)
-                # else:
-                #     # If the disease is linked to multiple genes then we have to update the MIM ID too
-                #     # If there is no mim then we don't have to update anything
-                #     # If there is mim then we have to check what is the corresponding disease name
-                #     print(f"Old disease id: {old_id}, disease name: {name}, genes: {genes}")
+                list_names = format_disease_name(name, genes)
 
-                clean_name = clean_up_disease_name(name)
+                for name_with_gene in list_names:
+                    clean_name = clean_up_disease_name(name_with_gene)
 
-                if clean_name not in inserted_disease_by_name:
-                    cursor.execute(sql_query, [name])
-                    connection.commit()
-                    inserted_disease[old_id] = { 'new_disease_id':cursor.lastrowid }
-                    inserted_disease_by_name[clean_name] =  { 'new_disease_id':inserted_disease[old_id]['new_disease_id'] }
-                else:
-                    inserted_disease[old_id] = { 'new_disease_id':inserted_disease_by_name[clean_name]['new_disease_id'] }
+                    if clean_name not in inserted_disease_by_name:
+                        cursor.execute(sql_query, [name_with_gene])
+                        connection.commit()
+                        inserted_disease[old_id] = { 'new_disease_id':cursor.lastrowid }
+                        inserted_disease_by_name[clean_name] =  { 'new_disease_id':inserted_disease[old_id]['new_disease_id'] }
+                    else:
+                        inserted_disease[old_id] = { 'new_disease_id':inserted_disease_by_name[clean_name]['new_disease_id'] }
 
                 # Insert OMIM ID in ontology
                 if omim_id is not None: #TODO
-                    # print("OMIM:", omim_id)
                     if omim_id not in omim_ontology_inserted:
                         # Get OMIM data from API
                         omim_disease, omim_desc = get_omim_data(omim_id)
@@ -1370,7 +1371,6 @@ def populates_disease(host, port, db, user, password, disease_data, disease_onto
 
                         else:
                             # Insert OMIM ID into ontology_term
-                            # print(f"-> {omim_id}, {omim_disease}, {omim_desc}")
                             cursor.execute(sql_query_ontology_term, [omim_id, omim_disease, omim_desc, 4, group_type_id])
                             connection.commit()
                             omim_ontology_inserted[omim_id] = cursor.lastrowid
@@ -1714,7 +1714,8 @@ def populates_lgd(host, port, db, user, password, gfd_data, inserted_publication
         if connection.is_connected():
             cursor = connection.cursor()
             for gfd, data in gfd_data.items():
-                locus_id = fetch_locus_id(host, port, db, user, password, data['gene_symbol'])
+                gene_symbol = data['gene_symbol']
+                locus_id = fetch_locus_id(host, port, db, user, password, gene_symbol)
 
                 # Clean the disease name to be able to match to the new disease id
                 # This process removes a few duplicates
@@ -1726,13 +1727,19 @@ def populates_lgd(host, port, db, user, password, gfd_data, inserted_publication
                 # print("Genes:", genes)
                 # Add 'gene-related' to the disease name
                 # It's easier to do it if there is only one gene linked to the disease name
-                if len(genes) == 1 and disease_name not in duplicated_names:
-                    disease_name = format_disease_name(disease_name, genes)
+                list_names = format_disease_name(disease_name, genes)
+                disease_id = None
 
-                new_disease_name = clean_up_disease_name(disease_name)
-                # print("Clean disease name:", new_disease_name)
-                disease_id = inserted_disease_by_name[new_disease_name]['new_disease_id']
-                # print("New disease id:", disease_id)
+                for disease_name_with_gene in list_names:
+                    if(gene_symbol.lower() in disease_name_with_gene.lower()):
+                        new_disease_name = clean_up_disease_name(disease_name_with_gene)
+                        # print("Clean disease name:", new_disease_name)
+                        disease_id = inserted_disease_by_name[new_disease_name]['new_disease_id']
+                        # print("New disease id:", disease_id)
+
+                if(disease_id is None):
+                    print(f"({gene_symbol}) {disease_name}: {list_names}, genes: {genes}")
+                    sys.exit(0)
 
                 genotype_id = fetch_attrib(host, port, db, user, password, ar_mapping[data['allelic_requirement_attrib']])
 
@@ -2009,16 +2016,17 @@ def clean_up_disease_name(name):
 
     return " ".join(disease_tokens)
 
-def format_disease_name(name, genes):
+def format_disease_name(name_original, genes):
     """
         Check if the disease name has the following format:
             gene-related
             gene-associated
         If not, then add the gene to the disease name
     """
-    name = name.lstrip().rstrip()
+    list_names = []
 
     for gene in genes:
+        name = name_original.lstrip().rstrip()
         name_lower = name.lower()
         gene_lower = gene.lower()
         match = re.search(f"^{gene_lower}\s*-?\s*(related|associated)", name_lower)
@@ -2026,7 +2034,9 @@ def format_disease_name(name, genes):
         if match is None:
             name = f"{gene}-related {name}"
 
-    return name
+        list_names.append(name)
+
+    return list_names
 
 def fetch_attrib(host, port, db, user, password, value):
     id = None
@@ -2235,8 +2245,11 @@ def main():
     parser.add_argument("--ensembl_database", default='', help="Ensembl core Database name")
     parser.add_argument("--ensembl_user", default='', help="Ensembl core Username")
     parser.add_argument("--ensembl_password", default='', help="Ensembl core Password (default: '')")
+    parser.add_argument("--omim_key", default='', help="OMIM API key")
 
     args = parser.parse_args()
+
+    global omim_key_global
 
     host = args.host
     port = args.port
@@ -2253,6 +2266,7 @@ def main():
     ensembl_db = args.ensembl_database
     ensembl_user = args.ensembl_user
     ensembl_password = args.ensembl_password
+    omim_key_global = args.omim_key
 
     print("INFO: Fetching data from old schema...")
 
