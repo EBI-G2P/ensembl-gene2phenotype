@@ -18,5 +18,5 @@ ALTER TABLE user MODIFY COLUMN panel_attrib set('36','37','38','39','40','41','4
 
 UPDATE user SET panel_attrib = CONCAT(panel_attrib, ',132') WHERE FIND_IN_SET(38, panel_attrib) > 0 OR FIND_IN_SET(37, panel_attrib) > 0;
 
-INSERT INTO meta (species_id, meta_key, meta_value) VALUES (NULL, 'patch', 'patch_112_113_c.sql|Adding hearing loss panel');
+INSERT INTO meta (species_id, meta_key, meta_value) VALUES (NULL, 'patch', 'patch_112_113_b.sql|Adding hearing loss panel');
 
