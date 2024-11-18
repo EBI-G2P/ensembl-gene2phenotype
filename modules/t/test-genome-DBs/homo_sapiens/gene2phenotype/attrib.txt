@@ -117,6 +117,7 @@
 129	16	tandem_duplication
 130	16	complex_structural_alteration
 131	16	copy_number_variation
+132	4	hearing loss
 437	6	Data source
 438	6	OLS exact
 439	6	OLS partial
