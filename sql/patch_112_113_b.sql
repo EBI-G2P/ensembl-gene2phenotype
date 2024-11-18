@@ -10,9 +10,9 @@
 -- See the License for the specific language governing permissions and
 -- limitations under the License.
 
-INSERT IGNORE INTO attrib (attrib_id, attrib_type_id, value) VALUES (132, 4, 'hearing loss');
+INSERT IGNORE INTO attrib (attrib_id, attrib_type_id, value) VALUES (132, 4, 'Hearing loss');
 
-INSERT IGNORE INTO panel (panel_id, name, is_visible) VALUES (13, "hearing_loss", 1);
+INSERT IGNORE INTO panel (panel_id, name, is_visible) VALUES (13, "Hearing loss", 1);
 
 ALTER TABLE user MODIFY COLUMN panel_attrib set('36','37','38','39','40','41','42','43','45','46','47','48','83','132') DEFAULT NULL;
 
