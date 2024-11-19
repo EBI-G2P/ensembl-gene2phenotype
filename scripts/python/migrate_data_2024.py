@@ -869,7 +869,9 @@ def populate_attribs(host, port, db, user, password, attribs):
                         mapping = ccm_mapping[attribs[old_id]['attrib_value']]
                     else:
                         mapping = attribs[old_id]['attrib_value']
-                    cursor.execute(sql_query_attrib, [mapping, inserted_attrib_type[attribs[old_id]['attrib_type_code']], None, 0])
+                        attrib_code = inserted_attrib_type[attribs[old_id]['attrib_type_code']]
+                        attrib_description = get_attrib_description[attrib_code]
+                    cursor.execute(sql_query_attrib, [mapping, attrib_code, attrib_description, 0])
                     connection.commit()
                     inserted_attrib[attribs[old_id]['attrib_value']] = { 'old_id':old_id, 'new_id':cursor.lastrowid }
 
@@ -2220,6 +2222,37 @@ def fetch_user(host, port, db, user, password, username):
             connection.close()
 
     return id
+
+def get_attrib_description(attrib_code):
+    attribs_descriptions = {
+        "definitive": "The role of this gene in this particular disease has been repeatedly demonstrated in both the research and clinical diagnostic settings, and has been upheld over time (at least 2 independent publication over 3 years' time). No convincing evidence has emerged that contradicts the role of the gene in the specified disease. (previously labelled as confirmed).",
+        "limited": "Little human evidence exists to support a casual role for this gene in this disease, but not all evidence has been refuted. For example, there may be a collection of rare missense variants in humans but without convincing functional impact, segregration data that could either arise by chance (e.g across one or two meioses) or does not implicate a single gene, or functional data without direct recapitulation of the phenotype. Overall, the body of evidence does not meet contemporary criteria for claiming a valid association with disease. The majority are probably false associations. (previously labelled as possible).",
+        "strong": "The role of this gene as a monogenic cause of disease has been repeatedly and independently demonstrated providing very strong convincing evidence in humans and no conflicting evidence for this gene's role in this disease. (previously labelled as probable).",
+        "requires heterozygosity": "Different variation of the same gene is required. The different mutations are inherited from both parents.",
+        "typically de novo": "Plausible disease causing mutations that occur post zygotically (formation of gametes).",
+        "typically mosaic": "Plausible disease causing mutations identified on one allele in a proportion of cells with the others being wild-type.",
+        "typified by age related penetrance": "Plausible disease causing mutation identified but the expression of the disease may be changed by age.",
+        "typified by incomplete penetrance": "Description of conditions in which not all individuals with a given genotype exhibit the disease. Penetrance is the proportion that develop disease given a lifespan of 80 years. Examples include, CYP1B1 glaucoma which has approximately 90% penetrance; Van der Woude syndrome due to IRF6 causes cleft lip and/or palate with penetrance estimated at 80%; C9orf72 causes frontotemporal dementia and/or amyotrophic lateral sclerosis with approximately 50% penetrance.",
+        "biallelic_autosomal": "Plausible disease-causing homozygous or compound heterozygous mutations identified on both alleles in the autosomal chromosome.",
+        "biallelic_PAR": "Plausible disease-causing homozygous or compound heterozygous mutations identified on both alleles found in the pseudoautosomal regions. Inheritance is not strictly sex-linked.",
+        "mitochondrial": "Plausible disease-causing mutations identified on mitochondrial DNA where homoplasmy or heteroplasmy are associated with a specific disorder.",
+        "monoallelic_autosomal": "Plausible disease-causing mutations on an autosomal chromosome identified on one allele in all or the vast majority of with specific disorder.",
+        "monoallelic_PAR": "Plausible disease-causing mutations identified in an allele found in the pseudoautosomal regions. Inheritance is not strictly sex-linked.",
+        "monoallelic_X_hemizygous": "Plausible disease-causing mutations identified on the X chromosome in a male as a cause of a specific disease, the disorder being predominantly recessive in female carriers.",
+        "monoallelic_X_heterozygous": "Plausible disease-causing mutations identified in one copy of the X chromosome in females as a cause of a specific disease, include disorders where heterozygous females and hemizygous males are similarly affected e.g SMC1A mutations.",
+        "monoallelic_Y_hemizygous": "Plausible disease-causing mutations identified in an allele found in the Y chromosome. The Y chromosome is passed from father to son as this mutation may affect only males.",
+        "moderate": "There is moderate evidence in humans to support a casual role for this gene in this disease with no contradictory evidence. The body of evidence is not large (e.g possibly only one key paper) but appears convincing enough that the gene-disease pair is likely to be validated with additional evidence in the near future.",
+        "incomplete penetrance": "Plausible disease-causing mutations from an apparently unaffected parent on several occasions.",
+        "disputed": "Although evidence has been reported, other evidence of equal weight disputes the claim.",
+        "refuted": "There has been an assertion of a gene-disease association in the literature, but new valid evidence has arisen that refutes the entire original body of evidence."
+    }
+
+    description = None
+
+    if attrib_code in attribs_descriptions:
+        description = attribs_descriptions[attrib_code]
+
+    return description
 
 
 def main():
