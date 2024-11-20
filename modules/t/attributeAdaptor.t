@@ -46,6 +46,7 @@ my $g2p_panel_attribs =  {
   'Neonatal' => 45,
   'Ear' => 39,
   'Skeletal' => 83,
+  'Hearing Loss' => 132
 };
 
 my $attribs = $aa->get_values_by_type('g2p_panel');
