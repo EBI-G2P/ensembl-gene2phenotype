@@ -624,6 +624,65 @@ def dump_gfd(host, port, db, user, password, attribs):
 
     return result, last_update, last_update_panel
 
+def dump_logs(host, port, db, user, password):
+    gfd_log = {}
+    gfd_panel_log = {}
+    gfd_phenotype_log = {}
+
+    sql_query_gfd_log = """ SELECT l.genomic_feature_disease_id, l.created, l.action, u.username
+                            FROM genomic_feature_disease_log l 
+                            LEFT JOIN user u ON u.user_id = l.user_id """
+    
+    sql_query_gfd_panel_log = """ SELECT l.genomic_feature_disease_id, l.created, l.action, u.username
+                                  FROM genomic_feature_disease_panel_log l 
+                                  LEFT JOIN user u ON u.user_id = l.user_id """
+
+    sql_query_gfd_phenotype_log = """ SELECT l.genomic_feature_disease_id, l.created, l.action, u.username
+                                      FROM GFD_phenotype_log l 
+                                      LEFT JOIN user u ON u.user_id = l.user_id """
+
+    connection = mysql.connector.connect(host=host,
+                                         database=db,
+                                         user=user,
+                                         port=port,
+                                         password=password)
+
+    try:
+        if connection.is_connected():
+            cursor = connection.cursor()
+            cursor.execute(sql_query_gfd_log)
+            data = cursor.fetchall()
+            for row in data:
+                gfd_log[row[0]] = { 'date':row[1],
+                                    'action':row[2],
+                                    'username':row[3]
+                                  }
+
+            cursor.execute(sql_query_gfd_panel_log)
+            data = cursor.fetchall()
+            for row in data:
+                gfd_panel_log[row[0]] = { 'date':row[1],
+                                          'action':row[2],
+                                          'username':row[3]
+                                        }
+
+            cursor.execute(sql_query_gfd_phenotype_log)
+            data = cursor.fetchall()
+            for row in data:
+                gfd_phenotype_log[row[0]] = { 'date':row[1],
+                                              'action':row[2],
+                                              'username':row[3]
+                                            }
+
+    except Error as e:
+        print("Error while connecting to MySQL", e)
+    finally:
+        if connection.is_connected():
+            cursor.close()
+            connection.close()
+
+    return gfd_log, gfd_panel_log, gfd_phenotype_log
+
 def get_mondo(url, id):
     r = requests.get(url, headers={ "Content-Type" : "application/json"})
 
@@ -869,9 +928,8 @@ def populate_attribs(host, port, db, user, password, attribs):
                         mapping = ccm_mapping[attribs[old_id]['attrib_value']]
                     else:
                         mapping = attribs[old_id]['attrib_value']
-                        attrib_code = inserted_attrib_type[attribs[old_id]['attrib_type_code']]
-                        attrib_description = get_attrib_description[attrib_code]
-                    cursor.execute(sql_query_attrib, [mapping, attrib_code, attrib_description, 0])
+
+                    cursor.execute(sql_query_attrib, [mapping, inserted_attrib_type[attribs[old_id]['attrib_type_code']], None, 0])
                     connection.commit()
                     inserted_attrib[attribs[old_id]['attrib_value']] = { 'old_id':old_id, 'new_id':cursor.lastrowid }
 
@@ -1288,7 +1346,7 @@ def populates_disease(host, port, db, user, password, disease_data, disease_onto
                             description = ontology['ontology_description']
                             accession = re.sub("^OMIM:|^MIM:", "", accession)
                             if term is None:
-                                term, description = get_omim_data(accession)
+                                term, description = get_omim(accession)
                         elif ontology['ontology_accession'].startswith('Orphanet'):
                             source_id = source_id_orphanet
                             description = ontology['ontology_description']
@@ -1342,7 +1400,7 @@ def populates_disease(host, port, db, user, password, disease_data, disease_onto
                 if omim_id is not None: #TODO
                     if omim_id not in omim_ontology_inserted:
                         # Get OMIM data from API
-                        omim_disease, omim_desc = get_omim_data(omim_id)
+                        omim_disease, omim_desc = get_omim(omim_id)
                         if omim_disease is None:
                             omim_disease = omim_id
 
@@ -1657,7 +1715,7 @@ def populates_lgd(host, port, db, user, password, gfd_data, inserted_publication
                          is_deleted, confidence_id, disease_id, genotype_id, locus_id, molecular_mechanism_id)
                          VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
                      """
-    
+
     sql_query_stable_id = f""" INSERT INTO g2p_stableid (stable_id, is_live, is_deleted)
                                VALUES (%s, %s, %s)
                            """
@@ -1696,6 +1754,7 @@ def populates_lgd(host, port, db, user, password, gfd_data, inserted_publication
 
     stable_id = 0
     inserted_lgd = {}
+    map_old_new_gfd = {}
 
     # Fetch ID for mechanism 'undetermined' - this is the default mechanism value
     undetermined_id = fetch_mechanism(host, port, db, user, password, 'undetermined', 'mechanism')
@@ -1836,6 +1895,9 @@ def populates_lgd(host, port, db, user, password, gfd_data, inserted_publication
                                             'variant_types':variant_type_list, 'phenotypes':phenotypes,
                                             'final_confidence':final_confidence, 'mechanism':unique_mechanism }
 
+                        # Store the mapping between old and new gfd id
+                        map_old_new_gfd[gfd] = inserted_lgd[key]["id"]
+
                         # Insert lgd_panel
                         for panel_id in confidence:
                             cursor.execute(sql_query_lgd_panel, [0, confidence[panel_id], inserted_lgd[key]['id'], panel_id])
@@ -1918,6 +1980,90 @@ def populates_lgd(host, port, db, user, password, gfd_data, inserted_publication
         if connection.is_connected():
             cursor.close()
             connection.close()
+    
+    return map_old_new_gfd
+
+def populates_history(host, port, db, user, password, map_old_new_gfd, gfd_log, gfd_panel_log, gfd_phenotype_log):
+
+    sql_insert_lgd_log = """ INSERT INTO gene2phenotype_app_historicallocusgenotypedisease (id, date_review, history_date, history_type, history_user_id, is_deleted, is_reviewed)
+                             VALUES (%s, %s, %s, %s, %s, %s, %s)
+                         """
+
+    sql_insert_lgd_panel_log = """ INSERT INTO gene2phenotype_app_historicallgdpanel (id, date_review, history_date, history_type, history_user_id, is_deleted, is_reviewed)
+                                   VALUES (%s, %s, %s, %s, %s, %s, %s)
+                               """
+
+    sql_insert_lgd_phenotype_log = """ INSERT INTO gene2phenotype_app_historicallgdphenotype (id, date_review, history_date, history_type, history_user_id, is_deleted, is_reviewed)
+                                       VALUES (%s, %s, %s, %s, %s, %s, %s)
+                                   """
+
+    connection = mysql.connector.connect(host=host,
+                                         database=db,
+                                         user=user,
+                                         port=port,
+                                         password=password)
+
+    try:
+        if connection.is_connected():
+            cursor = connection.cursor()
+            for old_gfd_id, log_data in gfd_log.items():
+                new_gfd_id = map_old_new_gfd[old_gfd_id]
+                history_type = None
+                if log_data["action"] == "create":
+                    history_type = "+"
+                elif log_data["action"] == "update":
+                    history_type = "~"
+                else:
+                    print(f"Invalid log for lgd_id = {new_gfd_id} (action: {log_data['action']})")
+                
+                if(history_type and log_data["username"] != "diana_lemos" and log_data["username"] != "ola_austine"):
+                    # Get the user id
+                    user_id = fetch_user(host, port, db, user, password, log_data["username"])
+
+                    cursor.execute(sql_insert_lgd_log, [new_gfd_id, log_data["date"], log_data["date"], history_type, user_id, 0, 1])
+
+            for old_gfd_id, log_data in gfd_panel_log.items():
+                new_gfd_id = map_old_new_gfd[old_gfd_id]
+                history_type = None
+                if log_data["action"] == "create":
+                    history_type = "+"
+                elif log_data["action"] == "update":
+                    history_type = "~"
+                else:
+                    print(f"Invalid log for lgd_id = {new_gfd_id} (action: {log_data['action']})")
+                
+                if(history_type and log_data["username"] != "diana_lemos" and log_data["username"] != "ola_austine"):
+                    # Get the user id
+                    user_id = fetch_user(host, port, db, user, password, log_data["username"])
+
+                    cursor.execute(sql_insert_lgd_panel_log, [new_gfd_id, log_data["date"], log_data["date"], history_type, user_id, 0, 1])
+
+            for old_gfd_id, log_data in gfd_phenotype_log.items():
+                new_gfd_id = map_old_new_gfd[old_gfd_id]
+                history_type = None
+                if log_data["action"] == "create":
+                    history_type = "+"
+                elif log_data["action"] == "update":
+                    history_type = "~"
+                else:
+                    print(f"Invalid action log for lgd_id = {new_gfd_id} (action: {log_data['action']})")
+                
+                if(history_type and log_data["username"] != "diana_lemos" and log_data["username"] != "ola_austine"):
+                    # Get the user id
+                    user_id = fetch_user(host, port, db, user, password, log_data["username"])
+
+                    cursor.execute(sql_insert_lgd_phenotype_log, [new_gfd_id, log_data["date"], log_data["date"], history_type, user_id, 0, 1])
+            
+            connection.commit()
+
+    except Error as e:
+        print("Error while connecting to MySQL", e)
+    finally:
+        if connection.is_connected():
+            cursor.close()
+            connection.close()
+
+    return 1
 
 def fetch_locus_id(host, port, db, user, password, name):
     id = None
@@ -2223,7 +2369,7 @@ def fetch_user(host, port, db, user, password, username):
 
     return id
 
-def get_attrib_description(attrib_code):
+def update_attrib_description(host, port, db, user, password):
     attribs_descriptions = {
         "definitive": "The role of this gene in this particular disease has been repeatedly demonstrated in both the research and clinical diagnostic settings, and has been upheld over time (at least 2 independent publication over 3 years' time). No convincing evidence has emerged that contradicts the role of the gene in the specified disease. (previously labelled as confirmed).",
         "limited": "Little human evidence exists to support a casual role for this gene in this disease, but not all evidence has been refuted. For example, there may be a collection of rare missense variants in humans but without convincing functional impact, segregration data that could either arise by chance (e.g across one or two meioses) or does not implicate a single gene, or functional data without direct recapitulation of the phenotype. Overall, the body of evidence does not meet contemporary criteria for claiming a valid association with disease. The majority are probably false associations. (previously labelled as possible).",
@@ -2247,12 +2393,32 @@ def get_attrib_description(attrib_code):
         "refuted": "There has been an assertion of a gene-disease association in the literature, but new valid evidence has arisen that refutes the entire original body of evidence."
     }
 
-    description = None
+    sql_query = """ UPDATE attrib
+                    SET description = %s
+                    WHERE value = %s
+                """
 
-    if attrib_code in attribs_descriptions:
-        description = attribs_descriptions[attrib_code]
+    connection = mysql.connector.connect(host=host,
+                                         database=db,
+                                         user=user,
+                                         port=port,
+                                         password=password)
 
-    return description
+    try:
+        if connection.is_connected():
+            cursor = connection.cursor()
+            for attrib_value, desc in attribs_descriptions.items():
+                cursor.execute(sql_query, [desc, attrib_value])
+            connection.commit()    
+ 
+    except Error as e:
+        print("Error while connecting to MySQL", e)
+    finally:
+        if connection.is_connected():
+            cursor.close()
+            connection.close()
+
+    return 1
 
 
 def main():
@@ -2330,6 +2496,9 @@ def main():
     # Populates: locus_genotype_disease
     gfd_data, last_updates, last_update_panel = dump_gfd(host, port, db, user, password, attribs)
 
+    # Populates: history tables
+    gfd_log, gfd_panel_log, gfd_phenotype_log = dump_logs(host, port, db, user, password)
+
     print("INFO: Fetching data from old schema... done\n")
 
     ### Store the data in the new database ###
@@ -2341,8 +2510,14 @@ def main():
     # Populates: attrib, attrib_type, ontology_term (variant consequence, variant type)
     print("INFO: Populating attribs...")
     populate_attribs(new_host, new_port, new_db, new_user, new_password, attribs)
-    populate_new_attribs(new_host, new_port, new_db, new_user, new_password)
     print("INFO: attribs populated\n")
+    print("INFO: Populating new attribs...")
+    populate_new_attribs(new_host, new_port, new_db, new_user, new_password)
+    print("INFO: new attribs populated\n")
+
+    print("INFO: Updating attribs...")
+    update_attrib_description(new_host, new_port, new_db, new_user, new_password)
+    print("INFO: attribs updated\n")
 
     print("INFO: Populating user data...")
     # Populates: user, panel, user_panel, ontology_term
@@ -2377,8 +2552,13 @@ def main():
 
     # Populates: locus_genotype_disease
     print("INFO: Populating LGD...")
-    populates_lgd(new_host, new_port, new_db, new_user, new_password, gfd_data, inserted_publications, inserted_phenotypes, last_updates, last_update_panel, inserted_disease_by_name, disease_genes)
+    map_old_new_gfd = populates_lgd(new_host, new_port, new_db, new_user, new_password, gfd_data, inserted_publications, inserted_phenotypes, last_updates, last_update_panel, inserted_disease_by_name, disease_genes)
     print("INFO: LGD populated\n")
+
+    # Populates: history tables
+    print("INFO: Populating history tables...")
+    flag = populates_history(new_host, new_port, new_db, new_user, new_password, map_old_new_gfd, gfd_log, gfd_panel_log, gfd_phenotype_log)
+    print("INFO: Populating history tables\n")
 
 if __name__ == '__main__':
     main()
