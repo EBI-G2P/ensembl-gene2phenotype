@@ -825,12 +825,12 @@ def populate_attribs(host, port, db, user, password, attribs):
     ccm_mapping = {
         'imprinted':'imprinted region',
         'potential IF':'potential secondary finding',
-        'requires heterozygosity':'requires heterozygosity', # CHECK
+        'requires heterozygosity':'requires heterozygosity',# not being migrated
         'typically de novo':'typically de novo',
         'typically mosaic':'typically mosaic',
-        'typified by age related penetrance':'typified by age related penetrance',
+        'typified by age related penetrance':'typified by age related penetrance', # not being migrated
         'typified by reduced penetrance':'typified by incomplete penetrance',
-        'incomplete penetrance':'incomplete penetrance'
+        'incomplete penetrance':'incomplete penetrance' # not being migrated
     }
 
     so_mapping = { 'absent gene product':'SO:0002317',
@@ -979,7 +979,9 @@ def populate_new_attribs(host, port, db, user, password):
                        'inherited': 'inheritance_type',
                        'gain_of_function_mp':'mechanism_probabilities',
                        'loss_of_function_mp':'mechanism_probabilities',
-                       'dominant_negative_mp':'mechanism_probabilities'
+                       'dominant_negative_mp':'mechanism_probabilities',
+                       'displays anticipation':'cross_cutting_modifier',
+                       'restricted mutation set':'cross_cutting_modifier'
                      }
 
     extra_attribs = { 'unknown': 'inheritance_type' }
@@ -1060,7 +1062,10 @@ def populate_new_attribs(host, port, db, user, password):
                 inserted[mt] = cursor.lastrowid
 
             for data, t in attribs.items():
-                attrib_type_id = inserted[t]
+                if t in inserted:
+                    attrib_type_id = inserted[t]
+                else:
+                    attrib_type_id = fetch_attrib_type(host, port, db, user, password, t)
                 cursor.execute(sql_query_attrib, [data, attrib_type_id, None, 0])
                 connection.commit()
 
@@ -1703,12 +1708,12 @@ def populates_lgd(host, port, db, user, password, gfd_data, inserted_publication
     ccm_mapping = {
         'imprinted':'imprinted region',
         'potential IF':'potential secondary finding',
-        'requires heterozygosity':'requires heterozygosity', # CHECK
+        'requires heterozygosity':'requires heterozygosity', # not being migrated
         'typically de novo':'typically de novo',
         'typically mosaic':'typically mosaic',
-        'typified by age related penetrance':'typified by age related penetrance', # CHECK
-        'typified by reduced penetrance':'typified by incomplete penetrance', # CHECK
-        'incomplete penetrance':'incomplete penetrance'
+        'typified by age related penetrance':'typified by age related penetrance', # not being migrated
+        'typified by reduced penetrance':'typified by incomplete penetrance',
+        'incomplete penetrance':'incomplete penetrance' # not being migrated
     }
 
     sql_query_lgd = f""" INSERT INTO locus_genotype_disease (stable_id, date_review, is_reviewed, 
@@ -1811,7 +1816,9 @@ def populates_lgd(host, port, db, user, password, gfd_data, inserted_publication
                 # cross cutting modifier
                 ccm_id = []
                 for ccm in data['cross_cutting_modifier_attrib']:
-                    ccm_id.append(fetch_attrib(host, port, db, user, password, ccm_mapping[ccm]))
+                    if(ccm.lower != "requires heterozygosity" and ccm.lower != "typified by age related penetrance"
+                       and ccm.lower != "incomplete penetrance"):
+                        ccm_id.append(fetch_attrib(host, port, db, user, password, ccm_mapping[ccm]))
 
                 # variant consequence (new: variant type)
                 mechanism = []
@@ -2007,52 +2014,55 @@ def populates_history(host, port, db, user, password, map_old_new_gfd, gfd_log, 
         if connection.is_connected():
             cursor = connection.cursor()
             for old_gfd_id, log_data in gfd_log.items():
-                new_gfd_id = map_old_new_gfd[old_gfd_id]
-                history_type = None
-                if log_data["action"] == "create":
-                    history_type = "+"
-                elif log_data["action"] == "update":
-                    history_type = "~"
-                else:
-                    print(f"Invalid log for lgd_id = {new_gfd_id} (action: {log_data['action']})")
-                
-                if(history_type and log_data["username"] != "diana_lemos" and log_data["username"] != "ola_austine"):
-                    # Get the user id
-                    user_id = fetch_user(host, port, db, user, password, log_data["username"])
+                if(old_gfd_id in map_old_new_gfd):
+                    new_gfd_id = map_old_new_gfd[old_gfd_id]
+                    history_type = None
+                    if log_data["action"] == "create":
+                        history_type = "+"
+                    elif log_data["action"] == "update":
+                        history_type = "~"
+                    else:
+                        print(f"Invalid log for lgd_id = {new_gfd_id} (action: {log_data['action']})")
+                    
+                    if(history_type and log_data["username"] != "diana_lemos" and log_data["username"] != "ola_austine"):
+                        # Get the user id
+                        user_id = fetch_user(host, port, db, user, password, log_data["username"])
 
-                    cursor.execute(sql_insert_lgd_log, [new_gfd_id, log_data["date"], log_data["date"], history_type, user_id, 0, 1])
+                        cursor.execute(sql_insert_lgd_log, [new_gfd_id, log_data["date"], log_data["date"], history_type, user_id, 0, 1])
 
             for old_gfd_id, log_data in gfd_panel_log.items():
-                new_gfd_id = map_old_new_gfd[old_gfd_id]
-                history_type = None
-                if log_data["action"] == "create":
-                    history_type = "+"
-                elif log_data["action"] == "update":
-                    history_type = "~"
-                else:
-                    print(f"Invalid log for lgd_id = {new_gfd_id} (action: {log_data['action']})")
-                
-                if(history_type and log_data["username"] != "diana_lemos" and log_data["username"] != "ola_austine"):
-                    # Get the user id
-                    user_id = fetch_user(host, port, db, user, password, log_data["username"])
+                if(old_gfd_id in map_old_new_gfd):
+                    new_gfd_id = map_old_new_gfd[old_gfd_id]
+                    history_type = None
+                    if log_data["action"] == "create":
+                        history_type = "+"
+                    elif log_data["action"] == "update":
+                        history_type = "~"
+                    else:
+                        print(f"Invalid log for lgd_id = {new_gfd_id} (action: {log_data['action']})")
+                    
+                    if(history_type and log_data["username"] != "diana_lemos" and log_data["username"] != "ola_austine"):
+                        # Get the user id
+                        user_id = fetch_user(host, port, db, user, password, log_data["username"])
 
-                    cursor.execute(sql_insert_lgd_panel_log, [new_gfd_id, log_data["date"], log_data["date"], history_type, user_id, 0, 1])
+                        cursor.execute(sql_insert_lgd_panel_log, [new_gfd_id, log_data["date"], log_data["date"], history_type, user_id, 0, 1])
 
             for old_gfd_id, log_data in gfd_phenotype_log.items():
-                new_gfd_id = map_old_new_gfd[old_gfd_id]
-                history_type = None
-                if log_data["action"] == "create":
-                    history_type = "+"
-                elif log_data["action"] == "update":
-                    history_type = "~"
-                else:
-                    print(f"Invalid action log for lgd_id = {new_gfd_id} (action: {log_data['action']})")
-                
-                if(history_type and log_data["username"] != "diana_lemos" and log_data["username"] != "ola_austine"):
-                    # Get the user id
-                    user_id = fetch_user(host, port, db, user, password, log_data["username"])
+                if(old_gfd_id in map_old_new_gfd):
+                    new_gfd_id = map_old_new_gfd[old_gfd_id]
+                    history_type = None
+                    if log_data["action"] == "create":
+                        history_type = "+"
+                    elif log_data["action"] == "update":
+                        history_type = "~"
+                    else:
+                        print(f"Invalid action log for lgd_id = {new_gfd_id} (action: {log_data['action']})")
+                    
+                    if(history_type and log_data["username"] != "diana_lemos" and log_data["username"] != "ola_austine"):
+                        # Get the user id
+                        user_id = fetch_user(host, port, db, user, password, log_data["username"])
 
-                    cursor.execute(sql_insert_lgd_phenotype_log, [new_gfd_id, log_data["date"], log_data["date"], history_type, user_id, 0, 1])
+                        cursor.execute(sql_insert_lgd_phenotype_log, [new_gfd_id, log_data["date"], log_data["date"], history_type, user_id, 0, 1])
             
             connection.commit()
 
@@ -2198,6 +2208,37 @@ def fetch_attrib(host, port, db, user, password, value):
         if connection.is_connected():
             cursor = connection.cursor()
             cursor.execute(sql_query, [value])
+            data = cursor.fetchall()
+            if len(data) != 0:
+                id = data[0][0]
+ 
+    except Error as e:
+        print("Error while connecting to MySQL", e)
+    finally:
+        if connection.is_connected():
+            cursor.close()
+            connection.close()
+
+    return id
+
+def fetch_attrib_type(host, port, db, user, password, code):
+    id = None
+
+    sql_query = f""" SELECT id
+                     FROM attrib_type
+                     WHERE code = %s
+                 """
+
+    connection = mysql.connector.connect(host=host,
+                                         database=db,
+                                         user=user,
+                                         port=port,
+                                         password=password)
+
+    try:
+        if connection.is_connected():
+            cursor = connection.cursor()
+            cursor.execute(sql_query, [code])
             data = cursor.fetchall()
             if len(data) != 0:
                 id = data[0][0]
@@ -2557,7 +2598,7 @@ def main():
 
     # Populates: history tables
     print("INFO: Populating history tables...")
-    flag = populates_history(new_host, new_port, new_db, new_user, new_password, map_old_new_gfd, gfd_log, gfd_panel_log, gfd_phenotype_log)
+    populates_history(new_host, new_port, new_db, new_user, new_password, map_old_new_gfd, gfd_log, gfd_panel_log, gfd_phenotype_log)
     print("INFO: Populating history tables\n")
 
 if __name__ == '__main__':
