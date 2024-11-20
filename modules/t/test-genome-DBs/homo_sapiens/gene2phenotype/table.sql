@@ -341,7 +341,7 @@ CREATE TABLE `meta` (
   PRIMARY KEY (`meta_id`),
   UNIQUE KEY `species_key_value_idx` (`species_id`,`meta_key`,`meta_value`),
   KEY `species_value_idx` (`species_id`,`meta_value`)
-) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=latin1;
 
 CREATE TABLE `ontology_term` (
   `ontology_term_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -368,7 +368,7 @@ CREATE TABLE `panel` (
   `name` varchar(255) NOT NULL,
   `is_visible` tinyint(1) unsigned NOT NULL DEFAULT '1',
   PRIMARY KEY (`panel_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
 
 CREATE TABLE `phenotype` (
   `phenotype_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -400,7 +400,7 @@ CREATE TABLE `user` (
   `user_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `username` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
-  `panel_attrib` set('36','37','38','39','40','41','42','43','45','46','47','48','83') DEFAULT NULL,
+  `panel_attrib` set('36','37','38','39','40','41','42','43','45','46','47','48','83','132') DEFAULT NULL,
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `user_idx` (`username`),
   UNIQUE KEY `email_idx` (`email`)
