@@ -2015,8 +2015,7 @@ def populates_lgd(host, port, db, user, password, gfd_data, inserted_publication
 def populates_disease_synonyms(host, port, db, user, password, disease_synonyms, map_old_new_gfd):
     """
         Populates table disease_synonym.
-        This table has a constraint: unique synonym
-        Which mean the synonym can only be linked to one disease id TODO: review
+        Should this table have a constraint: unique synonym?
     """
 
     inserted_data = {}
@@ -2049,11 +2048,10 @@ def populates_disease_synonyms(host, port, db, user, password, disease_synonyms,
 
                     if disease_id:
                         for synonym in synonyms_list:
-                            if synonym not in inserted_data:
+                            key = f"{synonym}-{disease_id}"
+                            if key not in inserted_data:
                                 cursor.execute(sql_ins, [synonym, disease_id])
-                                inserted_data[synonym] = 1
-                            else:
-                                print(f"Duplicated disease synonym: {synonym}, disease id: {disease_id}")
+                                inserted_data[key] = 1
 
             connection.commit()
 
