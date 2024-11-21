@@ -825,12 +825,12 @@ def populate_attribs(host, port, db, user, password, attribs):
     ccm_mapping = {
         'imprinted':'imprinted region',
         'potential IF':'potential secondary finding',
-        'requires heterozygosity':'requires heterozygosity',# not being migrated
+        # 'requires heterozygosity':'requires heterozygosity',# not being migrated
         'typically de novo':'typically de novo',
         'typically mosaic':'typically mosaic',
-        'typified by age related penetrance':'typified by age related penetrance', # not being migrated
+        # 'typified by age related penetrance':'typified by age related penetrance', # not being migrated
         'typified by reduced penetrance':'typified by incomplete penetrance',
-        'incomplete penetrance':'incomplete penetrance' # not being migrated
+        # 'incomplete penetrance':'incomplete penetrance' # not being migrated
     }
 
     so_mapping = { 'absent gene product':'SO:0002317',
@@ -922,21 +922,28 @@ def populate_attribs(host, port, db, user, password, attribs):
 
             for old_id in attribs:
                 if attribs[old_id]['attrib_type_code'] in inserted_attrib_type:
+                    mapping = None
                     if attribs[old_id]['attrib_type_code'] == 'allelic_requirement':
                         mapping = ar_mapping[attribs[old_id]['attrib_value']]
-                    elif attribs[old_id]['attrib_type_code'] == 'cross_cutting_modifier':
+
+                    elif(attribs[old_id]['attrib_type_code'] == 'cross_cutting_modifier' and attribs[old_id]['attrib_value'] != "requires heterozygosity"
+                         and attribs[old_id]['attrib_value'] != "typified by age related penetrance" and attribs[old_id]['attrib_value'] != "incomplete penetrance"):
                         mapping = ccm_mapping[attribs[old_id]['attrib_value']]
-                    else:
+
+                    elif(attribs[old_id]['attrib_value'] != "requires heterozygosity" and attribs[old_id]['attrib_value'] != "typified by age related penetrance"
+                         and attribs[old_id]['attrib_value'] != "incomplete penetrance"):
                         mapping = attribs[old_id]['attrib_value']
 
-                    cursor.execute(sql_query_attrib, [mapping, inserted_attrib_type[attribs[old_id]['attrib_type_code']], None, 0])
-                    connection.commit()
-                    inserted_attrib[attribs[old_id]['attrib_value']] = { 'old_id':old_id, 'new_id':cursor.lastrowid }
+                    if mapping is not None:
+                        cursor.execute(sql_query_attrib, [mapping, inserted_attrib_type[attribs[old_id]['attrib_type_code']], None, 0])
+                        connection.commit()
+                        inserted_attrib[attribs[old_id]['attrib_value']] = { 'old_id':old_id, 'new_id':cursor.lastrowid }
 
             for old_id in attribs:
                 # This only inserts attribs from the old db
                 # New ontology terms are inserted in method populate_new_attribs()
-                if (attribs[old_id]['attrib_type_code'] == 'mutation_consequence' or attribs[old_id]['attrib_type_code'] == 'variant_consequence') and attribs[old_id]['attrib_value'] in so_mapping.keys():
+                if((attribs[old_id]['attrib_type_code'] == 'mutation_consequence' or attribs[old_id]['attrib_type_code'] == 'variant_consequence')
+                   and attribs[old_id]['attrib_value'] in so_mapping.keys()):
                     cursor.execute(sql_query_ontology_term, [so_mapping[attribs[old_id]['attrib_value']], attribs[old_id]['attrib_value'], 1, group_type_id])
                     connection.commit()
 
@@ -1351,7 +1358,7 @@ def populates_disease(host, port, db, user, password, disease_data, disease_onto
                             description = ontology['ontology_description']
                             accession = re.sub("^OMIM:|^MIM:", "", accession)
                             if term is None:
-                                term, description = get_omim(accession)
+                                term, description = get_omim_data(accession)
                         elif ontology['ontology_accession'].startswith('Orphanet'):
                             source_id = source_id_orphanet
                             description = ontology['ontology_description']
@@ -1405,7 +1412,7 @@ def populates_disease(host, port, db, user, password, disease_data, disease_onto
                 if omim_id is not None: #TODO
                     if omim_id not in omim_ontology_inserted:
                         # Get OMIM data from API
-                        omim_disease, omim_desc = get_omim(omim_id)
+                        omim_disease, omim_desc = get_omim_data(omim_id)
                         if omim_disease is None:
                             omim_disease = omim_id
 
@@ -1708,12 +1715,12 @@ def populates_lgd(host, port, db, user, password, gfd_data, inserted_publication
     ccm_mapping = {
         'imprinted':'imprinted region',
         'potential IF':'potential secondary finding',
-        'requires heterozygosity':'requires heterozygosity', # not being migrated
+        # 'requires heterozygosity':'requires heterozygosity', # not being migrated
         'typically de novo':'typically de novo',
         'typically mosaic':'typically mosaic',
-        'typified by age related penetrance':'typified by age related penetrance', # not being migrated
+        # 'typified by age related penetrance':'typified by age related penetrance', # not being migrated
         'typified by reduced penetrance':'typified by incomplete penetrance',
-        'incomplete penetrance':'incomplete penetrance' # not being migrated
+        # 'incomplete penetrance':'incomplete penetrance' # not being migrated
     }
 
     sql_query_lgd = f""" INSERT INTO locus_genotype_disease (stable_id, date_review, is_reviewed, 
@@ -1816,9 +1823,12 @@ def populates_lgd(host, port, db, user, password, gfd_data, inserted_publication
                 # cross cutting modifier
                 ccm_id = []
                 for ccm in data['cross_cutting_modifier_attrib']:
-                    if(ccm.lower != "requires heterozygosity" and ccm.lower != "typified by age related penetrance"
-                       and ccm.lower != "incomplete penetrance"):
-                        ccm_id.append(fetch_attrib(host, port, db, user, password, ccm_mapping[ccm]))
+                    print(f"ccm: {ccm}\n")
+                    if(ccm != "requires heterozygosity" and ccm != "typified by age related penetrance"
+                       and ccm != "incomplete penetrance"):
+                        ccm_attrib_id = fetch_attrib(host, port, db, user, password, ccm_mapping[ccm])
+                        print(f"ccm value: {ccm_attrib_id}\n")
+                        ccm_id.append(ccm_attrib_id)
 
                 # variant consequence (new: variant type)
                 mechanism = []
@@ -1996,12 +2006,12 @@ def populates_history(host, port, db, user, password, map_old_new_gfd, gfd_log, 
                              VALUES (%s, %s, %s, %s, %s, %s, %s)
                          """
 
-    sql_insert_lgd_panel_log = """ INSERT INTO gene2phenotype_app_historicallgdpanel (id, date_review, history_date, history_type, history_user_id, is_deleted, is_reviewed)
-                                   VALUES (%s, %s, %s, %s, %s, %s, %s)
+    sql_insert_lgd_panel_log = """ INSERT INTO gene2phenotype_app_historicallgdpanel (id, history_date, history_type, history_user_id, is_deleted)
+                                   VALUES (%s, %s, %s, %s, %s)
                                """
 
-    sql_insert_lgd_phenotype_log = """ INSERT INTO gene2phenotype_app_historicallgdphenotype (id, date_review, history_date, history_type, history_user_id, is_deleted, is_reviewed)
-                                       VALUES (%s, %s, %s, %s, %s, %s, %s)
+    sql_insert_lgd_phenotype_log = """ INSERT INTO gene2phenotype_app_historicallgdphenotype (id, history_date, history_type, history_user_id, is_deleted)
+                                       VALUES (%s, %s, %s, %s, %s)
                                    """
 
     connection = mysql.connector.connect(host=host,
@@ -2024,7 +2034,8 @@ def populates_history(host, port, db, user, password, map_old_new_gfd, gfd_log, 
                     else:
                         print(f"Invalid log for lgd_id = {new_gfd_id} (action: {log_data['action']})")
                     
-                    if(history_type and log_data["username"] != "diana_lemos" and log_data["username"] != "ola_austine"):
+                    if(history_type and log_data["username"] != "diana_lemos" and log_data["username"] != "ola_austine"
+                       and log_data["username"] != "sarah_hunt"):
                         # Get the user id
                         user_id = fetch_user(host, port, db, user, password, log_data["username"])
 
@@ -2040,12 +2051,13 @@ def populates_history(host, port, db, user, password, map_old_new_gfd, gfd_log, 
                         history_type = "~"
                     else:
                         print(f"Invalid log for lgd_id = {new_gfd_id} (action: {log_data['action']})")
-                    
-                    if(history_type and log_data["username"] != "diana_lemos" and log_data["username"] != "ola_austine"):
+
+                    if(history_type and log_data["username"] != "diana_lemos" and log_data["username"] != "ola_austine"
+                       and log_data["username"] != "sarah_hunt"):
                         # Get the user id
                         user_id = fetch_user(host, port, db, user, password, log_data["username"])
 
-                        cursor.execute(sql_insert_lgd_panel_log, [new_gfd_id, log_data["date"], log_data["date"], history_type, user_id, 0, 1])
+                        cursor.execute(sql_insert_lgd_panel_log, [new_gfd_id, log_data["date"], history_type, user_id, 0])
 
             for old_gfd_id, log_data in gfd_phenotype_log.items():
                 if(old_gfd_id in map_old_new_gfd):
@@ -2058,11 +2070,12 @@ def populates_history(host, port, db, user, password, map_old_new_gfd, gfd_log, 
                     else:
                         print(f"Invalid action log for lgd_id = {new_gfd_id} (action: {log_data['action']})")
                     
-                    if(history_type and log_data["username"] != "diana_lemos" and log_data["username"] != "ola_austine"):
+                    if(history_type and log_data["username"] != "diana_lemos" and log_data["username"] != "ola_austine"
+                       and log_data["username"] != "sarah_hunt"):
                         # Get the user id
                         user_id = fetch_user(host, port, db, user, password, log_data["username"])
 
-                        cursor.execute(sql_insert_lgd_phenotype_log, [new_gfd_id, log_data["date"], log_data["date"], history_type, user_id, 0, 1])
+                        cursor.execute(sql_insert_lgd_phenotype_log, [new_gfd_id, log_data["date"], history_type, user_id, 0])
             
             connection.commit()
 
@@ -2415,10 +2428,8 @@ def update_attrib_description(host, port, db, user, password):
         "definitive": "The role of this gene in this particular disease has been repeatedly demonstrated in both the research and clinical diagnostic settings, and has been upheld over time (at least 2 independent publication over 3 years' time). No convincing evidence has emerged that contradicts the role of the gene in the specified disease. (previously labelled as confirmed).",
         "limited": "Little human evidence exists to support a casual role for this gene in this disease, but not all evidence has been refuted. For example, there may be a collection of rare missense variants in humans but without convincing functional impact, segregration data that could either arise by chance (e.g across one or two meioses) or does not implicate a single gene, or functional data without direct recapitulation of the phenotype. Overall, the body of evidence does not meet contemporary criteria for claiming a valid association with disease. The majority are probably false associations. (previously labelled as possible).",
         "strong": "The role of this gene as a monogenic cause of disease has been repeatedly and independently demonstrated providing very strong convincing evidence in humans and no conflicting evidence for this gene's role in this disease. (previously labelled as probable).",
-        "requires heterozygosity": "Different variation of the same gene is required. The different mutations are inherited from both parents.",
         "typically de novo": "Plausible disease causing mutations that occur post zygotically (formation of gametes).",
         "typically mosaic": "Plausible disease causing mutations identified on one allele in a proportion of cells with the others being wild-type.",
-        "typified by age related penetrance": "Plausible disease causing mutation identified but the expression of the disease may be changed by age.",
         "typified by incomplete penetrance": "Description of conditions in which not all individuals with a given genotype exhibit the disease. Penetrance is the proportion that develop disease given a lifespan of 80 years. Examples include, CYP1B1 glaucoma which has approximately 90% penetrance; Van der Woude syndrome due to IRF6 causes cleft lip and/or palate with penetrance estimated at 80%; C9orf72 causes frontotemporal dementia and/or amyotrophic lateral sclerosis with approximately 50% penetrance.",
         "biallelic_autosomal": "Plausible disease-causing homozygous or compound heterozygous mutations identified on both alleles in the autosomal chromosome.",
         "biallelic_PAR": "Plausible disease-causing homozygous or compound heterozygous mutations identified on both alleles found in the pseudoautosomal regions. Inheritance is not strictly sex-linked.",
@@ -2429,7 +2440,6 @@ def update_attrib_description(host, port, db, user, password):
         "monoallelic_X_heterozygous": "Plausible disease-causing mutations identified in one copy of the X chromosome in females as a cause of a specific disease, include disorders where heterozygous females and hemizygous males are similarly affected e.g SMC1A mutations.",
         "monoallelic_Y_hemizygous": "Plausible disease-causing mutations identified in an allele found in the Y chromosome. The Y chromosome is passed from father to son as this mutation may affect only males.",
         "moderate": "There is moderate evidence in humans to support a casual role for this gene in this disease with no contradictory evidence. The body of evidence is not large (e.g possibly only one key paper) but appears convincing enough that the gene-disease pair is likely to be validated with additional evidence in the near future.",
-        "incomplete penetrance": "Plausible disease-causing mutations from an apparently unaffected parent on several occasions.",
         "disputed": "Although evidence has been reported, other evidence of equal weight disputes the claim.",
         "refuted": "There has been an assertion of a gene-disease association in the literature, but new valid evidence has arisen that refutes the entire original body of evidence."
     }
