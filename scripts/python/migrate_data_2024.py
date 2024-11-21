@@ -448,36 +448,37 @@ def dump_gfd(host, port, db, user, password, attribs):
     result = {}
     last_update = {}
     last_update_panel = {}
+    disease_synonyms = {} # key = gfd_id, value = list of disease names
 
     sql_query = """  SELECT gfd.genomic_feature_disease_id, gfd.genomic_feature_id, gfd.disease_id, d.name, gfd.allelic_requirement_attrib, gfd.cross_cutting_modifier_attrib, gfd.mutation_consequence_attrib, gfd.mutation_consequence_flag_attrib, gfd.variant_consequence_attrib, gfd.restricted_mutation_set, gf.gene_symbol
                      FROM genomic_feature_disease gfd
                      LEFT JOIN disease d ON d.disease_id = gfd.disease_id 
                      LEFT JOIN genomic_feature gf ON gf.genomic_feature_id = gfd.genomic_feature_id"""
     
-    sql_query_panel = f""" SELECT panel_attrib, clinical_review, is_visible, confidence_category_attrib
+    sql_query_panel = """ SELECT panel_attrib, clinical_review, is_visible, confidence_category_attrib
                            FROM genomic_feature_disease_panel
                            WHERE genomic_feature_disease_id = %s
                        """
-    
-    sql_query_comment = f""" SELECT c.comment_text, c.created, u.username, c.is_public
+
+    sql_query_comment = """ SELECT c.comment_text, c.created, u.username, c.is_public
                              FROM genomic_feature_disease_comment c
                              LEFT JOIN user u ON u.user_id = c.user_id
                              WHERE c.genomic_feature_disease_id = %s
                          """
 
-    sql_query_organ = f""" SELECT gfd.genomic_feature_disease_id, gfd.organ_id, o.name
+    sql_query_organ = """ SELECT gfd.genomic_feature_disease_id, gfd.organ_id, o.name
                            FROM genomic_feature_disease_organ gfd
                            LEFT JOIN organ o ON o.organ_id = gfd.organ_id
                            WHERE gfd.genomic_feature_disease_id = %s
                        """
 
-    sql_query_publication = f""" SELECT gfd.publication_id, c.comment_text, c.created, c.user_id
+    sql_query_publication = """ SELECT gfd.publication_id, c.comment_text, c.created, c.user_id
                                  FROM genomic_feature_disease_publication gfd
                                  LEFT JOIN GFD_publication_comment c ON c.genomic_feature_disease_publication_id = gfd.genomic_feature_disease_publication_id
                                  WHERE gfd.genomic_feature_disease_id = %s
                              """
 
-    sql_query_phenotype = f""" SELECT gfd.phenotype_id, c.comment_text, c.created, c.user_id
+    sql_query_phenotype = """ SELECT gfd.phenotype_id, c.comment_text, c.created, c.user_id
                                FROM genomic_feature_disease_phenotype gfd
                                LEFT JOIN GFD_phenotype_comment c ON c.genomic_feature_disease_phenotype_id = gfd.genomic_feature_disease_phenotype_id
                                WHERE gfd.genomic_feature_disease_id = %s
@@ -492,6 +493,11 @@ def dump_gfd(host, port, db, user, password, attribs):
                                genomic_feature_disease gfd
                                LEFT JOIN genomic_feature_disease_panel_log d ON d.genomic_feature_disease_id = gfd.genomic_feature_disease_id 
                                WHERE d.created is not null """
+
+    sql_query_gfd_disease_synonym = """ SELECT g.genomic_feature_disease_id, d.name
+                                        FROM GFD_disease_synonym g
+                                        LEFT JOIN disease d ON d.disease_id = g.disease_id
+                                    """
 
     connection = mysql.connector.connect(host=host,
                                          database=db,
@@ -597,23 +603,29 @@ def dump_gfd(host, port, db, user, password, attribs):
 
             cursor.execute(sql_query_date)
             data_date = cursor.fetchall()
-            if len(data_date) != 0:
-                for row_date in data_date:
-                    if row_date[0] in last_update:
-                        if row_date[1] > last_update[row_date[0]]:
-                            last_update[row_date[0]] = row_date[1]
-                    else:
+            for row_date in data_date:
+                if row_date[0] in last_update:
+                    if row_date[1] > last_update[row_date[0]]:
                         last_update[row_date[0]] = row_date[1]
+                else:
+                    last_update[row_date[0]] = row_date[1]
 
             cursor.execute(sql_query_date_panel)
             data_date = cursor.fetchall()
-            if len(data_date) != 0:
-                for row_date in data_date:
-                    if row_date[0] in last_update_panel:
-                        if row_date[1] > last_update_panel[row_date[0]]:
-                            last_update_panel[row_date[0]] = row_date[1]
-                    else:
+            for row_date in data_date:
+                if row_date[0] in last_update_panel:
+                    if row_date[1] > last_update_panel[row_date[0]]:
                         last_update_panel[row_date[0]] = row_date[1]
+                else:
+                    last_update_panel[row_date[0]] = row_date[1]
+
+            cursor.execute(sql_query_gfd_disease_synonym)
+            data_syn = cursor.fetchall()
+            for row_date in data_syn:
+                if row_date[0] in disease_synonyms:
+                    disease_synonyms[row_date[0]].append(row_date[1])
+                else:
+                    disease_synonyms[row_date[0]] = [row_date[1]]
 
     except Error as e:
         print("Error while connecting to MySQL", e)
@@ -622,7 +634,7 @@ def dump_gfd(host, port, db, user, password, attribs):
             cursor.close()
             connection.close()
 
-    return result, last_update, last_update_panel
+    return result, last_update, last_update_panel, disease_synonyms
 
 def dump_logs(host, port, db, user, password):
     gfd_log = {}
@@ -1358,7 +1370,7 @@ def populates_disease(host, port, db, user, password, disease_data, disease_onto
                             description = ontology['ontology_description']
                             accession = re.sub("^OMIM:|^MIM:", "", accession)
                             if term is None:
-                                term, description = get_omim_data(accession)
+                                term, description = get_omim(accession)
                         elif ontology['ontology_accession'].startswith('Orphanet'):
                             source_id = source_id_orphanet
                             description = ontology['ontology_description']
@@ -1412,7 +1424,7 @@ def populates_disease(host, port, db, user, password, disease_data, disease_onto
                 if omim_id is not None: #TODO
                     if omim_id not in omim_ontology_inserted:
                         # Get OMIM data from API
-                        omim_disease, omim_desc = get_omim_data(omim_id)
+                        omim_disease, omim_desc = get_omim(omim_id)
                         if omim_disease is None:
                             omim_disease = omim_id
 
@@ -2000,6 +2012,60 @@ def populates_lgd(host, port, db, user, password, gfd_data, inserted_publication
     
     return map_old_new_gfd
 
+def populates_disease_synonyms(host, port, db, user, password, disease_synonyms, map_old_new_gfd):
+    """
+        Populates table disease_synonym.
+        This table has a constraint: unique synonym
+        Which mean the synonym can only be linked to one disease id TODO: review
+    """
+
+    inserted_data = {}
+
+    sql_ins = """ INSERT INTO disease_synonym(synonym, disease_id)
+                  VALUES(%s, %s)
+              """
+
+    sql_query_lgd = """ SELECT disease_id
+                        FROM locus_genotype_disease
+                        WHERE id = %s
+                    """
+
+    connection = mysql.connector.connect(host=host,
+                                         database=db,
+                                         user=user,
+                                         port=port,
+                                         password=password)
+
+    try:
+        if connection.is_connected():
+            cursor = connection.cursor()
+
+            for old_gfd_id, synonyms_list in disease_synonyms.items():
+                if old_gfd_id in map_old_new_gfd:
+                    new_lgd_id = map_old_new_gfd[old_gfd_id]
+                    cursor.execute(sql_query_lgd, [new_lgd_id])
+                    data = cursor.fetchall()
+                    disease_id = data[0][0]
+
+                    if disease_id:
+                        for synonym in synonyms_list:
+                            if synonym not in inserted_data:
+                                cursor.execute(sql_ins, [synonym, disease_id])
+                                inserted_data[synonym] = 1
+                            else:
+                                print(f"Duplicated disease synonym: {synonym}, disease id: {disease_id}")
+
+            connection.commit()
+
+    except Error as e:
+        print("Error while connecting to MySQL", e)
+    finally:
+        if connection.is_connected():
+            cursor.close()
+            connection.close()
+
+    return 1
+
 def populates_history(host, port, db, user, password, map_old_new_gfd, gfd_log, gfd_panel_log, gfd_phenotype_log):
 
     sql_insert_lgd_log = """ INSERT INTO gene2phenotype_app_historicallocusgenotypedisease (id, date_review, history_date, history_type, history_user_id, is_deleted, is_reviewed)
@@ -2545,7 +2611,7 @@ def main():
     genomic_feature_data = dump_genes(host, port, db, user, password)
 
     # Populates: locus_genotype_disease
-    gfd_data, last_updates, last_update_panel = dump_gfd(host, port, db, user, password, attribs)
+    gfd_data, last_updates, last_update_panel, disease_synonyms = dump_gfd(host, port, db, user, password, attribs)
 
     # Populates: history tables
     gfd_log, gfd_panel_log, gfd_phenotype_log = dump_logs(host, port, db, user, password)
@@ -2605,6 +2671,11 @@ def main():
     print("INFO: Populating LGD...")
     map_old_new_gfd = populates_lgd(new_host, new_port, new_db, new_user, new_password, gfd_data, inserted_publications, inserted_phenotypes, last_updates, last_update_panel, inserted_disease_by_name, disease_genes)
     print("INFO: LGD populated\n")
+
+    # Populates: disease_synonym
+    print("INFO: Populating disease synonyms...")
+    populates_disease_synonyms(new_host, new_port, new_db, new_user, new_password, disease_synonyms, map_old_new_gfd)
+    print("INFO: disease synonyms populated\n")
 
     # Populates: history tables
     print("INFO: Populating history tables...")
