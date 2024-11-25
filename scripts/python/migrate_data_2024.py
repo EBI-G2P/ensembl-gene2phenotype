@@ -1028,10 +1028,9 @@ def populate_new_attribs(host, port, db, user, password):
                        'patient cells': ['evidence_functional_alteration', 'evidence_rescue'],
                        'non patient cells': ['evidence_functional_alteration'],
                        'non-human model organism': ['evidence_models', 'evidence_rescue'],
-                       'cell culture model': ['evidence_models', 'evidence_rescue'],
-                       'human': ['evidence_rescue']
+                       'cell culture model': ['evidence_models', 'evidence_rescue']
                  }
-    
+
     mechanism_descriptions_list = { "loss of function": "Loss-of-function variants involve a loss of the normal biological function of a protein. Often these are nonsense or frameshift mutations that introduce premature stop codons. Due to nonsense-mediated decay of the resulting mRNAs, most premature stop codons will result in no protein being produced, rather than a truncated protein. However, there are also many examples of loss-of-function variants that change the amino acid sequence and result in non-functional protein products. These mutations can cause a complete loss of function (amorphic), analogous to a protein null mutation, or only a partial loss of function (hypomorphic). May also include variants in regulatory regions.",
                                     "dominant negative": "Dominant-negative variants involve the mutant protein directly or indirectly blocking the normal biological function of the wild-type protein (antimorphic). They can thus cause a disproportionate (>50%) loss of function, even though only half of the protein is mutated eg. heterozygous variants in COL1A1 that disrupt the triple collagen helix.",
                                     "gain of function": "Gain-of-function variants have their phenotypic effect because the mutant protein does something different than the wild-type protein. Often, these variants cause disease by increasing protein activity (hypermorphic) or introducing a completely new function (neomorphic), but the specific molecular mechanisms underlying gain-of-function mutations can be complex. May also include variants in regulatory regions.",
@@ -1370,7 +1369,7 @@ def populates_disease(host, port, db, user, password, disease_data, disease_onto
                             description = ontology['ontology_description']
                             accession = re.sub("^OMIM:|^MIM:", "", accession)
                             if term is None:
-                                term, description = get_omim(accession)
+                                term, description = get_omim_data(accession)
                         elif ontology['ontology_accession'].startswith('Orphanet'):
                             source_id = source_id_orphanet
                             description = ontology['ontology_description']
@@ -1424,7 +1423,7 @@ def populates_disease(host, port, db, user, password, disease_data, disease_onto
                 if omim_id is not None: #TODO
                     if omim_id not in omim_ontology_inserted:
                         # Get OMIM data from API
-                        omim_disease, omim_desc = get_omim(omim_id)
+                        omim_disease, omim_desc = get_omim_data(omim_id)
                         if omim_disease is None:
                             omim_disease = omim_id
 
@@ -1835,11 +1834,9 @@ def populates_lgd(host, port, db, user, password, gfd_data, inserted_publication
                 # cross cutting modifier
                 ccm_id = []
                 for ccm in data['cross_cutting_modifier_attrib']:
-                    print(f"ccm: {ccm}\n")
                     if(ccm != "requires heterozygosity" and ccm != "typified by age related penetrance"
                        and ccm != "incomplete penetrance"):
                         ccm_attrib_id = fetch_attrib(host, port, db, user, password, ccm_mapping[ccm])
-                        print(f"ccm value: {ccm_attrib_id}\n")
                         ccm_id.append(ccm_attrib_id)
 
                 # variant consequence (new: variant type)
@@ -2049,11 +2046,12 @@ def populates_disease_synonyms(host, port, db, user, password, disease_synonyms,
                     if disease_id:
                         for synonym in synonyms_list:
                             key = f"{synonym}-{disease_id}"
-                            if key not in inserted_data:
+                            if key.lower() not in inserted_data:
                                 cursor.execute(sql_ins, [synonym, disease_id])
-                                inserted_data[key] = 1
-
-            connection.commit()
+                                inserted_data[key.lower()] = 1
+                                connection.commit()
+                            else:
+                                print(f"Duplicated disease synonym: {key}")
 
     except Error as e:
         print("Error while connecting to MySQL", e)
