@@ -44,7 +44,7 @@ faulthandler.enable()
                                 }
 """
 def fetch_attribs(host, port, db, user, password):
-    result_data = {}
+    attribs_data = {}
 
     sql_query = f""" SELECT a.attrib_id, a.value, at.code, at.name, at.description
                      FROM attrib a
@@ -63,7 +63,7 @@ def fetch_attribs(host, port, db, user, password):
             data = cursor.fetchall()
             if len(data) != 0:
                 for row in data:
-                    result_data[row[0]] = { 'attrib_value':row[1],
+                    attribs_data[row[0]] = { 'attrib_value':row[1],
                                             'attrib_type_code':row[2],
                                             'attrib_type_name':row[3],
                                             'attrib_type_description':row[4]}
@@ -75,13 +75,13 @@ def fetch_attribs(host, port, db, user, password):
             cursor.close()
             connection.close()
 
-    return result_data
+    return attribs_data
 
 """
     Return the panel name and the visibility
 """
 def dump_panels(host, port, db, user, password):
-    result_data = {}
+    panels_data = {}
 
     map_name = {
         "DD": "Developmental disorders",
@@ -95,7 +95,8 @@ def dump_panels(host, port, db, user, password):
         "Rapid_PICU_NICU": "Rapid_PICU_NICU disorders",
         "PaedNeuro": "PaedNeuro disorders",
         "Skeletal": "Skeletal disorders",
-        "Cardiac": "Cardiac disorders"
+        "Cardiac": "Cardiac disorders",
+        "Hearing loss": "Hearing loss"
     }
 
     sql_query = f""" SELECT name, is_visible
@@ -114,7 +115,7 @@ def dump_panels(host, port, db, user, password):
             data = cursor.fetchall()
             if len(data) != 0:
                 for row in data:
-                    result_data[row[0]] = { 'description': map_name[row[0]], 'is_visible':row[1] }
+                    panels_data[row[0]] = { 'description': map_name[row[0]], 'is_visible':row[1] }
 
     except Error as e:
         print("Error while connecting to MySQL", e)
@@ -123,7 +124,7 @@ def dump_panels(host, port, db, user, password):
             cursor.close()
             connection.close()
 
-    return result_data
+    return panels_data
 
 """
     Return the users data and the panels they can curate
@@ -168,7 +169,7 @@ def dump_users(host, port, db, user, password, attribs):
     Return the publications
 """
 def dump_publications(host, port, db, user, password):
-    result = {}
+    publications_data = {}
     duplicated_pmids = {}
 
     sql_query = f""" SELECT publication_id, pmid, title, source
@@ -212,7 +213,7 @@ def dump_publications(host, port, db, user, password):
                         cursor.execute(sql_query_gfd, [row[1]])
                         data_gfd_2 = cursor.fetchall()
                         if len(data_gfd_2) != 0:
-                            result[row[0]] = { 'pmid':row[1],
+                            publications_data[row[0]] = { 'pmid':row[1],
                                            'title':row[2],
                                            'source':row[3] }
 
@@ -223,7 +224,7 @@ def dump_publications(host, port, db, user, password):
             cursor.close()
             connection.close()
 
-    return result
+    return publications_data
 
 """
     Returns phenotypes
