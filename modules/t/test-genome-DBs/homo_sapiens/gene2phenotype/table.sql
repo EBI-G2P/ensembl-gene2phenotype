@@ -47,7 +47,7 @@ CREATE TABLE `GFD_phenotype_log` (
   `genomic_feature_disease_id` int(10) unsigned NOT NULL,
   `phenotype_id` int(10) unsigned NOT NULL,
   `is_visible` tinyint(1) unsigned NOT NULL DEFAULT '1',
-  `panel_attrib` tinyint(1) DEFAULT NULL,
+  `panel_attrib` int(10) DEFAULT NULL,
   `created` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `user_id` int(10) unsigned NOT NULL,
   `action` varchar(128) NOT NULL,
@@ -209,7 +209,7 @@ CREATE TABLE `genomic_feature_disease_log_deleted` (
   `disease_id` int(10) unsigned NOT NULL,
   `confidence_category_attrib` set('31','32','33','34','35') DEFAULT NULL,
   `is_visible` tinyint(1) unsigned NOT NULL DEFAULT '1',
-  `panel_attrib` tinyint(1) DEFAULT NULL,
+  `panel_attrib` int(10) DEFAULT NULL,
   `created` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `user_id` int(10) unsigned NOT NULL,
   `action` varchar(128) NOT NULL,
@@ -240,7 +240,7 @@ CREATE TABLE `genomic_feature_disease_panel` (
   `confidence_category_attrib` int(10) unsigned DEFAULT '0',
   `clinical_review` tinyint(1) unsigned DEFAULT '0',
   `is_visible` tinyint(1) unsigned NOT NULL DEFAULT '1',
-  `panel_attrib` tinyint(1) DEFAULT NULL,
+  `panel_attrib` int(10) DEFAULT NULL,
   PRIMARY KEY (`genomic_feature_disease_panel_id`),
   UNIQUE KEY `gfd_panel_idx` (`genomic_feature_disease_id`,`panel_attrib`),
   KEY `genomic_feature_disease_idx` (`genomic_feature_disease_id`)
@@ -254,7 +254,7 @@ CREATE TABLE `genomic_feature_disease_panel_deleted` (
   `confidence_category_attrib` int(10) unsigned DEFAULT '0',
   `clinical_review` tinyint(1) unsigned DEFAULT '0',
   `is_visible` tinyint(1) unsigned NOT NULL DEFAULT '1',
-  `panel_attrib` tinyint(1) DEFAULT NULL,
+  `panel_attrib` int(10) DEFAULT NULL,
   `deleted` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `deleted_by_user_id` int(10) unsigned NOT NULL,
   PRIMARY KEY (`genomic_feature_disease_panel_deleted_id`),
@@ -269,7 +269,7 @@ CREATE TABLE `genomic_feature_disease_panel_log` (
   `confidence_category_attrib` int(10) unsigned DEFAULT '0',
   `clinical_review` tinyint(1) unsigned DEFAULT '0',
   `is_visible` tinyint(1) unsigned NOT NULL DEFAULT '1',
-  `panel_attrib` tinyint(1) DEFAULT NULL,
+  `panel_attrib` int(10) DEFAULT NULL,
   `created` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `user_id` int(10) unsigned NOT NULL,
   `action` varchar(128) NOT NULL,
@@ -313,7 +313,7 @@ CREATE TABLE `genomic_feature_disease_publication_deleted` (
 CREATE TABLE `genomic_feature_statistic` (
   `genomic_feature_statistic_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `genomic_feature_id` int(10) unsigned DEFAULT NULL,
-  `panel_attrib` tinyint(1) DEFAULT NULL,
+  `panel_attrib` int(10) DEFAULT NULL,
   PRIMARY KEY (`genomic_feature_statistic_id`),
   KEY `genomic_feature_idx` (`genomic_feature_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=94 DEFAULT CHARSET=latin1;
@@ -341,7 +341,7 @@ CREATE TABLE `meta` (
   PRIMARY KEY (`meta_id`),
   UNIQUE KEY `species_key_value_idx` (`species_id`,`meta_key`,`meta_value`),
   KEY `species_value_idx` (`species_id`,`meta_value`)
-) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=latin1;
 
 CREATE TABLE `ontology_term` (
   `ontology_term_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
