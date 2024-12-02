@@ -2,8 +2,6 @@
 
 root_directory=$1
 current_date=$(date +'%Y-%m-%d')
-# root_directory="/nfs/production/flicek/ensembl/variation/G2P/GenCC_create"
-# root_directory="/hps/nobackup/flicek/ensembl/variation/dlemos/G2P/gencc_submission" # Testing
 
 final_directory="$root_directory/$current_date"
 if [ ! -d "$final_directory" ];
