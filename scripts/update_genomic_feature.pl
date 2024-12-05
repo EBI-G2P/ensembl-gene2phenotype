@@ -36,13 +36,13 @@ die ('A registry_file file is required (--registry_file)') unless (defined($conf
 die ('A working_dir must be defiened (--working_dir)') unless (defined($config->{working_dir}));
 my $working_dir = $config->{working_dir};
 
-`wget -P $working_dir ftp://ftp.ebi.ac.uk/pub/databases/genenames/new/tsv/hgnc_complete_set.txt`;
+`wget -P $working_dir https://storage.googleapis.com/public-download-files/hgnc/tsv/tsv/hgnc_complete_set.txt`;
 if (! -e "$working_dir/hgnc_complete_set.txt") {
   die("File ($working_dir/hgnc_complete_set.txt) doesn't exist.");
 }
 $config->{hgnc_mapping_file} = "$working_dir/hgnc_complete_set.txt";
 
-`wget -P $working_dir ftp://ftp.ensembl.org/pub/release-$version/gtf/homo_sapiens/Homo_sapiens.GRCh38.$version.chr.gtf.gz`;
+`wget -P $working_dir https://ftp.ensembl.org/pub/release-$version/gtf/homo_sapiens/Homo_sapiens.GRCh38.$version.chr.gtf.gz`;
 if (! -e "$working_dir/Homo_sapiens.GRCh38.$version.chr.gtf.gz") {
   die("File ($working_dir/Homo_sapiens.GRCh38.$version.chr.gtf.gz) doesn't exist.");
 }
