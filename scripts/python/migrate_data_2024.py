@@ -22,8 +22,9 @@ import re
 import mysql.connector
 from mysql.connector import Error
 import requests
-import datetime
+from datetime import datetime
 import faulthandler
+import pytz
 
 faulthandler.enable()
 
@@ -113,9 +114,8 @@ def dump_panels(host, port, db, user, password):
             cursor = connection.cursor()
             cursor.execute(sql_query)
             data = cursor.fetchall()
-            if len(data) != 0:
-                for row in data:
-                    panels_data[row[0]] = { 'description': map_name[row[0]], 'is_visible':row[1] }
+            for row in data:
+                panels_data[row[0]] = { 'description': map_name[row[0]], 'is_visible':row[1] }
 
     except Error as e:
         print("Error while connecting to MySQL", e)
@@ -153,7 +153,7 @@ def dump_users(host, port, db, user, password, attribs):
                     # print(f"attrib: {panel}, {attribs[int(panel)]['attrib_value']}")
                     panel_names.append(attribs[int(panel)]['attrib_value'])
                 users_data[row[0]] = { 'email':row[1],
-                                        'panels':panel_names }
+                                           'panels':panel_names }
 
     except Error as e:
         print("Error while connecting to MySQL", e)
@@ -227,7 +227,7 @@ def dump_publications(host, port, db, user, password):
     Returns phenotypes
 """
 def dump_phenotype(host, port, db, user, password):
-    phenotypes_data = {}
+    result = {}
 
     sql_query_user = f""" SELECT phenotype_id, stable_id, name, description, source
                           FROM phenotype """
@@ -244,7 +244,7 @@ def dump_phenotype(host, port, db, user, password):
             cursor.execute(sql_query_user)
             data = cursor.fetchall()
             for row in data:
-                phenotypes_data[row[0]] = { 'stable_id':row[1],
+                result[row[0]] = { 'stable_id':row[1],
                                     'name':row[2],
                                     'description':row[3],
                                     'source':row[4] }
@@ -256,14 +256,14 @@ def dump_phenotype(host, port, db, user, password):
             cursor.close()
             connection.close()
 
-    return phenotypes_data
+    return result
 
 """
     Return organ data
     This data is going to be stored as historical data
 """
 def dump_organ(host, port, db, user, password):
-    organs_data = {}
+    result = {}
 
     sql_query_user = f""" SELECT organ_id, name
                           FROM organ """
@@ -280,7 +280,7 @@ def dump_organ(host, port, db, user, password):
             cursor.execute(sql_query_user)
             data = cursor.fetchall()
             for row in data:
-                organs_data[row[0]] = row[1]
+                result[row[0]] = row[1]
 
     except Error as e:
         print("Error while connecting to MySQL", e)
@@ -289,7 +289,7 @@ def dump_organ(host, port, db, user, password):
             cursor.close()
             connection.close()
 
-    return organs_data
+    return result
 
 def dump_ontology(host, port, db, user, password, attribs):
     result_disease = {}
@@ -312,7 +312,10 @@ def dump_ontology(host, port, db, user, password, attribs):
             data_disease = cursor.fetchall()
             for row in data_disease:
                 # Fetch ontology (MONDO) info
-                mondo_description = get_mondo(row[3])
+                url = f"https://www.ebi.ac.uk/ols4/api/search?q={row[3]}&ontology=mondo&exact=1"
+                # print(f"{row[3]}")
+                mondo_description = get_mondo(url, row[3])
+                # print(f"Description: {mondo_description}")
                 attrib = row[2]
                 if attrib is not None:
                     attrib = attribs[int(list(row[2])[0])]['attrib_value']
@@ -420,11 +423,12 @@ def dump_genes(host, port, db, user, password):
             cursor = connection.cursor()
             cursor.execute(sql_query)
             data = cursor.fetchall()
-            for row in data:
-                result[row[0]] = { 'gene_symbol':row[1],
-                                    'hgnc_id':row[2],
-                                    'mim':row[3],
-                                    'ensembl_stable_id':row[4]  }
+            if len(data) != 0:
+                for row in data:
+                    result[row[0]] = { 'gene_symbol':row[1],
+                                       'hgnc_id':row[2],
+                                       'mim':row[3],
+                                       'ensembl_stable_id':row[4]  }
 
     except Error as e:
         print("Error while connecting to MySQL", e)
@@ -685,9 +689,7 @@ def dump_logs(host, port, db, user, password):
 
     return gfd_log, gfd_panel_log, gfd_phenotype_log
 
-def get_mondo(id):
-    url = f"https://www.ebi.ac.uk/ols4/api/search?q={id}&ontology=mondo&exact=1"
-
+def get_mondo(url, id):
     r = requests.get(url, headers={ "Content-Type" : "application/json"})
 
     if not r.ok:
@@ -837,6 +839,11 @@ def populate_attribs(host, port, db, user, password, attribs):
         # 'incomplete penetrance':'incomplete penetrance' # not being migrated
     }
 
+    ccm_description = {
+        'imprinted region': 'Requires that the abnormal allele be paternal or maternal in origin, depending on the disease-gene relationship. Imprinting refers to a normal developmental process in which either the paternal or maternal allele is inactivated, depending on the specific locus, thus leading to expression from only one copy of the gene. Disease typically manifests when a deleterious variant is inherited from a parent whose copy of the gene would normally be expressed, but not when a deleterious variant is inherited from a parent whose copy of the gene would normally be inactivated.',
+        'potential secondary finding': 'This includes ACMG Secondary Findings and/or late onset conditions.'
+    }
+
     so_mapping = { 'absent gene product':'SO:0002317',
                    'altered gene product structure':'SO:0002318',
                    'decreased gene product level':'SO:0002316',
@@ -939,7 +946,10 @@ def populate_attribs(host, port, db, user, password, attribs):
                         mapping = attribs[old_id]['attrib_value']
 
                     if mapping is not None:
-                        cursor.execute(sql_query_attrib, [mapping, inserted_attrib_type[attribs[old_id]['attrib_type_code']], None, 0])
+                        attrib_description = None
+                        if mapping in ccm_description:
+                            attrib_description = ccm_description[mapping]
+                        cursor.execute(sql_query_attrib, [mapping, inserted_attrib_type[attribs[old_id]['attrib_type_code']], attrib_description, 0])
                         connection.commit()
                         inserted_attrib[attribs[old_id]['attrib_value']] = { 'old_id':old_id, 'new_id':cursor.lastrowid }
 
@@ -995,6 +1005,9 @@ def populate_new_attribs(host, port, db, user, password):
                        'restricted mutation set':'cross_cutting_modifier'
                      }
 
+    attribs_description = { 'displays anticipation': 'A phenomenon in which the severity of a disorder increases, or the age of onset decreases, as the disorder is passed from one generation to the next, typically due to expansion of a repeat sequence. For example, Myotonic Dystrophy is caused by triplet repeat expansion in the DMPK gene.' 
+                          }
+
     extra_attribs = { 'unknown': 'inheritance_type' }
 
     mechanisms = {     'loss of function':['mechanism'],
@@ -1026,7 +1039,8 @@ def populate_new_attribs(host, port, db, user, password):
     mechanism_descriptions_list = { "loss of function": "Loss-of-function variants involve a loss of the normal biological function of a protein. Often these are nonsense or frameshift mutations that introduce premature stop codons. Due to nonsense-mediated decay of the resulting mRNAs, most premature stop codons will result in no protein being produced, rather than a truncated protein. However, there are also many examples of loss-of-function variants that change the amino acid sequence and result in non-functional protein products. These mutations can cause a complete loss of function (amorphic), analogous to a protein null mutation, or only a partial loss of function (hypomorphic). May also include variants in regulatory regions.",
                                     "dominant negative": "Dominant-negative variants involve the mutant protein directly or indirectly blocking the normal biological function of the wild-type protein (antimorphic). They can thus cause a disproportionate (>50%) loss of function, even though only half of the protein is mutated eg. heterozygous variants in COL1A1 that disrupt the triple collagen helix.",
                                     "gain of function": "Gain-of-function variants have their phenotypic effect because the mutant protein does something different than the wild-type protein. Often, these variants cause disease by increasing protein activity (hypermorphic) or introducing a completely new function (neomorphic), but the specific molecular mechanisms underlying gain-of-function mutations can be complex. May also include variants in regulatory regions.",
-                                    "undetermined non-loss-of-function": "Very often it is difficult to distinguish between dominant negative and gain of function, but it is clearly a non-loss-of-function mechanism (e.g. from co-expression experiments showing a damaging effect from the mutant allele)."
+                                    "undetermined non-loss-of-function": "Very often it is difficult to distinguish between dominant negative and gain of function, but it is clearly a non-loss-of-function mechanism (e.g. from co-expression experiments showing a damaging effect from the mutant allele).",
+                                    "undetermined": "Not known"
                                   }
 
     ontology = {   'altered gene product level': 'SO:0002314',
@@ -1072,11 +1086,15 @@ def populate_new_attribs(host, port, db, user, password):
                 inserted[mt] = cursor.lastrowid
 
             for data, t in attribs.items():
+                attrib_description = None
+                if data in attribs_description:
+                    attrib_description = attribs_description[data]
+
                 if t in inserted:
                     attrib_type_id = inserted[t]
                 else:
                     attrib_type_id = fetch_attrib_type(host, port, db, user, password, t)
-                cursor.execute(sql_query_attrib, [data, attrib_type_id, None, 0])
+                cursor.execute(sql_query_attrib, [data, attrib_type_id, attrib_description, 0])
                 connection.commit()
 
             for data, t in extra_attribs.items():
@@ -1361,7 +1379,7 @@ def populates_disease(host, port, db, user, password, disease_data, disease_onto
                             description = ontology['ontology_description']
                             accession = re.sub("^OMIM:|^MIM:", "", accession)
                             if term is None:
-                                term, description = get_omim_data(accession)
+                                term, description = get_omim(accession)
                         elif ontology['ontology_accession'].startswith('Orphanet'):
                             source_id = source_id_orphanet
                             description = ontology['ontology_description']
@@ -1415,7 +1433,7 @@ def populates_disease(host, port, db, user, password, disease_data, disease_onto
                 if omim_id is not None: #TODO
                     if omim_id not in omim_ontology_inserted:
                         # Get OMIM data from API
-                        omim_disease, omim_desc = get_omim_data(omim_id)
+                        omim_disease, omim_desc = get_omim(omim_id)
                         if omim_disease is None:
                             omim_disease = omim_id
 
@@ -1436,7 +1454,7 @@ def populates_disease(host, port, db, user, password, disease_data, disease_onto
                         cursor.execute(sql_query_disease_ontology, [inserted_disease[old_id]['new_disease_id'],  mapping['Data source'], new_ontology_id])
                         connection.commit()
                         inserted_disease_ontology[key] = 1
-                    
+
                     # Are there other new disease ids linked to the old disease id?
                     if(len(inserted_disease_2[old_id]) > 1):
                         for new_disease_id in inserted_disease_2[old_id]:
@@ -1524,13 +1542,12 @@ def populates_locus(host, port, db, user, password, genomic_feature_data, ensemb
             cursor = connection_ensembl.cursor()
             cursor.execute(sql_genes)
             data_genes = cursor.fetchall()
-            if len(data_genes) != 0:
-                for gene in data_genes:
-                    if gene[0] not in genes.keys():
-                        genes[gene[0]] = { 'sequence':gene[1],
-                                           'start':gene[2],
-                                           'end':gene[3],
-                                           'strand':gene[4] }
+            for gene in data_genes:
+                if gene[0] not in genes.keys():
+                    genes[gene[0]] = { 'sequence':gene[1],
+                                        'start':gene[2],
+                                        'end':gene[3],
+                                        'strand':gene[4] }
 
     except Error as e:
         print("Error while connecting to MySQL", e)
@@ -1584,7 +1601,11 @@ def populates_locus(host, port, db, user, password, genomic_feature_data, ensemb
                     connection.commit()
 
             # Insert into meta
-            cursor.execute(sql_meta, ['locus_gene_update', datetime.datetime.now(), 0, description, ensembl_source_id, version.group()])
+            date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            timezone = pytz.timezone("Europe/London")
+            date_obj = datetime.strptime(date, '%Y-%m-%d %H:%M:%S')
+            aware_datetime = timezone.localize(date_obj) 
+            cursor.execute(sql_meta, ['locus_gene_update', aware_datetime, 0, description, ensembl_source_id, version.group()])
             connection.commit()
 
     except Error as e:
@@ -1727,8 +1748,8 @@ def populates_lgd(host, port, db, user, password, gfd_data, inserted_publication
     }
 
     sql_query_lgd = f""" INSERT INTO locus_genotype_disease (stable_id, date_review, is_reviewed, 
-                         is_deleted, confidence_id, disease_id, genotype_id, locus_id, molecular_mechanism_id)
-                         VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
+                         is_deleted, confidence_id, disease_id, genotype_id, locus_id, mechanism_id, mechanism_support_id)
+                         VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
                      """
 
     sql_query_stable_id = f""" INSERT INTO g2p_stableid (stable_id, is_live, is_deleted)
@@ -1763,16 +1784,13 @@ def populates_lgd(host, port, db, user, password, gfd_data, inserted_publication
                                VALUES (%s, %s, %s)
                            """
 
-    sql_query_lgd_mechanism = f""" INSERT INTO molecular_mechanism (mechanism_id, mechanism_support_id, is_deleted)
-                                   VALUES (%s, %s, %s)
-                               """
-
     stable_id = 0
     inserted_lgd = {}
     map_old_new_gfd = {}
 
     # Fetch ID for mechanism 'undetermined' - this is the default mechanism value
     undetermined_id = fetch_mechanism(host, port, db, user, password, 'undetermined', 'mechanism')
+    mechanism_support = fetch_mechanism(host, port, db, user, password, 'inferred', "support")
 
     connection = mysql.connector.connect(host=host,
                                          database=db,
@@ -1816,12 +1834,19 @@ def populates_lgd(host, port, db, user, password, gfd_data, inserted_publication
                 # Get date last update
                 date = None
                 if gfd in last_updates:
-                    date = last_updates[gfd]
-                if gfd in last_update_panel and (date is None or date < last_update_panel[gfd]):
-                    date = last_update_panel[gfd]
-                
+                    # last_updates[gfd] is a datetime - convert it to string
+                    date = last_updates[gfd].strftime("%Y-%m-%d %H:%M:%S")
+
+                if gfd in last_update_panel and (date is None or (last_update_panel[gfd] is not None and date < last_update_panel[gfd].strftime("%Y-%m-%d %H:%M:%S"))):
+                    date = last_update_panel[gfd].strftime("%Y-%m-%d %H:%M:%S")
+
                 if date is None:
                     date = '2010-01-01 00:00:00' # TODO: which date to use?
+
+                # make the date aware of the timezone
+                timezone = pytz.timezone("Europe/London")
+                date_obj = datetime.strptime(date, '%Y-%m-%d %H:%M:%S')
+                date_timezone = timezone.localize(date_obj)
 
                 # cross cutting modifier
                 ccm_id = []
@@ -1832,20 +1857,22 @@ def populates_lgd(host, port, db, user, password, gfd_data, inserted_publication
                         ccm_id.append(ccm_attrib_id)
 
                 # variant consequence (new: variant type)
-                mechanism = []
+                mechanism = None
                 variant_type_list = []
                 for var_type in data['variant_consequence_attrib']:
                     # This is a molecular mechanism
                     if var_type == 'gain_of_function_variant':
-                        mechanism.append(fetch_mechanism(host, port, db, user, password, 'gain of function', 'mechanism'))
+                        mechanism = fetch_mechanism(host, port, db, user, password, 'gain of function', 'mechanism')
                     elif var_type == 'loss_of_function_variant':
-                        mechanism.append(fetch_mechanism(host, port, db, user, password, 'loss of function', 'mechanism'))
+                        mechanism = fetch_mechanism(host, port, db, user, password, 'loss of function', 'mechanism')
                     else:
                         variant_type_list.append(fetch_ontology(host, port, db, user, password, var_type))
+                        # Set empty mechanism to 'undetermined'
+                        mechanism = undetermined_id
 
                 # Set empty mechanism to 'undetermined'
-                if len(mechanism) == 0:
-                    mechanism.append(undetermined_id)
+                if mechanism is None:
+                    mechanism = undetermined_id
 
                 # multiple mutation_consequence_attrib
                 # some mutation consequences are now variant type
@@ -1883,114 +1910,104 @@ def populates_lgd(host, port, db, user, password, gfd_data, inserted_publication
                 for pheno_id in data['phenotypes']:
                     phenotypes.append(inserted_phenotypes[pheno_id]['new_id'])
 
-                # Insert mechanisms
-                mechanism_ids = []
-                mechanism_support = fetch_mechanism(host, port, db, user, password, 'inferred', "support")
-                for mec in mechanism:
-                    cursor.execute(sql_query_lgd_mechanism, [mec, mechanism_support, 0])
-                    connection.commit()
-                    mec_id = cursor.lastrowid
-                    mechanism_ids.append(mec_id)
-
                 # print(f"locus: {locus_id}, disease: {disease_id}, genotype: {genotype_id}, variant consequence: {variant_gencc_consequences}, panels confidence: {confidence}")
 
-                for unique_mechanism in mechanism_ids:
-                    key = f"{locus_id}-{disease_id}-{genotype_id}-{unique_mechanism}" # TODO: Change to support disease updates
+                key = f"{locus_id}-{disease_id}-{genotype_id}-{mechanism}" # TODO: Change to support disease updates
 
-                    # Insert LGD
-                    # Skip entries with multiple confidence
-                    if key not in inserted_lgd.keys():
-                        # Insert stable ID
-                        stable_id += 1
-                        cursor.execute(sql_query_stable_id, [f"G2P{stable_id:05d}", 1, 0])
+                # Insert LGD
+                # Skip entries with multiple confidence
+                if key not in inserted_lgd.keys():
+                    # Insert stable ID
+                    stable_id += 1
+                    cursor.execute(sql_query_stable_id, [f"G2P{stable_id:05d}", 1, 0])
+                    connection.commit()
+                    stable_id_pk = cursor.lastrowid
+
+                    cursor.execute(sql_query_lgd, [stable_id_pk, date_timezone, 1, 0, final_confidence, disease_id, genotype_id, locus_id, mechanism, mechanism_support])
+                    connection.commit()
+                    inserted_lgd[key] = { 'id':cursor.lastrowid, 'variant_gencc_consequence':variant_gencc_consequences,
+                                        'confidence':confidence, 'ccm':ccm_id, 'publications':publications,
+                                        'variant_types':variant_type_list, 'phenotypes':phenotypes,
+                                        'final_confidence':final_confidence, 'mechanism':mechanism }
+
+                    # Store the mapping between old and new gfd id
+                    map_old_new_gfd[gfd] = inserted_lgd[key]["id"]
+
+                    # Insert lgd_panel
+                    for panel_id in confidence:
+                        cursor.execute(sql_query_lgd_panel, [0, confidence[panel_id], inserted_lgd[key]['id'], panel_id])
                         connection.commit()
-                        stable_id_pk = cursor.lastrowid
 
-                        cursor.execute(sql_query_lgd, [stable_id_pk, date, 1, 0, final_confidence, disease_id, genotype_id, locus_id, unique_mechanism])
+                    # Insert cross cutting modifier
+                    for ccm_data in ccm_id:
+                        cursor.execute(sql_query_lgd_ccm, [0, ccm_data, inserted_lgd[key]['id']])
                         connection.commit()
-                        inserted_lgd[key] = { 'id':cursor.lastrowid, 'variant_gencc_consequence':variant_gencc_consequences,
-                                            'confidence':confidence, 'ccm':ccm_id, 'publications':publications,
-                                            'variant_types':variant_type_list, 'phenotypes':phenotypes,
-                                            'final_confidence':final_confidence, 'mechanism':unique_mechanism }
 
-                        # Store the mapping between old and new gfd id
-                        map_old_new_gfd[gfd] = inserted_lgd[key]["id"]
+                    # Insert publications
+                    for pub in publications:
+                        cursor.execute(sql_query_lgd_pub, [0, pub, inserted_lgd[key]['id']])
+                        connection.commit()
 
-                        # Insert lgd_panel
-                        for panel_id in confidence:
-                            cursor.execute(sql_query_lgd_panel, [0, confidence[panel_id], inserted_lgd[key]['id'], panel_id])
+                    # Insert gencc variant consequence
+                    for var_cons_gencc in variant_gencc_consequences:
+                        cursor.execute(sql_query_lgd_gencc, [0, variant_gencc_consequences_support, inserted_lgd[key]['id'], var_cons_gencc])
+                        connection.commit()
+
+                    # Insert variant type
+                    for var_id in variant_type_list:
+                        cursor.execute(sql_query_lgd_var, [0, inserted_lgd[key]['id'], var_id, 0, 0, 0])
+                        connection.commit()
+
+                    # Insert phenotypes
+                    for new_pheno_id in phenotypes:
+                        cursor.execute(sql_query_lgd_pheno, [0, inserted_lgd[key]['id'], new_pheno_id])
+                        connection.commit()
+
+                    # Insert comments
+                    for comment in data['comments']:
+                        user_id = fetch_user(host, port, db, user, password, comment['username'])
+                        cursor.execute(sql_query_lgd_comment, [0, comment['is_public'], inserted_lgd[key]['id'], user_id, comment['created'], comment['comment']])
+
+                # Merge entries - disease is the same
+                elif set(variant_gencc_consequences) == set(inserted_lgd[key]['variant_gencc_consequence']) and final_confidence == inserted_lgd[key]['final_confidence']:
+                    lgd_id = inserted_lgd[key]['id']
+                    print(f"Merge entries: {lgd_id}")
+                    # print(f"variant consequences: {variant_gencc_consequences} = {inserted_lgd[key]['variant_gencc_consequence']}")
+                    # Insert lgd_panel
+                    for panel_id in confidence:
+                        if panel_id not in inserted_lgd[key]['confidence']:
+                            cursor.execute(sql_query_lgd_panel, [0, confidence[panel_id], lgd_id, panel_id])
+                            connection.commit()
+                    # Insert cross cutting modifier
+                    for ccm_data in ccm_id:
+                        if ccm_data not in inserted_lgd[key]['ccm']:
+                            cursor.execute(sql_query_lgd_ccm, [0, ccm_data, lgd_id])
+                            connection.commit()
+                    # Insert publications
+                    for pub in publications:
+                        if pub not in inserted_lgd[key]['publications']:
+                            cursor.execute(sql_query_lgd_pub, [0, pub, lgd_id])
+                            connection.commit()
+                    # Insert variant type
+                    for var_id in variant_type_list:
+                        if var_id not in inserted_lgd[key]['variant_types']:
+                            cursor.execute(sql_query_lgd_var, [0, lgd_id, var_id, 0, 0, 0])
+                            connection.commit()
+                    # Insert phenotypes
+                    for new_pheno_id in phenotypes:
+                        if new_pheno_id not in inserted_lgd[key]['phenotypes']:
+                            cursor.execute(sql_query_lgd_pheno, [0, lgd_id, new_pheno_id])
                             connection.commit()
 
-                        # Insert cross cutting modifier
-                        for ccm_data in ccm_id:
-                            cursor.execute(sql_query_lgd_ccm, [0, ccm_data, inserted_lgd[key]['id']])
-                            connection.commit()
+                    # TODO: update last_updated
 
-                        # Insert publications
-                        for pub in publications:
-                            cursor.execute(sql_query_lgd_pub, [0, pub, inserted_lgd[key]['id']])
-                            connection.commit()
+                elif final_confidence != inserted_lgd[key]['final_confidence']:
+                    # print(f"\nKey already inserted with id: {inserted_lgd[key]}")
+                    print(f"(Different confidence) Key already in db: {key}, locus: {locus_id}, disease: {disease_id}, genotype: {genotype_id}, panels confidence: {confidence}")
 
-                        # Insert gencc variant consequence
-                        for var_cons_gencc in variant_gencc_consequences:
-                            cursor.execute(sql_query_lgd_gencc, [0, variant_gencc_consequences_support, inserted_lgd[key]['id'], var_cons_gencc])
-                            connection.commit()
-
-                        # Insert variant type
-                        for var_id in variant_type_list:
-                            cursor.execute(sql_query_lgd_var, [0, inserted_lgd[key]['id'], var_id, 0, 0, 0])
-                            connection.commit()
-
-                        # Insert phenotypes
-                        for new_pheno_id in phenotypes:
-                            cursor.execute(sql_query_lgd_pheno, [0, inserted_lgd[key]['id'], new_pheno_id])
-                            connection.commit()
-
-                        # Insert comments
-                        for comment in data['comments']:
-                            user_id = fetch_user(host, port, db, user, password, comment['username'])
-                            cursor.execute(sql_query_lgd_comment, [0, comment['is_public'], inserted_lgd[key]['id'], user_id, comment['created'], comment['comment']])
-
-                    # Merge entries - disease is the same
-                    elif set(variant_gencc_consequences) == set(inserted_lgd[key]['variant_gencc_consequence']) and final_confidence == inserted_lgd[key]['final_confidence']:
-                        lgd_id = inserted_lgd[key]['id']
-                        print(f"Merge entries: {lgd_id}")
-                        # print(f"variant consequences: {variant_gencc_consequences} = {inserted_lgd[key]['variant_gencc_consequence']}")
-                        # Insert lgd_panel
-                        for panel_id in confidence:
-                            if panel_id not in inserted_lgd[key]['confidence']:
-                                cursor.execute(sql_query_lgd_panel, [0, confidence[panel_id], lgd_id, panel_id])
-                                connection.commit()
-                        # Insert cross cutting modifier
-                        for ccm_data in ccm_id:
-                            if ccm_data not in inserted_lgd[key]['ccm']:
-                                cursor.execute(sql_query_lgd_ccm, [0, ccm_data, lgd_id])
-                                connection.commit()
-                        # Insert publications
-                        for pub in publications:
-                            if pub not in inserted_lgd[key]['publications']:
-                                cursor.execute(sql_query_lgd_pub, [0, pub, lgd_id])
-                                connection.commit()
-                        # Insert variant type
-                        for var_id in variant_type_list:
-                            if var_id not in inserted_lgd[key]['variant_types']:
-                                cursor.execute(sql_query_lgd_var, [0, lgd_id, var_id, 0, 0, 0])
-                                connection.commit()
-                        # Insert phenotypes
-                        for new_pheno_id in phenotypes:
-                            if new_pheno_id not in inserted_lgd[key]['phenotypes']:
-                                cursor.execute(sql_query_lgd_pheno, [0, lgd_id, new_pheno_id])
-                                connection.commit()
-
-                        # TODO: update last_updated
-
-                    elif final_confidence != inserted_lgd[key]['final_confidence']:
-                        # print(f"\nKey already inserted with id: {inserted_lgd[key]}")
-                        print(f"(Different confidence) Key already in db: {key}, locus: {locus_id}, disease: {disease_id}, genotype: {genotype_id}, panels confidence: {confidence}")
-
-                    else:
-                        # print(f"\nKey already inserted with id: {inserted_lgd[key]}")
-                        print(f"Key already in db: {key}, locus: {locus_id}, disease: {disease_id}, genotype: {genotype_id}, panels confidence: {confidence}")
+                else:
+                    # print(f"\nKey already inserted with id: {inserted_lgd[key]}")
+                    print(f"Key already in db: {key}, locus: {locus_id}, disease: {disease_id}, genotype: {genotype_id}, panels confidence: {confidence}")
 
     except Error as e:
         print("Error while connecting to MySQL", e)
@@ -2055,6 +2072,7 @@ def populates_disease_synonyms(host, port, db, user, password, disease_synonyms,
     return 1
 
 def populates_history(host, port, db, user, password, map_old_new_gfd, gfd_log, gfd_panel_log, gfd_phenotype_log):
+    timezone = pytz.timezone("Europe/London")
 
     sql_insert_lgd_log = """ INSERT INTO gene2phenotype_app_historicallocusgenotypedisease (id, date_review, history_date, history_type, history_user_id, is_deleted, is_reviewed)
                              VALUES (%s, %s, %s, %s, %s, %s, %s)
@@ -2088,12 +2106,17 @@ def populates_history(host, port, db, user, password, map_old_new_gfd, gfd_log, 
                     else:
                         print(f"Invalid log for lgd_id = {new_gfd_id} (action: {log_data['action']})")
                     
+                    # make the date aware of the timezone
+                    date_str = log_data["date"].strftime("%Y-%m-%d %H:%M:%S")
+                    date_obj = datetime.strptime(date_str, '%Y-%m-%d %H:%M:%S')
+                    date_timezone = timezone.localize(date_obj)
+
                     if(history_type and log_data["username"] != "diana_lemos" and log_data["username"] != "ola_austine"
                        and log_data["username"] != "sarah_hunt"):
                         # Get the user id
                         user_id = fetch_user(host, port, db, user, password, log_data["username"])
 
-                        cursor.execute(sql_insert_lgd_log, [new_gfd_id, log_data["date"], log_data["date"], history_type, user_id, 0, 1])
+                        cursor.execute(sql_insert_lgd_log, [new_gfd_id, date_timezone, date_timezone, history_type, user_id, 0, 1])
 
             for old_gfd_id, log_data in gfd_panel_log.items():
                 if(old_gfd_id in map_old_new_gfd):
@@ -2106,12 +2129,17 @@ def populates_history(host, port, db, user, password, map_old_new_gfd, gfd_log, 
                     else:
                         print(f"Invalid log for lgd_id = {new_gfd_id} (action: {log_data['action']})")
 
+                    # make the date aware of the timezone
+                    date_str = log_data["date"].strftime("%Y-%m-%d %H:%M:%S")
+                    date_obj = datetime.strptime(date_str, '%Y-%m-%d %H:%M:%S')
+                    date_timezone = timezone.localize(date_obj)
+
                     if(history_type and log_data["username"] != "diana_lemos" and log_data["username"] != "ola_austine"
                        and log_data["username"] != "sarah_hunt"):
                         # Get the user id
                         user_id = fetch_user(host, port, db, user, password, log_data["username"])
 
-                        cursor.execute(sql_insert_lgd_panel_log, [new_gfd_id, log_data["date"], history_type, user_id, 0])
+                        cursor.execute(sql_insert_lgd_panel_log, [new_gfd_id, date_timezone, history_type, user_id, 0])
 
             for old_gfd_id, log_data in gfd_phenotype_log.items():
                 if(old_gfd_id in map_old_new_gfd):
@@ -2124,12 +2152,17 @@ def populates_history(host, port, db, user, password, map_old_new_gfd, gfd_log, 
                     else:
                         print(f"Invalid action log for lgd_id = {new_gfd_id} (action: {log_data['action']})")
                     
+                    # make the date aware of the timezone
+                    date_str = log_data["date"].strftime("%Y-%m-%d %H:%M:%S")
+                    date_obj = datetime.strptime(date_str, '%Y-%m-%d %H:%M:%S')
+                    date_timezone = timezone.localize(date_obj)
+
                     if(history_type and log_data["username"] != "diana_lemos" and log_data["username"] != "ola_austine"
                        and log_data["username"] != "sarah_hunt"):
                         # Get the user id
                         user_id = fetch_user(host, port, db, user, password, log_data["username"])
 
-                        cursor.execute(sql_insert_lgd_phenotype_log, [new_gfd_id, log_data["date"], history_type, user_id, 0])
+                        cursor.execute(sql_insert_lgd_phenotype_log, [new_gfd_id, date_timezone, history_type, user_id, 0])
             
             connection.commit()
 
@@ -2479,7 +2512,7 @@ def fetch_user(host, port, db, user, password, username):
 
 def update_attrib_description(host, port, db, user, password):
     attribs_descriptions = {
-        "definitive": "The role of this gene in this particular disease has been repeatedly demonstrated in both the research and clinical diagnostic settings, and has been upheld over time (at least 2 independent publication over 3 years' time). No convincing evidence has emerged that contradicts the role of the gene in the specified disease. (previously labelled as confirmed).",
+        "definitive": "The role of this gene in this particular disease has been repeatedly demonstrated in both the research and clinical diagnostic settings, and has been upheld over time (at least 2 independent publication over 3 years' time). No convincing evidence has emerged that contradicts the role of the gene in the specified disease. (previously labelled as confirmed) The strength of evidence within publications as well as their number and publication dates is taken into account. In practice, this usually means at least 4 publications over 5 years. Typically this will also include convincing bioinformatic or functional evidence of causation, making it very unlikely that this gene-disease association would ever be refuted.",
         "limited": "Little human evidence exists to support a casual role for this gene in this disease, but not all evidence has been refuted. For example, there may be a collection of rare missense variants in humans but without convincing functional impact, segregration data that could either arise by chance (e.g across one or two meioses) or does not implicate a single gene, or functional data without direct recapitulation of the phenotype. Overall, the body of evidence does not meet contemporary criteria for claiming a valid association with disease. The majority are probably false associations. (previously labelled as possible).",
         "strong": "The role of this gene as a monogenic cause of disease has been repeatedly and independently demonstrated providing very strong convincing evidence in humans and no conflicting evidence for this gene's role in this disease. (previously labelled as probable).",
         "typically de novo": "Plausible disease causing mutations that occur post zygotically (formation of gametes).",
@@ -2660,15 +2693,15 @@ def main():
     map_old_new_gfd = populates_lgd(new_host, new_port, new_db, new_user, new_password, gfd_data, inserted_publications, inserted_phenotypes, last_updates, last_update_panel, inserted_disease_by_name, disease_genes)
     print("INFO: LGD populated\n")
 
-    # Populates: disease_synonym
-    print("INFO: Populating disease synonyms...")
-    populates_disease_synonyms(new_host, new_port, new_db, new_user, new_password, disease_synonyms, map_old_new_gfd)
-    print("INFO: disease synonyms populated\n")
-
     # Populates: history tables
     print("INFO: Populating history tables...")
     populates_history(new_host, new_port, new_db, new_user, new_password, map_old_new_gfd, gfd_log, gfd_panel_log, gfd_phenotype_log)
     print("INFO: Populating history tables\n")
+
+    # Populates: disease_synonym
+    print("INFO: Populating disease synonyms...")
+    populates_disease_synonyms(new_host, new_port, new_db, new_user, new_password, disease_synonyms, map_old_new_gfd)
+    print("INFO: disease synonyms populated\n")
 
 if __name__ == '__main__':
     main()
