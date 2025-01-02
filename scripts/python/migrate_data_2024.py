@@ -315,6 +315,8 @@ def dump_ontology(host, port, db, user, password, attribs):
                 url = f"https://www.ebi.ac.uk/ols4/api/search?q={row[3]}&ontology=mondo&exact=1"
                 # print(f"{row[3]}")
                 mondo_description = get_mondo(url, row[3])
+                if mondo_description == "":
+                    mondo_description = None
                 # print(f"Description: {mondo_description}")
                 attrib = row[2]
                 if attrib is not None:
@@ -1379,7 +1381,7 @@ def populates_disease(host, port, db, user, password, disease_data, disease_onto
                             description = ontology['ontology_description']
                             accession = re.sub("^OMIM:|^MIM:", "", accession)
                             if term is None:
-                                term, description = get_omim(accession)
+                                term, description = get_omim_data(accession)
                         elif ontology['ontology_accession'].startswith('Orphanet'):
                             source_id = source_id_orphanet
                             description = ontology['ontology_description']
@@ -1433,7 +1435,7 @@ def populates_disease(host, port, db, user, password, disease_data, disease_onto
                 if omim_id is not None: #TODO
                     if omim_id not in omim_ontology_inserted:
                         # Get OMIM data from API
-                        omim_disease, omim_desc = get_omim(omim_id)
+                        omim_disease, omim_desc = get_omim_data(omim_id)
                         if omim_disease is None:
                             omim_disease = omim_id
 
@@ -1874,6 +1876,28 @@ def populates_lgd(host, port, db, user, password, gfd_data, inserted_publication
                 if mechanism is None:
                     mechanism = undetermined_id
 
+                # mutation consequence flag "restricted repertoire of mutations" is now ccm "restricted mutation set"
+                for mutation_cons_flag in data['mutation_consequence_flag_attrib']:
+                    if mutation_cons_flag == "restricted repertoire of mutations":
+                        ccm_attrib_id = fetch_attrib(host, port, db, user, password, "restricted mutation set")
+                        ccm_id.append(ccm_attrib_id)
+                    # mutation consequence flag "dominant negative" is now mechanism "dominant negative"
+                    if mutation_cons_flag == "dominant negative":
+                        mechanism_tmp = fetch_mechanism(host, port, db, user, password, 'dominant negative', 'mechanism')
+                        # check if mechanism is already assigned
+                        if mechanism != undetermined_id:
+                            print(f"WARNING: multiple mechanisms for gfd_id {gfd}")
+                        else:
+                            mechanism = mechanism_tmp
+                    # mutation consequence flag "activating" is now mechanism "gain of function"
+                    if mutation_cons_flag == "activating":
+                        mechanism_tmp = fetch_mechanism(host, port, db, user, password, 'gain of function', 'mechanism')
+                        # check if mechanism is already assigned
+                        if mechanism != undetermined_id:
+                            print(f"WARNING: multiple mechanisms for gfd_id {gfd}")
+                        else:
+                            mechanism = mechanism_tmp
+
                 # multiple mutation_consequence_attrib
                 # some mutation consequences are now variant type
                 variant_gencc_consequences = []
@@ -1893,7 +1917,7 @@ def populates_lgd(host, port, db, user, password, gfd_data, inserted_publication
                     panels.append(panel_id)
                     confidence[panel_id] = fetch_attrib(host, port, db, user, password, panel_data['confidence_category'])
                     final_confidence = confidence[panel_id]
-                
+
                 # publications
                 publications = []
                 for pub_id, pub_data in data['publications'].items():
