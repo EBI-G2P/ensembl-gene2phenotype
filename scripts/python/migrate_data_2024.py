@@ -166,6 +166,7 @@ def dump_users(host, port, db, user, password, attribs):
 
 """
     Return the publications
+    If publication has empty title then it is not migrated
 """
 def dump_publications(host, port, db, user, password):
     publications_data = {}
@@ -550,9 +551,8 @@ def dump_gfd(host, port, db, user, password, attribs):
                     organs = []
                     cursor.execute(sql_query_organ, [gfd_id])
                     data_organ = cursor.fetchall()
-                    if len(data_organ) != 0:
-                        for row_organ in data_organ:
-                            organs.append(row_organ[2])
+                    for row_organ in data_organ:
+                        organs.append(row_organ[1])
 
                     publications = {}
                     cursor.execute(sql_query_publication, [gfd_id])
@@ -1311,6 +1311,38 @@ def populates_phenotypes(host, port, db, user, password, phenotype_data):
 
     return inserted_phenotypes
 
+def populates_organs(host, port, db, user, password, organ_data):
+    inserted_organs = {} # key: old id; value: new id
+
+    sql_query = f""" INSERT INTO organ (name)
+                     VALUES (%s)
+                 """
+
+    connection = mysql.connector.connect(host=host,
+                                         database=db,
+                                         user=user,
+                                         port=port,
+                                         password=password)
+
+    try:
+        if connection.is_connected():
+            cursor = connection.cursor()
+            for organ_id, name in organ_data.items():
+                cursor.execute(sql_query, [name])
+                connection.commit()
+                inserted_organs[organ_id] = {'new_id':cursor.lastrowid}
+
+                connection.commit()
+
+    except Error as e:
+        print("Error while connecting to MySQL", e)
+    finally:
+        if connection.is_connected():
+            cursor.close()
+            connection.close()
+
+    return inserted_organs
+
 def populates_disease(host, port, db, user, password, disease_data, disease_ontology_data):
     """
         To populate diseases we have to know which gene is the disease linked to.
@@ -1691,19 +1723,18 @@ def populates_gene_synonyms(host, port, db, user, password, ensembl_host, ensemb
 
             cursor.execute(sql_get_gene_info)
             data = cursor.fetchall()
-            if len(data) != 0:
-                for row in data:
-                    if row[1] in gene_synonyms.keys():
-                        # stable_id = gene_synonyms[row[1]]['stable_id']
-                        synonyms = gene_synonyms[row[1]]['synonyms']
-                        # gene_list_g2p[row[1]] = {'locus_id':row[0],
-                        #                          'stable_id':stable_id,
-                        #                          'synonyms':synonyms}
+            for row in data:
+                if row[1] in gene_synonyms.keys():
+                    # stable_id = gene_synonyms[row[1]]['stable_id']
+                    synonyms = gene_synonyms[row[1]]['synonyms']
+                    # gene_list_g2p[row[1]] = {'locus_id':row[0],
+                    #                          'stable_id':stable_id,
+                    #                          'synonyms':synonyms}
 
-                        # Insert gene synonym into locus_attrib table
-                        for synonym in synonyms:
-                            cursor.execute(sql_insert, [synonym, row[0], attrib_id, source_id, 0])
-                            connection_g2p.commit()
+                    # Insert gene synonym into locus_attrib table
+                    for synonym in synonyms:
+                        cursor.execute(sql_insert, [synonym, row[0], attrib_id, source_id, 0])
+                        connection_g2p.commit()
 
     except Error as e:
         print("Error while connecting to MySQL", e)
@@ -1712,7 +1743,7 @@ def populates_gene_synonyms(host, port, db, user, password, ensembl_host, ensemb
             cursor.close()
             connection_g2p.close()
 
-def populates_lgd(host, port, db, user, password, gfd_data, inserted_publications, inserted_phenotypes, last_updates, last_update_panel, inserted_disease_by_name, disease_genes):
+def populates_lgd(host, port, db, user, password, gfd_data, inserted_publications, inserted_phenotypes, last_updates, last_update_panel, inserted_disease_by_name, disease_genes, inserted_organs):
     # url = "https://www.ebi.ac.uk/gene2phenotype/gfd?search_type=gfd&dbID="
 
     # # Check panels confidence: if they don't agree print entries to be reviewed
@@ -1784,6 +1815,10 @@ def populates_lgd(host, port, db, user, password, gfd_data, inserted_publication
 
     sql_query_lgd_pheno = f""" INSERT INTO lgd_phenotype (is_deleted, lgd_id, phenotype_id)
                                VALUES (%s, %s, %s)
+                           """
+
+    sql_query_lgd_organ = f""" INSERT INTO lgd_organ (lgd_id, organ_id)
+                               VALUES (%s, %s)
                            """
 
     stable_id = 0
@@ -1928,7 +1963,7 @@ def populates_lgd(host, port, db, user, password, gfd_data, inserted_publication
 
                     # publication comments - TODO
                     # if pub_data['comment'] is not None:
-                
+
                 # phenotypes
                 phenotypes = []
                 for pheno_id in data['phenotypes']:
@@ -1985,6 +2020,11 @@ def populates_lgd(host, port, db, user, password, gfd_data, inserted_publication
                     # Insert phenotypes
                     for new_pheno_id in phenotypes:
                         cursor.execute(sql_query_lgd_pheno, [0, inserted_lgd[key]['id'], new_pheno_id])
+                        connection.commit()
+
+                    # Insert organs
+                    for organ_old_id in data['organs']:
+                        cursor.execute(sql_query_lgd_organ, [inserted_lgd[key]['id'], inserted_organs[organ_old_id]['new_id']])
                         connection.commit()
 
                     # Insert comments
@@ -2698,6 +2738,11 @@ def main():
     inserted_phenotypes = populates_phenotypes(new_host, new_port, new_db, new_user, new_password, phenotype_data)
     print("INFO: phenotypes populated\n")
 
+    # Populates organ
+    print("INFO: Populating organs...")
+    inserted_organs = populates_organs(new_host, new_port, new_db, new_user, new_password, organ_data)
+    print("INFO: organs populated\n")
+
     # Populates: disease, disease_ontology, ontology_term
     # Update disease names before populating new db: https://www.ebi.ac.uk/panda/jira/browse/G2P-45
     print("INFO: Populating diseases...")
@@ -2714,7 +2759,7 @@ def main():
 
     # Populates: locus_genotype_disease
     print("INFO: Populating LGD...")
-    map_old_new_gfd = populates_lgd(new_host, new_port, new_db, new_user, new_password, gfd_data, inserted_publications, inserted_phenotypes, last_updates, last_update_panel, inserted_disease_by_name, disease_genes)
+    map_old_new_gfd = populates_lgd(new_host, new_port, new_db, new_user, new_password, gfd_data, inserted_publications, inserted_phenotypes, last_updates, last_update_panel, inserted_disease_by_name, disease_genes, inserted_organs)
     print("INFO: LGD populated\n")
 
     # Populates: history tables
