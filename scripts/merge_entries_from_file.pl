@@ -114,6 +114,7 @@ sub read_file {
         # the first column has the instructions on how to merge the entries
         # "Merge <panels> into <panels>"
         my $id = $data[0];
+        $id =~ s/^\s+|\s+$//g ;
         my %merge_rules;
         if(defined $id && $id ne "") {
             $line_number += 1;
@@ -520,7 +521,7 @@ sub merge_entries {
           }
         }
 
-        # Update allelic requeriment
+        # Update allelic requirement
         my $update_gfd_ar = "UPDATE genomic_feature_disease SET allelic_requirement_attrib = ? WHERE genomic_feature_disease_id = ?";
         my $gfd_ar_keep = $gfd->allelic_requirement(); # terms
 
