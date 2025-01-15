@@ -14,8 +14,8 @@ links=("https://www.ebi.ac.uk/gene2phenotype/downloads/CancerG2P.csv.gz"
        "https://www.ebi.ac.uk/gene2phenotype/downloads/DDG2P.csv.gz"
        "https://www.ebi.ac.uk/gene2phenotype/downloads/EyeG2P.csv.gz"
        "https://www.ebi.ac.uk/gene2phenotype/downloads/SkinG2P.csv.gz"
-       "https://www.ebi.ac.uk/gene2phenotype/downloads/SkeletalG2P.csv.gz")
-
+       "https://www.ebi.ac.uk/gene2phenotype/downloads/SkeletalG2P.csv.gz"
+       "https://www.ebi.ac.uk/gene2phenotype/downloads/Hearing_lossG2P.csv.gz")
 
 for str in ${links[@]}; do
  file=${str##*/} # to get the basename of the url

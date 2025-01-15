@@ -137,7 +137,7 @@ def fetch_g2p_records(host, port, db, user, password, ar_attribs_dict, mc_attrib
                 gfd_ar = ";".join(ar_final_values)
                 gfd_mc = ";".join(mc_final_values)
 
-                key = f"{gene_symbol}-{disease}-{gfd_ar}-{gfd_mc}"
+                key = f"{gene_symbol}---{disease}---{gfd_ar}---{gfd_mc}"
                 all_records[key] = row[0]
 
     except Error as e:
@@ -171,10 +171,10 @@ def main():
     ap.add_argument("-p", "--path",
                     default='/nfs/production/flicek/ensembl/variation/G2P/GenCC_create/',
                     help="Path where the G2P and GenCC files are going to be saved")
-    ap.add_argument("--host", required=True, help="Database host")
+    ap.add_argument("--host", required=True, help="G2P database host")
     ap.add_argument("--port", required=True, help="Host port")
-    ap.add_argument("--database", required=True, help="Database name")
-    ap.add_argument("--user", required=True, help="Username")
+    ap.add_argument("--database", required=True, help="G2P Database name")
+    ap.add_argument("--user", required=True, help="Username for the G2P db")
     ap.add_argument("--password", default='', help="Password (default: '')")
     args = ap.parse_args()
 
@@ -253,7 +253,7 @@ def main():
                     mc_list = row["mutation consequence"].split(";")
                     mc_list.sort()
                     mc = ";".join(mc_list)
-                    key = f"{gene_symbol}-{disease_name}-{ar}-{mc}"
+                    key = f"{gene_symbol}---{disease_name}---{ar}---{mc}"
 
                     if key not in final_data_to_submit:
                         # HGNC ID
@@ -268,7 +268,11 @@ def main():
                             continue
 
                         # Get the G2P internal ID to use in the URL
-                        g2p_id = all_g2p_records[key]
+                        if key in all_g2p_records:
+                            g2p_id = all_g2p_records[key]
+                        else:
+                            sys.exit(f"Key: '{key}' from download files not found in G2P database")
+
                         record_url = g2p_url + str(g2p_id)
 
                         # the submission id is generated and maintained by us
