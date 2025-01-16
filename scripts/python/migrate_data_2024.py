@@ -661,26 +661,44 @@ def dump_logs(host, port, db, user, password):
             cursor.execute(sql_query_gfd_log)
             data = cursor.fetchall()
             for row in data:
-                gfd_log[row[0]] = { 'date':row[1],
-                                    'action':row[2],
-                                    'username':row[3]
-                                  }
+                if row[0] not in gfd_log:
+                    gfd_log[row[0]] = [{ 'date':row[1],
+                                        'action':row[2],
+                                        'username':row[3]
+                                      }]
+                else:
+                    gfd_log[row[0]].append({ 'date':row[1],
+                                             'action':row[2],
+                                             'username':row[3]
+                                           })
 
             cursor.execute(sql_query_gfd_panel_log)
             data = cursor.fetchall()
             for row in data:
-                gfd_panel_log[row[0]] = { 'date':row[1],
-                                          'action':row[2],
-                                          'username':row[3]
-                                        }
+                if row[0] not in gfd_panel_log:
+                    gfd_panel_log[row[0]] = [{ 'date':row[1],
+                                            'action':row[2],
+                                            'username':row[3]
+                                            }]
+                else:
+                    gfd_panel_log[row[0]].append({ 'date':row[1],
+                                                   'action':row[2],
+                                                   'username':row[3]
+                                                })
 
             cursor.execute(sql_query_gfd_phenotype_log)
             data = cursor.fetchall()
             for row in data:
-                gfd_phenotype_log[row[0]] = { 'date':row[1],
-                                              'action':row[2],
-                                              'username':row[3]
-                                            }
+                if row[0] not in gfd_phenotype_log:
+                    gfd_phenotype_log[row[0]] = [{ 'date':row[1],
+                                                'action':row[2],
+                                                'username':row[3]
+                                                }]
+                else:
+                    gfd_phenotype_log[row[0]].append({ 'date':row[1],
+                                                      'action':row[2],
+                                                      'username':row[3]
+                                                    })
 
     except Error as e:
         print("Error while connecting to MySQL", e)
@@ -2142,12 +2160,12 @@ def populates_history(host, port, db, user, password, map_old_new_gfd, gfd_log, 
                              VALUES (%s, %s, %s, %s, %s, %s, %s)
                          """
 
-    sql_insert_lgd_panel_log = """ INSERT INTO gene2phenotype_app_historicallgdpanel (id, history_date, history_type, history_user_id, is_deleted)
-                                   VALUES (%s, %s, %s, %s, %s)
+    sql_insert_lgd_panel_log = """ INSERT INTO gene2phenotype_app_historicallgdpanel (id, lgd_id, history_date, history_type, history_user_id, is_deleted)
+                                   VALUES (%s, %s, %s, %s, %s, %s)
                                """
 
-    sql_insert_lgd_phenotype_log = """ INSERT INTO gene2phenotype_app_historicallgdphenotype (id, history_date, history_type, history_user_id, is_deleted)
-                                       VALUES (%s, %s, %s, %s, %s)
+    sql_insert_lgd_phenotype_log = """ INSERT INTO gene2phenotype_app_historicallgdphenotype (id, lgd_id, history_date, history_type, history_user_id, is_deleted)
+                                       VALUES (%s, %s, %s, %s, %s, %s)
                                    """
 
     connection = mysql.connector.connect(host=host,
@@ -2159,75 +2177,78 @@ def populates_history(host, port, db, user, password, map_old_new_gfd, gfd_log, 
     try:
         if connection.is_connected():
             cursor = connection.cursor()
-            for old_gfd_id, log_data in gfd_log.items():
-                if(old_gfd_id in map_old_new_gfd):
-                    new_gfd_id = map_old_new_gfd[old_gfd_id]
-                    history_type = None
-                    if log_data["action"] == "create":
-                        history_type = "+"
-                    elif log_data["action"] == "update":
-                        history_type = "~"
-                    else:
-                        print(f"Invalid log for lgd_id = {new_gfd_id} (action: {log_data['action']})")
-                    
-                    # make the date aware of the timezone
-                    date_str = log_data["date"].strftime("%Y-%m-%d %H:%M:%S")
-                    date_obj = datetime.strptime(date_str, '%Y-%m-%d %H:%M:%S')
-                    date_timezone = timezone.localize(date_obj)
+            for old_gfd_id, log_data_list in gfd_log.items():
+                for log_data in log_data_list:
+                    if(old_gfd_id in map_old_new_gfd):
+                        new_gfd_id = map_old_new_gfd[old_gfd_id]
+                        history_type = None
+                        if log_data["action"] == "create":
+                            history_type = "+"
+                        elif log_data["action"] == "update":
+                            history_type = "~"
+                        else:
+                            print(f"Invalid log for lgd_id = {new_gfd_id} (action: {log_data['action']})")
+                        
+                        # make the date aware of the timezone
+                        date_str = log_data["date"].strftime("%Y-%m-%d %H:%M:%S")
+                        date_obj = datetime.strptime(date_str, '%Y-%m-%d %H:%M:%S')
+                        date_timezone = timezone.localize(date_obj)
 
-                    if(history_type and log_data["username"] != "diana_lemos" and log_data["username"] != "ola_austine"
-                       and log_data["username"] != "sarah_hunt"):
-                        # Get the user id
-                        user_id = fetch_user(host, port, db, user, password, log_data["username"])
+                        if(history_type and log_data["username"] != "diana_lemos" and log_data["username"] != "ola_austine"
+                        and log_data["username"] != "sarah_hunt"):
+                            # Get the user id
+                            user_id = fetch_user(host, port, db, user, password, log_data["username"])
 
-                        cursor.execute(sql_insert_lgd_log, [new_gfd_id, date_timezone, date_timezone, history_type, user_id, 0, 1])
+                            cursor.execute(sql_insert_lgd_log, [new_gfd_id, date_timezone, date_timezone, history_type, user_id, 0, 1])
 
-            for old_gfd_id, log_data in gfd_panel_log.items():
-                if(old_gfd_id in map_old_new_gfd):
-                    new_gfd_id = map_old_new_gfd[old_gfd_id]
-                    history_type = None
-                    if log_data["action"] == "create":
-                        history_type = "+"
-                    elif log_data["action"] == "update":
-                        history_type = "~"
-                    else:
-                        print(f"Invalid log for lgd_id = {new_gfd_id} (action: {log_data['action']})")
+            for old_gfd_id, log_data_panel_list in gfd_panel_log.items():
+                for log_data in log_data_panel_list:
+                    if(old_gfd_id in map_old_new_gfd):
+                        new_gfd_id = map_old_new_gfd[old_gfd_id]
+                        history_type = None
+                        if log_data["action"] == "create":
+                            history_type = "+"
+                        elif log_data["action"] == "update":
+                            history_type = "~"
+                        else:
+                            print(f"Invalid log for lgd_id = {new_gfd_id} (action: {log_data['action']})")
 
-                    # make the date aware of the timezone
-                    date_str = log_data["date"].strftime("%Y-%m-%d %H:%M:%S")
-                    date_obj = datetime.strptime(date_str, '%Y-%m-%d %H:%M:%S')
-                    date_timezone = timezone.localize(date_obj)
+                        # make the date aware of the timezone
+                        date_str = log_data["date"].strftime("%Y-%m-%d %H:%M:%S")
+                        date_obj = datetime.strptime(date_str, '%Y-%m-%d %H:%M:%S')
+                        date_timezone = timezone.localize(date_obj)
 
-                    if(history_type and log_data["username"] != "diana_lemos" and log_data["username"] != "ola_austine"
-                       and log_data["username"] != "sarah_hunt"):
-                        # Get the user id
-                        user_id = fetch_user(host, port, db, user, password, log_data["username"])
+                        if(history_type and log_data["username"] != "diana_lemos" and log_data["username"] != "ola_austine"
+                        and log_data["username"] != "sarah_hunt"):
+                            # Get the user id
+                            user_id = fetch_user(host, port, db, user, password, log_data["username"])
 
-                        cursor.execute(sql_insert_lgd_panel_log, [new_gfd_id, date_timezone, history_type, user_id, 0])
+                            cursor.execute(sql_insert_lgd_panel_log, [0, new_gfd_id, date_timezone, history_type, user_id, 0])
 
-            for old_gfd_id, log_data in gfd_phenotype_log.items():
-                if(old_gfd_id in map_old_new_gfd):
-                    new_gfd_id = map_old_new_gfd[old_gfd_id]
-                    history_type = None
-                    if log_data["action"] == "create":
-                        history_type = "+"
-                    elif log_data["action"] == "update":
-                        history_type = "~"
-                    else:
-                        print(f"Invalid action log for lgd_id = {new_gfd_id} (action: {log_data['action']})")
-                    
-                    # make the date aware of the timezone
-                    date_str = log_data["date"].strftime("%Y-%m-%d %H:%M:%S")
-                    date_obj = datetime.strptime(date_str, '%Y-%m-%d %H:%M:%S')
-                    date_timezone = timezone.localize(date_obj)
+            for old_gfd_id, log_data_pheno_list in gfd_phenotype_log.items():
+                for log_data in log_data_pheno_list:
+                    if(old_gfd_id in map_old_new_gfd):
+                        new_gfd_id = map_old_new_gfd[old_gfd_id]
+                        history_type = None
+                        if log_data["action"] == "create":
+                            history_type = "+"
+                        elif log_data["action"] == "update":
+                            history_type = "~"
+                        else:
+                            print(f"Invalid action log for lgd_id = {new_gfd_id} (action: {log_data['action']})")
+                        
+                        # make the date aware of the timezone
+                        date_str = log_data["date"].strftime("%Y-%m-%d %H:%M:%S")
+                        date_obj = datetime.strptime(date_str, '%Y-%m-%d %H:%M:%S')
+                        date_timezone = timezone.localize(date_obj)
 
-                    if(history_type and log_data["username"] != "diana_lemos" and log_data["username"] != "ola_austine"
-                       and log_data["username"] != "sarah_hunt"):
-                        # Get the user id
-                        user_id = fetch_user(host, port, db, user, password, log_data["username"])
+                        if(history_type and log_data["username"] != "diana_lemos" and log_data["username"] != "ola_austine"
+                        and log_data["username"] != "sarah_hunt"):
+                            # Get the user id
+                            user_id = fetch_user(host, port, db, user, password, log_data["username"])
 
-                        cursor.execute(sql_insert_lgd_phenotype_log, [new_gfd_id, date_timezone, history_type, user_id, 0])
-            
+                            cursor.execute(sql_insert_lgd_phenotype_log, [0, new_gfd_id, date_timezone, history_type, user_id, 0])
+
             connection.commit()
 
     except Error as e:
