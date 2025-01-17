@@ -22,9 +22,10 @@ import re
 import mysql.connector
 from mysql.connector import Error
 import requests
-from datetime import datetime
+from datetime import datetime, date
 import faulthandler
 import pytz
+import pandas as pd
 
 faulthandler.enable()
 
@@ -2260,6 +2261,59 @@ def populates_history(host, port, db, user, password, map_old_new_gfd, gfd_log, 
 
     return 1
 
+def populates_gencc_submission(host, port, db, user, password, gencc_file, map_old_new_gfd):
+    lgd_stable_id = {} # key = lgd_id; value = g2p_stable_id pk
+
+    # Read GenCC file
+    df_samples = pd.read_excel(gencc_file, engine='openpyxl')
+
+    data_to_use = df_samples[["submission_id", "public_report_url"]]
+    data_from_file = data_to_use.to_dict("split")["data"]
+
+    sql_select = """ SELECT id, stable_id
+                     FROM locus_genotype_disease """
+
+    sql_insert = """ INSERT INTO gencc_submission (submission_id, old_g2p_id, date_of_submission, g2p_stable_id)
+                     VALUES (%s, %s, %s, %s) """
+
+    connection = mysql.connector.connect(host=host, database=db, user=user, port=port, password=password)
+
+    try:
+        if connection.is_connected():
+            cursor = connection.cursor()
+            cursor.execute(sql_select)
+            data = cursor.fetchall()
+            for row in data:
+                lgd_stable_id[row[0]] = row[1]
+
+            # Read the GenCC submission data and save it in the db
+            for record_data in data_from_file:
+                submission_id = record_data[0]
+                url = record_data[1]
+                old_g2p_id = url.replace("https://www.ebi.ac.uk/gene2phenotype/gfd?dbID=", "")
+
+                # Get the new gfd_id linked to the old_g2p_id
+                if int(old_g2p_id) in map_old_new_gfd:
+                    new_gfd_id = map_old_new_gfd[int(old_g2p_id)]
+                    stable_id_pk = lgd_stable_id[new_gfd_id]
+
+                    # Insert data
+                    cursor.execute(sql_insert, [submission_id, int(old_g2p_id), date.today(), stable_id_pk])
+
+                else:
+                    print(f"WARNING: could not find old g2p id {old_g2p_id} in the mapping coming from the new data")
+
+            connection.commit()
+
+    except Error as e:
+        print("Error while connecting to MySQL", e)
+    finally:
+        if connection.is_connected():
+            cursor.close()
+            connection.close()
+
+    return 1
+
 def fetch_locus_id(host, port, db, user, password, name):
     id = None
 
@@ -2662,6 +2716,7 @@ def main():
     parser.add_argument("--ensembl_user", default='', help="Ensembl core Username")
     parser.add_argument("--ensembl_password", default='', help="Ensembl core Password (default: '')")
     parser.add_argument("--omim_key", default='', help="OMIM API key")
+    parser.add_argument("--gencc_file", default='', help="File submitted to GenCC")
 
     args = parser.parse_args()
 
@@ -2683,6 +2738,7 @@ def main():
     ensembl_user = args.ensembl_user
     ensembl_password = args.ensembl_password
     omim_key_global = args.omim_key
+    gencc_file = args.gencc_file
 
     print("INFO: Fetching data from old schema...")
 
@@ -2792,6 +2848,11 @@ def main():
     print("INFO: Populating disease synonyms...")
     populates_disease_synonyms(new_host, new_port, new_db, new_user, new_password, disease_synonyms, map_old_new_gfd)
     print("INFO: disease synonyms populated\n")
+
+    # Populates: gencc_submission
+    print("INFO: Populating gencc_submission...")
+    populates_gencc_submission(new_host, new_port, new_db, new_user, new_password, gencc_file, map_old_new_gfd)
+    print("INFO: gencc_submission populated\n")
 
 if __name__ == '__main__':
     main()
