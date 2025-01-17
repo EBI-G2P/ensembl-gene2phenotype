@@ -2273,8 +2273,8 @@ def populates_gencc_submission(host, port, db, user, password, gencc_file, map_o
     sql_select = """ SELECT id, stable_id
                      FROM locus_genotype_disease """
 
-    sql_insert = """ INSERT INTO gencc_submission (submission_id, old_g2p_id, date_of_submission, g2p_stable_id)
-                     VALUES (%s, %s, %s, %s) """
+    sql_insert = """ INSERT INTO gencc_submission (submission_id, old_g2p_id, date_of_submission, g2p_stable_id, type_of_submission)
+                     VALUES (%s, %s, %s, %s, %s) """
 
     connection = mysql.connector.connect(host=host, database=db, user=user, port=port, password=password)
 
@@ -2298,7 +2298,7 @@ def populates_gencc_submission(host, port, db, user, password, gencc_file, map_o
                     stable_id_pk = lgd_stable_id[new_gfd_id]
 
                     # Insert data
-                    cursor.execute(sql_insert, [submission_id, int(old_g2p_id), date.today(), stable_id_pk])
+                    cursor.execute(sql_insert, [submission_id, int(old_g2p_id), date.today(), stable_id_pk, "create"])
 
                 else:
                     print(f"WARNING: could not find old g2p id {old_g2p_id} in the mapping coming from the new data")
