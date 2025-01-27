@@ -207,14 +207,18 @@ def dump_publications(host, port, db, user, password):
             cursor.execute(sql_query)
             data = cursor.fetchall()
             for row in data:
-                if row[1] not in duplicated_pmids and row[2] is not None and row[2] != '':
+                title = row[2]
+                if row[1] not in duplicated_pmids and title is not None and title != '':
+                    new_title = clean_title(title)
                     # Check if publication is being used
                     cursor.execute(sql_query_gfd, [row[1]])
                     data_gfd_2 = cursor.fetchall()
                     if len(data_gfd_2) != 0:
-                        publications_data[row[0]] = { 'pmid':row[1],
-                                        'title':row[2],
-                                        'source':row[3] }
+                        publications_data[row[0]] = {
+                            'pmid': row[1],
+                            'title': new_title,
+                            'source': row[3]
+                        }
 
     except Error as e:
         print("Error while connecting to MySQL", e)
@@ -749,6 +753,11 @@ def get_omim(id):
 
     return disease, description
 
+def clean_title(title):
+    new_title = title.replace("<i>", "").replace("</i>", "").replace("<b>", "").replace("</b>", "").replace("Ã¨", "e").replace("Ã¼", "u").replace("Ã©", "e").replace("Ã¤", "a")
+
+    return new_title
+
 """
     Fetch OMIM disease data from the OMIM API
 """
@@ -1023,10 +1032,12 @@ def populate_new_attribs(host, port, db, user, password):
                        'loss_of_function_mp':'mechanism_probabilities',
                        'dominant_negative_mp':'mechanism_probabilities',
                        'displays anticipation':'cross_cutting_modifier',
-                       'restricted mutation set':'cross_cutting_modifier'
+                       'restricted mutation set':'cross_cutting_modifier',
+                       'monoalellic_X': 'genotype'
                      }
 
-    attribs_description = { 'displays anticipation': 'A phenomenon in which the severity of a disorder increases, or the age of onset decreases, as the disorder is passed from one generation to the next, typically due to expansion of a repeat sequence. For example, Myotonic Dystrophy is caused by triplet repeat expansion in the DMPK gene.' 
+    attribs_description = { 'displays anticipation': 'A phenomenon in which the severity of a disorder increases, or the age of onset decreases, as the disorder is passed from one generation to the next, typically due to expansion of a repeat sequence. For example, Myotonic Dystrophy is caused by triplet repeat expansion in the DMPK gene.',
+                            'monoalellic_X': 'Plausible disease-causing mutations identified on the X chromosome.'
                           }
 
     extra_attribs = { 'unknown': 'inheritance_type' }
@@ -1043,7 +1054,7 @@ def populate_new_attribs(host, port, db, user, password):
                        'assembly-mediated dominant negative':['mechanism_synopsis'],
                        'competitive dominant-negative':['mechanism_synopsis'],
                        'assembly-mediated GOF':['mechanism_synopsis'],
-                       'protein aggregation':['mechanism_synopsis'],
+                       'aggregation':['mechanism_synopsis'],
                        'local LOF leading to overall GOF':['mechanism_synopsis'],
                        'other GOF':['mechanism_synopsis'],
                        'inferred':['support'],
@@ -1432,7 +1443,7 @@ def populates_disease(host, port, db, user, password, disease_data, disease_onto
                             description = ontology['ontology_description']
                             accession = re.sub("^OMIM:|^MIM:", "", accession)
                             if term is None:
-                                term, description = get_omim_data(accession)
+                                term, description = get_omim(accession)
                         elif ontology['ontology_accession'].startswith('Orphanet'):
                             source_id = source_id_orphanet
                             description = ontology['ontology_description']
@@ -1468,7 +1479,6 @@ def populates_disease(host, port, db, user, password, disease_data, disease_onto
                 # Add 'gene-related' to the disease name
                 # It's easier to do it if there is only one gene linked to the disease name
                 list_names = format_disease_name(name, genes)
-                
 
                 for name_with_gene in list_names:
                     clean_name = clean_up_disease_name(name_with_gene)
@@ -1486,7 +1496,7 @@ def populates_disease(host, port, db, user, password, disease_data, disease_onto
                 if omim_id is not None: #TODO
                     if omim_id not in omim_ontology_inserted:
                         # Get OMIM data from API
-                        omim_disease, omim_desc = get_omim_data(omim_id)
+                        omim_disease, omim_desc = get_omim(omim_id)
                         if omim_disease is None:
                             omim_disease = omim_id
 
@@ -1836,6 +1846,10 @@ def populates_lgd(host, port, db, user, password, gfd_data, inserted_publication
                                VALUES (%s, %s, %s)
                            """
 
+    sql_query_lgd_mc_flag = f""" INSERT INTO lgd_mutation_consequence_flag (mutation_consequence_flag_id, lgd_id)
+                                 VALUES (%s, %s)
+                             """
+
     sql_query_lgd_organ = f""" INSERT INTO lgd_organ (lgd_id, organ_id)
                                VALUES (%s, %s)
                            """
@@ -1930,8 +1944,13 @@ def populates_lgd(host, port, db, user, password, gfd_data, inserted_publication
                 if mechanism is None:
                     mechanism = undetermined_id
 
+                legacy_mutation_consequence_flag = []
                 # mutation consequence flag "restricted repertoire of mutations" is now ccm "restricted mutation set"
                 for mutation_cons_flag in data['mutation_consequence_flag_attrib']:
+                    # save the mutation consequence flag data in the legacy table 'lgd_mutation_consequence_flag'
+                    legacy_mc_flag_id = fetch_attrib(host, port, db, user, password, mutation_cons_flag)
+                    legacy_mutation_consequence_flag.append(legacy_mc_flag_id)
+
                     if mutation_cons_flag == "restricted repertoire of mutations":
                         ccm_attrib_id = fetch_attrib(host, port, db, user, password, "restricted mutation set")
                         ccm_id.append(ccm_attrib_id)
@@ -2041,7 +2060,12 @@ def populates_lgd(host, port, db, user, password, gfd_data, inserted_publication
                         cursor.execute(sql_query_lgd_pheno, [0, inserted_lgd[key]['id'], new_pheno_id])
                         connection.commit()
 
-                    # Insert organs
+                    # Insert mutation consequence flag (legacy)
+                    for mc_flag_id in legacy_mutation_consequence_flag:
+                        cursor.execute(sql_query_lgd_mc_flag, [mc_flag_id, inserted_lgd[key]['id']])
+                        connection.commit()
+
+                    # Insert organs (legacy)
                     for organ_old_id in data['organs']:
                         cursor.execute(sql_query_lgd_organ, [inserted_lgd[key]['id'], inserted_organs[organ_old_id]['new_id']])
                         connection.commit()
@@ -2420,7 +2444,8 @@ def format_disease_name(name_original, genes):
         name = name_original.lstrip().rstrip()
         name_lower = name.lower()
         gene_lower = gene.lower()
-        match = re.search(f"^{gene_lower}\s*-?\s*(related|associated)", name_lower)
+        # match = re.search(f"^{gene_lower}\s*-?\s*(related|associated)", name_lower)
+        match = re.search(rf"^{gene_lower}\s*-?\s*(related|associated)", name_lower)
 
         if match is None:
             name = f"{gene}-related {name}"
@@ -2650,6 +2675,10 @@ def fetch_user(host, port, db, user, password, username):
     return id
 
 def update_attrib_description(host, port, db, user, password):
+    """
+        Update some attribs descriptions and is_deleted flag
+    """
+
     attribs_descriptions = {
         "definitive": "The role of this gene in this particular disease has been repeatedly demonstrated in both the research and clinical diagnostic settings, and has been upheld over time (at least 2 independent publication over 3 years' time). No convincing evidence has emerged that contradicts the role of the gene in the specified disease. (previously labelled as confirmed) The strength of evidence within publications as well as their number and publication dates is taken into account. In practice, this usually means at least 4 publications over 5 years. Typically this will also include convincing bioinformatic or functional evidence of causation, making it very unlikely that this gene-disease association would ever be refuted.",
         "limited": "Little human evidence exists to support a casual role for this gene in this disease, but not all evidence has been refuted. For example, there may be a collection of rare missense variants in humans but without convincing functional impact, segregration data that could either arise by chance (e.g across one or two meioses) or does not implicate a single gene, or functional data without direct recapitulation of the phenotype. Overall, the body of evidence does not meet contemporary criteria for claiming a valid association with disease. The majority are probably false associations. (previously labelled as possible).",
@@ -2675,6 +2704,13 @@ def update_attrib_description(host, port, db, user, password):
                     WHERE value = %s
                 """
 
+    sql_deleted = """ UPDATE attrib
+                      SET is_deleted = 1
+                      WHERE type_id in 
+                      (SELECT id FROM attrib_type WHERE code = 'mutation_consequence_flag' OR
+                      code = 'mutation_consequence')
+                  """
+
     connection = mysql.connector.connect(host=host,
                                          database=db,
                                          user=user,
@@ -2686,6 +2722,8 @@ def update_attrib_description(host, port, db, user, password):
             cursor = connection.cursor()
             for attrib_value, desc in attribs_descriptions.items():
                 cursor.execute(sql_query, [desc, attrib_value])
+            # Set some attribs to deleted (legacy mutation consequence data)
+            cursor.execute(sql_deleted)
             connection.commit()    
  
     except Error as e:
