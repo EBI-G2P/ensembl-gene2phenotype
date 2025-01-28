@@ -1443,7 +1443,7 @@ def populates_disease(host, port, db, user, password, disease_data, disease_onto
                             description = ontology['ontology_description']
                             accession = re.sub("^OMIM:|^MIM:", "", accession)
                             if term is None:
-                                term, description = get_omim(accession)
+                                term, description = get_omim_data(accession)
                         elif ontology['ontology_accession'].startswith('Orphanet'):
                             source_id = source_id_orphanet
                             description = ontology['ontology_description']
@@ -1496,7 +1496,7 @@ def populates_disease(host, port, db, user, password, disease_data, disease_onto
                 if omim_id is not None: #TODO
                     if omim_id not in omim_ontology_inserted:
                         # Get OMIM data from API
-                        omim_disease, omim_desc = get_omim(omim_id)
+                        omim_disease, omim_desc = get_omim_data(omim_id)
                         if omim_disease is None:
                             omim_disease = omim_id
 
