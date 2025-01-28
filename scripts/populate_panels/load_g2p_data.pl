@@ -106,6 +106,8 @@ use JSON;
 use Pod::Usage qw(pod2usage);
 use Spreadsheet::Read;
 use Text::CSV;
+use LWP::UserAgent;
+use JSON;
 
 my $args = scalar @ARGV;
 my $http = HTTP::Tiny->new();
@@ -426,17 +428,17 @@ sub add_annotations {
     print $fh_report "    Added $count publications\n" if ($count > 0);
   }
 
-  if ($phenotypes ne "NA") {
+  if ($phenotypes && $phenotypes ne "NA") {
     $count = add_phenotypes($gfd, $phenotypes, $user);
     print $fh_report "    Added $count phenotypes\n" if ($count > 0);
   }
 
-  if ($organs ne "NA") {
+  if ($organs && $organs ne "NA") {
     $count = add_organ_specificity($gfd, $organs);
     print $fh_report "    Added $count organs\n" if ($count > 0);
   }
 
-  if ($comments ne "NA") {
+  if ($comments && $comments ne "NA") {
     $count = add_comments($gfd, $comments, $user);
     print $fh_report "    Added $count comments\n" if ($count > 0);
   }
@@ -475,7 +477,7 @@ sub check_annotations {
     } 
   }
 
-  my @organ_list = get_list($data{'organ specificity list'});
+  my @organ_list = get_list_organs($data{'organ specificity list'});
   foreach my $organ_name (@organ_list)  {
     my $organ = $organ_adaptor->fetch_by_name($organ_name);
     if (!$organ && $organ_name ne "NA") {
@@ -494,7 +496,7 @@ sub check_annotations {
   Arg [1]    : ';' or ',' separated list of values
   Description: Helper method to split a given string and remove any whitespace or other
                unwanted characters.
-  Returntype : list of values
+  Returntype : list of unique values
   Exceptions : None
   Status     : Stable
 =cut
@@ -502,6 +504,8 @@ sub check_annotations {
 sub get_list {
   my $string = shift;
   my @list = ();
+  my %uniq_list;
+
   if (!$string || $string eq "NA") {
     return @list;
   }
@@ -509,11 +513,46 @@ sub get_list {
   foreach my $id (@ids) {
     $id =~ s/^\s+|\s+$//g;
     $id =~ s/]//g;
-    push @list, $id;
+    if(!defined $uniq_list{$id}) {
+      $uniq_list{$id} = 1
+    }
   }
+
+  @list = (keys %uniq_list);
+
   return @list;
 }
 
+=head2 get_list_organs
+  Arg [1]    : ';' separated list of values
+  Description: Helper method to split a given string and remove any whitespace or other
+               unwanted characters.
+  Returntype : list of unique values
+  Exceptions : None
+  Status     : Stable
+=cut
+
+sub get_list_organs {
+  my $string = shift;
+  my @list = ();
+  my %uniq_list;
+
+  if (!$string || $string eq "NA") {
+    return @list;
+  }
+  my @ids = split(/;/, $string);
+  foreach my $id (@ids) {
+    $id =~ s/^\s+|\s+$//g;
+    $id =~ s/]//g;
+    if(!defined $uniq_list{$id}) {
+      $uniq_list{$id} = 1
+    }
+  }
+
+  @list = (keys %uniq_list);
+
+  return @list;
+}
 
 =head2 create_gfd
   Arg [1]    : GenomicFeature
@@ -758,12 +797,12 @@ sub get_disease {
   my $disease_list = $disease_adaptor->fetch_all_by_name($disease_name);
   
   my @sorted_disease_list = sort {$a->dbID <=> $b->dbID} @$disease_list;
-  
+
   # Get disease with the same mim id
   my $disease;
   if($disease_mim) {
     foreach my $d (@sorted_disease_list) {
-      $disease = $d if ($d->mim eq $disease_mim);
+      $disease = $d if ($d->mim && $d->mim eq $disease_mim);
     }
   }
   else {
@@ -989,21 +1028,86 @@ sub add_phenotypes {
   foreach my $hpo_id (get_list($phenotypes)) {
     my $phenotype = $phenotype_adaptor->fetch_by_stable_id($hpo_id);
     if (!$phenotype) {
-      warn("Could not map given phenotype id ($hpo_id) to any phenotypes in the database: " . $gfd->get_GenomicFeature->gene_symbol . "\n");
-    } else {
-      my $phenotype_id = $phenotype->dbID;
-      if (!$new_gfd_phenotypes_lookup->{"$gfd_id\t$phenotype_id"}) {
-        my $new_gfd_phenotype = Bio::EnsEMBL::G2P::GenomicFeatureDiseasePhenotype->new(
-          -genomic_feature_disease_id => $gfd_id,
-          -phenotype_id => $phenotype_id,
-          -adaptor => $gfd_phenotype_adaptor,
-        );
-        $gfd_phenotype_adaptor->store($new_gfd_phenotype, $user);
-        $count++;
+      # Try to insert phenotype
+      $phenotype = insert_phenotype($phenotype_adaptor, $gfd, $hpo_id);
+    }
+
+    # After trying to insert the new phenotype, create the gfd_phenotype only if the phenotype is defined
+    if ($phenotype) {
+      # Check if gfd_phenotype already exists
+      my $check_gfd_phenotype = $gfd_phenotype_adaptor->fetch_by_GFD_id_phenotype_id($gfd_id, $phenotype->dbID);
+
+      if(!$check_gfd_phenotype) {
+        my $phenotype_id = $phenotype->dbID;
+        if (!$new_gfd_phenotypes_lookup->{"$gfd_id\t$phenotype_id"}) {
+          my $new_gfd_phenotype = Bio::EnsEMBL::G2P::GenomicFeatureDiseasePhenotype->new(
+            -genomic_feature_disease_id => $gfd_id,
+            -phenotype_id => $phenotype_id,
+            -adaptor => $gfd_phenotype_adaptor,
+          );
+          $gfd_phenotype_adaptor->store($new_gfd_phenotype, $user);
+          $count++;
+        }
       }
     }
   }
+
   return $count;
+}
+
+sub insert_phenotype {
+  my $phenotype_adaptor = shift;
+  my $gfd = shift;
+  my $hpo_id = shift;
+
+  my $phenotype_name;
+  my $phenotype_desc;
+  my $source = "HP";
+  my $new_phenotype;
+
+  my $url = "https://ontology.jax.org/api/hp/terms/" . $hpo_id;
+
+  my $ua = LWP::UserAgent->new;
+  $ua->timeout(10);
+  my $response = $ua->get($url);
+
+  if($response->is_success) {
+    my $json_data;
+    eval {
+        $json_data = decode_json($response->decoded_content);
+    };
+    if ($@) {
+        die "Failed to parse JSON: $@\n";
+    }
+
+    print "Checking phenotype $hpo_id\n";
+
+    $phenotype_name = $json_data->{name};
+    # $phenotype_desc = $json_data->{definition}; # Too long to be saved in the db
+    if($hpo_id ne $json_data->{id}) {
+      $hpo_id = $json_data->{id};
+      # Check if new phenotype id is already in the db
+      $new_phenotype = $phenotype_adaptor->fetch_by_stable_id($hpo_id);
+    }
+  }
+  else {
+    warn("Could not map given phenotype id ($hpo_id) to any phenotypes in the database: " . $gfd->get_GenomicFeature->gene_symbol . "\n");
+  }
+
+  # Insert
+  if(!$new_phenotype) {
+    print "INSERT phenotype $hpo_id; $phenotype_name\n\n";
+    $new_phenotype = Bio::EnsEMBL::G2P::Phenotype->new(
+            -stable_id => $hpo_id,
+            -name => $phenotype_name,
+            -description => $phenotype_desc,
+            -adaptor => $phenotype_adaptor,
+            -source => $source
+          );
+    $phenotype_adaptor->store($new_phenotype);
+  }
+
+  return $new_phenotype;
 }
 
 =head2 add_organ_specificity
@@ -1027,12 +1131,15 @@ sub add_organ_specificity {
     $new_gfd_organs_lookup->{"$gfd_id\t$organ_id"} = 1;
   }
 
-  foreach my $name (get_list($organs)) {
+  foreach my $name (get_list_organs($organs)) {
     next unless($name);
     my $organ = $organ_adaptor->fetch_by_name($name);
     if (!$organ) {
-      warn("Could not match given organ ($name) to any organ in the database:  " . $gfd->get_GenomicFeature->gene_symbol . "\n");
-    } else {
+      # Try to insert the organ
+      $organ = insert_organ($organ_adaptor, $gfd, $name);
+    }
+    # If organ was inserted then create gfd_organ
+    if($organ) {
       my $organ_id = $organ->dbID;
       if (!$new_gfd_organs_lookup->{"$gfd_id\t$organ_id"}) {
         my $new_gfd_organ =  Bio::EnsEMBL::G2P::GenomicFeatureDiseaseOrgan->new(
@@ -1047,6 +1154,20 @@ sub add_organ_specificity {
     }
   }
   return $count;
+}
+
+sub insert_organ {
+  my $organ_adaptor = shift;
+  my $gfd = shift;
+  my $name = shift;
+
+  my $new_organ = Bio::EnsEMBL::G2P::Organ->new(
+          -name => $name,
+          -adaptor => $organ_adaptor, 
+  );
+  $organ_adaptor->store($new_organ);
+
+  return $new_organ;
 }
 
 =head2 add_comments
@@ -1143,7 +1264,7 @@ sub add_ontology_accession {
       }
     }
   }
-  print $fh_report "Disease ontology mapping has been added to the database"; 
+  print $fh_report "Disease ontology mapping has been added to the database\n"; 
 }
 
 
